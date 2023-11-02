@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.SellerMapper">
+
+	<!-- 준태 -->
+
+
+	<!-- 매장정보 일부조회1 -->
+	<select id="selectStoreSubInfo1" resultType="StoreDTO" parameterType="int">
+		SELECT storeName, storeRating, reviewCount, minOrderPrice FROM store_tbl WHERE storeCode=#{storeCode}
+	</select>
+	
+	<!-- 매장정보 일부조회2 -->
+	<select id="selectStoreSubInfo2" resultType="StoreDTO" parameterType="int">
+		SELECT storeDescription, operatingTime, storeAddress FROM store_tbl WHERE storeCode=#{storeCode}
+	</select>
+	
+	<!-- 사장님정보 일부조회 -->
+	<select id="selectSellerSubInfo" resultType="SellerDTO" parameterType="int">
+		SELECT sellerName, sellerRegCode FROM seller_tbl WHERE sellerCode=#{sellerCode}
+	</select>
+	
+	<!-- 매장정보 일부수정 -->
+	<update id="updateStoreSubInfo" parameterType="StoreDTO">
+		UPDATE store_tbl
+		SET storeDescription = #{storeDescription},
+		operatingTime = #{operatingTime}
+		WHERE storeCode = #{storeCode}
+	</update>
+	
+	<!-- 사장님정보 일부수정 -->
+	<update id="updateSellerSubInfo" parameterType="SellerDTO">
+		UPDATE seller_tbl
+		SET storeDescription = #{storeDescription},
+		operatingTime = #{operatingTime}
+		WHERE storeCode = #{storeCode}
+	</update>
+	
+	<!-- 리뷰 전체 조회 -->
+	<select id="selectAllReview" resultType="ReviewDTO">
+		SELECT * FROM review_tbl
+	</select>
+	
+	<!-- 답변 등록 -->
+	<insert id="insertAnswer" parameterType="String">
+		INSERT INTO answer_tbl (AnswerContent) VALUES (#{AnswerContent})
+	</insert>
+	
+	<!-- 답변 수정 -->
+	<update id="updateAnswer" parameterType="AnswerDTO">
+		UPDATE answer_tbl
+		SET AnswerContent = #{AnswerContent}
+		WHERE answerId = #{answerId}
+	</update>
+	
+	<!-- 답변 삭제 -->
+	<delete id="deleteAnswer" parameterType="int">
+		DELETE FROM answer_tbl WHERE answerCode=#{answerCode}
+	</delete>
+</mapper>
