@@ -24,8 +24,8 @@ public class CartRepository implements CartRepositoryI {
 	}
 
 	@Override
-	public List<StoreDTO> selectStore(List<CartDTO> cartList) {
-		return session.selectList(namespace + "selectStore", cartList);
+	public List<StoreDTO> selectStore(String id) {
+		return session.selectList(namespace + "selectStore", id);
 	}
 
 	@Override
@@ -33,8 +33,9 @@ public class CartRepository implements CartRepositoryI {
 		return session.selectList(namespace + "selectMenu", cartList);
 	}
 
-
-	
-	
+	@Override
+	public void deleteCart(String cartCode) {
+		session.insert(namespace + "deleteCart", cartCode);
+	}
 
 }

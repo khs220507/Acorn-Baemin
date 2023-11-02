@@ -3,12 +3,16 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
 /* 태그 파트 */
 * {
@@ -21,24 +25,16 @@ a {
 	text-decoration: none;
 }
 
-header {
-	background-color: #48D1CC;
-	height: 100px;
-}
-
 section {
-	
+	flex: 7.8;
 }
 
+}
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	height: 100vh;
-}
-
-footer {
-	
 }
 
 button {
@@ -72,9 +68,17 @@ ul, li {
 }
 
 .section-cart-box {
-	width: 900px;
-	border-bottom: 1px solid black;
-	height: 400px;
+	width: 1200px;
+	height: 800px;
+}
+
+.section-cart-box {
+	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
+	-ms-overflow-style: none; /* 스크롤바 없애기 */
+}
+
+.section-cart-box::-webkit-scrollbar { /* 스크롤바 없애기 */
+	display: none;
 }
 
 .section-cart-inner {
@@ -90,7 +94,7 @@ ul, li {
 }
 
 .section-cart-store-img {
-	width : 64px;
+	width: 64px;
 	border: 1px solid black;
 }
 
@@ -103,8 +107,15 @@ ul, li {
 	justify-content: space-between;
 }
 
+#cart-delete {
+	border: 1px solid black;
+	background-color: #d9d9d9;
+	cursor: pointer;
+}
+
 .section-cart-menuinfo-wrap {
 	display: flex;
+	border-bottom: 1px solid #d9d9d9;
 }
 
 .section-cart-menuinfo-img {
@@ -130,6 +141,10 @@ ul, li {
 	align-items: center;
 }
 
+.section-cart-order-wrap {
+	border-bottom: 1px solid black;
+}
+
 .section-cart-totalprice-wrap {
 	display: flex;
 	justify-content: space-between;
@@ -143,87 +158,111 @@ ul, li {
 }
 </style>
 
+<script>
+
+function cartDelete(cartCode) {
+    $.ajax({
+		type: "DELETE",
+		url: "/baemin/cartList/" + cartCode,
+		
+		success : function (data){
+			window.location.reload();
+			 $("#cart-item-" + cartCode).remove();
+			
+		},
+		error: function() {
+			alert( "error");
+		}
+	});
+}
+
+
+</script>
+
 </head>
 
 
 <body>
+	<jsp:include page="../base/header.jsp" />
 
 	<c:set var="storeList" value="${cartMap.storeList}" />
 	<c:set var="cartList" value="${cartMap.cartList}" />
 	<c:set var="menuList" value="${cartMap.menuList}" />
 	<c:set var="optionList" value="${cartMap.optionList}" />
-	
 
-	<header>
-		<div class="headerwrap">해더</div>
-	</header>
+
+
 
 	<section>
 
 
+		<div class="section-cart-title">
+			<div class="section-cart-title-inner">
+				<h1>장바구니</h1>
+			</div>
+
+		</div>
+
 
 
 		<div class="section-cart-box">
-			<div class="section-cart-title">
-				<div class="section-cart-title-inner">
-					<h1>장바구니</h1>
-				</div>
-
-			</div>
-
 			<c:forEach var="item" items="${cartMap.cartList}" varStatus="cnt">
-			
-			<c:set var="storeName" value="${storeList[cnt.count-1].storeName}"></c:set>
-			<c:set var="storeImage" value="${storeList[cnt.count-1].storeImage}"></c:set>
-			<c:set var="menuName" value="${menuList[cnt.count-1].menuName}"></c:set>
-			<c:set var="menuImage" value="${menuList[cnt.count-1].menuImage}"></c:set>
-			
-				<div class="section-cart-inner">
+
+				<c:set var="storeName" value="${storeList[cnt.count-1].storeName}"></c:set>
+				<c:set var="storeImage" value="${storeList[cnt.count-1].storeImage}"></c:set>
+				<c:set var="menuName" value="${menuList[cnt.count-1].menuName}"></c:set>
+				<c:set var="menuImage" value="${menuList[cnt.count-1].menuImage}"></c:set>
+
+				<div class="section-cart-inner" id="cart-item-${item.cartCode}">
 
 					<div class="section-cart-storeinfo">
 
-						<img class="section-cart-store-img" src="${pageContext.request.contextPath}/resources/images/${storeImage}.jpg" alt="Image Description">
-						<span>${storeName}</span>
+						<img class="section-cart-store-img"
+							src="${pageContext.request.contextPath}/resources/images/${storeImage}.jpg"
+							alt="Image Description"> <span>${storeName}</span>
 
 					</div>
 
-			<div>
-				
-					<div class="section-cart-menuname">
-						<span>${menuName}</span>
-						<img src="">
-					</div>
+					<div>
 
-					<div class="section-cart-menuinfo-wrap">
-						<div>
-							<img class="section-cart-menuinfo-img" src="${pageContext.request.contextPath}/resources/images/${menuImage}.png" alt="Image Description">
+						<div class="section-cart-menuname">
+							<span>${menuName}</span> <img src="">
+							<div id="cart-delete" onclick="cartDelete(${item.cartCode})">삭제${item.cartCode}</div>
 						</div>
-						<div>
-							<ul>
-								<li></li>
-							</ul>
+
+						<div class="section-cart-menuinfo-wrap">
+							<div>
+								<img class="section-cart-menuinfo-img"
+									src="${pageContext.request.contextPath}/resources/images/${menuImage}.png"
+									alt="Image Description">
+							</div>
+							<div>
+								<ul>
+									<li>옵션01 : 24000원</li>
+									<li>옵션02 : 2000원</li>
+								</ul>
+							</div>
 						</div>
-					</div>
-				
 
-				<div class="section-cart-change-number-wrap">
-					<div class="section-cart-change-number-input">
-						<span> - </span> <input type="text" placeholder=" 1 "
-							style="width: 20px;"> <span> + </span>
-					</div>
-					
-					</c:forEach>
+
+						<div class="section-cart-change-number-wrap">
+							<div class="section-cart-change-number-input">
+								<span> - </span> <input type="text" placeholder=" 1 "
+									style="width: 20px;"> <span> + </span>
+							</div>
+			</c:forEach>
 
 
 
-					<div class="section-cart-orderprice">
-						<span>주문금액:26000</span>
-					</div>
-				</div>
-
-
-
+			<div class="section-cart-orderprice">
+				<span>주문금액:26000</span>
 			</div>
+		</div>
+
+
+
+
+		<div class="section-cart-order-wrap">
 			<div class="section-cart-totalprice-wrap">
 				<div class="section-cart-totalprice-title">총 주문금액</div>
 				<div class="section-cart-totalprice">26000원</div>
@@ -233,9 +272,10 @@ ul, li {
 			</div>
 		</div>
 		</div>
+		</div>
 
 	</section>
-	<footer> </footer>
+	<jsp:include page="../base/footer.jsp" />
 
 </body>
 </html>
