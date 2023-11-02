@@ -44,15 +44,6 @@
 		order by menuCode desc
 	</select>
 	
-	<!-- 메뉴 code 전달받으면 메뉴의 옵션들을 List로 반환 -->
-
-	<select id="selectCart" resultType="CartDTO"
-		parameterType="String">
-		SELECT *
-		FROM cart_tbl
-		where userId =#{id}
-	</select>
-	
 	
 	
 	
