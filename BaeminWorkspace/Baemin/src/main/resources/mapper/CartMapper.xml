@@ -53,11 +53,5 @@
 		order by menuCode desc
 	</select>
 
-	<delete id="deleteCart" parameterType="String">
-		DELETE FROM cart_tbl WHERE cartCode = #{cartCode}
-	</delete>
-
-
-
 
 </mapper>
