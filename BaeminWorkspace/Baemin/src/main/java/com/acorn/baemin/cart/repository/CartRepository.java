@@ -32,11 +32,9 @@ public class CartRepository implements CartRepositoryI {
 	public List<MenuDTO> selectMenu(List<CartDTO> cartList) {
 		return session.selectList(namespace + "selectMenu", cartList);
 	}
+
+
 	
-	@Override
 	
-	public List<OptionDTO> selectOption(List<CartDTO> cartList) {
-		return session.selectList(namespace + "selectOption", cartList);
-	}
 
 }

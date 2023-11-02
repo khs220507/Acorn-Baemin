@@ -13,8 +13,8 @@
 		FROM cart_tbl
 		where userId =#{id}
 	</select>
-	
-	<!--  장바구니리스트를 넘기면 해당하는 상품에 대한 매장정보를  List로 반환 함  -->
+
+	<!-- 장바구니리스트를 넘기면 해당하는 상품에 대한 매장정보를 List로 반환 함 -->
 	<select id="selectStore" resultType="StoreDTO"
 		parameterType="java.util.List">
       <![CDATA[
@@ -28,8 +28,8 @@
 		</foreach>
 		order by storeCode desc
 	</select>
-	
-	<!--  장바구니리스트를 넘기면 해당하는 상품에 대한 메뉴정보를  List로 반환 함  -->
+
+	<!-- 장바구니리스트를 넘기면 해당하는 상품에 대한 메뉴정보를 List로 반환 함 -->
 	<select id="selectMenu" resultType="MenuDTO"
 		parameterType="java.util.List">
       <![CDATA[
@@ -43,20 +43,8 @@
 		</foreach>
 		order by menuCode desc
 	</select>
-	
-	<!-- 메뉴 code 전달받으면 메뉴의 옵션들을 List로 반환 -->
-
-	<select id="selectCart" resultType="CartDTO"
-		parameterType="String">
-		SELECT *
-		FROM cart_tbl
-		where userId =#{id}
-	</select>
-	
-	
-	
-	
 
 
+	
 
 </mapper>

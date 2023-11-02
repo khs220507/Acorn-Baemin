@@ -151,6 +151,7 @@ ul, li {
 	<c:set var="storeList" value="${cartMap.storeList}" />
 	<c:set var="cartList" value="${cartMap.cartList}" />
 	<c:set var="menuList" value="${cartMap.menuList}" />
+	<c:set var="optionList" value="${cartMap.optionList}" />
 	
 
 	<header>
@@ -176,7 +177,6 @@ ul, li {
 			<c:set var="storeImage" value="${storeList[cnt.count-1].storeImage}"></c:set>
 			<c:set var="menuName" value="${menuList[cnt.count-1].menuName}"></c:set>
 			<c:set var="menuImage" value="${menuList[cnt.count-1].menuImage}"></c:set>
-			<c:set var="menuContent" value="${menuList[cnt.count-1].menuContent}"></c:set>
 			
 				<div class="section-cart-inner">
 
@@ -196,11 +196,11 @@ ul, li {
 
 					<div class="section-cart-menuinfo-wrap">
 						<div>
-							<img class="section-cart-menuinfo-img" src="${pageContext.request.contextPath}/resources/images/${menuImage}.png" alt="Image Description"">
+							<img class="section-cart-menuinfo-img" src="${pageContext.request.contextPath}/resources/images/${menuImage}.png" alt="Image Description">
 						</div>
 						<div>
 							<ul>
-								<li>${menuContent}</li>
+								<li></li>
 							</ul>
 						</div>
 					</div>
@@ -216,17 +216,10 @@ ul, li {
 
 
 
-
-
 					<div class="section-cart-orderprice">
 						<span>주문금액:26000</span>
 					</div>
 				</div>
-
-
-
-
-
 
 
 

@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import com.acorn.baemin.cart.repository.CartRepository;
 import com.acorn.baemin.domain.CartDTO;
 import com.acorn.baemin.domain.MenuDTO;
@@ -27,11 +26,11 @@ public class CartService implements CartServiceI {
 		List<CartDTO> cartList = cartRepository.selectCart(id);
 		List<StoreDTO> storeList = cartRepository.selectStore(cartList);
 		List<MenuDTO> menuList = cartRepository.selectMenu(cartList);
-		List<OptionDTO> optionList = cartRepository.selectOption(cartList);
+		
 		cartMap.put("cartList", cartList);
 		cartMap.put("storeList" , storeList);
 		cartMap.put("menuList" , menuList);
-		cartMap.put("optionList" , optionList);
+		
 		return cartMap;
 	}
 
