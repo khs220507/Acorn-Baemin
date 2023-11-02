@@ -24,19 +24,18 @@ public class CartRepository implements CartRepositoryI {
 	}
 
 	@Override
-	public List<StoreDTO> selectStore(List<CartDTO> cartList) {
-		return session.selectList(namespace + "selectStore", cartList);
+	public List<StoreDTO> selectStore(String id) {
+		return session.selectList(namespace + "selectStore", id);
 	}
 
 	@Override
 	public List<MenuDTO> selectMenu(List<CartDTO> cartList) {
 		return session.selectList(namespace + "selectMenu", cartList);
 	}
-	
+
 	@Override
-	
-	public List<OptionDTO> selectOption(List<CartDTO> cartList) {
-		return session.selectList(namespace + "selectOption", cartList);
+	public void deleteCart(String cartCode) {
+		session.insert(namespace + "deleteCart", cartCode);
 	}
 
 }
