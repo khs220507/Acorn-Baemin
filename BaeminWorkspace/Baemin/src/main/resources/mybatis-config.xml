@@ -16,6 +16,8 @@
 			type="com.acorn.baemin.domain.CartDTO" />
 		<typeAlias alias="MenuDTO"
 			type="com.acorn.baemin.domain.MenuDTO" />
-
+		<typeAlias alias="ZzimStoreDTO"
+			type="com.acorn.baemin.domain.ZzimStoreDTO" />
+			
 	</typeAliases>
 </configuration>
