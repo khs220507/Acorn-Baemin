@@ -36,6 +36,6 @@ public class UserOrderController {
 		String id = "user1";
 		List<UserDTO> userInfo = userOrderService.userInfo(id);
 		session.setAttribute("userInfo", userInfo);
-		return "userorder/user_order";
+		return "userorder/order";
 	}
 }

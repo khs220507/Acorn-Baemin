@@ -8,6 +8,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <style>
 * {
 	margin: 0;
@@ -232,9 +233,11 @@ body {
 							if ($("#select-ordertype-pickup").is(":checked")) {
 								// "pickup"이 선택되면 "section-order-address-wrap" 숨김
 								$("#address-wrap").hide();
+								$(".section-order-price-detail-wrap-delivery").hide();
 							} else {
 								// 다른 라디오 버튼이 선택되면 "section-order-address-wrap" 표시
 								$("#address-wrap").show();
+								$(".section-order-price-detail-wrap-delivery").show();
 							}
 						});
 
@@ -247,7 +250,7 @@ body {
 
 	<c:set var="userInfo" value="${sessionScope.userInfo}" />
 
-	
+
 
 	<jsp:include page="../base/header.jsp" />
 
@@ -273,7 +276,7 @@ body {
 				<div class="section-order-address-api" id="base-structure">
 					<img class="current-location-img" src="resources/icons/current-location.png"> 기타
 				</div>
-				<div class="section-order-address-citygu">"${userInfo[0].userAddress}"</div>
+				<div class="section-order-address-citygu">${userInfo[0].userAddress}</div>
 				<input class="section-order-address-detail" placeholder="상세주소" id="base-structure-input">
 			</div>
 		</div>
@@ -302,6 +305,7 @@ body {
 				</div>
 				<div id="payment-image" style="display: none;">
 					<img src="" alt="Payment Image" id="paymentImageElement">
+					
 				</div>
 			</div>
 			<div class="section-order-paytype-cash">
