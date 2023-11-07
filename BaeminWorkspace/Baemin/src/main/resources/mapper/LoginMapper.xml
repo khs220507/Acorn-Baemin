@@ -23,6 +23,14 @@
 	<select id="selectAll" resultType="UserDTO">
 		select * from user_tbl
 	</select>
+	
+	<!-- 유저코드조회 -->
+	<select id="selectUserCode" resultType="UserDTO" parameterType="String">
+		select * from user_tbl where userId =
+		#{userId}
+	</select>
+	
+	
 
 	<!-- 손님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectCustomerInfo" resultType="UserDTO"
@@ -59,11 +67,6 @@
         select count(*) = 0 from user_tbl where userId = #{userId}
     </select>
 
-
-	<select id="getUserByUserId" resultType="UserDTO">
-		select * from user_tbl
-		where userId = #{userId}
-	</select>
 
 
 	<!-- <select id="findUserByType" resultType="SellerDTO" parameterType="SellerDTO"> -->

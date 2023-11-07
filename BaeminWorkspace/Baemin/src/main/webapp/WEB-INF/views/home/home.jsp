@@ -219,7 +219,11 @@
     </div>
 
 
-  <section></section>
+  <section>
+  <a href="http://localhost:8080/baemin/storeList"><button >치킨</button> </a>
+  
+  
+  </section>
 	<jsp:include page="../base/footer.jsp"/>
 
   <script>

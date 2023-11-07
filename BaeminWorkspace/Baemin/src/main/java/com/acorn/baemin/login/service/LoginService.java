@@ -13,17 +13,20 @@ public class LoginService {
     @Autowired
     private LoginRepositoryI loginRepositoryi;
 
-    //¼Õ´Ô ·Î±×ÀÎ
+    //ï¿½Õ´ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
     public UserDTO login(String userId, String userPw) {
         try {
+        	System.out.println("ì„œë¹„ìŠ¤ : " + userId);
             return loginRepositoryi.login(userId, userPw);
             
+            
         } catch (Exception e) {
+        	
             e.printStackTrace();
             return null;
         }
     }
-    //»çÀå´Ô ·Î±×ÀÎ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
     public SellerDTO login2(String sellerId, String sellerPw) {
         try {
             return loginRepositoryi.loginseller(sellerId, sellerPw);
