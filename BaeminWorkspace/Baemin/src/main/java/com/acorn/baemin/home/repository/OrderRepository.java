@@ -28,13 +28,6 @@ public class OrderRepository implements InterOrderRepository{
 	public int orderDelete(int orderNumber) {
 
 		return session.delete(namespace+"orderDelete", orderNumber);
-	}
-
-	///////////////////////////////////////////////////////////////////////////////////
-	
-	// 상세주문내역 조회
-	
-	
-	
+	}	
 	
 }

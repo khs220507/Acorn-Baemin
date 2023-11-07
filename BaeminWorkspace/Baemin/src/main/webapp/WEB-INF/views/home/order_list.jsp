@@ -193,7 +193,7 @@
 			data : "orderNumber=" + orderNumber,
 			dataType : "text",
 			success : function(data) {
-				
+				window.location.reload();
 			},
 			error : function(err) {
 				alert("삭제 요청에 실패했습니다.");
