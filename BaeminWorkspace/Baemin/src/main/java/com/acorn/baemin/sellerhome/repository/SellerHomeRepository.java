@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.acorn.baemin.domain.StoreDTO;
+import com.acorn.baemin.domain.StoreInsertDTO;
 @Repository
 public class SellerHomeRepository  {
 		@Autowired
@@ -20,7 +21,7 @@ public class SellerHomeRepository  {
 	    public void insertStore (StoreDTO store) {
 	    	session.insert(namespaceStore+"insertStore", store);
 	    }
-	    
+	   
 	    public void deleteStore (String storeCode) {
 	    	session.insert(namespaceStore+"deleteStore", storeCode);
 	    }
