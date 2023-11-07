@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.LoginMapper">
+
+	<!-- 손님 로그인 -->
+	<select id="selectUserById" resultType="UserDTO"
+		parameterType="UserDTO">
+		select * from user_tbl where userId = #{userId} and
+		userPw = #{userPw}
+	</select>
+
+	<!-- 사장님 로그인 -->
+	<select id="selectSellerById" resultType="SellerDTO"
+		parameterType="SellerDTO">
+		select * from seller_tbl where sellerId = #{sellerId}
+		and sellerPw =
+		#{sellerPw}
+	</select>
+
+	<!-- 전체조회 -->
+	<select id="selectAll" resultType="UserDTO">
+		select * from user_tbl
+	</select>
+	
+	<!-- 유저코드조회 -->
+	<select id="selectUserCode" resultType="UserDTO" parameterType="String">
+		select * from user_tbl where userId =
+		#{userId}
+	</select>
+	
+	
+
+	<!-- 손님 정보 수정시 기존 정보 불러오기 -->
+	<select id="selectCustomerInfo" resultType="UserDTO"
+		parameterType="String">
+		select userNickname, userPhone, userPostCode,
+		userAddress,
+		userAddressDetail, userEmail
+		from user_tbl where userCode =
+		#{userCode}
+	</select>
+
+	<!-- 사장님 정보 수정시 기존 정보 불러오기 -->
+	<select id="selectSellerInfo" resultType="SellerDTO"
+		parameterType="String">
+		select sellerName, sellerRegCode, sellerPhone,
+		sellerEmail
+		from seller_tbl
+		where sellerCode = #{sellerCode}
+	</select>
+
+	<!-- 손님 회원 가입 -->
+	<insert id="customerSignup" parameterType="UserDTO">
+		insert into user_tbl
+		(userId, userPw, userName, userNickname, userPhone, userEmail,
+		userBirth, userGender, userPostCode, userAddress, userAddressDetail)
+		values
+		(#{userId}, #{userPw}, #{userName}, #{userNickname},
+		#{userPhone}, #{userEmail},	#{userBirth}, #{userGender},
+		#{userPostCode}, #{userAddress}, #{userAddressDetail})
+	</insert>
+	
+<!-- 	아이디 중복 확인 -->
+	<select id="idCheck" resultType="boolean" parameterType="UserDTO">
+        select count(*) = 0 from user_tbl where userId = #{userId}
+    </select>
+
+
+
+	<!-- <select id="findUserByType" resultType="SellerDTO" parameterType="SellerDTO"> -->
+	<!-- select * from seller_tbl where sellerId = #{sellerId} and sellerPw 
+		= #{sellerPw} -->
+	<!-- </select> -->
+
+	<!-- <insert id="insertUser"> -->
+	<!-- insert into user_tbl (userId, userPw, userName, userNickname, userPhone, 
+		userAddress, userEmail, userBirth, userGender, userStatus) -->
+	<!-- values (#{userId}, #{userPw}, #{userName}, #{userNickname}, #{userPhone}, 
+		#{userAddress}, #{userEmail}, #{userBirth}, #{userGender}, #{userStatus}) -->
+	<!-- </insert> -->
+
+	<!-- <update id="updateUser"> -->
+	<!-- update user_tbl -->
+	<!-- set userName = #{userName}, userNickname = #{userNickname}, userPhone 
+		= #{userPhone}, userAddress = #{userAddress}, userEmail = #{userEmail}, userBirth 
+		= #{userBirth}, userGender = #{userGender} -->
+	<!-- where userId = #{userId} -->
+	<!-- </update> -->
+
+	<!-- <delete id="deleteUser"> -->
+	<!-- delete from user_tbl where userId = #{userId} -->
+	<!-- </delete> -->
+</mapper>

@@ -18,18 +18,19 @@ public class ZzimRepository implements InterZzimRepository{
  	
     private static String namespace = "com.acorn.HomeMapper.";
     
+    // 찜 조회
     public List<ZzimStoreDTO> zzimSelectAll(int userCode) throws Exception {
     	System.out.println("zzimList show");
         return session.selectList(namespace+"zzimSelectAll",userCode);
     }
 
+    // 찜 삭제
 	@Override
 	public int zzimDelete(int userCode, int storeCode) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		ZzimStoreDTO dto = new ZzimStoreDTO();
+		dto.setUserCode(userCode);
+		dto.setStoreCode(storeCode);
+		return session.delete(namespace+"zzimDelete",dto); 
 	}
-    
-
- 
 	
 }

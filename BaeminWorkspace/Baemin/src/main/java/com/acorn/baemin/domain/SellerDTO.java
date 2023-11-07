@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class SellerDTO {
 
 	int sellerCode;
-	int sellerRegCode;
+	String sellerRegCode;
 	String sellerId;
 	String sellerPw;
 	String sellerName;

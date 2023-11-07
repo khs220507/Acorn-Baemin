@@ -29,8 +29,15 @@ public class HomeControllerTest {
 		log.info( dao.orderDelete( 70004) );
 	}
 
-	@Test
+	//@Test
 	public void zzimSelectTest() throws Exception {
 		zzimDAO.zzimSelectAll(10001).forEach(m -> log.info(m));
 	}
+	
+	@Test
+		public void zzimDeleteTest() throws Exception {
+			log.info( zzimDAO.zzimDelete( 10001,30002) );
+		}
+
+	
 }

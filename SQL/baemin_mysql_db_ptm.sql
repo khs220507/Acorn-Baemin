@@ -101,7 +101,7 @@ INSERT INTO menu_tbl (menuName, menuPrice, menuImage, menuContent, menuClassific
 ('Pad Thai', 15, 'pad_thai.jpg', 'A classic Thai dish with stir-fried noodles, shrimp, and vegetables.', 'Asian', 0);
 
 
-
+SELECT menuName, menuPrice, menuImage, menuContent, menuClassification FROM menu_tbl WHERE menuCode=40001;
 
 
 -- 05. 옵션 option_tbl

@@ -1,5 +1,37 @@
-result +='<div class="store-plus-info"><span>음식카테고리</span><select id="storeCategory">';
-result +='<option value="'+d.storeCategory+'">'+d.storeCategory+'</option><option value="치킨">치킨</option><option value="피자">피자</option>':
-result +='<option value="햄버거">햄버거</option><option value="족발,보쌈">족발,보쌈</option><option value="한식">한식</option>':
-result +='<option value="중식">중식</option><option value="일식">일식</option><option value="양식">양식</option>':
-result +='<option value="분식">분식</option><option value="디저트">디저트</option><option value="야식">야식</option></select></div>':
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="UserDTO"
+			type="com.acorn.baemin.domain.UserDTO" />
+		<typeAlias alias="SellerDTO"
+			type="com.acorn.baemin.domain.SellerDTO" />
+		<typeAlias alias="StoreDTO"
+			type="com.acorn.baemin.domain.StoreDTO" />
+		<typeAlias alias="MenuDTO"
+			type="com.acorn.baemin.domain.MenuDTO" />
+		<typeAlias alias="OptionDTO"
+			type="com.acorn.baemin.domain.OptionDTO" />
+		<typeAlias alias="CartDTO"
+			type="com.acorn.baemin.domain.CartDTO" />
+		<typeAlias alias="OrderDTO"
+			type="com.acorn.baemin.domain.OrderDTO" />
+		<typeAlias alias="ZzimDTO"
+			type="com.acorn.baemin.domain.ZzimDTO" />
+		<typeAlias alias="ReviewDTO"
+			type="com.acorn.baemin.domain.ReviewDTO" />
+		<typeAlias alias="AnswerDTO"
+			type="com.acorn.baemin.domain.AnswerDTO" />
+		<typeAlias alias="AddressDTO"
+			type="com.acorn.baemin.domain.AddressDTO" />
+		<typeAlias alias="ZzimStoreDTO"
+			type="com.acorn.baemin.domain.ZzimStoreDTO" />
+		
+
+
+
+	</typeAliases>
+</configuration>
+

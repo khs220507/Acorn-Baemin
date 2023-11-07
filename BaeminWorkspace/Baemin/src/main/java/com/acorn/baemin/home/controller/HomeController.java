@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
@@ -51,6 +52,19 @@ public class HomeController {
 		
 		return "home/zzim_list";
 	}
+	
+	// 찜 삭제
+	@ResponseBody
+	@GetMapping("/zzimDelete")
+	public int zzimDelete(int userCode,int storeCode) throws Exception {
+		
+		int result = zzimDAO.zzimDelete(10001, storeCode);
+		
+		return result;
+		
+	}
+	
+	
 	//////////////////////////////////////////////////////////////////////////
 	
 	// 주문내역 조회
