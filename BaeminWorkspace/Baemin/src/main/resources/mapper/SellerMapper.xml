@@ -3,8 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.SellerMapper">
 
-	<!-- 준태 -->
-
+	<!-- 메뉴 전체 조회 -->
+	<select id="selectMenuInfo" resultType="MenuDTO" parameterType="int">
+		SELECT menuName, menuPrice, menuImage, menuContent, menuClassification FROM menu_tbl
+	</select>
 
 	<!-- 매장정보 일부조회1 -->
 	<select id="selectStoreSubInfo1" resultType="StoreDTO" parameterType="int">
