@@ -1,12 +1,19 @@
 package com.acorn.baemin.selectstrore.controller;
 
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.selectstrore.repository.SelectStrollerRepository;
@@ -17,11 +24,16 @@ public class SelectStrollerController {
 
 	@GetMapping("/storeList")
 	public String selectStore( Model model) {
-		List<StoreDTO> result  = rep.selectStore("Pizza");
+		List<StoreDTO> result  = rep.selectStore("치킨");
 		model.addAttribute("list", result);
 		return "store/store_list";
 		}
 	
+//	 @ResponseBody
+//	 @RequestMapping(value="/storeimages/{storeImage:.*}" ,method = RequestMethod.GET)
+//	 public Resource sellerStoreImg(@PathVariable String storeImage) throws MalformedURLException {
+//		 return new UrlResource("file:c:\\test\\upload\\"+storeImage);
+//	 }
 //	@ResponseBody
 //	@RequestMapping( value="/sellerHome" , method=RequestMethod.POST)
 //	public void insertStore(@RequestBody StoreDTO Store) {
