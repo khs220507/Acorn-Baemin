@@ -2,6 +2,7 @@ package com.acorn.baemin.seller.service;
 
 import java.util.List;
 
+import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
@@ -9,9 +10,10 @@ import com.acorn.baemin.domain.StoreDTO;
 
 public interface ServiceI {
 	
-		// 준태
-	
 		// 태민
+		// 메뉴탭
+		// 메뉴 전체 조회
+		public List<MenuDTO> selectAllMenuInfo();
 		// 매장정보탭
 		// 매장정보 일부조회1(매장이름, 평점, 리뷰수, 최소주문금액)
 		public StoreDTO selectStoreNmRtRcMp(int storeCode);
