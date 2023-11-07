@@ -30,7 +30,7 @@ body {
 
 .review-title {
 	width: 1280px;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #d9d9d9;
 	margin: 0 auto;
 	margin-left: 100px;
 	margin-right: 100px;
@@ -50,19 +50,47 @@ body {
 	display: flex;
 	margin-left: 100px;
 	margin-right: 100px;
+	border-bottom: 1px #d9d9d9 solid;
 }
 
 .order-info-image {
+	width: 100px;
+}
+
+.order-detail-wrap {
+	margin: auto 0;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.review-input-box-wrap {
+	display: flex;
+	justify-content: center;
+}
+
+.review-input-box{
+margin: 20px 0px 20px 0px;
+width: 400px;
+height: 200px;
+}
+
+.review-rating-wrap{
+display: flex;
+flex-direction:column;
+}
+
+.review-rating-title{
+margin: 0 auto;
+}
+
+.review-rating{
+margin: 0 auto;
+}
+
+.review-register-btn{
+margin: 0 auto;
 width: 100px;
 }
-
-.order-detail-wrap{
-margin : auto 0 ;
-margin-left:10px;
-margin-right: 10px;
-}
-
-
 </style>
 <body>
 
@@ -92,6 +120,17 @@ margin-right: 10px;
 				<div class="order-info-detail">황올 반+양념 반 외 2개 35,900원</div>
 			</div>
 		</div>
+
+		<div class="review-input-box-wrap">
+			<input class="review-input-box" type="text" placeholder="리뷰를 입력하세요">
+		</div>
+		
+		<div class="review-rating-wrap">
+		<div class="review-rating-title">음식은 어떠셨어요?</div>
+		<div class="review-rating">★★★★★</div>
+		<button class="review-register-btn">리뷰 등록</button>
+		</div>
+
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 
