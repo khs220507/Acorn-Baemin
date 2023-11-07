@@ -228,7 +228,11 @@ INSERT INTO zzim_tbl (userCode, storeCode) VALUES
 (10005, 30004);
 
 select * from zzim_tbl;
-
+INSERT INTO zzim_tbl (userCode, storeCode) VALUES
+(10001, 30001),
+(10001, 30002),
+(10001, 30003),
+(10001, 30004);
 
 -- 09
 CREATE TABLE review_tbl (

@@ -17,7 +17,11 @@
     </select>
     
      <!-- 찜 삭제 -->
-	 
+	 <delete id="zzimDelete" parameterType="int">
+	 	Delete
+	 	From zzim_tbl
+	 	WHERE userCode = #{userCode} AND storeCode = #{storeCode}
+	 </delete>
     
  
  <!-- 주문내역 관련 -->
