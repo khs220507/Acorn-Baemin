@@ -14,10 +14,12 @@ public class UserDTO {
 	String userName;
 	String userNickname;
 	String userPhone;
-	String userAddress;
 	String userEmail;
 	String userBirth;
 	int userGender;
+	String userPostCode;
+	String userAddress;
+	String userAddressDetail;	
 	int userStatus;
 	
 }
