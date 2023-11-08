@@ -13,7 +13,7 @@ public class ReviewRepository implements ReviewRepositoryI {
 	private static String namespace = "com.acorn.ReviewMapper.";
 	@Override
 	public void insertReview(ReviewDTO review) {
-		// TODO Auto-generated method stub
+		sqlSession.insert(namespace + "insertReview", review);
 		
 	}
 
