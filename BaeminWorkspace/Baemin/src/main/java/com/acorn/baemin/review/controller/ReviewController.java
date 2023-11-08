@@ -14,21 +14,16 @@ import com.acorn.baemin.domain.ReviewDTO;
 
 @Controller
 public class ReviewController {
-    @GetMapping("/write-review")
+    @GetMapping("/writeReview")
     public String showReviewForm(Model model) {
+    	System.out.println("테스트");
         model.addAttribute("review", new ReviewDTO());
-        return "review-form"; // Return the name of the JSP/Thymeleaf/HTML template
+        return "/review/review_register"; // Return the name of the JSP/Thymeleaf/HTML template
     }
-    
-    @Autowired
-    
 
-    
-    
-
-    @PostMapping("/submit-review")
+    @PostMapping("/submitReview")
     public String submitReview(@ModelAttribute("review") ReviewDTO review) {
-        // Handle the submitted review and rating here, e.g., save to a database
-        return "redirect:/thank-you"; // Redirect to a thank-you page or another appropriate page
+        System.out.println("테스트2");
+        return "/review/review_submit"; // Redirect to a thank-you page or another appropriate page
     }
 }

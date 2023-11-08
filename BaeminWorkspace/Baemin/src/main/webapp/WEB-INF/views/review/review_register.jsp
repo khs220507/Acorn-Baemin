@@ -159,7 +159,7 @@ align-items: center;
 		</div>
 
 		<div class="review-input-box-wrap">
-			<form action="submit-review.jsp" method="post">
+			<form action="/baemin/submitReview" method="post">
             <textarea name="reviewText" class="review-input-box" placeholder="리뷰를 입력하세요"></textarea>
             <div class="review-rating-wrap">
                 <div class="review-rating-title">음식은 어떠셨어요?</div>

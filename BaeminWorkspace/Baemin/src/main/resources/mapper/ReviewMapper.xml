@@ -4,7 +4,7 @@
 <mapper namespace="com.acorn.ReviewMapper">
     
     <insert id="insertReview" parameterType="com.acorn.baemin.domain.ReviewDTO">
-        INSERT INTO reviews (menu_code, user_code, store_code, review_image, review_date, review_rating, review_content)
+        INSERT INTO reviews (menuCode, user_code, store_code, review_image, review_date, review_rating, review_content)
         VALUES (#{menuCode}, #{userCode}, #{storeCode}, #{reviewImage}, #{reviewDate}, #{reviewRating}, #{reviewContent})
     </insert>
     

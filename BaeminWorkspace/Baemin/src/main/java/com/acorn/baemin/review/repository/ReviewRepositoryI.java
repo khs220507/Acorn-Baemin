@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.acorn.baemin.domain.ReviewDTO;
 
-@Repository
+
 public interface ReviewRepositoryI {
 	
 	void insertReview(ReviewDTO review);
