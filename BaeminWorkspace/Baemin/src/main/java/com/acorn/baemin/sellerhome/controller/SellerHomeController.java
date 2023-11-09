@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.baemin.domain.StoreDTO;
-import com.acorn.baemin.domain.StoreInsertDTO;
 import com.acorn.baemin.sellerhome.repository.SellerHomeRepository;
 @Controller
 public class SellerHomeController {

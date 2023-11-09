@@ -18,21 +18,28 @@ public class OptionRepository  {
 	    	return session.selectList(namespaceStore+"selectOption",menuCode);
 	    }
 	    
-//	    public void insertStore (StoreDTO store) {
-//	    	session.insert(namespaceStore+"insertStore", store);
-//	    }
-//	    
-//	    public void deleteStore (String storeCode) {
-//	    	session.insert(namespaceStore+"deleteStore", storeCode);
-//	    }
-//	    
-//	    public StoreDTO updateSellerStore(String storeCode) {
-//	    	return session.selectOne(namespaceStore+"updateSellerStore",storeCode);
-//	    }
-//	    
-//	    public void updateStore (StoreDTO store) {
-//	    	session.insert(namespaceStore+"updateStore", store);
-//	    }
+	    public void insertOption (OptionDTO Option) {
+	    	session.insert(namespaceStore+"insertOption", Option);
+	    }
+	    
+	    public void deleteOption (String OptionCode) {
+	    	session.insert(namespaceStore+"deleteOption", OptionCode);
+	    }
+
+	    public void deleteOptionCategory (OptionDTO Option) {
+	    	session.insert(namespaceStore+"deleteOptionCategory", Option);
+	    }
+	    
+	    public List<OptionDTO> getCategoryAndSelectType(String menuCode) {
+	    	return session.selectList(namespaceStore+"getCategoryAndSelectType",menuCode);
+	    }
+	    
+	    public void updateOption (OptionDTO Option) {
+	    	session.insert(namespaceStore+"updateOption", Option);
+	    }
+	    public void updateOptionCategory (OptionDTO Option) {
+	    	session.insert(namespaceStore+"updateOptionCategory", Option);
+	    }
 	    
 	    
 
