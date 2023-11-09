@@ -128,7 +128,31 @@ body {
 }
 </style>
 
+<script>
 
+function writeReview() {
+ 	let formData = new FormData(document.getElementById('reviewForm'));
+ 	alert(formData);
+ 	alert("테스트2");
+		$.ajax({
+			type : "POST",
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			url : "/baemin/submitReview",
+			data : formData,
+			success : function(data) {
+				alert("성공");
+				window.opener.location.href = "http://localhost:8080/baemin/home";
+
+			},
+			error : function() {
+				alert("저장에 실패하였습니다. 확인 후 다시 시도해주세요");
+			}
+		})
+ };
+
+</script>
 
 <body>
 
@@ -160,11 +184,15 @@ body {
 		</div>
 
 		<div class="review-input-box-wrap">
-			<form action="/baemin/submitReview" method="post" >
+			<form id="reviewForm" enctype="multipart/form-data" method="post">
 				<textarea name="reviewContent" class="review-input-box"
 					placeholder="리뷰를 입력하세요"></textarea>
+				 
+                <input type="file" name="reviewImage" accept="image/*">
 				<div class="review-rating-wrap">
+				
 					<div class="review-rating-title">음식은 어떠셨어요?</div>
+
 					<div class="star_rating">
 						<span class="star" data-value="1"> </span> <span class="star"
 							data-value="2"> </span> <span class="star" data-value="3">
@@ -172,7 +200,7 @@ body {
 							data-value="5"> </span>
 					</div>
 					<input type="hidden" name="reviewRating" id="rating" value="0">
-					<button type="submit" class="review-register-btn">리뷰 등록</button>
+					<button type="submit" class="review-register-btn" onclick="writeReview()">리뷰 등록</button>
 				</div>
 			</form>
 		</div>
