@@ -49,8 +49,10 @@
         .store-img{
             width: 100px;
             height: 100px;
-            background-color: yellowgreen;
         }
+        .store-img img{
+		width: 100px;
+		}
         .store-info-wrap{
             flex: 4;
             display: flex;
@@ -69,79 +71,41 @@
             
         }
         .store-but{
-            display: flex;
-            width: 110px;
-            justify-content: space-between;
-        }
-        .store-but div{
-            padding: 5px;
+            padding: 10px;
             text-align: center;
-            background-color: gainsboro;
-            width: 50px;
+            border: 3px solid #48D1CC;
+			background-color: white;
+			  font-weight: bolder;
             border-radius: 5px;
-            cursor: pointer;
-        }
-        
-        .store-plus {
-            padding: 20px 20px 20px 20px;
-            border-bottom: 1px solid gray;
-            display: none;
-        }
-        .store-updata{
-        	padding-right:20px;
-        	width: 100%;
-        }
-        .store-updata h2{
-        text-align: center;
-        padding: 30px;
-        }
-         .store-plus-out{
-         	
-        	text-align: right;
-        	font-size: 30px;
-            cursor: pointer;       	
-        	
-        }
-        .store-plus-info{
-            width: 420px;
-            margin: 0 auto;
-            text-align: right;
-            padding: 5px;
-        }
-        .store-plus-info span , .store-updata span{
-            font-size: 20px;
-            font-weight: bolder;
-        }
-        .store-plus div input , .store-updata div input {
-            height: 35px;
-            margin-left:15px;
-            width: 250px;
-        }
-        .store-plus-but{
-            margin: 20px auto 20px auto;
-            padding: 5px;
             width: 100px;
-            border-radius: 10px;
-            background-color: gainsboro;
-            text-align: center;
-            cursor: pointer;  
+            font-size: 15px;
+            
         }
+       
+        
        	
        	</style>
+       	<script type="text/javascript">
+       	function choiceStore() {
+       		window.opener.location.href = "http://localhost:8080/baemin/sellerHome";
+		}
+       	</script>
 </head>
 <body>
 <jsp:include page="../base/header.jsp" />
 <nav class="nav-var">
-<a href="">치킨</a><a>피자</a><a>햄버거</a><a>족발,보쌈</a><a>한식</a><a>중식</a><a>일식</a><a>양식</a><a>분식</a><a>디저트</a><a>야식</a>
+<c:set var="href" value="http://localhost:8080/baemin/storeList"/>
+<a href="${href}">치킨</a><a href="${href}">피자</a><a href="${href}">햄버거</a><a href="${href}">족발,보쌈</a><a href="${href}">한식</a>
+<a href="${href}">중식</a><a href="${href}">일식</a><a href="${href}">양식</a><a href="${href}">분식</a><a href="${href}">디저트</a><a href="${href}">야식</a>
 </nav>
 <hr>
 <section>
 		
         <div class="section-wrap">
         <c:forEach items="${list }" var="item">
-            <div class="store-list">
+            <div class="store-list" id="store-list">
                 <div class="store-img-wrap">
-                    <div class="store-img"></div>
+                    <div class="store-img"><img alt="" src="/baemin/images/${item.storeImage }"></div>
                 </div>
                 <div class="store-info-wrap">
                     <div class="store-info">
@@ -154,6 +118,9 @@
                             ${item.storeDescription}
                         </div>
                     </div>
+                </div>
+                <div class="store-but-wrap">
+                	<button class="store-but" onclick="choiceStore(${item.storeCode})">매장선택</button>
                 </div>
             </div>
         </c:forEach>

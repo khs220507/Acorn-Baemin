@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -10,196 +10,375 @@
 <title>Insert title here</title>
 <style type="text/css">
 /* 태그 파트 */
-	* {
-		margin: 0;
-		padding: 0;
-		box-sizing: border-box;
-	}
-	
-	a {
-		text-decoration: none;
-	}
-	
-	body {
-		display: flex;
-		justify-content: center;
-		height: 100vh;
-		width: 100vw;
-	}
-	div {
-		border: 1px solid black;
-	}
-	section {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		flex: 7.8;
-		width: 1280px;
-		border: 1px solid black;
-		padding-top : 5%;
-	}
-	
-	button {
-		outline: none;
-		cursor: pointer; /* 손가락모양 */
-	}
-	.store-image {
-		width: 15.6%;
-		height: 28%;
-		border: 1px solid black;
-	}
-	.rating-review-minprice{
-		display: flex;
-		border: 1px solid black;
-	}
-	.menu-info-review-tab{
-		display: flex;
-		border: 1px solid black;
-	}
-	.tab-sub{
-		border: 1px solid black;
-	}
-	.tab-sub-with-btn{
-		display: flex;
-		border: 1px solid black;
-	}
-	.store-description{
-		display: flex;
-	}
-	.operating-time{
-		display: flex;
-	}
-	.seller-info{
-		display: flex;
-	}
-	.seller-name{
-		display: flex;
-	}
-	.store-address{
-		display: flex;
-	}
-	.seller-regcode{
-		display: flex;
-	}
-/* 섹션 */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: 100vh;
+}
+
+ul {
+	list-style: none;
+}
+
+.menu-info-review-tab {
+	display: flex;
+}
+
+div {
+	border: 1px solid black;
+}
+
+section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex: 7.8;
+	width: 1280px;
+	border: 1px solid black;
+	padding-top: 5%;
+}
+
+button {
+	outline: none;
+	cursor: pointer; /* 손가락모양 */
+}
+
+.store-image {
+	width: 15.6%;
+	height: 28%;
+}
+
+.rating-review-minprice {
+	display: flex;
+}
+
+.menu-classification-list {
+	display: inline-block;
+}
+
+.menu-classification {
+	display: flex;
+}
+
+.menu-info-with-btn {
+	display: flex;
+}
+
+.modify-delete {
+	display: flex;
+}
+
+.info-sub-tab-with-btn {
+	display: flex;
+}
+
+.store-description {
+	display: flex;
+}
+
+.operating-time {
+	display: flex;
+}
+
+.seller-info {
+	display: flex;
+}
+
+.seller-name {
+	display: flex;
+}
+
+.store-address {
+	display: flex;
+}
+
+.seller-regcode {
+	display: flex;
+}
+
+.store-info-tab, .store-review-tab {
+	display: none;
+}
 </style>
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
+		// 메뉴/정보/리뷰 탭 영역
+		// 메뉴 탭을 클릭하면 보여지고 정보와 리뷰 탭은 감추는 코드
+		$(".menu-tab").click(function() {
+			$(".menu-sub-tab").show();
+			$(".store-info-tab").hide();
+			$(".store-review-tab").hide();
+		})
+		// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
+		$(".info-tab").click(function() {
+			$(".menu-sub-tab").hide();
+			$(".store-info-tab").show();
+			$(".store-review-tab").hide();
+		})
+		// 리뷰 탭을 클릭하면 보여지고 메뉴와 정보 탭은 감추는 코드
+		$(".review-tab").click(function() {
+			$(".menu-sub-tab").hide();
+			$(".store-info-tab").hide();
+			$(".store-review-tab").show();
+		});
+		
+		
+		// 메뉴 탭 영역
+		// + 버튼을 클릭하면 메뉴정보 입력 폼 활성화
+		$(".add-menu").click(function() {
+			$(".menu-form").show();
+			$(".cancel-btn").show();
+		});
+		// 등록 버튼을 클릭하면 메뉴가 등록됨
+		$(".insert-menu-btn").click(function() {
+			let formData = new FormData(document.querySelector(".menu-form"));
+			console.log(formData);
+			$.ajax({
+				type : "post",
+				url : "${path}/store_manage",
+				enctype : 'multipart/form-data',
+				data : formData,
+				processData : false, // 데이터 처리를 비활성화
+				contentType : false, // 컨텐츠 타입을 비활성화
+				success : function(data) {
+					window.location.reload();
+				},
+				error : function() {
+					alert("연결은 됐는데 실패");
+				}
+			});
+		});
+		// 취소 버튼을 클릭시 전영역에 걸쳐서 활성/비활성화
+		$(".cancel-btn").click(function() {
+			$(".menu-form").hide();
+			$(".reply-form").hide();
+			$(".active-reply-form-btn").show();
+			$(this).hide();
+		});
+		
+		// 각 메뉴 영역
+		// 수정 버튼을 클릭하면 메뉴정보 입력 폼과 동일한 폼 활성화
+		$(".menu-modify-btn-without-c").click(function() {
+			$(".menu-form-without-c").show();
+			$.ajax({
+				type: "get",
+				url: "/store_manage/{menuClassification}",
+				success: function(data){
+					window.location.reload();
+				},
+				error: function(){
+					alert("아니야!");
+				}
+			})
+		});
+		// 취소 버튼을 클릭하면 메뉴정보 입력 폼과 동일한 폼 비활성화
+		$(".cancel-btn-without-c").click(function() {
+			$(".menu-form-without-c").hide();
+		});
+		
+		// 정보 탭 영역
+		// 수정 버튼을 클릭하면 수정화면이 나오게
+		function modifyStoreInfo(sellerCode, storeCode){
+        // AJAX 요청을 보냅니다.
+        $.ajax({
+            url: "{path}/store_manage",
+            method: 'GET',
+            success: function(data) {
+            	console.log(data);
+                // AJAX 요청이 성공하면 데이터를 가져와서 input 태그에 적절히 설정합니다.
+                $("input[name='storeDescription']").val(data.storeDescription);
+                $("input[name='operatingTime']").val(data.operatingTime);
+                $("input[name='sellerName']").val(data.sellerName);
+                $("input[name='storeAddress']").val(data.storeAddress);
+                $("input[name='sellerRegCode']").val(data.sellerRegCode);
+            },
+            error: function() {
+                alert("fail");
+	            }
+	        });
+			
+		}
+		
+		// 리뷰탭 영역
+		// 답글달기 버튼을 클릭하면 메뉴정보 입력 폼 활성화
+		$(".active-reply-form-btn").click(function() {
+			$(".reply-form").show();
+			$(this).hide();
+			$(".cancel-btn").show();
+		});
+		
+});
 	
-	let sellerCode = ${param.sellerCode};
-	let storeCode = ${param.storeCode};
 	
-	alert(sellerCode);
-	alert(storeCode);
-	
-    // 메뉴 탭 클릭 시
-    // $(".menu-list-tab").click(function() {
-    	
-    //   // 메뉴 데이터를 AJAX를 통해 가져와서 표시
-    //   $.ajax({
-    //     url: "${path}/store_manage", // 메뉴 데이터를 가져오는 서버 스크립트 URL로 변경해야 함
-    //     method: "GET",
-    //     data : "menuCode="+menuCode+"&storeCode="+storeCode,
-    //     dataType: "json",
-    //     success: function(data) {
-    //       // 메뉴 데이터를 업데이트하고 표시
-          
-    //       // 이 부분에서 메뉴 데이터를 사용하여 메뉴 리스트를 구성
-    //     },
-    //     error: function(xhr, status, error) {
-    //       // 오류 처리
-    //       console.error("Error: " + error);
-    //     }
-    //   });
-    // });
-
-    // 정보 탭 클릭 시
-    $(".store-info-tab").click(function() {
-      // 정보 데이터를 AJAX를 통해 가져와서 표시
-      $.ajax({
-   	  	url: "${path}/store_manage", // 메뉴 데이터를 가져오는 서버 스크립트 URL로 변경해야 함
-        method: "GET",
-        data : "sellerCode="+sellerCode+"&storeCode="+storeCode,
-        dataType: "json",
-        success: function(data) {
-          // 정보 데이터를 업데이트하고 표시
-        	$(".tab-sub-with-btn").empty(); // 이전 내용 삭제
-            $(".tab-sub-with-btn").append(`
-            		<div class="tab-sub">
-        			<div class="store-description">
-        				<div>가게소개</div><div>${readtStoreDTA.storeDescription}</div>
-        			</div>
-        			<div class="operating-time">
-        				<div>운영시간</div><div>${readtStoreDTA.operatingTime}</div>
-        			</div>
-        			<div class="seller-info">
-        				<div>사업자정보</div>
-        				<div class="seller-info-sub">
-        					<div class="seller-name">
-        						<div>대표자명</div><div>${readSellerNmRn.sellerName}</div>
-        					</div>
-        					<div class="store-address">
-        						<div>매장주소</div><div>${readtStoreDTA.storeAddress}</div>
-        					</div>
-        					<div class="seller-regcode">
-        						<div>사업자등록번호</div><div>${readSellerNmRn.sellerRegCode}</div>
-        					</div>
-        				</div>
-        			</div>
-        		</div>
-        		<div class="modify-btn">수정하기</div>
-            `);
-          },
-		  error: function(){
-				 			alert( "연결은 되지만 로드 실패");
-				 		}
-      });
-    });
-
-    // 리뷰 탭 클릭 시
-    // $(".store-review-tab").click(function() {
-    //   // 리뷰 데이터를 AJAX를 통해 가져와서 표시
-    //   $.ajax({
-   	//   	url: "${path}/store_manage", // 메뉴 데이터를 가져오는 서버 스크립트 URL로 변경해야 함
-    //     method: "GET",
-	// 	// data : 닉네임, 메뉴명, 리뷰내용, 리뷰사진, (사장님 답글)
-    //     dataType: "json",
-    //     success: function(data) {
-    //       // 리뷰 데이터를 업데이트하고 표시
-    //       // 이 부분에서 리뷰 데이터를 사용하여 리뷰 탭의 내용을 업데이트
-    //     },
-    //     error: function(xhr, status, error) {
-    //       // 오류 처리
-    //       console.error("Error: " + error);
-    //     }
-    //   });
-    // });
-  });
-  </script>
+	// 메뉴 삭제
+	function deleteMenu(menuCode) {
+		$.ajax({
+			type: "DELETE",
+			url: "${path}/store_manage/"+menuCode, //path Variable  ,
+			success : function (data){
+				window.location.reload();
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="../base/header.jsp" />
 	<section>
-	<div class="store-image">
-		매장 대표 사진
-	</div>
-	<!-- 아래 div는 추후에 선으로 대체할 예정 -->
-	<div>-------------------------------------------------------------------</div>
-	<div class="store-name">${readStoreNmRtRcMp.storeName}</div>
-	<div class="rating-review-minprice">
-		<div>⭐: ${readStoreNmRtRcMp.storeRating}</div>
-		<div>리뷰수: ${readStoreNmRtRcMp.reviewCount}</div>
-		<div>최소주문금액: ${readStoreNmRtRcMp.minOrderPrice}</div>
-	</div>
-	<div class="menu-info-review-tab">
-		<div class="menu-list-tab">메뉴</div>
-		<div class="store-info-tab">정보</div>
-		<div class="store-review-tab">리뷰</div>
-	</div>
-	<div class="tab-sub-with-btn">
-		
-		<div class="modify-btn">수정하기</div>
-	</div>
+		<div class="store-image">매장 대표 사진</div>
+		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
+		<div>-------------------------------------------------------------------</div>
+		<div class="store-name">${readStore.storeName}</div>
+		<div class="rating-review-minprice">
+			<div>⭐: ${readStore.storeRating}</div>
+			<div>리뷰수: ${readStore.reviewCount}</div>
+			<div>최소주문금액: ${readStore.minOrderPrice}</div>
+		</div>
+		<ul class="menu-info-review-tab">
+			<li class="menu-tab">메뉴</li>
+			<li class="info-tab">정보</li>
+			<li class="review-tab">리뷰</li>
+		</ul>
+		<!-- 메뉴 리스트 나오는 탭 -->
+		<div class="menu-sub-tab">
+			<c:forEach items="${CList}" var="classificationList">
+				<div class="menu-classification-list">
+					${classificationList.menuClassification}
+				</div>
+			</c:forEach>
+			<c:forEach items="${readMenuInfo}" var="menuList">
+				<div class="menu-classification">
+					<div>${menuList.menuClassification}</div>
+					<button>수정하기</button>
+				</div>
+				<div class="menu-info-with-btn">
+					<div>${menuList.menuImage}</div>
+					<div>
+						<div class="menuName">${menuList.menuName}</div>
+						<div class="menuContent">${menuList.menuContent}</div>
+						<div class="menuPrice">${menuList.menuPrice}</div>
+					</div>
+					<div class="modify-delete">
+						<button class="menu-modify-btn-without-c">수정</button>
+						<button class="menu-delete-btn"
+							onclick="deleteMenu(${menuList.menuCode})">삭제</button>
+					</div>
+				</div>
+			</c:forEach>
+
+			<!-- 메뉴 등록 폼(메뉴분류 입력못하는 폼) -->
+			<form class="menu-form-without-c" style="display: none;">
+				<div class="menu-classification">
+					<input type="text" name="menuClassification" placeholder="메뉴분류"
+						readonly>(미리 입력되어있도록)
+				</div>
+				<div class="menu-info-with-btn">
+					<input type="file" name="menuImageFile">
+					<div>
+						<input type="text" name="menuName" placeholder="메뉴명"><br />
+						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
+						<input type="number" name="menuPrice" placeholder="메뉴가격">
+						<select name="menuStatus">
+							<option value="0">판매중</option>
+							<option value="1">솔드아웃</option>
+						</select>
+					</div>
+				</div>
+				<button type="button" class="modify-menu-btn">수정하기</button>
+				<button type="button" class="cancel-btn-without-c">취소하기</button>
+			</form>
+			<!-- 메뉴 등록 폼 -->
+			<form class="menu-form" style="display: none;">
+				<div class="menu-classification">
+					<input type="text" name="menuClassification" placeholder="메뉴분류">
+				</div>
+				<div class="menu-info-with-btn">
+					<input type="file" name="menuImageFile">
+					<div>
+						<input type="text" name="menuName" placeholder="메뉴명"><br />
+						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
+						<input type="number" name="menuPrice" placeholder="메뉴가격">
+						<select name="menuStatus">
+							<option value="0">판매중</option>
+							<option value="1">솔드아웃</option>
+						</select>
+					</div>
+				</div>
+				<button type="button" class="insert-menu-btn">등록하기</button>
+				<button type="button" class="cancel-btn">취소하기</button>
+			</form>
+			<div class="add-menu">+</div>
+		</div>
+		<!-- 가게 정보 나오는 탭 -->
+		<div class="store-info-tab">
+			<div class="info-sub-tab-with-btn">
+				<div class="info-sub-tab">
+					<div class="store-description">
+						<div>가게소개</div>
+						<div>${readStore.storeDescription}</div>
+					</div>
+					<div class="operating-time">
+						<div>운영시간</div>
+						<div>${readStore.operatingTime}</div>
+					</div>
+					<div class="seller-info">
+						<div>사업자정보</div>
+						<div class="seller-info-sub">
+							<div class="seller-name">
+								<div>대표자명</div>
+								<div>${readSeller.sellerName}</div>
+							</div>
+							<div class="store-address">
+								<div>매장주소</div>
+								<div>${readStore.storeAddress}</div>
+							</div>
+							<div class="seller-regcode">
+								<div>사업자등록번호</div>
+								<div>${readSeller.sellerRegCode}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<button class="store-info-modify-btn" onclick="modifyStoreInfo(${readSeller.sellerCode}, ${readStore.storeCode})">수정하기</button>
+			</div>
+		</div>
+		<!-- 리뷰 리스트 나오는 탭 -->
+		<div class="store-review-tab">
+			<!--<c:forEach items="${reviewList}" var="review-list">
+			</c:forEach> -->
+				<div class="review-answer">
+					<div>(닉네임)</div>
+					<div><!-- ${review-list.reviewRating} --></div>
+					<div>주문메뉴 : (메뉴명)</div>
+					<div><!-- ${review-list.reviewContent} -->
+					<div>리뷰등록날짜</div>
+					<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
+						<form class="reply-form" style="display: none;">
+						<textarea placeholder="답글 내용을 입력해주세요" rows="5" cols="30"></textarea>
+							<button type="button" class="insert-answer-btn">등록</button>
+						</form>
+					</div>
+					<button class="active-reply-form-btn">답글달기</button>
+					<!-- 답글이 생기면 답글달기 버튼 사라지고 수정 삭제 버튼 생성-->
+					<button class="reply-modify-btn" style="display: none">수정</button>
+					<button class="reply-delete-btn" style="display: none">삭제</button>
+					<button class="cancel-btn" style="display: none">취소</button>
+				</div>
+		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>

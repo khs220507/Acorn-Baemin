@@ -53,6 +53,7 @@ public class SellerHomeController {
 			storeImage.transferTo(new File(storeRealImage)); 
 			
 			//db에 넣기
+
 			String storeImageName = storeName+fileName;
 			StoreDTO store = new StoreDTO(0, 20001, storeName, storeCategory, storeImageName, storeAddress, storePhone, 0, 0, 0, null, minOrderPrice, deliveryFee, null, deliveryArea, 0);
 			rep.insertStore(store);
@@ -81,7 +82,9 @@ public class SellerHomeController {
 	public void updateStore(String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
 	
 		String fileName  = upstoreImage.getOriginalFilename();
+
 		String storeRealImage = fileDir +upstoreName+fileName ; // c:\\test\\upload\\고양이.jpg
+
 		String storeImageName = upstoreName+fileName;
 		if(!upstoreImage.isEmpty()) {
 			

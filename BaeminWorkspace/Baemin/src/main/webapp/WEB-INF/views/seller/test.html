@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <ul>
+        <li class="menu-tab">메뉴</li>
+        <li class="info-tab">정보</li>
+        <li class="review-tab">리뷰</li>
+    </ul>
+    <div class="menu-sub-tab">
+        메뉴리스트
+    </div>
+    <div class="store-info-tab">
+        가게 정보
+    </div>
+    <div class="store-review-tab">
+        가게 리뷰
+    </div>
+    <script>
+        let menuTab = document.querySelector('.menu-tab');
+        let infoTab = document.querySelector('.info-tab');
+        let reviewTab = document.querySelector('.review-tab');
+
+    // 서브탭 요소 정의
+        let menuSubTab = document.querySelector('.menu-sub-tab');
+        let infoSubTab = document.querySelector('.store-info-tab');
+        let reviewSubTab = document.querySelector('.store-review-tab');
+
+    // 각 탭을 클릭했을 때 동작 정의
+        menuTab.addEventListener('click', function() {
+        menuSubTab.style.display = 'block';
+        infoSubTab.style.display = 'none';
+        reviewSubTab.style.display = 'none';
+    });
+
+        infoTab.addEventListener('click', function() {
+        infoSubTab.style.display = 'block';
+        menuSubTab.style.display = 'none';
+        reviewSubTab.style.display = 'none';
+    });
+
+    reviewTab.addEventListener('click', function() {
+        reviewSubTab.style.display = 'block';
+        menuSubTab.style.display = 'none';
+        infoSubTab.style.display = 'none';
+    });
+    </script>
+</body>
+</html>

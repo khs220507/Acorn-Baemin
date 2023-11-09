@@ -219,10 +219,10 @@ CREATE TABLE review_tbl (
     menuCode int,
     userCode int,
     storeCode int,
-    reviewImage VARCHAR(20) NOT NULL,
-    reviewDate DATE NOT NULL,
-    reviewRating INT NOT NULL,
-    reviewContent VARCHAR(300) NOT NULL,
+    reviewImage VARCHAR(20),
+    reviewDate DATE,
+    reviewRating INT,
+    reviewContent VARCHAR(300),
    FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
@@ -276,6 +276,8 @@ INSERT INTO address_tbl (userCode, deliveryAddress) VALUES
 
 
 commit;
+
+select * from review_tbl;
 
 
 -- Drop all tables

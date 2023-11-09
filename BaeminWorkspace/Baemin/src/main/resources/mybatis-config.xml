@@ -28,7 +28,10 @@
 			type="com.acorn.baemin.domain.AddressDTO" />
 		<typeAlias alias="ZzimStoreDTO"
 			type="com.acorn.baemin.domain.ZzimStoreDTO" />
+		
 
-			
+
+
 	</typeAliases>
 </configuration>
+
