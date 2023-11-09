@@ -279,7 +279,7 @@ margin: 0 auto;
 		       window.location.reload();
 		   });
 		   
-		   function updateStore(element ) {
+		   function updateStore(element) {
 			   let formData = new FormData(element.closest('#updateForm'));
 			   		$.ajax({
 			   			type : "POST",

@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MenuDTO {
 
-	int menuCode;
+	Integer menuCode;
 	String menuName;
-	int menuPrice;
+	Integer menuPrice;
 	String menuImage;
 	String menuContent;
 	String menuClassification;
-	int menuStatus;
+	Integer menuStatus;
 }
