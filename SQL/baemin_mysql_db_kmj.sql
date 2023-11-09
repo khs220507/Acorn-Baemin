@@ -80,6 +80,10 @@ INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAd
 (20004, 'Tasty Tacos', 'Mexican', 'https://example.com/tacos.jpg', '555 Pine St, County, Country', '555-444-5555', 28, 12, 4.1, 'Savor the flavors of Mexico with our delicious tacos.', 18, 2, '12:00 PM - 9:00 PM', 'County Area', 1),
 (20005, 'Asian Delights', 'Asian', 'https://example.com/asian.jpg', '777 Cedar St, Town, Country', '555-555-6666', 42, 20, 4.3, 'Explore the diverse flavors of Asia at our restaurant.', 25, 3, '10:30 AM - 10:00 PM', 'Town Area', 1);
 
+INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus) 
+VALUES (20001, 'Delicious Gorgonzola Pizza', 'Pizza', 'https://example.com/gorgonzola_pizza.jpg', '456 Oak St, City, Country', '555-333-4444', 30, 10, 4.2, 'Welcome to Delicious Gorgonzola Pizza! Try our special Gorgonzola pizza with a unique blend of flavors.', 18, 2.5, '11:00 AM - 9:00 PM', 'City Area', 1);
+
+
 INSERT INTO store_tbl
 		(sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, minOrderPrice, deliveryFee, deliveryArea)
 		VALUES
@@ -88,32 +92,37 @@ ALTER TABLE store_tbl
 MODIFY operatingTime VARCHAR(50),
 MODIFY storeStatus TINYINT default 0;
 
-
-
+select * from store_tbl;
 
 
 -- 04 태민 menu_tbl;
 
 CREATE TABLE menu_tbl (
   menuCode INT AUTO_INCREMENT PRIMARY KEY,     	-- 메뉴코드
+  storeCode INT, 								-- 매장코드
   menuName VARCHAR(50) NOT NULL,        	-- 메뉴이름
   menuPrice INT default 0,                     	-- 메뉴가격
   menuImage VARCHAR(50),      			-- 메뉴사진
   menuContent TEXT NOT NULL,           		-- 메뉴설명
   menuClassification VARCHAR(50) NOT NULL, 	-- 메뉴분류
-  menuStatus TINYINT NOT NULL           	-- 메뉴상태(0:open, 1:sold out)
+  menuStatus TINYINT NOT NULL,           	-- 메뉴상태(0:open, 1:sold out)
+  foreign key (storeCode) references store_tbl(storeCode)
 ) auto_increment = 40001;
 
-INSERT INTO menu_tbl (menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus) VALUES
-('Margherita Pizza', 10, 'pizza_margherita.jpg', 'Classic pizza with tomato, mozzarella, and basil.', 'Pizza', 0),
-('Sushi Combo', 20, 'sushi_combo.jpg', 'A combination of fresh sushi rolls and sashimi.', 'Sushi', 0),
-('Bacon Cheeseburger', 8, 'bacon_cheeseburger.jpg', 'Juicy burger with bacon and melted cheese.', 'Burgers', 0),
-('Taco Platter', 12, 'taco_platter.jpg', 'A platter of assorted tacos with your choice of fillings.', 'Mexican', 0),
-('Pad Thai', 15, 'pad_thai.jpg', 'A classic Thai dish with stir-fried noodles, shrimp, and vegetables.', 'Asian', 0);
+INSERT INTO menu_tbl (storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus) VALUES
+(30001,'Margherita Pizza', 10, 'pizza_margherita.jpg', 'Classic pizza with tomato, mozzarella, and basil.', 'Pizza', 0),
+(30002,'Sushi Combo', 20, 'sushi_combo.jpg', 'A combination of fresh sushi rolls and sashimi.', 'Sushi', 0),
+(30003,'Bacon Cheeseburger', 8, 'bacon_cheeseburger.jpg', 'Juicy burger with bacon and melted cheese.', 'Burgers', 0),
+(30004,'Taco Platter', 12, 'taco_platter.jpg', 'A platter of assorted tacos with your choice of fillings.', 'Mexican', 0),
+(30005,'Pad Thai', 15, 'pad_thai.jpg', 'A classic Thai dish with stir-fried noodles, shrimp, and vegetables.', 'Asian', 0);
 
+INSERT INTO menu_tbl (storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus) 
+VALUES (30006,'Gorgonzola Pizza', 12, 'gorgonzola_pizza.jpg', 'Pizza made with tomato sauce, mozzarella cheese, and gorgonzola cheese.', 'Pizza', 0);
 
+INSERT INTO menu_tbl (storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus) 
+VALUES (30006,'normal Pizza', 12, 'normal_pizza.jpg', 'Pizza made with tomato sauce, mozzarella cheese, and gorgonzola cheese.', 'Pizza', 0);
 
-
+select * from menu_tbl;
 
 -- 05. 옵션 option_tbl
 create table option_tbl (
