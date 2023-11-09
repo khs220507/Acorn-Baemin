@@ -3,24 +3,55 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.SellerMapper">
 
-	<!-- 메뉴 전체 조회 -->
-	<select id="selectMenuInfo" resultType="MenuDTO" parameterType="int">
-		SELECT menuName, menuPrice, menuImage, menuContent, menuClassification FROM menu_tbl
+	<!-- 메뉴 분류 조회(중복제거) -->
+	<select id="selectMenuClassification" resultType="MenuDTO" parameterType="int">
+		SELECT DISTINCT menuClassification FROM menu_tbl
 	</select>
 
-	<!-- 매장정보 일부조회1 -->
-	<select id="selectStoreSubInfo1" resultType="StoreDTO" parameterType="int">
-		SELECT storeName, storeRating, reviewCount, minOrderPrice FROM store_tbl WHERE storeCode=#{storeCode}
+	<!-- 메뉴 전체 조회 -->
+	<select id="selectAllMenuInfo" resultType="MenuDTO" parameterType="int">
+		SELECT * FROM menu_tbl
+	</select>
+
+	<!-- 메뉴 분류 수정 -->
+	<update id="updateMenuClassification" parameterType="MenuDTO">
+		UPDATE menu_tbl
+		SET menuClassification = #{menuClassification}
+		WHERE menuCode = #{menuCode}
+	</update>
+	
+	<!-- 메뉴 등록 -->
+	<insert id="insertMenu" parameterType="MenuDTO">
+		INSERT INTO menu_tbl
+		(menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
+		VALUES
+		(#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
+	</insert>
+	
+	<!-- 메뉴 수정 -->
+	<update id="updateMenu" parameterType="MenuDTO">
+		UPDATE menu_tbl
+		SET menuName = #{menuName},
+		menuPrice = #{menuPrice},
+		menuImage = #{menuImage},
+		menuContent = #{menuContent},
+		menuStatus = #{menuStatus}
+		WHERE menuCode = #{menuCode}
+	</update>
+	
+	<!-- 메뉴 삭제 -->
+	<delete id="deleteMenu" parameterType="int">
+		DELETE FROM menu_tbl WHERE menuCode=#{menuCode}
+	</delete>
+	
+	<!-- 매장정보 조회 -->
+	<select id="selectStoreInfo" resultType="StoreDTO" parameterType="int">
+		SELECT * FROM store_tbl WHERE storeCode=#{storeCode}
 	</select>
 	
-	<!-- 매장정보 일부조회2 -->
-	<select id="selectStoreSubInfo2" resultType="StoreDTO" parameterType="int">
-		SELECT storeDescription, operatingTime, storeAddress FROM store_tbl WHERE storeCode=#{storeCode}
-	</select>
-	
-	<!-- 사장님정보 일부조회 -->
-	<select id="selectSellerSubInfo" resultType="SellerDTO" parameterType="int">
-		SELECT sellerName, sellerRegCode FROM seller_tbl WHERE sellerCode=#{sellerCode}
+	<!-- 사장님정보 조회 -->
+	<select id="selectSellerInfo" resultType="SellerDTO" parameterType="int">
+		SELECT * FROM seller_tbl WHERE sellerCode=#{sellerCode}
 	</select>
 	
 	<!-- 매장정보 일부수정 -->

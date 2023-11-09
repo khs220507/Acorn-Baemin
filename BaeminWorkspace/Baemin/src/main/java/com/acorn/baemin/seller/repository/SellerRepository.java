@@ -23,33 +23,56 @@ public class SellerRepository implements SellerRepositoryI {
 
 	// 태민
 	// 메뉴 탭
+	// 메뉴 분류 조회(중복제거)
+	@Override
+	public List<MenuDTO> selectMenuClassification() {
+		System.out.println("selectMenuClassification @repo");
+		return session.selectList(namespaceSeller + "selectMenuClassification");
+	}
 	// 메뉴 전체 조회
 	@Override
 	public List<MenuDTO> selectAllMenuInfo() {
-		System.out.println("selectMenuInfo @repo");
-		return session.selectList(namespaceSeller + "selectMenuInfo");
+		System.out.println("selectAllMenuInfo @repo");
+		return session.selectList(namespaceSeller + "selectAllMenuInfo");
+	}
+	// 메뉴 분류 수정
+	@Override
+	public int updateMenuClassification(String menuClassification) {
+		System.out.println("updateMenuClassification @repo");
+		return session.update(namespaceSeller + "updateMenuClassification", menuClassification);
+	}
+	// 메뉴 등록
+	@Override
+	public int insertMenu(MenuDTO menu) {
+		System.out.println("insertMenu @repo");
+		return session.insert(namespaceSeller + "insertMenu", menu);
+	}
+	// 메뉴 수정
+	@Override
+	public int updateMenu(MenuDTO menu) {
+		System.out.println("updateMenu @repo");
+		return session.update(namespaceSeller + "updateMenu", menu);
+	}
+	// 메뉴 삭제
+	@Override
+	public int deleteMenu(Integer menuCode) {
+		System.out.println("deleteMenu @repo");
+		return session.delete(namespaceSeller + "deleteMenu", menuCode);
 	}
 	// 매장정보 탭
-	// 매장정보 일부조회1(매장이름, 매장평점, 리뷰수, 최소주문금액)
+	// 매장정보 조회
 	@Override
-	public StoreDTO selectStoreSubInfo1(int storeCode) {
+	public StoreDTO selectStoreInfo(int storeCode) {
 		System.out.println("storeCode @repo : " + storeCode);
-		System.out.println("selectStoreSubInfo1 @repo");
-		return session.selectOne(namespaceSeller + "selectStoreSubInfo1", storeCode);
+		System.out.println("selectStoreInfo @repo");
+		return session.selectOne(namespaceSeller + "selectStoreInfo", storeCode);
 	}
-	// 매장정보 일부조회2(가게소개, 운영시간, 매장주소)
+	// 사장님정보 조회
 	@Override
-	public StoreDTO selectStoreSubInfo2(int storeCode) {
-		System.out.println("storeCode @repo : " + storeCode);
-		System.out.println("selectStoreSubInfo2 @repo");
-		return session.selectOne(namespaceSeller + "selectStoreSubInfo2", storeCode);
-	}
-	// 사장님정보 일부조회(이름, 사업자등록번호)
-	@Override
-	public SellerDTO selectSellerSubInfo(int sellerCode) {
+	public SellerDTO selectSellerInfo(int sellerCode) {
 		System.out.println("sellerCode @repo : " + sellerCode);
-		System.out.println("selectSellerSubInfo @repo");
-		return session.selectOne(namespaceSeller + "selectSellerSubInfo", sellerCode);
+		System.out.println("selectSellerInfo @repo");
+		return session.selectOne(namespaceSeller + "selectSellerInfo", sellerCode);
 	}
 	// 매장정보 일부수정(가게소개, 운영시간, 매장주소)
 	@Override
@@ -72,22 +95,23 @@ public class SellerRepository implements SellerRepositoryI {
 	}
 	// 답변 등록
 	@Override
-	public int insertAnswer(String AnswerContent) {
+	public int insertAnswer(String answerContent) {
 		System.out.println("insertAnswer @repo");
-		return session.insert(namespaceAnswer + "insertAnswer", AnswerContent);
+		return session.insert(namespaceAnswer + "insertAnswer", answerContent);
 	}
 	// 답변 수정
 	@Override
-	public int updateAnswer(String AnswerContent) {
+	public int updateAnswer(String answerContent) {
 		System.out.println("updateAnswer @repo");
-		return session.update(namespaceAnswer + "updateAnswer", AnswerContent);
+		return session.update(namespaceAnswer + "updateAnswer", answerContent);
 	}
 	// 답변 삭제
 	@Override
-	public int deleteAnswer(int AnswerCode) {
+	public int deleteAnswer(int answerCode) {
 		System.out.println("deleteAnswer @repo");
-		return session.delete(namespaceAnswer + "deleteAnswer", AnswerCode);
+		return session.delete(namespaceAnswer + "deleteAnswer", answerCode);
 	}
+
 
 
 

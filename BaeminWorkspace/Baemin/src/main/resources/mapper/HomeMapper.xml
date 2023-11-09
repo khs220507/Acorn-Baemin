@@ -4,50 +4,67 @@
 
 <mapper namespace="com.acorn.HomeMapper">
 
-    
-<!-- 찜관련 -->
-    
-    <!-- 찜 조회 -->
-    <select id="zzimSelectAll" resultType="ZzimStoreDTO" parameterType="int">
-        SELECT *
-        FROM zzim_tbl z
-        JOIN store_tbl s
-        ON z.storeCode = s.storeCode 
-        WHERE userCode = #{userCode}
-    </select>
-    
-     <!-- 찜 삭제 -->
-	 <delete id="zzimDelete" parameterType="int">
-	 	Delete
-	 	From zzim_tbl
-	 	WHERE userCode = #{userCode} AND storeCode = #{storeCode}
-	 </delete>
-    
- 
- <!-- 주문내역 관련 -->
- 	<!-- 주문내역 조회 -->
-    <select id="orderSelectAll" resultType="OrderDTO" parameterType="int">
-    	SELECT *
-        FROM order_tbl
-        WHERE userCode = #{userCode}
-        ORDER BY orderDate DESC, orderNumber DESC
-    </select>
-    
-    	<!-- 주문내역 삭제 -->
-    <delete id="orderDelete" parameterType="int">
-    	Delete 
-        FROM order_tbl
-        WHERE orderNumber = #{orderNumber}
-    </delete>
-   
-   
-   
-<!-- 주문 상세내역 관련 -->
+	<!-- 검색 관련 -->
+	<!-- 검색 -->
+	<select id="searchStoresAndMenus" resultType="StoreDTO"
+		parameterType="String">
+
+	SELECT DISTINCT  * FROM store_tbl JOIN menu_tbl ON
+    store_tbl.storeCode = menu_tbl.storeCode
+    WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER(#{searchTerm}), ' ', ''), '%') OR
+    REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
+
+	</select>
+
+	<!-- 찜관련 -->
+
+	<!-- 찜 조회 -->
+	<select id="zzimSelectAll" resultType="ZzimStoreDTO"
+		parameterType="int">
+		SELECT *
+		FROM zzim_tbl z
+		JOIN store_tbl s
+		ON z.storeCode =
+		s.storeCode
+		WHERE userCode = #{userCode}
+	</select>
+
+	<!-- 찜 삭제 -->
+	<delete id="zzimDelete" parameterType="int">
+		Delete
+		From zzim_tbl
+		WHERE
+		userCode = #{userCode} AND storeCode = #{storeCode}
+	</delete>
+
+
+	<!-- 주문내역 관련 -->
+	<!-- 주문내역 조회 -->
+	<select id="orderSelectAll" resultType="OrderDTO"
+		parameterType="int">
+		SELECT *
+		FROM order_tbl
+		WHERE userCode = #{userCode}
+		ORDER
+		BY orderDate DESC, orderNumber DESC
+	</select>
+
+	<!-- 주문내역 삭제 -->
+	<delete id="orderDelete" parameterType="int">
+		Delete
+		FROM order_tbl
+		WHERE orderNumber = #{orderNumber}
+	</delete>
+
+
+
+	<!-- 주문 상세내역 관련 -->
 	<!-- 주문상세내역 조회 -->
- 	<select id="orderDetailSelect" resultType="OrderDTO" parameterType="int">
-    	SELECT *
-    	from order_tbl
-    	WHERE orderNumber = #{orderNumber}
-    </select>
-    
+	<select id="orderDetailSelect" resultType="OrderDTO"
+		parameterType="int">
+		SELECT *
+		from order_tbl
+		WHERE orderNumber = #{orderNumber}
+	</select>
+
 </mapper>
