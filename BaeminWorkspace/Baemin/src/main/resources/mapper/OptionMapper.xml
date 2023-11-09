@@ -14,37 +14,44 @@
 		where menuCode  = #{menuCode}
 	</select>
   
-<!--<insert id="insertStore" parameterType="StoreDTO">
-		INSERT INTO store_tbl 
-		(sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, minOrderPrice, deliveryFee, deliveryArea)
+	<insert id="insertOption" parameterType="OptionDTO">
+		INSERT INTO option_tbl 
+		(menuCode,optionCategory, optionName, optionPrice, optionSelectType)
 		VALUES 
-		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
+		( #{menuCode}, #{optionCategory}, #{optionName}, #{optionPrice}, #{optionSelectType})
 	</insert>
 	
-	<delete id="deleteStore" parameterType="String"> 
-        DELETE FROM store_tbl WHERE storeCode = #{storeCode} 
-    </delete >   
+	<delete id="deleteOption" parameterType="String"> 
+        DELETE FROM option_tbl WHERE optionCode = #{optionCode} 
+    </delete >  
     
-   	<select id="updateSellerStore" resultType="StoreDTO" parameterType="String">
-		SELECT *
-		FROM store_tbl
-		where storeCode = #{storeCode}
-	</select>
+    	<delete id="deleteOptionCategory" parameterType="OptionDTO"> 
+        DELETE FROM option_tbl WHERE optionCategory = #{optionCategory}  AND menuCode= #{menuCode};
+    </delete >  
+    
+ 	<select id="getCategoryAndSelectType" resultType="OptionDTO" parameterType="String">
+		SELECT DISTINCT optionCategory, optionSelectType 
+		from option_tbl 
+		where menuCode = #{menuCode};
+	</select> 
 	
-    <update id="updateStore" parameterType="StoreDTO">
-	    UPDATE store_tbl
+    <update id="updateOption" parameterType="OptionDTO">
+	    UPDATE option_tbl
 	    SET
-	        storeName = #{storeName},
-	        storeCategory = #{storeCategory},
-	        storeImage = #{storeImage},
-	        storeAddress = #{storeAddress},
-	        storePhone = #{storePhone},
-	        minOrderPrice = #{minOrderPrice},
-	        deliveryFee = #{deliveryFee},
-	        deliveryArea = #{deliveryArea}
+	        optionName = #{optionName},
+	        optionPrice = #{optionPrice}
 	    WHERE
-	        storeCode = #{storeCode}
-	</update> -->
+	        optionCode = #{optionCode}
+	</update>
+	
+	    <update id="updateOptionCategory" parameterType="OptionDTO">
+	    UPDATE option_tbl
+	    SET
+	        optionCategory = #{optionName}
+	    WHERE
+	        optionCategory = #{optionCategory} and
+	        menuCode = #{menuCode}
+	</update>
      
 	
 
