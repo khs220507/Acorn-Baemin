@@ -5,31 +5,32 @@ import org.springframework.stereotype.Service;
 
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.login.repository.LoginRepository;
 import com.acorn.baemin.login.repository.LoginRepositoryI;
 
 @Service
 public class LoginService {
 
-    @Autowired
-    private LoginRepositoryI loginRepositoryi;
+//    @Autowired
+//    private LoginRepositoryI loginRepositoryi;
+	
+	@Autowired
+	private LoginRepository loginRepository;
 
-    //ï¿½Õ´ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
-    public UserDTO login(String userId, String userPw) {
+    //¼Õ´Ô ·Î±×ÀÎ
+    public UserDTO loginCustomer(String userId, String userPw) {
         try {
-        	System.out.println("ì„œë¹„ìŠ¤ : " + userId);
-            return loginRepositoryi.login(userId, userPw);
-            
+            return loginRepository.login(userId, userPw);
             
         } catch (Exception e) {
-        	
             e.printStackTrace();
             return null;
         }
     }
-    //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
-    public SellerDTO login2(String sellerId, String sellerPw) {
+    //»çÀå´Ô ·Î±×ÀÎ
+    public SellerDTO loginSeller(String sellerId, String sellerPw) {
         try {
-            return loginRepositoryi.loginseller(sellerId, sellerPw);
+            return loginRepository.loginseller(sellerId, sellerPw);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

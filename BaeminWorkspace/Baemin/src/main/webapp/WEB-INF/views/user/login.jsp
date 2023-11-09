@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 
 <!DOCTYPE html>
@@ -202,22 +203,13 @@ function login() {
         alert("로그인 유형을 선택해 주세요. (손님 또는 사장님).");
     }
     
-    // enter누를 시 click과 같은 효과
-    document. getElementById("loginButton").addEventListener("keydown", function(event){
-    	if(event.key === "Enter"){
-    		login();
-    	}
+ // Enter 키 누를 시 로그인 button click과 같은 효과
+    document.getElementById("loginButton").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            login();
+        }
     });
  
-//	 const form = document.getElementById("loginForm");    	 
-    
-// 	if(logintype === "customer"){
-// 		form.action = "${path}/login";
-// 		form.submit();
-// 	} else if(logintype === "seller"){
-// 		form.action = "${path}/login2";
-// 		form.submit();
-// 	}
     
 }
 </script>
@@ -229,7 +221,18 @@ function login() {
 
 	<section>
 		<div class="container">
-
+<div id="header-links">
+    <c:choose>
+        <c:when test="${empty sessionScope.user}">
+            <!-- 사용자가 로그아웃 상태인 경우 -->
+            <a href="${path}/login">로그인</a>
+        </c:when>
+        <c:otherwise>
+            <!-- 사용자가 로그인 상태인 경우 -->
+            <a href="${path}/logout">로그아웃</a>
+        </c:otherwise>
+    </c:choose>
+</div>
 			<!-- 로그인 폼 -->
 			<form class="login-form" action="${path}/login" method="post"  id="loginForm">
 
@@ -239,9 +242,9 @@ function login() {
 				</div>
 				<div class="options"> 
 					<label class="optlab1">
-						<input type="radio" name="logintype" value="customer"  >손님</label> 
+						<input type="radio" name="logintype" value="customer">손님</label> 
 					<label class="optlab2">
-						<input type="radio" name="logintype" value="seller"  >사장님</label>	
+						<input type="radio" name="logintype" value="seller">사장님</label>	
 				</div>
 
 				<span></span> 
@@ -264,14 +267,13 @@ function login() {
 					<a href="${path}/select_signup">회원가입</a>
 				</p>
 
-				<input type="button" id="loginButton" value="로그인" onclick="login()">
+				<input type="button" id="loginForm" value="로그인" onclick="login()">
 
 				<div class="kakao">
 					<label class="kakao_login">
 					<input type="radio" name="option" value="kakao">카카오로 간편 로그인</label>
 				</div>
 			</form>
-
 
 			<p>
 				<a href="${path}/home">홈으로 돌아가기</a>

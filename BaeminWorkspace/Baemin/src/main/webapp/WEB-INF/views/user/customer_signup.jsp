@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
@@ -73,7 +73,7 @@ p {
 	color: #555;
 }
 
-.signup-form {
+.signup-div {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
@@ -205,6 +205,59 @@ footer {
 	
 }
 </style>
+
+<script>
+
+// 손님 회원가입 부분 ajax. id 값을 가져옴.
+function signup() {
+	
+	let userId = $("#userId").val();
+   	let userPw = $("#userPw").val();
+   	let confirmPassword = $("#confirmPassword").val();
+   	let userName = $("#userName").val();   	
+   	let userNickname = $("#userNickname").val();
+   	let userPhone = $("#userPhone").val();
+   	let userEmail = $("#userEmail").val();
+   	let userBirth = $("#userBirth").val();
+   	let userGender = $('input[name=option]:checked').val();
+   	let userPostCode = $("#postCode").val();
+   	let userAddress = $("#userAddress").val();
+   	let userAddressDetail = $("#userAddressdetail").val();
+   	if(confirmPassword == userPw ) {
+   	let info = {userId :userId,
+   	 userPw :userPw,
+  	 userName :userName,	
+	 userNickname :userNickname,
+	 userPhone :userPhone,
+   	 userEmail :userEmail,
+   	 userBirth :userBirth,
+   	 userGender :userGender,
+   	 userPostCode :userPostCode,
+   	 userAddress :userAddress,
+   	 userAddressDetail :userAddressDetail};
+   	
+   	let infos = JSON.stringify(info);
+   	
+		$.ajax({
+			type : "POST",
+			url : "/baemin/customer_signup",
+			data : infos,
+			contentType : "application/json", // 필수
+			success : function(data) {
+				alert("가입축하 q(≧▽≦q)");
+				
+				 window.location.href = "http://localhost:8090/baemin/home";
+			},
+			error : function() {
+				alert("error");
+			}
+			});
+	}
+}
+
+</script>
+
+
 </head>
 
 <body>
@@ -216,56 +269,61 @@ footer {
 		<div class="container">
 
 			<!-- 회원가입 폼 -->
-			<form class="signup-form" action="${path}/customer_signup" method="post">
+			<div class="signup-div">
 			
 				<div class="signup-title">
-					<h1>회원가입</h1>
+					<h1>손님 회원가입</h1>
 				</div>
 
 				<span class="input-container-id"> 
-					<input type="text"id="userId" placeholder="아이디" class="vertical-center">
+					<input type="text" id="userId" name="userId" placeholder="아이디" class="vertical-center">
 					<button id="checkDuplicate">중복확인</button>
 				</span> <br> 
+				
 				<span> 
-				<input type="password" id="password" name="password" placeholder="비밀번호" class="vertical-center">
+				<input type="password" id="userPw" name="userPw" placeholder="비밀번호" class="vertical-center">
 				</span> <br> 
-				<span> <input type="password" id="confirmPassword" placeholder="비밀번호 확인" class="vertical-center">
+				<span> <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" class="vertical-center">
 				</span> <br> 
-				<span> <input type="text" name="userName" placeholder="이름" class="vertical-center">
+				<span> <input type="text" id="userName" placeholder="이름" class="vertical-center">
 				</span> <br> 
-				<span> <input type="text" name="userNickname" placeholder="닉네임" class="vertical-center">
+				<span> <input type="text" id="userNickname" placeholder="닉네임" class="vertical-center">
 				</span> <br> 
-				<span> <input type="tel" name="userPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center">
+				<span> <input type="tel" id="userPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center">
 				</span> <br> 
-				<span> <input type="email" name="userEmail" placeholder="이메일" class="vertical-center">
+				<span> <input type="email" id="userEmail" placeholder="이메일" class="vertical-center">
 				</span> <br> 
-				<span> <input type="date" name="userBirth" placeholder="생년월일 8자리" class="vertical-center">
+				<span> <input type="date" id="userBirth" placeholder="생년월일 8자리" class="vertical-center">
 				</span>
+				
 				<div class="options">
-					<label class="optlab1"><input type="radio" name="option"
-						value="buyer"> 남</label> <label class="optlab2"><input
-						type="radio" name="option" value="seller"> 여</label>
-				</div>
-				<br> <span class="input-container-address"> <input
-					type="text" id="houseAddress" placeholder="우편번호"
-					class="vertical-center"> <span
-					class="input-container-address-button"></span> <input type="button"
-					value="우편번호 찾기" class="vertical-center" style="width: 100px;">
-				</span> <br> <span> <input type="text" name="userAddress"
-					placeholder="주소" class="vertical-center">
-				</span> <br> <span> <input type="text" name="userAddressdetail"
-					placeholder="상세주소" class="vertical-center">
-				</span> <br> <input type="submit" value="회원가입">
+					<label class="optlab1"><input type="radio" name="option" id="maleOption" value="0">남</label> 
+					<label class="optlab2"><input type="radio" name="option" id="femaleOption" value="1">여</label>					
+				</div> <br>		
+				 
+				<span class="input-container-address"> 
+				<input type="text" id="postCode" name="postCode" placeholder="우편번호" class="vertical-center"> 
+				<span class="input-container-address-button">
+				</span> 
+				<input type="button" value="우편번호 찾기" class="vertical-center" style="width: 100px;">
+				</span> <br> 
+				<span> 
+				<input type="text" id="userAddress" placeholder="주소" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="text" id="userAddressdetail"	placeholder="상세주소" class="vertical-center">
+				</span> <br>
+				<button onclick="signup()" value="회원가입">회원가입</button>
 
-			</form>
+			</div>
 
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+			<p>	<a href="${path}/home">홈으로 돌아가기</a> </p>
 		</div>
 
 	</section>
-	<footer> </footer>
+	<footer> 
+	
+	</footer>
 
 
 </body>

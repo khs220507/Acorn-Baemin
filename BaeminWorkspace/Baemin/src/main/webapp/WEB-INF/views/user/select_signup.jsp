@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Result</title>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 * {
 	margin: 0;
@@ -122,9 +124,9 @@ input[type="button"] {
 				</div>
 
 				<input type="button" name="signupType" value="소비자 회원가입"
-					onclick="${path}/customer_signup'">
+					onclick="location.href='${path}/customer_signup'">
 				<input type="button" name="signupType" value="사장님 회원가입"
-					onclick="${path}/seller_signup'">
+					onclick="location.href='${path}/seller_signup'">
 
 			</form>
 			<p>

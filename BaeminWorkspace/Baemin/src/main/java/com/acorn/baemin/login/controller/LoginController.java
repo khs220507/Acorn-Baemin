@@ -1,16 +1,11 @@
 package com.acorn.baemin.login.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
-
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +18,6 @@ import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.login.repository.LoginRepositoryI;
 import com.acorn.baemin.login.service.LoginService;
 
-
 @Controller
 public class LoginController {
 
@@ -33,42 +27,35 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;	
 
-	//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//·Î±×ÀÎ º¸³»±â
 	@GetMapping("/login")
 	public String login() {
 		return "user/login";
 	}
 	
-	//ï¿½Õ´ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+	//¼Õ´Ô ·Î±×ÀÎ ÀÔ·Â Á¤º¸ ¹Þ¾Æ¿À±â
 	@PostMapping("/login")
-	public String processLogin(String userId, String userPw, Model model, String logintype, HttpServletRequest request) {
+	public String processLogin(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		System.out.println(userId + userPw + logintype);
-		UserDTO user = loginService.login(userId, userPw);
+		UserDTO user = loginService.loginCustomer(userId, userPw);
 		if (user != null) {
-			
-			HttpSession session = request.getSession();
-			
-			UserDTO userCode = rep.selectUserCode(userId);
-			
-			session.setAttribute("userCode", userCode);
-			
-			System.out.println("ì»¨íŠ¸ë¡¤ëŸ¬ : " +  session.getAttribute("userCode"));
-			
+			session.setAttribute("userCode", user.getUserCode());
 			return "redirect:/home";
 		} else {
-			model.addAttribute("message", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
+			model.addAttribute("message", "·Î±×ÀÎ ½ÇÆÐ. ·Î±×ÀÎ À¯Çü°ú °èÁ¤ Á¤º¸¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
 			return "user/login";			
 		}
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+	//»çÀå´Ô ·Î±×ÀÎ ÀÔ·Â Á¤º¸ ¹Þ¾Æ¿À±â
 	@PostMapping("/login2")
-	public String processLogin2(String userId, String userPw, Model model, String logintype) {
-		SellerDTO seller = loginService.login2(userId, userPw);
+	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
+		SellerDTO seller = loginService.loginSeller(userId, userPw);
 		if (seller != null) {
+			session.setAttribute("user", seller.getSellerCode());
 			return "redirect:/home";
 		} else {
-			model.addAttribute("message", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
+			model.addAttribute("message", "·Î±×ÀÎ ½ÇÆÐ. ·Î±×ÀÎ À¯Çü°ú °èÁ¤ Á¤º¸¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
 			return "user/login";			
 		}
 	}

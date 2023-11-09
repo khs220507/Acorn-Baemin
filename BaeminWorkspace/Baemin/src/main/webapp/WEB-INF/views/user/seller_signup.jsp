@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -82,7 +83,7 @@ p {
 	color: #555;
 }
 
-.login-form {
+.signup-form {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
@@ -211,6 +212,52 @@ a {
 	text-align: center;
 }
 </style>
+<script>
+
+// 사장님 회원가입 부분 ajax. id 값을 가져옴.
+function signup() {
+	
+	let sellerId = $("#sellerId").val();
+   	let sellerPw = $("#sellerPw").val();
+   	let confirmPassword = $("#confirmPassword").val();
+   	let sellerName = $("#sellerName").val();   
+   	let sellerRegCode = $("#sellerRegCode").val();
+   	let sellerPhone = $("#sellerPhone").val();
+   	let sellerEmail = $("#sellerEmail").val();
+   	let sellerBirth = $("#sellerBirth").val();
+   	let sellerGender = $('input[name=option]:checked').val();
+   	
+   	if(confirmPassword == sellerPw ) {
+   		
+   	let info = {sellerId :sellerId,
+   	 sellerPw :sellerPw,
+   	 sellerName :sellerName,	
+   	 sellerRegCode :sellerRegCode,
+	 sellerPhone :sellerPhone,
+	 sellerEmail :sellerEmail,
+	 sellerBirth :sellerBirth,
+	 sellerGender :sellerGender};
+   	
+   	let infos = JSON.stringify(info);
+   	
+		$.ajax({
+			type : "POST",
+			url : "/baemin/seller_signup",
+			data : infos,
+			contentType : "application/json", // 필수
+			success : function(data) {
+				alert("가입축하 q(≧▽≦q)");
+				
+				 window.location.href = "http://localhost:8090/baemin/home";
+			},
+			error : function() {
+				alert("error");
+			}
+			});
+	}
+}
+</script>
+
 </head>
 
 <body>
@@ -222,50 +269,59 @@ a {
 
 		<div class="container">
 
-			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login"
-				method="post">
+			<!-- 회원가입 폼 -->
+			<div class="signup-form" >
+			
 				<div class="login-title">
-					<h1>회원가입</h1>
-
+					<h1>사장님 회원가입</h1>
 				</div>
 
 
-				<span class="input-container-id"> <input type="text"
-					id="userId" placeholder="아이디" class="vertical-center">
+				<span class="input-container-id"> 
+				<input type="text" id="sellerId" placeholder="아이디" class="vertical-center">
 					<button id="checkDuplicate">중복확인</button>
-				</span> <br> <span> <input type="password" name="Pw"
-					placeholder="비밀번호" class="vertical-center">
-				</span> <br> <span> <input type="password" name="Pw"
-					placeholder="비밀번호 확인" class="vertical-center">
-				</span> <br> <span> <input type="text" name="userName"
-					placeholder="이름" class="vertical-center">
-				</span> <br> <span> <input type="text" name="sellerRegCode "
-					placeholder="사업자등록번호" class="vertical-center">
-				</span> <br> <span> <input type="tel" name="userPhone"
-					placeholder="연락처('-' 없이 11자리)" class="vertical-center">
-				</span> <br> <span> <input type="email" name="userEmail"
-					placeholder="이메일" class="vertical-center">
-				</span> <br> <span> <input type="date" name="userBirth"
-					placeholder="생년월일 8자리" class="vertical-center">
+				</span> <br> 
+				
+				<span> 
+				<input type="password" id="sellerPw" placeholder="비밀번호" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="password" id="confirmPassword" placeholder="비밀번호 확인" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="text" id="sellerName" placeholder="이름" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="text" id="sellerRegCode" placeholder="사업자등록번호" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="tel" id="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="email" id="sellerEmail" placeholder="이메일" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<input type="date" id="sellerBirth" placeholder="생년월일 8자리" class="vertical-center">
 				</span>
+				
 				<div class="options">
-					<label class="optlab1"><input type="radio" name="option"
-						value="buyer"> 남</label> <label class="optlab2"><input
-						type="radio" name="option" value="seller"> 여</label>
-				</div>
-				<br> <input type="submit" value="회원가입">
+					<label class="optlab1"><input type="radio" name="option" id="maleOption" value="0">남</label> 
+					<label class="optlab2"><input type="radio" name="option" id="femaleOption" value="1">여</label>					
+				</div> <br>
+				 
+				<button onclick="signup()" value="회원가입">회원가입</button>
 
-			</form>
+			</div>
 
 
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+			<p><a href="${path}/home">홈으로 돌아가기</a></p>
 		</div>
 
 	</section>
-	<footer> </footer>
+	
+	<footer> 
+	
+	</footer>
 
 
 </body>

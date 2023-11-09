@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -209,6 +210,51 @@ a {
 	text-align: center;
 }
 </style>
+<script>
+function updateseller(){
+	let sellerCode = 20003;
+    let sellerName = $('#sellerName').val();
+    let sellerPw = $("#sellerPw").val();
+    let confirmPassword = $("#confirmPassword").val();
+    let sellerPhone = $('#sellerPhone').val();
+    let sellerEmail = $('#sellerEmail').val();
+    let sellerRegCode = $('#sellerRegCode').val();
+    
+    if (confirmPassword == sellerPw) {
+
+        let info = {sellerCode: sellerCode,
+        		sellerName: sellerName,
+        		sellerPw: sellerPw,
+        		sellerPhone: sellerPhone,
+        		sellerEmail: sellerEmail,
+        		sellerRegCode: sellerRegCode
+        };
+        let infos = JSON.stringify(info);
+
+        $.ajax({
+            type: 'POST',
+            url: '/baemin/updateSellerInfo',
+            data: infos,
+            contentType: "application/json",
+            success: function (data) {
+                alert("수정 성공 q(≧▽≦q)");
+                window.location.href = "http://localhost:8090/baemin/selectSellerInfo";
+            },
+            error: function () {
+            	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
+                $('#resultDiv').text('수정 실패');
+            }
+        });
+    }else if(confirmPassword != sellerPw){
+    	alert("비밀번호를 확인해주세요 ┑(￣Д ￣)┍");
+   	 $("#sellerPw").val("");
+     $("#confirmPassword").val("");
+    	
+    }
+};
+
+
+</script>
 </head>
 
 <body>
@@ -221,8 +267,8 @@ a {
 	<section>
 		<div class="container">
 
-			<!-- 수정 폼 -->
-			<form class="modify-form" action="${path}/home" method="post">
+			<!-- 사장님 수정 -->
+			<div class="modify-form">
 				<div class="modify-title">
 					<h1>내 정보 수정</h1>
 				</div>
@@ -232,18 +278,25 @@ a {
 				</span> 
 				<br> 
 				<span> 
-					<input type="text" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" name="sellerRegCode" placeholder="사업자 등록번호" class="vertical-center" value="${modify2.sellerRegCode}">
+					<input type="password" id="sellerPw"  placeholder="비밀번호" class="vertical-center">
+				</span> <br> 
+				<span> 
+					<input type="password" id="confirmPassword"  placeholder="비밀번호 확인" class="vertical-center">
+				</span> <br> 
+				<span> 
+				<span> 
+					<input type="text" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" id="sellerRegCode" placeholder="사업자 등록번호" class="vertical-center" value="${modify2.sellerRegCode}">
 				</span> 
 				<br> 
 				<span> 
-					<input type="tel" name="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify2.sellerPhone}">
+					<input type="tel" id="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify2.sellerPhone}">
 				</span>  				
 				<span> 
-					<input type="email" name="sellerEmail" placeholder="이메일" class="vertical-center" value="${modify2.sellerEmail}">
+					<input type="email" id="sellerEmail" placeholder="이메일" class="vertical-center" value="${modify2.sellerEmail}">
 				</span> 
-					<input type="submit" value="완료">
+					<button type="button" onclick="updateseller()" id="updateButton">수정 완료</button>
 
-			</form>
+			</div>
 
 			<p>	<a href="${path}/home">홈으로 돌아가기</a></p>	
 		</div>
