@@ -21,7 +21,8 @@ import com.acorn.baemin.option.repository.OptionRepository;
 public class OptionController {
 	@Autowired
 	OptionRepository rep;
-
+	
+	//user
 	@GetMapping("/option")
 	public String selectOption( Model model) {
 		List<OptionDTO> result  = rep.selectOption("40001");
@@ -36,32 +37,53 @@ public class OptionController {
 		return "store/option";
 		}
 	
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome" , method=RequestMethod.POST)
-//	public void insertStore(@RequestBody StoreDTO Store) {
-//		rep.insertStore(Store);
-//	}
-//	
-//
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.DELETE)
-//	public void deleteStore(@PathVariable String storecode) {
-//		rep.deleteStore(storecode);
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.GET)
-//	public StoreDTO updateSellerStore(@PathVariable String storecode , Model model){	
-//		StoreDTO store = rep.updateSellerStore(storecode);
-//		return store;
-//	}
-//
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome" , method=RequestMethod.PUT)
-//	public void updateStore(@RequestBody StoreDTO Store) {
-//		System.out.println(Store);
-//		rep.updateStore(Store);
-//	}
+	//seller
+	@GetMapping("/sellerOption")
+	public String sellerOption( Model model) {
+		List<OptionDTO> result  = rep.selectOption("40001");
+		List<OptionDTO> result2 = rep.getCategoryAndSelectType("40001");
+		model.addAttribute("get", result2);
+		model.addAttribute("list", result);
+		return "seller/menu_option";
+		}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOptionSolo" , method=RequestMethod.POST)
+	public void insertOptions(@RequestBody OptionDTO Option) {
+		rep.insertOption(Option);
+	}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOption" , method=RequestMethod.POST)
+	public void insertOption(@RequestBody OptionDTO Option) {
+		rep.insertOption(Option);
+	}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOptionSolo" , method=RequestMethod.PUT)
+	public void updateOption(@RequestBody OptionDTO Option) {
+		rep.updateOption(Option);
+	}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOption" , method=RequestMethod.PUT)
+	public void updateOptionCategory(@RequestBody OptionDTO Option) {
+		rep.updateOptionCategory(Option);
+	}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOptionSolo/{optionCode}" , method=RequestMethod.DELETE)
+	public void deleteOption(@PathVariable String optionCode) {
+		rep.deleteOption(optionCode);
+	}
+	
+	@ResponseBody
+	@RequestMapping( value="/sellerOption/{category}" , method=RequestMethod.DELETE)
+	public void deleteOptionCategory(@PathVariable String category) {
+		OptionDTO option = new OptionDTO(0, 40001, category, 0, null, 0, null);
+		rep.deleteOptionCategory(option);
+	}
 	
 
+	
 }
