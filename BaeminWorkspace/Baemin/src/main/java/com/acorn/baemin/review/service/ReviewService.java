@@ -15,6 +15,7 @@ public class ReviewService implements ReviewServiceI{
 	
 	@Override
     public void insertReview(ReviewDTO review) {
+		System.out.println("servie : " + review);
 		reviewRepository.insertReview(review);
     }
 

@@ -15,6 +15,7 @@ public class ReviewRepository implements ReviewRepositoryI {
 	private static String namespace = "com.acorn.ReviewMapper.";
 	@Override
 	public void insertReview(ReviewDTO review) {
+		System.out.println("rep : " + review);
 		sqlSession.insert(namespace + "insertReview", review);
 		
 	}

@@ -3,9 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.ReviewMapper">
     
-    <insert id="insertReview" parameterType="com.acorn.baemin.domain.ReviewDTO">
-        INSERT INTO reviews (menuCode, user_code, store_code, review_image, review_date, review_rating, review_content)
-        VALUES (#{menuCode}, #{userCode}, #{storeCode}, #{reviewImage}, #{reviewDate}, #{reviewRating}, #{reviewContent})
-    </insert>
+    
+   <insert id="insertReview" parameterType="ReviewDTO">
+    INSERT INTO review_tbl (reviewRating, reviewContent, reviewDate)
+    VALUES (#{reviewRating}, #{reviewContent}, NOW())
+</insert>
+
     
 </mapper>

@@ -5,7 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <style>
 * {
@@ -82,9 +83,8 @@ body {
 }
 
 .review-rating-wrap {
-display: flex;
-
-align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .review-rating {
@@ -96,35 +96,36 @@ align-items: center;
 	width: 100px;
 }
 
-
 .star_rating {
-  box-sizing: border-box; 
-  display: inline-flex; 
-  flex-direction: row; 
-  justify-content: flex-start;
-
+	box-sizing: border-box;
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
 }
+
 .star_rating .star {
-  width: 25px; 
-  height: 25px; 
-  margin-right: 10px;
-  display: inline-block; 
-  background: url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png') no-repeat; 
-  background-size: 100%; 
-  box-sizing: border-box; 
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	display: inline-block;
+	background:
+		url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
 }
+
 .star_rating .star.on {
-  width: 25px; 
-  height: 25px;
-  margin-right: 10px;
-  display: inline-block; 
-  background: url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png') no-repeat;
-  background-size: 100%; 
-  box-sizing: border-box; 
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	display: inline-block;
+	background:
+		url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
 }
-
-
-
 </style>
 
 
@@ -159,32 +160,32 @@ align-items: center;
 		</div>
 
 		<div class="review-input-box-wrap">
-			<form action="/baemin/submitReview" method="post">
-            <textarea name="reviewText" class="review-input-box" placeholder="리뷰를 입력하세요"></textarea>
-            <div class="review-rating-wrap">
-                <div class="review-rating-title">음식은 어떠셨어요?</div>
-                <div class="star_rating">
-                    <span class="star" value="1"> </span>
-                    <span class="star" value="2"> </span>
-                    <span class="star" value="3"> </span>
-                    <span class="star" value="4"> </span>
-                    <span class="star" value="5"> </span>
-                </div>
-                <input type="hidden" name="rating" id="rating" value="0">
-                <button type="submit" class="review-register-btn">리뷰 등록</button>
-            </div>
-        </form>
-</div>
+			<form action="/baemin/submitReview" method="post" >
+				<textarea name="reviewContent" class="review-input-box"
+					placeholder="리뷰를 입력하세요"></textarea>
+				<div class="review-rating-wrap">
+					<div class="review-rating-title">음식은 어떠셨어요?</div>
+					<div class="star_rating">
+						<span class="star" data-value="1"> </span> <span class="star"
+							data-value="2"> </span> <span class="star" data-value="3">
+						</span> <span class="star" data-value="4"> </span> <span class="star"
+							data-value="5"> </span>
+					</div>
+					<input type="hidden" name="reviewRating" id="rating" value="0">
+					<button type="submit" class="review-register-btn">리뷰 등록</button>
+				</div>
+			</form>
+		</div>
 
 
 	</section>
 	<jsp:include page="../base/footer.jsp" />
-	
-	
+
+
 	<script>
     $(document).ready(function() {
         $('.star_rating > .star').click(function() {
-            var rating = $(this).attr('value');
+        	var rating = $(this).data('value');
             $('#rating').val(rating);
             $(this).parent().children('span').removeClass('on');
             $(this).addClass('on').prevAll('span').addClass('on');
