@@ -10,15 +10,15 @@ public interface UserRepositoryI {
 	public SellerDTO selectSellerInfo(String selone2) throws Exception;	
 	
 	// 손님 가입
-	public void insertUser(UserDTO insertuser);
+	public void insertCustomer(UserDTO insertcustomer);
 		
 	// 사장님 가입
 	public void insertSeller(SellerDTO insertseller);
 	
 	// 손님 정보수정
-	public void updateUser(UserDTO updateuser);
+	public void updateCustomer(UserDTO updatecustomer);
 	
 	// 사장님 정보수정
 	public void updateSeller(SellerDTO updateseller);
-	
+
 }

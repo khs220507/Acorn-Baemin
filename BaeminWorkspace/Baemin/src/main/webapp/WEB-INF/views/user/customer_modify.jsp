@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -211,6 +212,56 @@ a {
 	text-align: center;
 }
 </style>
+
+<script>
+function updatecustomer(){
+		let userCode = 10002;
+        let userNickname = $('#userNickname').val();
+        let userPw = $("#userPw").val();
+        let confirmPassword = $("#confirmPassword").val();
+        let userPhone = $('#userPhone').val();
+        let userEmail = $('#userEmail').val();
+        let userPostCode = $('#userPostCode').val();
+        let userAddress = $('#userAddress').val();
+        let userAddressDetail = $('#userAddressdetail').val();
+        
+        if (confirmPassword == userPw) {
+
+            let info = {userCode: userCode,
+                userNickname: userNickname,
+                userPw: userPw,
+                userPhone: userPhone,
+                userEmail: userEmail,
+                userPostCode: userPostCode,
+                userAddress: userAddress,
+                userAddressDetail: userAddressDetail
+            };
+            let infos = JSON.stringify(info);
+
+            $.ajax({
+                type: 'POST',
+                url: '/baemin/updateUserInfo',
+                data: infos,
+                contentType: "application/json",
+                success: function (data) {
+                    alert("수정 성공 q(≧▽≦q)");
+                    window.location.href = "http://localhost:8090/baemin/selectCustomerInfo";
+                },
+                error: function () {
+                	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
+                    $('#resultDiv').text('수정 실패');
+                }
+            });
+        }else if(confirmPassword != userPw){
+        	alert("비밀번호를 확인해주세요 ┑(￣Д ￣)┍");
+       	 $("#userPw").val("");
+         $("#confirmPassword").val("");
+        	
+        }
+    };
+
+</script>
+
 </head>
 
 <body>
@@ -223,38 +274,45 @@ a {
 	<section>
 		<div class="container">
 
-			<!-- 수정 폼 -->
-			<form class="modify-form" action="${path}/home" method="post">
+			<!-- 손님 수정 -->
+			<div class="modify-form">
 				<div class="modify-title">
 					<h1>내 정보 수정</h1>
 				</div>
 
 				<span class="input-container-id"> 
-					<input type="text" id="userId" placeholder="닉네임" class="vertical-center" value="${modify.userNickname}">
+					<input type="text" id="userNickname" placeholder="닉네임" class="vertical-center" value="${modify.userNickname}">
 				</span> 
 				<br> 
 				<span> 
-					<input type="tel" name="userPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify.userPhone}">
+					<input type="password" id="userPw"  placeholder="비밀번호" class="vertical-center">
+				</span> <br> 
+				<span> 
+					<input type="password" id="confirmPassword"  placeholder="비밀번호 확인" class="vertical-center">
+				</span> <br> 
+				<span> 
+					<input type="tel" id="userPhone"  placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify.userPhone}">
 				</span> 
 				<br> 
+				<span> 
+					<input type="email" id="userEmail"  placeholder="이메일" class="vertical-center" value="${modify.userEmail}">
+				</span>
 				<span class="input-container-address"> 
-					<input type="text" id="houseAddress" placeholder="우편번호" class="vertical-center" value="${modify.userPostCode}"> 
+					<input type="text" id="userPostCode" placeholder="우편번호" class="vertical-center" value="${modify.userPostCode}"> 
 				<span class="input-container-address-button">
 				</span> 
 					<input type="button" value="우편번호 찾기" class="vertical-center" style="width: 100px;">
 				</span> 
 				<span> 
-					<input type="text" name="userAddress" placeholder="주소" class="vertical-center" value="${modify.userAddress}">
+					<input type="text" id="userAddress" placeholder="주소" class="vertical-center" value="${modify.userAddress}">
 				</span> 
 				<span> 
-					<input type="text" name="userAddressdetail"	placeholder="상세주소" class="vertical-center" value="${modify.userAddressDetail}">
+					<input type="text" id="userAddressdetail" placeholder="상세주소" class="vertical-center" value="${modify.userAddressDetail}">
 				</span> 
-				<span> 
-					<input type="email" name="userEmail" placeholder="이메일" class="vertical-center" value="${modify.userEmail}">
-				</span> 
-					<input type="submit" value="완료">
+				 
+					<button type="button" onclick="updatecustomer()" id="updateButton">수정 완료</button>
 
-			</form>
+			</div>
 
 			<p>	<a href="${path}/home">홈으로 돌아가기</a></p>	
 		</div>

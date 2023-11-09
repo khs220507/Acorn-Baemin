@@ -29,29 +29,28 @@ public class UserRepository implements UserRepositoryI {
 		return session.selectOne(namespace + "selectSellerInfo", selone2);
 	}
 
-
 	// 손님 회원 가입
 	@Override
-	public void insertUser(UserDTO insertuser) {
-		session.insert(namespace + "customerSignup", insertuser);
+	public void insertCustomer(UserDTO insertcustomer) {
+		session.insert(namespace + "customerSignup", insertcustomer);
 	}
 	
 	// 사장님 회원 가입
 	@Override
-	public void insertSeller(SellerDTO sellerinsert) {
-		session.insert(namespace + "insertSeller", sellerinsert);
+	public void insertSeller(SellerDTO insertseller) {
+		session.insert(namespace + "sellerSignup", insertseller);
 	}
 
 	// 손님 정보 수정
 	@Override
-	public void updateUser(UserDTO updateuser) {
-		session.update(namespace + "updateUser", updateuser);
+	public void updateCustomer(UserDTO updatecustomer) {
+		session.update(namespace + "updateInfoCustomer", updatecustomer);
 	}
 
 	// 사장님 정보 수정
 	@Override
-	public void updateSeller(SellerDTO sellerupdate) {
-		session.update(namespace + "updateSeller", sellerupdate);
+	public void updateSeller(SellerDTO updateseller) {
+		session.update(namespace + "updateInfoSeller", updateseller);
 	}
 
 //	@Update("update user_tbl set userNickname = #{userNickname}, userPhone = #{userPhone}, userPostCode = #{userPostCode}, userAddress = #{userAddress}, userAddressDetail = #{userAddressDetail}, userEmail = #{userEmail} where userCode = #{userCode}")

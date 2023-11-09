@@ -20,18 +20,21 @@ public class LoginRepository implements LoginRepositoryI {
 	@Autowired
 	private static String namespace = "com.acorn.LoginMapper.";
 	
-	//ï¿½Î±ï¿½ï¿½ï¿½
+	// ¼Õ´Ô ·Î±×ÀÎ
 	@Override
 	public UserDTO login(String userId, String userPw) {
+		System.out.println(userId + userPw);
 		UserDTO user = new UserDTO();
 		user.setUserId(userId);
 		user.setUserPw(userPw);
+		System.out.println("select" + user);
 		UserDTO result = session.selectOne(namespace + "selectUserById", user);
 		System.out.println("result" + result);
+		
 		return result;
 	}
 	
-	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
+	// »çÀå´Ô ·Î±×ÀÎ
 		@Override
 		public SellerDTO loginseller(String sellerId, String sellerPw) {
 			System.out.println(sellerId + sellerPw);
@@ -41,24 +44,26 @@ public class LoginRepository implements LoginRepositoryI {
 			System.out.println("select" + seller);
 			SellerDTO result2 = session.selectOne(namespace + "selectSellerById", seller);
 			System.out.println("result" + result2);
-			return result2;
-			
-			
+			return result2;			
 		}
-	// ï¿½ï¿½Ã¼ï¿½ï¿½È¸
+		
+	//
+		
+		
+	// ÀüÃ¼Á¶È¸
 	@Override
 	public List<UserDTO> selectAll() throws Exception {
 		System.out.println("good");
 		return session.selectList(namespace + "selectAll");
 	}
 
-	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+	// ·Î±×ÀÎ ¿©ºÎ È®ÀÎ
 	@Override
-	public boolean loginCustomer(String unputId, String inputPw) {
+	public boolean loginCustomer(String inputId, String inputPw) {
 		return true;
 	}
 
-	// ï¿½Òºï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½
+	// ¼ÒºñÀÚ ·Î±×ÀÎ
 	@Override
 	public String customerlogin() {
 		// TODO Auto-generated method stub
@@ -72,16 +77,11 @@ public class LoginRepository implements LoginRepositoryI {
 		return null;
 	}	
 
-	// ï¿½Î±×¾Æ¿ï¿½
+	// ·Î±×¾Æ¿ô
 	@Override
 	public String logout() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public UserDTO selectUserCode(String userId) {
-		return session.selectOne(namespace + "selectUserCode", userId);
 	}
 	
 	
