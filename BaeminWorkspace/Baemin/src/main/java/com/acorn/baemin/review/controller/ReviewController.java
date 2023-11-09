@@ -38,15 +38,11 @@ public class ReviewController {
 
 	@ResponseBody
 	@RequestMapping( value="/submitReview", method=RequestMethod.POST)
-	public String submitReview(int reviewCode, int menuCode, int userCode, int storeCode, String reviewImage, String reviewDate, int reviewRating, String reviewContent,  MultipartFile reviewImage) {
+	public String submitReview(int reviewCode, int menuCode, int userCode, int storeCode, String reviewImage, String reviewDate, int reviewRating, String reviewContent ) {
 		System.out.println(reviewImage);
 		if (!reviewImage.isEmpty()) {
 		
-		System.out.println(reviewImage);
-		String fileName = reviewImage.getOriginalFilename();
-		System.out.println(fileName);
-		// reviewService.insertReview();
-		System.out.println("테스트1");
+		
 		
 		
 	}
