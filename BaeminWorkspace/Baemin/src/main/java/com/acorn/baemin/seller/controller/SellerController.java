@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,17 +61,18 @@ public class SellerController {
 
 	// 사장님 메뉴/정보/리뷰 탭 메인화면
 	@GetMapping("/store_manage")
-	public String readstNs(@RequestParam("storeCode") int storeCode, @RequestParam("sellerCode") int sellerCode,
+	public String readstNs(@RequestParam("storeCode") int storeCode,
 			Model model) {
 
 		System.out.println("storeCode @service: " + storeCode);
-		System.out.println("sellerCode @service : " + sellerCode);
 		StoreDTO readStore = sc.selectStore(storeCode);
-		SellerDTO readSeller = sc.selectSeller(sellerCode);
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo();
-		List<MenuDTO> CList = sc.selectMenuClassification();
+		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+		System.out.println("sellerCode @service : " + readStore.getSellerCode());
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 		System.out.println(readMenuInfo);
 		//List<ReviewDTO> reviewList = sc.selectAllReview();
+		
 		
 		model.addAttribute("readStore", readStore);
 		model.addAttribute("readSeller", readSeller);
@@ -125,11 +127,11 @@ public class SellerController {
 		return "seller/store_manage";
 	}
 
-	// 메뉴 분류 수정
-	@GetMapping("/store_manage/{menuClassification}")
-	public String updateInfo(@PathVariable String menuClassification) {
-	    sc.modifingMenuClassification(menuClassification);
-	    return "redirect:/store_manage";
+	// 메뉴 수정
+	@ResponseBody
+	@PutMapping("/store_manage")
+	public void updateInfo(@RequestBody MenuDTO menu) {
+	    sc.modifingMenu(menu);
 	}
 	
 	

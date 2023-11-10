@@ -25,15 +25,15 @@ public class SellerRepository implements SellerRepositoryI {
 	// 메뉴 탭
 	// 메뉴 분류 조회(중복제거)
 	@Override
-	public List<MenuDTO> selectMenuClassification() {
+	public List<MenuDTO> selectMenuClassification(Integer storeCode) {
 		System.out.println("selectMenuClassification @repo");
-		return session.selectList(namespaceSeller + "selectMenuClassification");
+		return session.selectList(namespaceSeller + "selectMenuClassification", storeCode);
 	}
 	// 메뉴 전체 조회
 	@Override
-	public List<MenuDTO> selectAllMenuInfo() {
+	public List<MenuDTO> selectAllMenuInfo(Integer storeCode) {
 		System.out.println("selectAllMenuInfo @repo");
-		return session.selectList(namespaceSeller + "selectAllMenuInfo");
+		return session.selectList(namespaceSeller + "selectAllMenuInfo", storeCode);
 	}
 	// 메뉴 분류 수정
 	@Override
@@ -112,7 +112,7 @@ public class SellerRepository implements SellerRepositoryI {
 		return session.delete(namespaceAnswer + "deleteAnswer", answerCode);
 	}
 
-
+	
 
 
 }

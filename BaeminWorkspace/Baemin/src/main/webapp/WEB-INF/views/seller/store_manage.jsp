@@ -31,14 +31,17 @@ ul {
 	list-style: none;
 }
 
-.menu-info-review-tab {
-	display: flex;
+input {
+	display: block;
 }
 
 div {
 	border: 1px solid black;
 }
 
+span {
+	border: 1px solid black;
+}
 section {
 	display: flex;
 	flex-direction: column;
@@ -47,11 +50,21 @@ section {
 	width: 1280px;
 	border: 1px solid black;
 	padding-top: 5%;
+	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
+	-ms-overflow-style: none; /* 스크롤바 없애기 */
+}
+
+section::-webkit-scrollbar { /* 스크롤바 없애기 */
+	display: none;
 }
 
 button {
 	outline: none;
 	cursor: pointer; /* 손가락모양 */
+}
+
+.menu-info-review-tab {
+	display: flex;
 }
 
 .store-image {
@@ -132,15 +145,15 @@ button {
 			$(".store-info-tab").hide();
 			$(".store-review-tab").show();
 		});
-		
-		
+	
 		// 메뉴 탭 영역
 		// + 버튼을 클릭하면 메뉴정보 입력 폼 활성화
 		$(".add-menu").click(function() {
 			$(".menu-form").show();
 			$(".cancel-btn").show();
 		});
-		// 등록 버튼을 클릭하면 메뉴가 등록됨
+		
+		// 메뉴 등록
 		$(".insert-menu-btn").click(function() {
 			let formData = new FormData(document.querySelector(".menu-form"));
 			console.log(formData);
@@ -159,41 +172,22 @@ button {
 				}
 			});
 		});
+		
 		// 취소 버튼을 클릭시 전영역에 걸쳐서 활성/비활성화
 		$(".cancel-btn").click(function() {
-			$(".menu-form").hide();
-			$(".reply-form").hide();
-			$(".active-reply-form-btn").show();
+			$(".menu-form").hide();	// 입력 form 비활
+			$(".reply-form").hide();	// 답변 form 비활
+			$(".active-reply-form-btn").show();	// 답글 달기 활성화
 			$(this).hide();
 		});
 		
-		// 각 메뉴 영역
-		// 수정 버튼을 클릭하면 메뉴정보 입력 폼과 동일한 폼 활성화
-		$(".menu-modify-btn-without-c").click(function() {
-			$(".menu-form-without-c").show();
-			$.ajax({
-				type: "get",
-				url: "/store_manage/{menuClassification}",
-				success: function(data){
-					window.location.reload();
-				},
-				error: function(){
-					alert("아니야!");
-				}
-			})
-		});
-		// 취소 버튼을 클릭하면 메뉴정보 입력 폼과 동일한 폼 비활성화
-		$(".cancel-btn-without-c").click(function() {
-			$(".menu-form-without-c").hide();
-		});
 		
 		// 정보 탭 영역
-		// 수정 버튼을 클릭하면 수정화면이 나오게
+		// 수정
 		function modifyStoreInfo(sellerCode, storeCode){
-        // AJAX 요청을 보냅니다.
         $.ajax({
-            url: "{path}/store_manage",
-            method: 'GET',
+            url: "{path}/store_manage/{sellerCode},{storeCode}",
+            method: 'get',
             success: function(data) {
             	console.log(data);
                 // AJAX 요청이 성공하면 데이터를 가져와서 input 태그에 적절히 설정합니다.
@@ -210,7 +204,7 @@ button {
 			
 		}
 		
-		// 리뷰탭 영역
+		// 리뷰 탭 영역
 		// 답글달기 버튼을 클릭하면 메뉴정보 입력 폼 활성화
 		$(".active-reply-form-btn").click(function() {
 			$(".reply-form").show();
@@ -219,7 +213,45 @@ button {
 		});
 		
 });
-	
+
+	// 메뉴 수정
+	function menuModifyBtnWithoutC(Code, element){
+		
+		let menuCode = Code;
+		let menuName = $(element).closest('.menu-info-with-btn').find('.menuName').val();
+		let menuImage = $(element).closest('.menu-info-with-btn').find('.menuImage').val();
+	    let menuContent = $(element).closest('.menu-info-with-btn').find('.menuContent').val();
+	    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menuPrice').val();
+	    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menuStatus').val();
+	    
+	    let info = {
+		    	menuCode : menuCode,
+		    	menuName : menuName,
+		    	menuImage : menuImage,
+		    	menuContent : menuContent,
+		    	menuPrice : menuPrice,
+		    	menuStatus : menuStatus
+	    	}
+	    
+	    alert(info);
+	    console.log(info);
+	    
+   		let infos = JSON.stringify(info);
+       	
+   		$.ajax({
+   			type : "Put",
+   			url : "/baemin/store_manage",
+   			data : infos,
+   			contentType : "application/json", // 필수
+   			success : function(data) {
+   				alert("변경되었습니다");
+   				window.location.reload();
+   			},
+   			error : function() {
+   				alert("error");
+   			}
+   		})
+	};
 	
 	// 메뉴 삭제
 	function deleteMenu(menuCode) {
@@ -255,52 +287,52 @@ button {
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
-			<c:forEach items="${CList}" var="classificationList">
-				<div class="menu-classification-list">
-					${classificationList.menuClassification}
-				</div>
-			</c:forEach>
-			<c:forEach items="${readMenuInfo}" var="menuList">
-				<div class="menu-classification">
-					<div>${menuList.menuClassification}</div>
-					<button>수정하기</button>
-				</div>
-				<div class="menu-info-with-btn">
-					<div>${menuList.menuImage}</div>
-					<div>
-						<div class="menuName">${menuList.menuName}</div>
-						<div class="menuContent">${menuList.menuContent}</div>
-						<div class="menuPrice">${menuList.menuPrice}</div>
-					</div>
-					<div class="modify-delete">
-						<button class="menu-modify-btn-without-c">수정</button>
-						<button class="menu-delete-btn"
-							onclick="deleteMenu(${menuList.menuCode})">삭제</button>
-					</div>
-				</div>
-			</c:forEach>
-
-			<!-- 메뉴 등록 폼(메뉴분류 입력못하는 폼) -->
-			<form class="menu-form-without-c" style="display: none;">
-				<div class="menu-classification">
-					<input type="text" name="menuClassification" placeholder="메뉴분류"
-						readonly>(미리 입력되어있도록)
-				</div>
-				<div class="menu-info-with-btn">
-					<input type="file" name="menuImageFile">
-					<div>
-						<input type="text" name="menuName" placeholder="메뉴명"><br />
-						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
-						<input type="number" name="menuPrice" placeholder="메뉴가격">
-						<select name="menuStatus">
-							<option value="0">판매중</option>
-							<option value="1">솔드아웃</option>
-						</select>
-					</div>
-				</div>
-				<button type="button" class="modify-menu-btn">수정하기</button>
-				<button type="button" class="cancel-btn-without-c">취소하기</button>
-			</form>
+			<div>	<!-- 메뉴 카테고리 -->
+				<c:forEach items="${CList}" var="classificationList">
+					<span>${classificationList.menuClassification}</span>
+				</c:forEach>
+			</div>
+			<div>	<!-- 메뉴 리스트 -->
+				<c:forEach items="${CList}" var="classificationList">
+					<div class="menu-classification-list">
+						${classificationList.menuClassification}</div>
+					<c:forEach items="${readMenuInfo}" var="menuList">
+						<c:if
+							test="${menuList.menuClassification eq classificationList.menuClassification}">
+							<c:choose>
+								<c:when
+									test="${menuList.menuClassification eq classificationList.menuClassification}">
+									<div class="menu-info-with-btn">
+										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><div>${menuList.menuImage}</div></a>
+										<input type="file" name="menuImageFile">
+										<div>
+											<input type="text" class="menuName" value="${menuList.menuName}">
+											<input type="text" class="menuContent" value="${menuList.menuContent}">
+											<input type="text" class="menuPrice" value="${menuList.menuPrice}">
+											<span>상태 :
+											    <c:choose>
+											        <c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
+											        <c:when test="${menuList.menuStatus eq 1}">매진</c:when>
+											    </c:choose>
+											</span>
+											<select class="menuStatus">
+												<option value="0">판매중</option>
+												<option value="1">솔드아웃</option>
+											</select>
+										</div>
+										<div class="modify-delete">
+											<button class="menu-modify-btn-without-c"
+												onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
+											<button class="menu-delete-btn"
+												onclick="deleteMenu(${menuList.menuCode})">삭제</button>
+										</div>
+									</div>
+								</c:when>
+							</c:choose>
+						</c:if>
+					</c:forEach>
+				</c:forEach>
+			</div>
 			<!-- 메뉴 등록 폼 -->
 			<form class="menu-form" style="display: none;">
 				<div class="menu-classification">
@@ -321,63 +353,68 @@ button {
 				<button type="button" class="insert-menu-btn">등록하기</button>
 				<button type="button" class="cancel-btn">취소하기</button>
 			</form>
+			<!-- 얘를 클릭하면 등록 폼이 활성화 -->
 			<div class="add-menu">+</div>
 		</div>
-		<!-- 가게 정보 나오는 탭 -->
+		<!-- 가게 정보 탭 -->
 		<div class="store-info-tab">
 			<div class="info-sub-tab-with-btn">
 				<div class="info-sub-tab">
 					<div class="store-description">
 						<div>가게소개</div>
-						<div>${readStore.storeDescription}</div>
+						<input type="text" class="store-introduce" value="${readStore.storeDescription}">
 					</div>
 					<div class="operating-time">
 						<div>운영시간</div>
-						<div>${readStore.operatingTime}</div>
+						<input type="text" class="store-operate-time" value="${readStore.operatingTime}">
 					</div>
 					<div class="seller-info">
 						<div>사업자정보</div>
 						<div class="seller-info-sub">
 							<div class="seller-name">
 								<div>대표자명</div>
-								<div>${readSeller.sellerName}</div>
+								<input type="text" value="${readSeller.sellerName}">
 							</div>
 							<div class="store-address">
 								<div>매장주소</div>
-								<div>${readStore.storeAddress}</div>
+								<input type="text" value="${readStore.storeAddress}">
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
-								<div>${readSeller.sellerRegCode}</div>
+								<input type="text" value="${readSeller.sellerRegCode}">
 							</div>
 						</div>
 					</div>
 				</div>
-				<button class="store-info-modify-btn" onclick="modifyStoreInfo(${readSeller.sellerCode}, ${readStore.storeCode})">수정하기</button>
+				<button class="store-info-modify-btn"
+					onclick="modifyStoreInfo(${readSeller.sellerCode}, ${readStore.storeCode})">수정하기</button>
 			</div>
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
 		<div class="store-review-tab">
 			<!--<c:forEach items="${reviewList}" var="review-list">
 			</c:forEach> -->
-				<div class="review-answer">
-					<div>(닉네임)</div>
-					<div><!-- ${review-list.reviewRating} --></div>
-					<div>주문메뉴 : (메뉴명)</div>
-					<div><!-- ${review-list.reviewContent} -->
+			<div class="review-answer">
+				<div>(닉네임)</div>
+				<div>
+					<!-- ${review-list.reviewRating} -->
+				</div>
+				<div>주문메뉴 : (메뉴명)</div>
+				<div>
+					<!-- ${review-list.reviewContent} -->
 					<div>리뷰등록날짜</div>
 					<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
-						<form class="reply-form" style="display: none;">
+					<form class="reply-form" style="display: none;">
 						<textarea placeholder="답글 내용을 입력해주세요" rows="5" cols="30"></textarea>
-							<button type="button" class="insert-answer-btn">등록</button>
-						</form>
-					</div>
-					<button class="active-reply-form-btn">답글달기</button>
-					<!-- 답글이 생기면 답글달기 버튼 사라지고 수정 삭제 버튼 생성-->
-					<button class="reply-modify-btn" style="display: none">수정</button>
-					<button class="reply-delete-btn" style="display: none">삭제</button>
-					<button class="cancel-btn" style="display: none">취소</button>
+						<button type="button" class="insert-answer-btn">등록</button>
+					</form>
 				</div>
+				<button class="active-reply-form-btn">답글달기</button>
+				<!-- 답글이 생기면 답글달기 버튼 사라지고 수정 삭제 버튼 생성-->
+				<button class="reply-modify-btn" style="display: none">수정</button>
+				<button class="reply-delete-btn" style="display: none">삭제</button>
+				<button class="cancel-btn" style="display: none">취소</button>
+			</div>
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
