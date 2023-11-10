@@ -91,8 +91,8 @@
 	
 	
 <!-- 아이디 중복 확인 -->
-	<select id="idCheck" resultType="boolean" parameterType="UserDTO">
-        select count(*) = 0 from user_tbl where userId = #{userId}
+	<select id="idCheck" resultType="int" parameterType="UserDTO">
+        select count(*) from user_tbl where userId = #{userId}
     </select>
 
 

@@ -17,7 +17,7 @@ public class LoginService {
 	@Autowired
 	private LoginRepository loginRepository;
 
-    //¼Õ´Ô ·Î±×ÀÎ
+    //ì†ë‹˜ ë¡œê·¸ì¸
     public UserDTO loginCustomer(String userId, String userPw) {
         try {
             return loginRepository.login(userId, userPw);
@@ -27,7 +27,7 @@ public class LoginService {
             return null;
         }
     }
-    //»çÀå´Ô ·Î±×ÀÎ
+    //ì‚¬ì¥ë‹˜ ë¡œê·¸ì¸
     public SellerDTO loginSeller(String sellerId, String sellerPw) {
         try {
             return loginRepository.loginseller(sellerId, sellerPw);

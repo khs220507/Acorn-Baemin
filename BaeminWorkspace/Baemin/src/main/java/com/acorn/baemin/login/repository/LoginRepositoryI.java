@@ -11,19 +11,16 @@ public interface LoginRepositoryI {
 			
 	public boolean loginCustomer(String inputId, String inputPw) throws Exception;
 
-	// ·Î±×ÀÎ
+	// ë¡œê·¸ì¸
 	public String customerlogin();
 
-	// È¨
-	public String home();
-
-	// ·Î±×¾Æ¿ô
+	// ë¡œê·¸ì•„ì›ƒ
 	public String logout();
 
-	//¼Õ´Ô ·Î±×ÀÎ
+	// ì†ë‹˜ ë¡œê·¸ì¸
 	UserDTO login(String userId, String userPw);
 
-	//»çÀå´Ô ·Î±×ÀÎ
+	// ì‚¬ì¥ë‹˜ ë¡œê·¸ì¸
 	SellerDTO loginseller(String sellerId, String sellerPw);
 	
 

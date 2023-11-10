@@ -245,7 +245,7 @@ function updatecustomer(){
                 contentType: "application/json",
                 success: function (data) {
                     alert("수정 성공 q(≧▽≦q)");
-                    window.location.href = "http://localhost:8090/baemin/selectCustomerInfo";
+                    window.location.href = "http://localhost:8080/baemin/selectCustomerInfo";
                 },
                 error: function () {
                 	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
@@ -265,11 +265,7 @@ function updatecustomer(){
 </head>
 
 <body>
-
-
-	<header>
-		<div class="headerwrap">배달의 민족</div>
-	</header>
+<jsp:include page="../base/header.jsp"/>
 
 	<section>
 		<div class="container">
@@ -318,7 +314,7 @@ function updatecustomer(){
 		</div>
 
 	</section>
-	<footer> </footer>
+	<jsp:include page="../base/footer.jsp"/>
 
 
 </body>
