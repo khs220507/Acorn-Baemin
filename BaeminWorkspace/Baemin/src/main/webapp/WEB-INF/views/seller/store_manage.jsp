@@ -164,6 +164,7 @@ button {
 				processData : false, // 데이터 처리를 비활성화
 				contentType : false, // 컨텐츠 타입을 비활성화
 				success : function(data) {
+					alert("등록되었습니다!");
 					window.location.reload();
 				},
 				error : function() {
@@ -324,6 +325,7 @@ button {
 				<div class="menu-info-with-btn">
 					<input type="file" name="menuImageFile">
 					<div>
+						<input type="text" style="display:none" name="storeCode" value="${readStore.storeCode}"><br />
 						<input type="text" name="menuName" placeholder="메뉴명"><br />
 						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
 						<input type="number" name="menuPrice" placeholder="메뉴가격">
