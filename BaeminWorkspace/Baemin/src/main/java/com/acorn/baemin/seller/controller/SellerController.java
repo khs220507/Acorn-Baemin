@@ -73,7 +73,6 @@ public class SellerController {
 		System.out.println(readMenuInfo);
 		//List<ReviewDTO> reviewList = sc.selectAllReview();
 		
-		
 		model.addAttribute("readStore", readStore);
 		model.addAttribute("readSeller", readSeller);
 		model.addAttribute("readMenuInfo", readMenuInfo);
@@ -115,7 +114,7 @@ public class SellerController {
 
 	// 메뉴 등록
 	@PostMapping("/store_manage")
-	public String insertMenu(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
+	public String insertMenu(Integer storeCode, Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
 			String menuContent, String menuClassification, Integer menuStatus)
 			throws IllegalStateException, IOException {
 
@@ -124,6 +123,7 @@ public class SellerController {
 		System.out.println("menuContent" + menuContent);
 		System.out.println("menuClassification" + menuClassification);
 		System.out.println("menuStatus" + menuStatus);
+		System.out.println("storeCode" + storeCode);
 
 		try {
 			if (!menuImageFile.isEmpty()) {
@@ -137,7 +137,7 @@ public class SellerController {
 
 				System.out.println(menuImage);
 				
-				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuClassification,
+				MenuDTO menu = new MenuDTO(menuCode, storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification,
 						menuStatus);
 
 				System.out.println(menu);
