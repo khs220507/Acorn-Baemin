@@ -114,11 +114,6 @@ ul, li {
 	cursor: pointer;
 }
 
-.section-cart-menuinfo-wrap {
-	display: flex;
-	border-bottom: 1px solid #d9d9d9;
-}
-
 .section-cart-menuinfo-img {
 	width: 100px;
 }
@@ -142,10 +137,6 @@ ul, li {
 	align-items: center;
 }
 
-.section-cart-order-wrap {
-	border-bottom: 1px solid black;
-}
-
 .section-cart-totalprice-wrap {
 	display: flex;
 	justify-content: space-between;
@@ -156,6 +147,16 @@ ul, li {
 .section-cart-order-button {
 	display: flex;
 	justify-content: center;
+}
+
+.section-cart-change-number-wrap {
+	border-bottom: 1px solid #d9d9d9;
+	margin-right: 10px;
+	padding-bottom: 10px;
+}
+
+.section-cart-menuinfo-wrap {
+	display: flex;
 }
 </style>
 
@@ -176,6 +177,56 @@ function cartDelete(cartCode) {
 		}
 	});
 }
+
+
+function changeMenuCount(cartCode, delta) {
+    // Get the input element by class instead of ID
+    var menuCountInput = $(".menuCount-" + cartCode);
+
+    // Get the parent container of the current item
+    var cartItemContainer = $("#cart-item-" + cartCode);
+
+    // Parse the current menu count value to an integer
+    var currentCount = parseInt(menuCountInput.val());
+
+    // Calculate the new menu count
+    var newCount = currentCount + delta;
+
+    // Ensure the new menu count is at least 1
+    if (newCount >= 1) {
+        // Update the input field with the new count
+        menuCountInput.val(newCount);
+
+
+        // AJAX request to update the menuCount on the server
+        $.ajax({
+            type: "POST", // You might need to adjust the HTTP method based on your server-side implementation
+            url: "/baemin/cartList", // Replace with the actual URL for updating menuCount
+            data: {
+                cartCode: cartCode,
+                newCount: newCount
+            },
+            success: function (data) {
+                // Handle success if needed
+                console.log("MenuCount updated successfully");
+            },
+            error: function () {
+                // Handle error if needed
+                console.error("Error updating MenuCount");
+            }
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 </script>
@@ -224,33 +275,42 @@ function cartDelete(cartCode) {
 
 					</div>
 
-					<div>
 
-						<div class="section-cart-menuname">
-							<span>${menuName}</span> <img src="">
-							<div id="cart-delete" onclick="cartDelete(${item.cartCode})">삭제${item.cartCode}</div>
+					<div class="section-cart-menuname">
+						<span>${menuName}</span> <img src="">
+						<div id="cart-delete" onclick="cartDelete(${item.cartCode})">삭제${item.cartCode}</div>
+					</div>
+
+					<div class="section-cart-menuinfo-wrap">
+						<div>
+							<img class="section-cart-menuinfo-img"
+								src="${pageContext.request.contextPath}/resources/images/${menuImage}.png"
+								alt="Image Description">
 						</div>
-
-						<div class="section-cart-menuinfo-wrap">
-							<div>
-								<img class="section-cart-menuinfo-img"
-									src="${pageContext.request.contextPath}/resources/images/${menuImage}.png"
-									alt="Image Description">
-							</div>
-							<div>
-								<ul>
-									<li>옵션01 : 24000원</li>
-									<li>옵션02 : 2000원</li>
-								</ul>
-							</div>
+						<div>
+							<ul>
+								<li>옵션01 : 24000원</li>
+								<li>옵션02 : 2000원</li>
+							</ul>
 						</div>
+					</div>
 
 
-						<div class="section-cart-change-number-wrap">
-							<div class="section-cart-change-number-input">
-								<span> - </span> <input type="text" placeholder=" 1 "
-									style="width: 20px;"> <span> + </span>
-							</div>
+
+					<div class="section-cart-change-number-wrap">
+						<div class="section-cart-change-number-input">
+							<!-- Minus button -->
+							<button class="button"
+								onclick="changeMenuCount(${item.cartCode}, -1)">-</button>
+							<!-- Quantity input -->
+							<input type="text" class="menuCount-${item.cartCode}"
+								value="${item.menuCount}" style="width: 20px;" readonly>
+							<!-- Plus button -->
+							<button class="button"
+								onclick="changeMenuCount(${item.cartCode}, 1)">+</button>
+						</div>
+					</div>
+				</div>
 			</c:forEach>
 
 
@@ -271,8 +331,6 @@ function cartDelete(cartCode) {
 			<div class="section-cart-order-button">
 				<button>주문하기</button>
 			</div>
-		</div>
-		</div>
 		</div>
 
 	</section>
