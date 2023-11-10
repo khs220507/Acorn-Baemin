@@ -21,9 +21,9 @@ public class SellerService implements SellerServiceI{
 	// 메뉴 탭
 	// 메뉴 분류 조회(중복제거)
 	@Override
-	public List<MenuDTO> selectMenuClassification() {
+	public List<MenuDTO> selectMenuClassification(Integer storeCode) {
 		System.out.println("selectMenuClassification @service");
-		List<MenuDTO> CList = rep.selectMenuClassification();
+		List<MenuDTO> CList = rep.selectMenuClassification(storeCode);
 		return CList;
 	}
 	// 메뉴 전체 조회

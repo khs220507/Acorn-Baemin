@@ -5,7 +5,7 @@
 
 	<!-- 메뉴 분류 조회(중복제거) -->
 	<select id="selectMenuClassification" resultType="MenuDTO" parameterType="int">
-		SELECT DISTINCT menuClassification FROM menu_tbl
+		SELECT DISTINCT menuClassification FROM menu_tbl where storeCode = #{storeCode}
 	</select>
 
 	<!-- 메뉴 전체 조회 -->
