@@ -60,14 +60,14 @@ public class SellerController {
 
 	// 사장님 메뉴/정보/리뷰 탭 메인화면
 	@GetMapping("/store_manage")
-	public String readstNs(@RequestParam("storeCode") int storeCode, @RequestParam("sellerCode") int sellerCode,
+	public String readstNs(@RequestParam("storeCode") int storeCode,
 			Model model) {
 
 		System.out.println("storeCode @service: " + storeCode);
-		System.out.println("sellerCode @service : " + sellerCode);
 		StoreDTO readStore = sc.selectStore(storeCode);
-		SellerDTO readSeller = sc.selectSeller(sellerCode);
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo();
+		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+		System.out.println("sellerCode @service : " + readStore.getSellerCode());
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		List<MenuDTO> CList = sc.selectMenuClassification();
 		System.out.println(readMenuInfo);
 		//List<ReviewDTO> reviewList = sc.selectAllReview();
