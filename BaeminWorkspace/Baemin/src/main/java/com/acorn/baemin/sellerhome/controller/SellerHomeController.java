@@ -40,7 +40,7 @@ public class SellerHomeController {
 		}
 	
 	 @ResponseBody
-	 @RequestMapping(value="/images/{storeImage:.*}" ,method = RequestMethod.GET)
+	 @RequestMapping(value="/storeImages/{storeImage:.*}" ,method = RequestMethod.GET)
 	 public Resource sellerStoreImg(@PathVariable String storeImage) throws MalformedURLException {
 		 return new UrlResource("file:c:\\test\\upload\\"+storeImage);
 	 }
