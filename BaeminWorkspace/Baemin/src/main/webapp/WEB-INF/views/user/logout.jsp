@@ -11,10 +11,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<jsp:include page="../base/header.jsp"/>
 <%
     session.invalidate();
     response.sendRedirect("redirect:/home");
     
 %>
+<jsp:include page="../base/footer.jsp"/>
 </body>
 </html>

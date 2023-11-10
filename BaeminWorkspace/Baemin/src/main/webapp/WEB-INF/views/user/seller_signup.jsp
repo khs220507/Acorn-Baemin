@@ -248,7 +248,7 @@ function signup() {
 			success : function(data) {
 				alert("가입축하 q(≧▽≦q)");
 				
-				 window.location.href = "http://localhost:8090/baemin/home";
+				 window.location.href = "http://localhost:8080/baemin/home";
 			},
 			error : function() {
 				alert("error");
@@ -261,9 +261,7 @@ function signup() {
 </head>
 
 <body>
-	<header>
-		<div class="headerwrap">배달의 민족</div>
-	</header>
+	<jsp:include page="../base/header.jsp"/>
 	<section>
 
 
@@ -318,10 +316,7 @@ function signup() {
 		</div>
 
 	</section>
-	
-	<footer> 
-	
-	</footer>
+	<jsp:include page="../base/footer.jsp"/>
 
 
 </body>

@@ -17,46 +17,48 @@ public class UserRepository implements UserRepositoryI {
 	@Autowired
 	private static String namespace = "com.acorn.LoginMapper.";
 
-	// ¼Õ´Ô ÀÏºÎ Á¶È¸
+	// ì†ë‹˜ ì¼ë¶€ ì¡°íšŒ
 	@Override
 	public UserDTO selectCustomerInfo(String selone) throws Exception {
 		return session.selectOne(namespace + "selectCustomerInfo", selone);
 	}
 
-	// »çÀå´Ô ÀÏºÎ Á¶È¸
+	// ì‚¬ì¥ë‹˜ ì¼ë¶€ ì¡°íšŒ
 	@Override
 	public SellerDTO selectSellerInfo(String selone2) throws Exception {
 		return session.selectOne(namespace + "selectSellerInfo", selone2);
 	}
 
-	// ¼Õ´Ô È¸¿ø °¡ÀÔ
+	// ì†ë‹˜ íšŒì› ê°€ì…
 	@Override
 	public void insertCustomer(UserDTO insertcustomer) {
 		session.insert(namespace + "customerSignup", insertcustomer);
 	}
 	
-	// »çÀå´Ô È¸¿ø °¡ÀÔ
+	// ì‚¬ì¥ë‹˜ íšŒì› ê°€ì…
 	@Override
 	public void insertSeller(SellerDTO insertseller) {
 		session.insert(namespace + "sellerSignup", insertseller);
 	}
 
-	// ¼Õ´Ô Á¤º¸ ¼öÁ¤
+	// ì†ë‹˜ ì •ë³´ ìˆ˜ì •
 	@Override
 	public void updateCustomer(UserDTO updatecustomer) {
 		session.update(namespace + "updateInfoCustomer", updatecustomer);
 	}
 
-	// »çÀå´Ô Á¤º¸ ¼öÁ¤
+	// ì‚¬ì¥ë‹˜ ì •ë³´ ìˆ˜ì •
 	@Override
 	public void updateSeller(SellerDTO updateseller) {
 		session.update(namespace + "updateInfoSeller", updateseller);
 	}
 
-//	@Update("update user_tbl set userNickname = #{userNickname}, userPhone = #{userPhone}, userPostCode = #{userPostCode}, userAddress = #{userAddress}, userAddressDetail = #{userAddressDetail}, userEmail = #{userEmail} where userCode = #{userCode}")
-//	public void customerUpdate(UserDTO userDTO) {
-//
-//	}
+	// ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+		@Override
+		public int checkDuplicateUserId(UserDTO userDTO) {
+			   
+			return session.selectOne(namespace + "idCheck", userDTO);
+		}
 
 	
 }

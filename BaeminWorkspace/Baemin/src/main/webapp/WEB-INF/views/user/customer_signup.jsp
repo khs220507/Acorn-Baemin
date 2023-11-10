@@ -134,6 +134,11 @@ input:focus {
 	outline: none;
 	/* 포커스 아웃라인 제거 */
 }
+input:number{
+	border-color: #0982f0;
+	outline: none;
+	width: 20px;
+}
 
 input[type="submit"] {
 	font-weight: bolder;
@@ -246,7 +251,7 @@ function signup() {
 			success : function(data) {
 				alert("가입축하 q(≧▽≦q)");
 				
-				 window.location.href = "http://localhost:8090/baemin/home";
+				 window.location.href = "http://localhost:8080/baemin/home";
 			},
 			error : function() {
 				alert("error");
@@ -254,6 +259,140 @@ function signup() {
 			});
 	}
 }
+   	
+   	// 아이디 유효성
+   	$("#userId").blur(function() {
+	 	let idCheck = /^[a-zA-Z0-9]{6,8}$/;
+	 	
+	 	if ($("#userId").val() == "") {
+	         $("#idcheck_blank").css("color", "red");
+	         $("#idcheck_blank").text("아이디 필수 입력");
+	         userId = false;
+	 	}else if(!idCheck.test($("#userId").val())) {
+	         $("#idcheck_blank").css("color", "red");
+	         $("#idcheck_blank").text("영문과 숫자 조합하여 6~8자만 가능");
+	         userId = false;
+	    }else {
+	    	$("#idcheck_blank").css("color", "blue");
+	    	$("#idcheck_blank").text("괜찮은 아이디입니다. 중복확인을 해보세요");
+	    	userId = true;
+	    }
+	 	
+	 	if(userId == true) {
+	 		$("#id_Confirm").show();
+	 	}else {
+	 		$("#id_Confirm").hide();
+	 	}
+	 });   	
+
+
+// 아이디 중복 확인
+$("#checkDuplicate").click(function() {
+ 	if( $("#userId").val() == "" ) {
+ 		alert("아이디를 입력해주세요.");
+ 	}else {
+ 		$.ajax({
+ 			url: "checkDuplicate",
+ 			type: "POST",
+ 			data: {'userIdn':$("#userId").val()},
+ 			success: function(data) {
+				//alert(data);
+				if(data = "YES") {
+					$("#idcheck_blank").css("color", "blue");
+			    	$("#idcheck_blank").text("사용가능한 아이디입니다.");
+			    	id_check = true;
+				}else {
+					$("#idcheck_blank").css("color", "red");
+			    	$("#idcheck_blank").text("중복된 아이디입니다.");
+			    	id_check = false;
+			    	$("#userId").val("");
+				}
+			},
+			error: function() {
+				alert("e");
+			}
+ 		});
+ 	}
+ });
+ 
+ // 비밀번호 유효성
+$("#userPw").blur(function() {
+ 	let pwdCheck= /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+ 	
+ 	if ($("#userPw").val() == "") {
+         $("#pwdcheck_blank1").css("color", "red");
+         $("#pwdcheck_blank1").text("필수정보입니다.");
+         userPw = false;
+      }	
+      else if (!pwdCheck.test($("#userPw").val())) {
+	  	 $("#pwdcheck_blank1").css("color", "red");
+	     $("#pwdcheck_blank1").text("비밀번호는 영문+숫자+특수문자 조합하여 8~16자리를 사용해야 합니다.");
+	     userPw = false;
+      }else {
+    	  $("#pwdcheck_blank1").css("color", "blue");
+		  $("#pwdcheck_blank1").text("안전한 비밀번호 입니다. 아래에 한번 더 입력하세요.");
+		  userPw = true;
+      } 	 
+ });
+
+ // 비밀번호 확인
+$("#confirmPassword").blur(function() {
+	if($("#confirmPassword").val() == "") {
+		$("#pwdcheck_blank2").css("color", "red");
+        $("#pwdcheck_blank2").text("필수정보입니다.");
+        confirmPassword = false;
+	}
+	else if(userPw == true && $("#userPw").val() == $("#confirmPassword").val()) {
+		$("#pwdcheck_blank2").css("color", "blue");
+		$("#pwdcheck_blank2").text("비밀번호가 일치합니다!");
+		confirmPassword = true;
+	}else {
+		$("#pwdcheck_blank2").css("color", "red");
+		$("#pwdcheck_blank2").text("비밀번호를 다시 확인해주세요.");
+		$("#password_check").val("");
+		confirmPassword = false;
+	}
+});
+ 
+ // 손님 이름
+$("#userName").blur(function() {
+	if( $("#userName").val == "" ) {
+		userName = false;
+	}else {
+		userName = true;
+	}	
+});
+ 
+// 닉네임 유효성
+	$("#userNickname").blur(function() {
+ 	let idCheck = /^[a-zA-Z0-9]{6,8}$/;
+ 	
+ 	if ($("#userNickname").val() == "") {
+         $("#idcheck_blank").css("color", "red");
+         $("#idcheck_blank").text("닉네임 필수 입력");
+         userNickname = false;
+ 	}else if(!idCheck.test($("#userNickname").val())) {
+         $("#idcheck_blank").css("color", "red");
+         $("#idcheck_blank").text("영문과 숫자 조합하여 6~8자만 가능");
+         userNickname = false;
+    }else {
+    	$("#idcheck_blank").css("color", "blue");
+    	$("#idcheck_blank").text("괜찮은 닉네임입니다. 중복확인을 해보세요");	//닉네임 중복확인은 아이디부터 구현한 후 해야됨.
+    	userNickname = true;
+    }
+ 	
+ 	if(userNickname == true) {
+ 		$("#id_Confirm").show();
+ 	}else {
+ 		$("#id_Confirm").hide();
+ 	}
+ });  
+ 
+	function phonemaxlength(object){
+		if (object.value.length > object.maxLength) {
+			object.value = object.value.slice(0, object.maxLength);
+	    }
+	 }
 
 </script>
 
@@ -261,9 +400,9 @@ function signup() {
 </head>
 
 <body>
-	<header>
-		<div class="headerwrap">배달의 민족</div>
-	</header>
+
+	<jsp:include page="../base/header.jsp"/>
+
 	<section>
 
 		<div class="container">
@@ -276,20 +415,34 @@ function signup() {
 				</div>
 
 				<span class="input-container-id"> 
-					<input type="text" id="userId" name="userId" placeholder="아이디" class="vertical-center">
+					<input type="text" id="userId" name="userIdn" placeholder="영문, 숫자 조합 6~8자" class="vertical-center" maxlength="8">
 					<button id="checkDuplicate">중복확인</button>
 				</span> <br> 
 				
 				<span> 
-				<input type="password" id="userPw" name="userPw" placeholder="비밀번호" class="vertical-center">
+				<input type="password" id="userPw" name="m_password" placeholder="영문, 숫자, 특수문자 조합 8~16자" class="vertical-center" maxlength="16">
 				</span> <br> 
-				<span> <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" class="vertical-center">
+				<span> <input type="password" id="confirmPassword" name="confirmPassword" placeholder="비밀번호 확인" class="vertical-center" maxlength="16">
 				</span> <br> 
 				<span> <input type="text" id="userName" placeholder="이름" class="vertical-center">
 				</span> <br> 
 				<span> <input type="text" id="userNickname" placeholder="닉네임" class="vertical-center">
 				</span> <br> 
-				<span> <input type="tel" id="userPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center">
+				<span> 
+				<tr> 전화번호 </tr></br>
+				
+				<td><input type="hidden" id="m_phoneNum" name="m_phoneNum"  >
+			<select id="phoneNum1">
+				<option value="010">010</option>
+				<option value="011">011</option>
+				<option value="016">016</option>
+				<option value="017">017</option>
+				<option value="018">018</option>
+				<option value="019">019</option>
+				<option value="777">010</option>
+			</select> 
+			- <input type="number" id="phoneNum2" maxlength="4" oninput="phonemaxlength(this)" style="width: 60px;">
+		    - <input type="number" id="phoneNum3" maxlength="4" oninput="phonemaxlength(this)" style="width: 65px;"></td>
 				</span> <br> 
 				<span> <input type="email" id="userEmail" placeholder="이메일" class="vertical-center">
 				</span> <br> 
@@ -321,9 +474,7 @@ function signup() {
 		</div>
 
 	</section>
-	<footer> 
-	
-	</footer>
+<jsp:include page="../base/footer.jsp"/>
 
 
 </body>

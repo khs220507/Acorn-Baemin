@@ -12,13 +12,13 @@
 <style>
 /* reset css */
 	a{
-		text-decoration: none;
-    color: black;
+	  text-decoration: none;
+   	  color: black;
 	}
 		
 	button{
-		outline: none;	
-		cursor: pointer;	/* 손가락모양 */
+	  outline: none;	
+	  cursor: pointer;	/* 손가락모양 */
 	}
     *{
       margin: 0;
@@ -40,25 +40,24 @@
       justify-content:center;
       align-items: center;
       width:100vw;
-
-	    background-color: #48D1CC;
+	  background-color: #48D1CC;
     }
+    
     .header-wrap{
-    	width:1280px;
-    	display:flex;
+      width:1280px;
+      display:flex;
     }
+    
     .logo{
       flex: 2.5;
       display: flex;
       justify-content: flex-start;
-      align-items: center;
-      
+      align-items: center;      
     }
     .logo a{
-    	color: white;
-    	font-size: 40px;
+      color: white;
+      font-size: 40px;
     }
-
 
     .info-wrap{
       flex: 5;
@@ -66,21 +65,21 @@
 
     .address-wrap{
       width: 400px;
-    	display: flex;
+      display: flex;
       margin: 0 auto;
-    	justify-content: center;
-    	align-items: center;
+      justify-content: center;
+      align-items: center;
     }
     .address-wrap p{
       flex:5;
-    	color: white;
-    	font-size: 18px;
+      color: white;
+      font-size: 18px;
       cursor: pointer;
     }
     
     .address-wrap img{
-     	width: 20px;
-     	height: 20px;
+      width: 20px;
+      height: 20px;
       cursor: pointer;
      }
 
@@ -88,21 +87,20 @@
       margin-left: 10px;
      }
 
-
      .search-wrap{
-     	width: 400px;
-     	height: 35px;
+      width: 400px;
+      height: 35px;
       display: flex;
       align-items: center;
 
-     	background-color: white;
-     	border-radius: 10px;
-     	margin: 10px auto;
+      background-color: white;
+      border-radius: 10px;
+      margin: 10px auto;
      }
      .search-wrap input{
-     	width: 360px;
-     	height: 30px;
-     	margin-left: 10px;
+      width: 360px;
+      height: 30px;
+      margin-left: 10px;
       
      	border: none;
      	outline:none;

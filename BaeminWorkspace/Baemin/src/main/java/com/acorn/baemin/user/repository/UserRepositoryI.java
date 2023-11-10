@@ -9,16 +9,18 @@ public interface UserRepositoryI {
 
 	public SellerDTO selectSellerInfo(String selone2) throws Exception;	
 	
-	// ¼Õ´Ô °¡ÀÔ
+	// ì†ë‹˜ ê°€ì…
 	public void insertCustomer(UserDTO insertcustomer);
 		
-	// »çÀå´Ô °¡ÀÔ
+	// ì‚¬ì¥ë‹˜ ê°€ì…
 	public void insertSeller(SellerDTO insertseller);
 	
-	// ¼Õ´Ô Á¤º¸¼öÁ¤
+	// ì†ë‹˜ ì •ë³´ìˆ˜ì •
 	public void updateCustomer(UserDTO updatecustomer);
 	
-	// »çÀå´Ô Á¤º¸¼öÁ¤
+	// ì‚¬ì¥ë‹˜ ì •ë³´ìˆ˜ì •
 	public void updateSeller(SellerDTO updateseller);
 
+	// ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+		public int checkDuplicateUserId(UserDTO userDTO);
 }

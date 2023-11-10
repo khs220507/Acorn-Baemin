@@ -238,7 +238,7 @@ function updateseller(){
             contentType: "application/json",
             success: function (data) {
                 alert("수정 성공 q(≧▽≦q)");
-                window.location.href = "http://localhost:8090/baemin/selectSellerInfo";
+                window.location.href = "http://localhost:8080/baemin/selectSellerInfo";
             },
             error: function () {
             	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
@@ -258,11 +258,7 @@ function updateseller(){
 </head>
 
 <body>
-
-
-	<header>
-		<div class="headerwrap">배달의 민족</div>
-	</header>
+<jsp:include page="../base/header.jsp"/>
 
 	<section>
 		<div class="container">
@@ -302,7 +298,7 @@ function updateseller(){
 		</div>
 
 	</section>
-	<footer> </footer>
+	<jsp:include page="../base/footer.jsp"/>
 
 
 </body>
