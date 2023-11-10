@@ -82,7 +82,30 @@ public class SellerController {
 
 		return "seller/store_manage";
 	}
+	
+	// 손님이 볼 가게 화면
+	@GetMapping("/store")
+	public String storeMain(@RequestParam("storeCode") int storeCode,
+			Model model) {
 
+		System.out.println("storeCode @service: " + storeCode);
+		StoreDTO readStore = sc.selectStore(storeCode);
+		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+		System.out.println("sellerCode @service : " + readStore.getSellerCode());
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+		System.out.println(readMenuInfo);
+		//List<ReviewDTO> reviewList = sc.selectAllReview();
+		
+		model.addAttribute("readStore", readStore);
+		model.addAttribute("readSeller", readSeller);
+		model.addAttribute("readMenuInfo", readMenuInfo);
+		model.addAttribute("CList", CList);
+		//model.addAttribute("reviewList", reviewList);
+
+		return "seller/store";
+	}
+	
 	// 이미지 업로드와 관련
 	@ResponseBody
 	@GetMapping("/images/{menuImage:.*}")
