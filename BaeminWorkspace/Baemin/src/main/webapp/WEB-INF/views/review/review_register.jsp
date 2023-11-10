@@ -130,27 +130,6 @@ body {
 
 <script>
 
-function writeReview() {
- 	let formData = new FormData(document.getElementById('reviewForm'));
- 	alert(formData);
- 	alert("테스트2");
-		$.ajax({
-			type : "POST",
-			enctype : 'multipart/form-data',
-			processData : false,
-			contentType : false,
-			url : "/baemin/submitReview",
-			data : formData,
-			success : function(data) {
-				alert("성공");
-				window.opener.location.href = "http://localhost:8080/baemin/home";
-
-			},
-			error : function() {
-				alert("저장에 실패하였습니다. 확인 후 다시 시도해주세요");
-			}
-		})
- };
 
 </script>
 
@@ -184,11 +163,11 @@ function writeReview() {
 		</div>
 
 		<div class="review-input-box-wrap">
-			<form id="reviewForm" enctype="multipart/form-data" method="post">
+			<form enctype="multipart/form-data" method="POST" action="/baemin/submitReview">
 				<textarea name="reviewContent" class="review-input-box"
 					placeholder="리뷰를 입력하세요"></textarea>
 				 
-                <input type="file" name="reviewImage" accept="image/*">
+                <input type="file" name="reviewImage">
 				<div class="review-rating-wrap">
 				
 					<div class="review-rating-title">음식은 어떠셨어요?</div>

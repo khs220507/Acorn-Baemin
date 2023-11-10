@@ -52,8 +52,9 @@ public class LoginController {
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
 		if (seller != null) {
-			session.setAttribute("user", seller.getSellerCode());
-			return "redirect:/home";
+			int sellerCode = seller.getSellerCode();
+			session.setAttribute("user", sellerCode);
+			return "redirect:/sellerHome?sellerCode="+sellerCode;
 		} else {
 			model.addAttribute("message", "�α��� ����. �α��� ������ ���� ������ Ȯ�����ּ���.");
 			return "user/login";			
@@ -71,7 +72,11 @@ public class LoginController {
 	
 	
 	
-	
+	@GetMapping("/logout")
+	public String logout(  HttpSession session) {
+		   session.invalidate();
+		   return "redirect:/home";	
+	}
 	
 	
 	
