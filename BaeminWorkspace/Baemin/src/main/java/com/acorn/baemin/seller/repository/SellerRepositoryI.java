@@ -18,7 +18,7 @@ public interface SellerRepositoryI {
 	// 메뉴 분류 조회(중복제거)
 	public List<MenuDTO> selectMenuClassification();
 	// 메뉴 전체 내용 조회
-	public List<MenuDTO> selectAllMenuInfo();
+	public List<MenuDTO> selectAllMenuInfo(Integer storeCode);
 	// 메뉴 분류 수정
 	public int updateMenuClassification(String menuClassification);
 	// 메뉴 등록

@@ -28,9 +28,9 @@ public class SellerService implements SellerServiceI{
 	}
 	// 메뉴 전체 조회
 	@Override
-	public List<MenuDTO> selectAllMenuInfo() {
+	public List<MenuDTO> selectAllMenuInfo(Integer storeCode) {
 		System.out.println("selectAllMenuInfo @service");
-		List<MenuDTO> list =  rep.selectAllMenuInfo();
+		List<MenuDTO> list =  rep.selectAllMenuInfo(storeCode);
 		return list;
 	}
 	// 메뉴 분류 수정

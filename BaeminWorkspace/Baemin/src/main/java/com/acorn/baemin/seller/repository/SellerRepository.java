@@ -31,9 +31,9 @@ public class SellerRepository implements SellerRepositoryI {
 	}
 	// 메뉴 전체 조회
 	@Override
-	public List<MenuDTO> selectAllMenuInfo() {
+	public List<MenuDTO> selectAllMenuInfo(Integer storeCode) {
 		System.out.println("selectAllMenuInfo @repo");
-		return session.selectList(namespaceSeller + "selectAllMenuInfo");
+		return session.selectList(namespaceSeller + "selectAllMenuInfo",storeCode);
 	}
 	// 메뉴 분류 수정
 	@Override
