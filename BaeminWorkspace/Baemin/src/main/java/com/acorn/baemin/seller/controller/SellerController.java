@@ -97,10 +97,10 @@ public class SellerController {
 			throws IllegalStateException, IOException {
 
 		System.out.println("menuName" + menuName);
-		System.out.println("menuName" + menuPrice);
-		System.out.println("menuName" + menuContent);
-		System.out.println("menuName" + menuClassification);
-		System.out.println("menuName" + menuStatus);
+		System.out.println("menuPrice" + menuPrice);
+		System.out.println("menuContent" + menuContent);
+		System.out.println("menuClassification" + menuClassification);
+		System.out.println("menuStatus" + menuStatus);
 
 		try {
 			if (!menuImageFile.isEmpty()) {
@@ -113,6 +113,7 @@ public class SellerController {
 				String menuImage = menuName + fileName;
 
 				System.out.println(menuImage);
+				
 				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuClassification,
 						menuStatus);
 

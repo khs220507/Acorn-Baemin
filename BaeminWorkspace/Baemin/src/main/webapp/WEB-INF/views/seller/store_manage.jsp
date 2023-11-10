@@ -156,7 +156,6 @@ button {
 		// 메뉴 등록
 		$(".insert-menu-btn").click(function() {
 			let formData = new FormData(document.querySelector(".menu-form"));
-			console.log(formData);
 			$.ajax({
 				type : "post",
 				url : "${path}/store_manage",
@@ -183,26 +182,8 @@ button {
 		
 		
 		// 정보 탭 영역
-		// 수정
-		function modifyStoreInfo(sellerCode, storeCode){
-        $.ajax({
-            url: "{path}/store_manage/{sellerCode},{storeCode}",
-            method: 'get',
-            success: function(data) {
-            	console.log(data);
-                // AJAX 요청이 성공하면 데이터를 가져와서 input 태그에 적절히 설정합니다.
-                $("input[name='storeDescription']").val(data.storeDescription);
-                $("input[name='operatingTime']").val(data.operatingTime);
-                $("input[name='sellerName']").val(data.sellerName);
-                $("input[name='storeAddress']").val(data.storeAddress);
-                $("input[name='sellerRegCode']").val(data.sellerRegCode);
-            },
-            error: function() {
-                alert("fail");
-	            }
-	        });
-			
-		}
+		
+		
 		
 		// 리뷰 탭 영역
 		// 답글달기 버튼을 클릭하면 메뉴정보 입력 폼 활성화
@@ -266,6 +247,8 @@ button {
 			}
 		});
 	}
+	
+	// 가게 수정
 </script>
 </head>
 <body>
@@ -303,7 +286,7 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><div>${menuList.menuImage}</div></a>
+										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}">${menuList.menuImage}</a>
 										<input type="file" name="menuImageFile">
 										<div>
 											<input type="text" class="menuName" value="${menuList.menuName}">
