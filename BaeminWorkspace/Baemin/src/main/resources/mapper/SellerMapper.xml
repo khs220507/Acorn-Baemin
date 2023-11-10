@@ -23,9 +23,9 @@
 	<!-- 메뉴 등록 -->
 	<insert id="insertMenu" parameterType="MenuDTO">
 		INSERT INTO menu_tbl
-		(menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
+		(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
 		VALUES
-		(#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
+		(#{storeCode}, #{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
 	</insert>
 	
 	<!-- 메뉴 수정 -->
