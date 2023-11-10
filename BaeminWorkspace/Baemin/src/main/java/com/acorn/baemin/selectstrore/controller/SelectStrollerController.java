@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.domain.StoreDTO;
@@ -23,8 +24,8 @@ public class SelectStrollerController {
 	SelectStrollerRepository rep;
 
 	@GetMapping("/storeList")
-	public String selectStore( Model model) {
-		List<StoreDTO> result  = rep.selectStore("치킨");
+	public String selectStore(@RequestParam String storeCategory, Model model) {
+		List<StoreDTO> result  = rep.selectStore(storeCategory);
 		model.addAttribute("list", result);
 		return "store/store_list";
 		}
