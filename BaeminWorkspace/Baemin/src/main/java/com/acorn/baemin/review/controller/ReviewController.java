@@ -33,14 +33,24 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/submitReview")
-	public String saveFile( @RequestParam String reviewContent,
-	@RequestParam MultipartFile reviewImage, Model model ) throws IOException {
+	public String saveReview( @RequestParam String reviewContent,
+	@RequestParam MultipartFile reviewImage, @RequestParam int reviewRating, @RequestParam String reviewDate, Model model ) throws IOException {
 	if (!reviewImage.isEmpty()) {
 	String fullPath = fileDir + reviewImage.getOriginalFilename();
 	reviewImage.transferTo(new File(fullPath));
 	model.addAttribute("fileName" , reviewImage.getOriginalFilename());
 	}
-	return "upload-ok";
+	
+	// Create a ReviewDTO and set its properties
+    ReviewDTO reviewDTO = new ReviewDTO();
+    reviewDTO.setReviewDate(reviewDate);
+    reviewDTO.setReviewContent(reviewContent);
+    reviewDTO.setReviewRating(reviewRating);
+    // Set other properties as needed
+
+    // Save the review to the database using the ReviewService
+    reviewService.insertReview(reviewDTO);
+	return "review/review_submit";
 	}
 	
 
