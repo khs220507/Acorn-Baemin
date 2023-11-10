@@ -76,6 +76,8 @@ hr {
 	width: 100%;
 	justify-content: center;
 }
+
+
 </style>
 </head>
 <body>
@@ -86,6 +88,7 @@ hr {
 	<hr>
 	<section>
 		<div>
+		<form action="/baemin/cartList">
 			<div>
 				<div class="menu-img"></div>
 				<div class="menu-name">메뉴선택에서 불러와야함</div>
@@ -102,6 +105,7 @@ hr {
 										<input type="radio" name="${item}">
 										<span>${items.optionName}</span> 
 										<span>${items.optionPrice}</span> 
+										<input type="hidden" name="${items.optionCode}" value="${items.optionCode}">
 									</div>
 								</c:when>
 								<c:otherwise>
@@ -109,6 +113,7 @@ hr {
 										<input type="checkbox" name="${item}">
 										<span>${items.optionName}</span> 
 										<span>${items.optionPrice}</span> 
+										<input type="hidden" name="${items.optionCode}" value="${items.optionCode}">
 									</div>
 								</c:otherwise>
 							</c:choose>
@@ -121,6 +126,7 @@ hr {
 			<div class="plus-cart-but">
 			<button>장바구니에 추가</button>
 			</div>
+			</form>
 		</div>
 
 	</section>

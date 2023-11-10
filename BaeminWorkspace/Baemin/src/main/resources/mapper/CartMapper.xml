@@ -20,7 +20,7 @@
 		SELECT *
 		FROM store_tbl st
 		INNER JOIN cart_tbl ct ON st.storeCode = ct.storeCode
-		WHERE ct.userId = 'user1';
+		WHERE ct.userId = #{id};
 	</select>
 
 	<!-- 장바구니리스트를 넘기면 해당하는 상품에 대한 매장정보를 List로 반환 함 -->

@@ -184,7 +184,7 @@ button {
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
 										<!-- 메뉴 사진을 클릭하면 옵션을 선택하는 페이지로?-->
-										<a href="">${menuList.menuImage}</a>
+										<a href="${path}/option?menuCode=${menuList.menuCode}">${menuList.menuImage}</a>
 										<div>
 											<div class="menuName">${menuList.menuName}</div>
 											<div class="menuName">${menuList.menuContent}</div>
