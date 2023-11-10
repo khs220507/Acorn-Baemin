@@ -28,6 +28,7 @@ public class UserController {
 	@Autowired
     UserRepository userrep;
 	
+	// 아이디 중복 확인
 	@ResponseBody
 	@PostMapping("/checkDuplicate")
 	public Map<String, Object> checkDuplicate(@RequestBody UserDTO userDTO) {
