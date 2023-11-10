@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -289,7 +290,7 @@ margin: 0 auto;
 			   			url : "/baemin/upsellerHome",
 			   			data : formData,
 			   			success : function(data) {
-			   				window.opener.location.href = "http://localhost:8080/baemin/sellerHome";
+			   				window.location.reload();
 			
 			   			},
 			   			error : function() {
@@ -299,7 +300,7 @@ margin: 0 auto;
 			   
 		}
 		   
-	    
+	    <% String sellerCode = (String)session.getAttribute("seller"); %>
        
 		function updateSellerStore(storeCode , but){
 			
@@ -339,7 +340,7 @@ margin: 0 auto;
 		    result += '<div class="store-plus-info"><span>배달비</span><input name="updeliveryFee" type="text" value="' + d.deliveryFee + '"></div>';
 		    result += '<div class="store-plus-info"><span>배달지역</span><input name="updeliveryArea" type="text" value="' + d.deliveryArea + '"></div>';
 		    result += '<div class="store-plus-but-wrap"><button class="store-plus-but" onclick="updateStore( this)">수정하기</button></div>';
-		    result += '<input class="sstoreCode" type="text" name="sstoreCode" value="' + s + '"><input class="sstoreCode" name="backupStoreImage" type="text" value="' + d.storeImage + '"></form>';
+		    result += '<input class="sstoreCode" type="text" name="sellerCode" value="' + <%= sellerCode%> + '"><input class="sstoreCode" type="text" name="sstoreCode" value="' + s + '"><input class="sstoreCode" name="backupStoreImage" type="text" value="' + d.storeImage + '"></form>';
 		    return result;
 		}
 
@@ -359,9 +360,10 @@ margin: 0 auto;
 					<div class="store-img-wrap">
 						<div class="store-img"><img alt="" src="/baemin/images/${item.storeImage }"></div>
 					</div>
+					
 					<div class="store-info-wrap">
 						<div class="store-info">
-							<div>${item.storeName }</div>
+							<div><a href="${path}/store_manage?storeCode=${item.storeCode}">${item.storeName }</a></div>
 							<div>⭐ ${item.storeRating}(${item.reviewCount})</div>
 							<div>최소주문: ${item.minOrderPrice }</div>
 						</div>
@@ -422,6 +424,7 @@ margin: 0 auto;
 					</div>
 					<div class="store-plus-but-wrap">
 					<button class="store-plus-but" onclick="plusclick2()">저장하기</button>
+					<input class="sstoreCode" type="text" name="sellerCode" value="<%= sellerCode%>">
 					</div>
 				
 			</div>

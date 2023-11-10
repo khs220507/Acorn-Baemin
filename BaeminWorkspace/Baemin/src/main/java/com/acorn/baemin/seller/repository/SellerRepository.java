@@ -34,6 +34,7 @@ public class SellerRepository implements SellerRepositoryI {
 	public List<MenuDTO> selectAllMenuInfo(Integer storeCode) {
 		System.out.println("selectAllMenuInfo @repo");
 		return session.selectList(namespaceSeller + "selectAllMenuInfo", storeCode);
+
 	}
 	// 메뉴 분류 수정
 	@Override

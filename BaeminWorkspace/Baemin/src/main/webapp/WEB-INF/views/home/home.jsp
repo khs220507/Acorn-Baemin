@@ -291,7 +291,7 @@
       <tr>
         <td>
           <div class="category">
-            <a class="category-wrap-a" href="${path}/storeList">
+            <a class="category-wrap-a" href="${path}/storeList?storeCategory=치킨"> 
               <img src="../../../resources/images/food.png">
               <p><strong>치킨</strong></p>
             </a>

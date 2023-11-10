@@ -85,11 +85,6 @@ VALUES
 select * from store_tbl;
 
 
-SELECT DISTINCT  * FROM store_tbl JOIN menu_tbl ON
-    store_tbl.storeCode = menu_tbl.storeCode
-    WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%') OR
-    REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%');
-
 
 
 -- 04. 태민 menu_tbl
