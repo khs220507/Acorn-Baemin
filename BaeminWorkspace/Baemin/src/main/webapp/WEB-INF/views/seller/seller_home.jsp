@@ -358,7 +358,7 @@ margin: 0 auto;
 			<c:forEach items="${list }" var="item">
 				<div class="store-list">
 					<div class="store-img-wrap">
-						<div class="store-img"><img alt="" src="/baemin/images/${item.storeImage }"></div>
+						<div class="store-img"><img alt="" src="${path}/storeImages/${item.storeImage }"></div>
 					</div>
 					
 					<div class="store-info-wrap">
