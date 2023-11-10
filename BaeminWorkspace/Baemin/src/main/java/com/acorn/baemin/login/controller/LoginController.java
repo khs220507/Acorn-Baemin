@@ -27,13 +27,13 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;	
 
-	//·Î±×ÀÎ º¸³»±â
+	//ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/login")
 	public String login() {
 		return "user/login";
 	}
 	
-	//¼Õ´Ô ·Î±×ÀÎ ÀÔ·Â Á¤º¸ ¹Þ¾Æ¿À±â
+	//ï¿½Õ´ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 	@PostMapping("/login")
 	public String processLogin(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		System.out.println(userId + userPw + logintype);
@@ -42,12 +42,12 @@ public class LoginController {
 			session.setAttribute("userCode", user.getUserCode());
 			return "redirect:/home";
 		} else {
-			model.addAttribute("message", "·Î±×ÀÎ ½ÇÆÐ. ·Î±×ÀÎ À¯Çü°ú °èÁ¤ Á¤º¸¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+			model.addAttribute("message", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			return "user/login";			
 		}
 	}
 	
-	//»çÀå´Ô ·Î±×ÀÎ ÀÔ·Â Á¤º¸ ¹Þ¾Æ¿À±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
@@ -55,7 +55,7 @@ public class LoginController {
 			session.setAttribute("user", seller.getSellerCode());
 			return "redirect:/home";
 		} else {
-			model.addAttribute("message", "·Î±×ÀÎ ½ÇÆÐ. ·Î±×ÀÎ À¯Çü°ú °èÁ¤ Á¤º¸¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+			model.addAttribute("message", "ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
 			return "user/login";			
 		}
 	}
