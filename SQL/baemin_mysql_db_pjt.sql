@@ -301,6 +301,17 @@ show tables;
 
 
 -- Drop all tables
+DROP TABLE cart_tbl;
+DROP TABLE order_tbl;
+DROP TABLE answer_tbl;
+DROP TABLE zzim_tbl;
+DROP TABLE review_tbl;
+DROP TABLE address_tbl;
+DROP TABLE option_tbl;
+DROP TABLE menu_tbl;
+DROP TABLE store_tbl;
+DROP TABLE seller_tbl;
+DROP TABLE user_tbl;
 DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
 
 
