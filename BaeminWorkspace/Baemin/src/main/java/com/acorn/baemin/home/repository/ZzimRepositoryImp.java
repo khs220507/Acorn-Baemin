@@ -11,7 +11,7 @@ import com.acorn.baemin.domain.ZzimStoreDTO;
 
 
 @Repository
-public class ZzimRepository implements InterZzimRepository{
+public class ZzimRepositoryImp implements ZzimRepositoryI{
 
 	@Autowired
     private SqlSession session;

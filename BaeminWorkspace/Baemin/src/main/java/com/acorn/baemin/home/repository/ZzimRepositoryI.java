@@ -7,7 +7,7 @@ import com.acorn.baemin.domain.ZzimStoreDTO;
 
 
 
-public interface InterZzimRepository {
+public interface ZzimRepositoryI {
 
 	public List<ZzimStoreDTO> zzimSelectAll(int userCode) throws Exception;
 	

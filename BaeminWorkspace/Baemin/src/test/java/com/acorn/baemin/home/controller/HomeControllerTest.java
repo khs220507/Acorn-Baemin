@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.acorn.baemin.home.repository.OrderRepository;
+import com.acorn.baemin.home.repository.OrderRepositoryImp;
 import com.acorn.baemin.home.repository.SearchRepositoryImp;
-import com.acorn.baemin.home.repository.ZzimRepository;
+import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 
 import lombok.extern.log4j.Log4j;
 
@@ -21,10 +21,10 @@ import lombok.extern.log4j.Log4j;
 public class HomeControllerTest {
 
 	@Autowired
-	OrderRepository dao;
+	OrderRepositoryImp dao;
 
 	@Autowired
-	ZzimRepository zzimDAO;
+	ZzimRepositoryImp zzimDAO;
 	
 	@Autowired
 	SearchRepositoryImp searchDAO;
