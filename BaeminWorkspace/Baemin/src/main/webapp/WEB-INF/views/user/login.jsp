@@ -40,9 +40,9 @@ body {
 	margin: 0;
 	padding: 0;
 	display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100vh;
+	flex-direction: column; align-items : center;
+	height: 100vh;
+	align-items: center;
 }
 
 .container {
@@ -174,90 +174,88 @@ a {
 </head>
 
 <body>
-<script>
-	// 로그인 클릭 시 radio 조건 체크
-function login() {
-    const logintypes = document.getElementsByName("logintype");
+	<script>
+		// 로그인 클릭 시 radio 조건 체크
+		function login() {
+			const logintypes = document.getElementsByName("logintype");
 
-    let selectedLogintype = null;
+			let selectedLogintype = null;
 
-    for (let i = 0; i < logintypes.length; i++) {
-        let item = logintypes[i];
-        if (item.checked) {
-            selectedLogintype = item.value;
-            break;  
-        }
-    }
+			for (let i = 0; i < logintypes.length; i++) {
+				let item = logintypes[i];
+				if (item.checked) {
+					selectedLogintype = item.value;
+					break;
+				}
+			}
 
-    if (selectedLogintype) {
-        const form = document.getElementById("loginForm");
+			if (selectedLogintype) {
+				const form = document.getElementById("loginForm");
 
-        if (selectedLogintype === "customer") {
-            form.action = "${path}/login";  
-        } else if (selectedLogintype === "seller") {
-            form.action = "${path}/login2"; 
-        }
+				if (selectedLogintype === "customer") {
+					form.action = "${path}/login";
+				} else if (selectedLogintype === "seller") {
+					form.action = "${path}/login2";
+				}
 
-        form.submit();
-    } else {
-        alert("로그인 유형을 선택해 주세요. (손님 또는 사장님).");
-    }
-    
- // Enter 키 누를 시 로그인 button click과 같은 효과
-    document.getElementById("loginButton").addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            login();
-        }
-    });
- 
-    
-}
-</script>
+				form.submit();
+			} else {
+				alert("로그인 유형을 선택해 주세요. (손님 또는 사장님).");
+			}
+
+			// Enter 키 누를 시 로그인 button click과 같은 효과
+			document.getElementById("loginButton").addEventListener("keydown",
+					function(event) {
+						if (event.key === "Enter") {
+							login();
+						}
+					});
+		}
+	</script>
 	<jsp:include page="../base/header.jsp" />
-	<jsp:include page="../base/footer.jsp" />
+	
 	<c:forEach items="${list}" var="item">
 	${item}
 	</c:forEach>
 
 	<section>
 		<div class="container">
-<div id="header-links">
-    <c:choose>
-        <c:when test="${empty sessionScope.user}">
-            <!-- 사용자가 로그아웃 상태인 경우 -->
-            <a href="${path}/login">로그인</a>
-        </c:when>
-        <c:otherwise>
-            <!-- 사용자가 로그인 상태인 경우 -->
-            <a href="${path}/logout">로그아웃</a>
-        </c:otherwise>
-    </c:choose>
-</div>
+			<div id="header-links">
+				<c:choose>
+					<c:when test="${empty sessionScope.user}">
+						<!-- 사용자가 로그아웃 상태인 경우 -->
+						<a href="${path}/login">로그인</a>
+					</c:when>
+					<c:otherwise>
+						<!-- 사용자가 로그인 상태인 경우 -->
+						<a href="${path}/logout">로그아웃</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
 			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login" method="post"  id="loginForm">
+			<form class="login-form" action="${path}/login" method="post"
+				id="loginForm">
 
-				<div>${message}</div>
+				<!-- <div>${message}</div>-->
 				<div class="login-title">
 					<h1>로그인</h1>
 				</div>
-				<div class="options"> 
-					<label class="optlab1">
-						<input type="radio" name="logintype" value="customer">손님</label> 
-					<label class="optlab2">
-						<input type="radio" name="logintype" value="seller">사장님</label>	
+				<div class="options">
+					<label class="optlab1"> <input type="radio"
+						name="logintype" value="customer">손님
+					</label> <label class="optlab2"> <input type="radio"
+						name="logintype" value="seller">사장님
+					</label>
 				</div>
 
-				<span></span> 
-				<input type="text" name="userId" placeholder="아이디" class="vertical-center"> 
-				<br> 
-				<span></span> 
-				<input type="password" name="userPw" placeholder="비밀번호" class="vertical-center"> 
-				<br>
+				<span></span> <input type="text" name="userId" placeholder="아이디"
+					class="vertical-center"> <br> <span></span> <input
+					type="password" name="userPw" placeholder="비밀번호"
+					class="vertical-center"> <br>
 
 				<!-- 아이디 저장 (Remember Me) 체크박스 -->
-				<label class="remember-me"> 
-				<input type="checkbox" name="rememberMe"> 
-				아이디 저장
+				<label class="remember-me"> <input type="checkbox"
+					name="rememberMe"> 아이디 저장
 				</label>
 				<!-- 아이디 찾기와 비밀번호 찾기 링크 -->
 				<div class="remember-links right-links">
@@ -270,8 +268,9 @@ function login() {
 				<input type="button" id="loginForm" value="로그인" onclick="login()">
 
 				<div class="kakao">
-					<label class="kakao_login">
-					<input type="radio" name="option" value="kakao">카카오로 간편 로그인</label>
+					<label class="kakao_login"> <input type="radio"
+						name="option" value="kakao">카카오로 간편 로그인
+					</label>
 				</div>
 			</form>
 
@@ -281,7 +280,7 @@ function login() {
 		</div>
 
 	</section>
-
+<jsp:include page="../base/footer.jsp" />
 
 
 </body>

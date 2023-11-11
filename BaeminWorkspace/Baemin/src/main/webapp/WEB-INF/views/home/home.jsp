@@ -11,10 +11,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 /* reset css */
+
 a {
 	text-decoration: none;
 	color: black;
 }
+
 
 button {
 	outline: none;

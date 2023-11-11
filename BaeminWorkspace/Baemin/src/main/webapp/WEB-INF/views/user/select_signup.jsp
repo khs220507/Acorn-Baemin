@@ -112,9 +112,7 @@ input[type="button"] {
 </head>
 
 <body>
-	<header>
-		<div class="headerwrap">헤더</div>
-	</header>
+	<jsp:include page="../base/header.jsp"/>
 	<section>
 		<div class="container">
 			<!-- 회원가입 유형 선택 폼 -->
@@ -134,7 +132,7 @@ input[type="button"] {
 			</p>
 		</div>
 	</section>
-	<footer> </footer>
+	<jsp:include page="../base/footer.jsp"/>
 </body>
 
 </html>

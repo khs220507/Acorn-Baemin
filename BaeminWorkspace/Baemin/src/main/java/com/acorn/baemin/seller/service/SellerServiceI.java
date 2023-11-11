@@ -13,9 +13,9 @@ public interface SellerServiceI {
 		// 태민
 		// 메뉴탭
 		// 메뉴 분류 조회(중복제거)
-		public List<MenuDTO> selectMenuClassification();
+		public List<MenuDTO> selectMenuClassification(Integer storeCode);
 		// 메뉴 전체 조회
-		public List<MenuDTO> selectAllMenuInfo();
+		public List<MenuDTO> selectAllMenuInfo(Integer storeCode);
 		// 메뷰 분류 수정
 		public void modifingMenuClassification(String menuClassification);
 		// 메뉴 등록

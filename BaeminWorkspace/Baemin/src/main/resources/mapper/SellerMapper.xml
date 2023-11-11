@@ -5,12 +5,12 @@
 
 	<!-- 메뉴 분류 조회(중복제거) -->
 	<select id="selectMenuClassification" resultType="MenuDTO" parameterType="int">
-		SELECT DISTINCT menuClassification FROM menu_tbl
+		SELECT DISTINCT menuClassification FROM menu_tbl where storeCode = #{storeCode}
 	</select>
 
 	<!-- 메뉴 전체 조회 -->
 	<select id="selectAllMenuInfo" resultType="MenuDTO" parameterType="int">
-		SELECT * FROM menu_tbl
+		SELECT * FROM menu_tbl where storeCode = #{storeCode}
 	</select>
 
 	<!-- 메뉴 분류 수정 -->
@@ -23,9 +23,9 @@
 	<!-- 메뉴 등록 -->
 	<insert id="insertMenu" parameterType="MenuDTO">
 		INSERT INTO menu_tbl
-		(menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
+		(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
 		VALUES
-		(#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
+		(#{storeCode}, #{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
 	</insert>
 	
 	<!-- 메뉴 수정 -->

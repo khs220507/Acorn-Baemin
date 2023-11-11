@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -98,11 +99,10 @@ footer {
 
 	/* */
 	    function insertOptoin(Category, SelectType , element) {
-    		let menuCode = 40001;
+    		let menuCode = ${menuCode};
     		let optionSelectType=SelectType;
     		let optionCategory= Category;
 				let optionName = $(element).closest('.insert-optoin-wrap').find('.insertOptoinName').val();
-				alert(optionName);
        	let optionPrice = $(element).closest('.insert-optoin-wrap').find('.insertOptoinPrice').val();
        	let info = {menuCode : menuCode,
        			optionSelectType : optionSelectType,
@@ -127,7 +127,7 @@ footer {
     };
     
 	function insertOptionCategory() {
-		let menuCode = 40001;
+		let menuCode = ${menuCode};
 		let optionCategory = $("#optionCategory").val();
        	let optionName = $("#optionName").val();
        	let optionPrice = $("#optionPrice").val();
@@ -179,7 +179,7 @@ footer {
 	}
 	
 	function optionupdatecategory(Category, element) {
-		let menuCode= 40001;
+		let menuCode= ${menuCode};
 		let optionCategory = Category;
 		let optionName = $(element).closest('.option-category-wrap').find('.upOptionCategoryName').val();
 	    
@@ -218,7 +218,7 @@ footer {
     function optiondeletecategory(category) {
 	    $.ajax({
 			type: "DELETE",
-			url: "/baemin/sellerOption/"+category, //path Variable  ,
+			url: "/baemin/sellerOption/" + ${menuCode} + "/" + category, 
 			
 			success : function (data){
 				window.location.reload();
@@ -239,7 +239,7 @@ footer {
 	<section>
 		<div>
 			<div>
-				<div class="menu-img"></div>
+				<div class="menu-img"><img alt="" src=""></div>
 				<div class="menu-name">메뉴선택에서 불러와야함</div>
 			</div>
 			<div class="option-list-wrap">

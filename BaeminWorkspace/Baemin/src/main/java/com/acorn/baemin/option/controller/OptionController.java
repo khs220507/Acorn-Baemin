@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.domain.OptionDTO;
@@ -24,8 +25,8 @@ public class OptionController {
 	
 	//user
 	@GetMapping("/option")
-	public String selectOption( Model model) {
-		List<OptionDTO> result  = rep.selectOption("40001");
+	public String selectOption(@RequestParam String menuCode, Model model) {
+		List<OptionDTO> result  = rep.selectOption(menuCode);
 		List<String> OptionCategoryList = new ArrayList<>(result.size());
 		for(OptionDTO list : result) {
 			String OptionCategory =list.getOptionCategory();
@@ -34,16 +35,18 @@ public class OptionController {
 		String[] result2 = OptionCategoryList.stream().distinct().toArray(String[]::new);
 		model.addAttribute("Categorylist", result2);
 		model.addAttribute("list", result);
+		model.addAttribute("menuCode", menuCode);
 		return "store/option";
 		}
 	
 	//seller
 	@GetMapping("/sellerOption")
-	public String sellerOption( Model model) {
-		List<OptionDTO> result  = rep.selectOption("40001");
-		List<OptionDTO> result2 = rep.getCategoryAndSelectType("40001");
+	public String sellerOption(@RequestParam String menuCode, Model model) {
+		List<OptionDTO> result  = rep.selectOption(menuCode);
+		List<OptionDTO> result2 = rep.getCategoryAndSelectType(menuCode);
 		model.addAttribute("get", result2);
 		model.addAttribute("list", result);
+		model.addAttribute("menuCode", menuCode);
 		return "seller/menu_option";
 		}
 	
@@ -78,9 +81,9 @@ public class OptionController {
 	}
 	
 	@ResponseBody
-	@RequestMapping( value="/sellerOption/{category}" , method=RequestMethod.DELETE)
-	public void deleteOptionCategory(@PathVariable String category) {
-		OptionDTO option = new OptionDTO(0, 40001, category, 0, null, 0, null);
+	@RequestMapping( value="/sellerOption/{menuCode}/{category}" , method=RequestMethod.DELETE)
+	public void deleteOptionCategory(@PathVariable int menuCode, @PathVariable String category) {
+		OptionDTO option = new OptionDTO(0, menuCode , category, 0, null, 0, null);
 		rep.deleteOptionCategory(option);
 	}
 	

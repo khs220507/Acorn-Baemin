@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class MenuDTO {
 
 	Integer menuCode;
+	Integer storeCode;
 	String menuName;
 	Integer menuPrice;
 	String menuImage;

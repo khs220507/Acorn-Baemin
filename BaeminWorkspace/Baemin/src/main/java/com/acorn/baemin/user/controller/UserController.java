@@ -1,9 +1,13 @@
 package com.acorn.baemin.user.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,8 +27,22 @@ public class UserController {
 
 	@Autowired
     UserRepository userrep;
+	
+	// ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+	@ResponseBody
+	@PostMapping("/checkDuplicate")
+	public Map<String, Object> checkDuplicate(@RequestBody UserDTO userDTO) {
+	    Map<String, Object> response = new HashMap<>();
+	    try {
+	        int count = userrep.checkDuplicateUserId(userDTO);
+	        response.put("idCheckResult", count > 0);
+	    } catch (Exception e) {
+	        response.put("error", "í™•ì¸ì¢€");
+	    }
+	    return response;
+	}
 
-	// pull selectCustomerInfo
+	// ë‚´ì •ë³´ ìˆ˜ì • ì‹œ, ì†ë‹˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	@RequestMapping("/selectCustomerInfo")
 	public String customermodify(Model model) {
 		UserDTO result;
@@ -37,7 +55,7 @@ public class UserController {
 		return "user/customer_modify";
 	}
 
-	// pull selectSellerInfo
+	// ë‚´ì •ë³´ ìˆ˜ì • ì‹œ, ì‚¬ì¥ë‹˜ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
 	@RequestMapping("/selectSellerInfo")
 	public String sellermodify(Model model) {
 		SellerDTO result2;
@@ -50,80 +68,62 @@ public class UserController {
 		return "user/seller_modify";
 	}
 
-	// °¡ÀÔ À¯Çü º¸³»±â
+	// ê°€ì… ìœ í˜• ë³´ë‚´ê¸°
 	@GetMapping("/select_signup")
 	public String login() {
 		return "user/select_signup";
 	}
 
-	// ¼Õ´Ô Á¤º¸ »ı¼º ÆäÀÌÁö·Î ÀÌµ¿
+	// ì†ë‹˜ íšŒì›ê°€ì… í˜ì´ì§€ë¡œ ì´ë™
 	@GetMapping("/customer_signup")
 	public String customerCreate() {
 		return "user/customer_signup";
 	}	
 
-	// »çÀå´Ô Á¤º¸ »ı¼º ÆäÀÌÁö·Î ÀÌµ¿
+	// ì‚¬ì¥ë‹˜ íšŒì›ê°€ì… í˜ì´ì§€ë¡œ ì´ë™
 	@GetMapping("/seller_signup")
 	public String sellerCreate(Model model) {
 		model.addAttribute("userDTO", new UserDTO());
 		return "user/seller_signup";
 	}	
-			
-		// ¼Õ´Ô °¡ÀÔ
-		/*@ResponseBody
-		@RequestMapping(value = "/customer_signup", method = RequestMethod.POST)
-		public String customer_signup(String userId, String userPw, String userName, String userNickname,
-		        String userPhone, String userEmail, String userBirth, int userGender,
-		        String userPostCode, String userAddress, String userAddressDetail, String confirmPassword) {
-		    System.out.println("1");
-		    if(confirmPassword == userPw ) {
-		    	UserDTO user = new UserDTO(0, userId, userPw, userName, userNickname, userPhone, userEmail, userBirth, userGender, userPostCode, userAddress, userAddressDetail, 0);
-		    	
-		    	System.out.println("2");
-		    	userrep.insertCustomer(user);
-		    	System.out.println("3");
-		    	
-		    }
-		    
-		    return "ok";
-		}*/
-// ¼Õ´Ô È¸¿ø °¡ÀÔ
-		@ResponseBody
-		@RequestMapping(value="/customer_signup", method=RequestMethod.POST)
-		public void insertUserSignup(@RequestBody UserDTO user) {
-			userrep.insertCustomer(user);
-		}
-		
-// »çÀå´Ô È¸¿ø °¡ÀÔ		
-		@ResponseBody
-		@RequestMapping(value="/seller_signup", method=RequestMethod.POST)
-		public void insertSellerSignup(@RequestBody SellerDTO seller) {
-			userrep.insertSeller(seller);
-		}
-		
-// ¼Õ´Ô Á¤º¸ ¼öÁ¤		
-		@ResponseBody
-		@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)	    
-	    public String updateUserInfo(@RequestBody UserDTO userinfoupdate) {
-	        try {
-	            userrep.updateCustomer(userinfoupdate);
-	            return "¼öÁ¤ ¼º°ø";
-	        } catch (Exception e) {
-	            return "¼öÁ¤ ½ÇÆĞ: " + e.getMessage();
-	        }
-	    }
-		
-// »çÀå´Ô Á¤º¸ ¼öÁ¤		
-		@ResponseBody
-		@RequestMapping(value = "/updateSellerInfo", method = RequestMethod.POST)	    
-	    public String updateSellerInfo(@RequestBody SellerDTO sellerinfoupdate) {
-	        try {
-	            userrep.updateSeller(sellerinfoupdate);
-	            return "¼öÁ¤ ¼º°ø";
-	        } catch (Exception e) {
-	            return "¼öÁ¤ ½ÇÆĞ: " + e.getMessage();
-	        }
-	    }		
+	
+	// ì†ë‹˜ íšŒì› ê°€ì…
+	@ResponseBody
+	@RequestMapping(value="/customer_signup", method=RequestMethod.POST)
+	public void insertUserSignup(@RequestBody UserDTO user) {
+		userrep.insertCustomer(user);
+	}
+	
+	// ì‚¬ì¥ë‹˜ íšŒì› ê°€ì…		
+	@ResponseBody
+	@RequestMapping(value="/seller_signup", method=RequestMethod.POST)
+	public void insertSellerSignup(@RequestBody SellerDTO seller) {
+		userrep.insertSeller(seller);
+	}
+	
+	// ì†ë‹˜ ì •ë³´ ìˆ˜ì •		
+	@ResponseBody
+	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)	    
+    public String updateUserInfo(@RequestBody UserDTO userinfoupdate) {
+        try {
+            userrep.updateCustomer(userinfoupdate);
+            return "ìˆ˜ì • ì„±ê³µ";
+        } catch (Exception e) {
+            return "ìˆ˜ì • ì‹¤íŒ¨: " + e.getMessage();
+        }
+    }
+	
+	// ì‚¬ì¥ë‹˜ ì •ë³´ ìˆ˜ì •		
+	@ResponseBody
+	@RequestMapping(value = "/updateSellerInfo", method = RequestMethod.POST)	    
+    public String updateSellerInfo(@RequestBody SellerDTO sellerinfoupdate) {
+        try {
+            userrep.updateSeller(sellerinfoupdate);
+            return "ìˆ˜ì • ì„±ê³µ";
+        } catch (Exception e) {
+            return "ìˆ˜ì • ì‹¤íŒ¨: " + e.getMessage();
+        }
+    }		
 }
 
 	
