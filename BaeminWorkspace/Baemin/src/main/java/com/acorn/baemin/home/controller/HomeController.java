@@ -2,6 +2,8 @@ package com.acorn.baemin.home.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,9 @@ import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
 import com.acorn.baemin.home.repository.OrderDetailRepositoryImp;
-import com.acorn.baemin.home.repository.OrderRepository;
+import com.acorn.baemin.home.repository.OrderRepositoryImp;
 import com.acorn.baemin.home.repository.SearchRepositoryImp;
-import com.acorn.baemin.home.repository.ZzimRepository;
+import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 
 @Controller
 public class HomeController {
@@ -24,17 +26,21 @@ public class HomeController {
 	SearchRepositoryImp searchDAO;
 
 	@Autowired
-	ZzimRepository zzimDAO;
+	ZzimRepositoryImp zzimDAO;
 
 	@Autowired
-	OrderRepository orderDAO;
+	OrderRepositoryImp orderDAO;
 
 	@Autowired
 	OrderDetailRepositoryImp detailDAO;
 
 	// 홈화면
 	@GetMapping("/home")
-	public String home() {
+	public String home(Model model) {
+
+		String[] foodCategories = {"치킨", "피자", "햄버거", "족발,보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
+        model.addAttribute("categories", foodCategories);
+        
 		return "home/home";
 	}
 	////////////////////////////////////////////////////////////////////////
@@ -60,26 +66,26 @@ public class HomeController {
 
 	// 찜
 	@GetMapping("/zzim")
-	public String zzimList(Model model) {
+	public String zzimList(Model model, HttpSession session) {
 		List<ZzimStoreDTO> result;
+		int userCode = (int)session.getAttribute("userCode");
 		try {
-			result = zzimDAO.zzimSelectAll(10001);
+			result = zzimDAO.zzimSelectAll(userCode);
 			model.addAttribute("zzimList", result);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return "home/zzim_list";
 	}
 
 	// 찜 삭제
 	@ResponseBody
 	@GetMapping("/zzimDelete")
-	public int zzimDelete(int userCode, int storeCode) throws Exception {
-
-		int result = zzimDAO.zzimDelete(10001, storeCode);
+	public int zzimDelete(int storeCode,  HttpSession session) throws Exception {
+		int userCode = (int)session.getAttribute("userCode");
+		int result = zzimDAO.zzimDelete(userCode, storeCode);
 
 		return result;
 
@@ -89,11 +95,12 @@ public class HomeController {
 
 	// 주문내역 조회
 	@GetMapping("/orderList")
-	public String orderList(Model model) {
+	public String orderList(Model model, HttpSession session) {
 		List<OrderDTO> result;
+		int userCode = (int)session.getAttribute("userCode");
 
 		try {
-			result = orderDAO.orderSelectAll(10001);
+			result = orderDAO.orderSelectAll(userCode);
 			System.out.println(result);
 			model.addAttribute("orderList", result);
 
@@ -108,9 +115,8 @@ public class HomeController {
 	@GetMapping("/orderListDelete")
 	public String orderListDelete(int orderNumber) {
 
-		System.out.println("server sdjdjdjdjdjdd" + orderNumber);
 		orderDAO.orderDelete(orderNumber);
-
+		
 		return "redirect:/orderList";
 
 	}
@@ -128,4 +134,14 @@ public class HomeController {
 		return "home/order_detail";
 	}
 
+	// 주문 상세내역 삭제
+//		@GetMapping("/orderDetailDelete")
+//		public String orderDetailDelete(int orderNumber) {
+//
+//			detailDAO.orderDetailDelete(orderNumber);
+//			
+//			return "home/order_list";
+//
+//		}
+	
 }

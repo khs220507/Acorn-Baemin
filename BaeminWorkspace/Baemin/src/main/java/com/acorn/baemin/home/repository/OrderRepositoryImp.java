@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.acorn.baemin.domain.OrderDTO;
 
 @Repository
-public class OrderRepository implements InterOrderRepository{
+public class OrderRepositoryImp implements OrderRepositoryI{
 
 	@Autowired
 	private SqlSession session;

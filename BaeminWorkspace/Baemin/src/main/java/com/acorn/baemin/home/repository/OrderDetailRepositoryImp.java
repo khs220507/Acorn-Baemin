@@ -20,6 +20,12 @@ public class OrderDetailRepositoryImp implements OrderDetailRepositoryI{
 	public List<OrderDTO> orderDetailSelect(int orderNumber) {
 		return session.selectList(namespace+"orderDetailSelect",orderNumber);
 	}
+
+	@Override
+	public int orderDetailDelete(int orderNumber) {
+	
+		return session.delete(namespace+"orderDelete", orderNumber);
+	}
 	
 	
 

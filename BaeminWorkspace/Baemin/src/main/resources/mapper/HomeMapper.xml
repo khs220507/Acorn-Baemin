@@ -9,10 +9,15 @@
 	<select id="searchStoresAndMenus" resultType="StoreDTO"
 		parameterType="String">
 
-	SELECT DISTINCT  * FROM store_tbl JOIN menu_tbl ON
-    store_tbl.storeCode = menu_tbl.storeCode
-    WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER(#{searchTerm}), ' ', ''), '%') OR
-    REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
+		SELECT store_tbl.storeCode, store_tbl.storeName,
+		GROUP_CONCAT(menu_tbl.menuName) AS menuNames
+		FROM store_tbl
+		JOIN menu_tbl ON store_tbl.storeCode = menu_tbl.storeCode
+		WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%',
+		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%') OR
+		REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',
+		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
+		GROUP BY store_tbl.storeCode, store_tbl.storeName;
 
 	</select>
 

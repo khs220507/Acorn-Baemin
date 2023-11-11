@@ -12,5 +12,5 @@ public interface OrderDetailRepositoryI {
 
 	public List<OrderDTO> orderDetailSelect(int orderNumber);
 	
-	
+	public int orderDetailDelete(int orderNumber);
 }
