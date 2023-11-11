@@ -70,24 +70,12 @@ public class LoginController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(  HttpSession session) {
 		   session.invalidate();
 		   return "redirect:/home";	
 	}
-	
-	
 	
 	// 손님 테이블 전체 조회
 		@RequestMapping("/selectAll")
