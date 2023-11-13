@@ -18,6 +18,7 @@ public class CartServiceImp implements CartServiceI {
 	public List<StoreDTO> storeInfo(int menuCode) {
 		System.out.println("storeInfo service");
 		List<StoreDTO> storeInfo = rep.selectStore(menuCode);
+		
 		return storeInfo;
 	}
 	

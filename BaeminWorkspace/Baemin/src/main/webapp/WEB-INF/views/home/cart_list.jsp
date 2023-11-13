@@ -38,7 +38,7 @@
 	<div class="cart-title">장바구니</div>
 	<div class="cart-store-wrap">
 	<img class="store-img" src="">
-	<div>${menuCode};</div> 
+	<div>$</div> 
 	</div>
 		
 

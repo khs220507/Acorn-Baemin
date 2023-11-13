@@ -26,6 +26,7 @@ import com.acorn.baemin.domain.StoreDTO;
 @Controller
 public class CartController {
 
+	@Autowired
 	CartServiceImp service;	
 	
 	@PostMapping("/cartList")
