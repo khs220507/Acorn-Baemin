@@ -15,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.acorn.baemin.cart.repository.CartRepository;
-import com.acorn.baemin.cart.service.CartService;
+
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.order.repository.UserOrderRepository;
 import com.acorn.baemin.order.service.UserOrderService;
