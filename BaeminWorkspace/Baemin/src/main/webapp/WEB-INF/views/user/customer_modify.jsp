@@ -28,7 +28,9 @@ header {
 }
 
 section {
-	
+width: 1280px;
+	padding-top: 140px
+	margin-bottom: 50px;
 }
 
 footer {
@@ -215,7 +217,7 @@ a {
 
 <script>
 function updatecustomer(){
-		let userCode = 10002;
+		let userCode = 	${'#userInfo.userCode'}.val();
         let userNickname = $('#userNickname').val();
         let userPw = $("#userPw").val();
         let confirmPassword = $("#confirmPassword").val();
@@ -240,15 +242,15 @@ function updatecustomer(){
 
             $.ajax({
                 type: 'POST',
-                url: '/baemin/updateUserInfo',
+                url: '/baemin/updateUserInfo2',
                 data: infos,
                 contentType: "application/json",
                 success: function (data) {
-                    alert("수정 성공 q(≧▽≦q)");
-                    window.location.href = "http://localhost:8080/baemin/selectCustomerInfo";
+                    alert("수정 성공");
+                    window.location.href = "http://localhost:8080/baemin/updateUserInfo";
                 },
                 error: function () {
-                	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
+                	alert("수정 정보를 확인해주세요");
                     $('#resultDiv').text('수정 실패');
                 }
             });
@@ -267,7 +269,7 @@ function updatecustomer(){
 <body>
 <jsp:include page="../base/header.jsp"/>
 
-	<section>
+	<section id="content">
 		<div class="container">
 
 			<!-- 손님 수정 -->
@@ -277,36 +279,36 @@ function updatecustomer(){
 				</div>
 
 				<span class="input-container-id"> 
-					<input type="text" id="userNickname" placeholder="닉네임" class="vertical-center" value="${modify.userNickname}">
+					<input type="text" id="userNickname" placeholder="닉네임" class="vertical-center" value="${userInfo.userNickname}">
 				</span> 
 				<br> 
 				<span> 
-					<input type="password" id="userPw"  placeholder="비밀번호" class="vertical-center">
+					<input type="password" id="userPw"  placeholder="비밀번호" class="vertical-center" >
 				</span> <br> 
 				<span> 
 					<input type="password" id="confirmPassword"  placeholder="비밀번호 확인" class="vertical-center">
 				</span> <br> 
 				<span> 
-					<input type="tel" id="userPhone"  placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify.userPhone}">
+					<input type="tel" id="userPhone"  placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${userInfo.userPhone}">
 				</span> 
 				<br> 
 				<span> 
-					<input type="email" id="userEmail"  placeholder="이메일" class="vertical-center" value="${modify.userEmail}">
+					<input type="email" id="userEmail"  placeholder="이메일" class="vertical-center" value="${userInfo.userEmail}">
 				</span>
 				<span class="input-container-address"> 
-					<input type="text" id="userPostCode" placeholder="우편번호" class="vertical-center" value="${modify.userPostCode}"> 
+					<input type="text" id="userPostCode" placeholder="우편번호" class="vertical-center" value="${userInfo.userPostCode}"> 
 				<span class="input-container-address-button">
 				</span> 
 					<input type="button" value="우편번호 찾기" class="vertical-center" style="width: 100px;">
 				</span> 
 				<span> 
-					<input type="text" id="userAddress" placeholder="주소" class="vertical-center" value="${modify.userAddress}">
+					<input type="text" id="userAddress" placeholder="주소" class="vertical-center" value="${userInfo.userAddress}">
 				</span> 
 				<span> 
-					<input type="text" id="userAddressdetail" placeholder="상세주소" class="vertical-center" value="${modify.userAddressDetail}">
+					<input type="text" id="userAddressdetail" placeholder="상세주소" class="vertical-center" value="${userInfo.userAddressDetail}">
 				</span> 
 				 
-					<button type="button" onclick="updatecustomer()" id="updateButton">수정 완료</button>
+					<button type="button" onclick="updatecustomer()">수정 완료</button>
 
 			</div>
 
