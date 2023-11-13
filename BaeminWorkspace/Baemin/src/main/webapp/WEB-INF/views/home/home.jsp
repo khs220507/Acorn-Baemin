@@ -11,12 +11,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 /* reset css */
-
 a {
 	text-decoration: none;
 	color: black;
 }
-
 
 button {
 	outline: none;
@@ -36,6 +34,7 @@ body {
 	align-items: center;
 	height: 100vh;
 }
+
 ul {
 	list-style: none;
 }
@@ -125,24 +124,32 @@ header {
 	cursor: pointer;
 }
 
-#loginStatus{
+#loginStatus {
 	flex: 2.5;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: flex-end;
 }
+/* 로그인 안했을때 */
+.login-btn {
+	color: white;
+	font-size: 40px;
+}
 /* 로그인 했을때 */
-.hello-msg{
+.hello-msg {
 	color: white;
 }
+
 .menu-wrap-ul {
 	position: relative;
 }
+
 .menu-icon {
 	width: 40px;
 	height: 40px;
 }
+
 .hidden-menu {
 	width: 180px;
 	height: 210px;
@@ -165,7 +172,8 @@ header {
 	text-align: center;
 	position: relative;
 }
-.menu-items{
+
+.menu-items {
 	color: white;
 }
 
@@ -272,7 +280,7 @@ section {
 }
 
 table {
-	width: 1280px;
+	width: 100%;
 	height: 100%;
 	text-align: center;
 }
@@ -292,6 +300,19 @@ table {
 td img {
 	width: 80px;
 	height: 80px;
+}
+/*푸터///////////////////////////////////*/
+footer {
+	width: 99vw;
+	flex:1;
+	border-top: 1px solid #d9d9d9;
+	padding-top: 20px;
+	padding-left: 10px;
+}
+
+.footer-text {
+	font-size: 13px;
+	color: #4B4B4B;
 }
 </style>
 </head>
@@ -323,7 +344,7 @@ td img {
 			<c:set var="noResults" value="${noResults}" scope="request" />
 
 			<div id="loginStatus">
-				
+
 
 				<%
 				if (session.getAttribute("userCode") != null) {
@@ -356,15 +377,16 @@ td img {
 								<a class="menu-items" href="${path }/logout">로그아웃</a></li>
 						</ul></li>
 				</ul>
-		
-		</div>
-		<%
-		} else {
-		%>	<!-- 로그인 안했을 때 -->
-		<a class="login-btn" href="${path }/login">로그인</a>
-		<%
-		}
-		%>
+
+			</div>
+			<%
+			} else {
+			%>
+			<!-- 로그인 안했을 때 -->
+			<a class="login-btn" href="${path }/login">로그인</a>
+			<%
+			}
+			%>
 
 		</div>
 
@@ -399,12 +421,12 @@ td img {
 				<c:if test="${status.index % 4 == 0}">
 					<tr>
 				</c:if>
-				
+
 				<td>
 					<div class="category">
 						<a class="category-wrap-a"
-							href="${path}/storeList?storeCategory=${category}"> 
-							<img src="${path}/resources/icons/${category}.png">
+							href="${path}/storeList?storeCategory=${category}"> <img
+							src="${path}/resources/icons/${category}.png">
 							<p>
 								<strong>${category}</strong>
 							</p>
@@ -420,7 +442,14 @@ td img {
 
 	</section>
 
-	<jsp:include page="../base/footer.jsp" />
+	<footer id=footer>
+		<div class="footer-info-wrap">
+			<p class="footer-text">©2023. Icons8 LLC all rights reserved.</p>
+			<p class="footer-text">© 2010-2023 Freepik Company S.L. all rights reserved.</p>
+			<p class="footer-text">곽단야, 김민지, 김현수, 박태민, 표준태</p>
+		</div>
+
+	</footer>
 
 	<!-- 검색 -->
 	<script>
