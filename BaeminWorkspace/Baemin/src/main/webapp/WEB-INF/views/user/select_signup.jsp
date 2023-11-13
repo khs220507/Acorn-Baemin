@@ -102,6 +102,11 @@ input[type="button"] {
 	margin: 0 auto;
 	margin-bottom: 50px;
 }
+section{
+width: 1280px;
+	padding-top: 140px;
+	margin-bottom: 50px;
+}
 </style>
 
 <script>
@@ -113,7 +118,7 @@ input[type="button"] {
 
 <body>
 	<jsp:include page="../base/header.jsp"/>
-	<section>
+	<section id="content">
 		<div class="container">
 			<!-- 회원가입 유형 선택 폼 -->
 			<form class="signup-select-form" method="post">
