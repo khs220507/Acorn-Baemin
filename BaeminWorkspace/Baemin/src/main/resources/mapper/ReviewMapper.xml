@@ -2,12 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.ReviewMapper">
-    
-    
-   <insert id="insertReview" parameterType="ReviewDTO">
-    INSERT INTO review_tbl (reviewRating, reviewContent, reviewDate)
-    VALUES (#{reviewRating}, #{reviewContent}, NOW())
-</insert>
 
-    
+	<!-- 리뷰 조회 -->
+	<select id="selectAllReview" resultType="ReviewDTO" parameterType="int">
+		SELECT * FROM review_tbl where storeCode = #{storeCode}
+	</select>
+	
+	<!-- 리뷰 등록 -->
+	<insert id="insertReview" parameterType="ReviewDTO">
+		INSERT INTO review_tbl (reviewRating, reviewContent, reviewDate)
+		VALUES (#{reviewRating}, #{reviewContent}, NOW())
+	</insert>
+	
+	<!-- 리뷰 삭제(상태만 변경) -->
+	<update id="deleteReview" parameterType="int">
+		UPDATE review_tbl
+		SET reviewStatus = #{reviewStatus}
+		FROM reviewCode = #{reviewCode}
+	</update>
+	
 </mapper>
