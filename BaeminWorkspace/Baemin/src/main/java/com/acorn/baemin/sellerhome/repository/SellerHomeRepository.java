@@ -22,8 +22,8 @@ public class SellerHomeRepository  {
 	    	session.insert(namespaceStore+"insertStore", store);
 	    }
 	   
-	    public void deleteStore (String storeCode) {
-	    	session.insert(namespaceStore+"deleteStore", storeCode);
+	    public void deleteStore (StoreDTO store) {
+	    	session.insert(namespaceStore+"deleteStore", store);
 	    }
 	    
 	    public StoreDTO updateSellerStore(String storeCode) {
