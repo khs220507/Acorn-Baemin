@@ -33,4 +33,5 @@ public class ZzimRepositoryImp implements ZzimRepositoryI{
 		return session.delete(namespace+"zzimDelete",dto); 
 	}
 	
+	
 }

@@ -2,14 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
 /* reset css */
@@ -43,12 +35,15 @@ ul {
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
 	display: flex;
-	flex: 1.2;
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
+	height: 120px;
 	background-color: #48D1CC;
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
 }
 
 .header-wrap {
@@ -125,7 +120,8 @@ header {
 	height: 25px;
 	cursor: pointer;
 }
-#loginStatus{
+
+#loginStatus {
 	flex: 2.5;
 	display: flex;
 	flex-direction: column;
@@ -140,16 +136,19 @@ header {
 }
 
 /* 로그인 했을때 */
-.hello-msg{
+.hello-msg {
 	color: white;
 }
+
 .menu-wrap-ul {
 	position: relative;
 }
+
 .menu-icon {
 	width: 40px;
 	height: 40px;
 }
+
 .hidden-menu {
 	width: 180px;
 	height: 210px;
@@ -172,7 +171,8 @@ header {
 	text-align: center;
 	position: relative;
 }
-.menu-items{
+
+.menu-items {
 	color: white;
 }
 
@@ -184,9 +184,6 @@ header {
 	top: -3px;
 }
 </style>
-
-</head>
-<body>
 
 	<header>
 		<div class="header-wrap">
@@ -205,8 +202,6 @@ header {
 			</div>
 
 			<div id="loginStatus">
-				
-
 					<%
 				Integer userCodeInfo= (Integer)session.getAttribute("userCode");
 				if (userCodeInfo != null) {
@@ -240,10 +235,12 @@ header {
 							</ul></li>
 					</ul>
 			
+
 			</div>
 			<%
 			} else {
-			%>	<!-- 로그인 안했을 때 -->
+			%>
+			<!-- 로그인 안했을 때 -->
 			<a class="login-btn" href="${path }/login">로그인</a>
 			<%
 			}
@@ -262,5 +259,3 @@ header {
 			return true;
 		}
 	</script>
-</body>
-</html>
