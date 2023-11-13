@@ -39,10 +39,12 @@
 		WHERE menuCode = #{menuCode}
 	</update>
 	
-	<!-- 메뉴 삭제 -->
-	<delete id="deleteMenu" parameterType="int">
-		DELETE FROM menu_tbl WHERE menuCode=#{menuCode}
-	</delete>
+	<!-- 메뉴 삭제(상태만 변경) -->
+	<update id="deleteMenu" parameterType="int">
+		UPDATE menu_tbl 
+		SET menuStatus = 2
+		WHERE menuCode=#{menuCode}
+	</update>
 	
 	<!-- 매장정보 조회 -->
 	<select id="selectStoreInfo" resultType="StoreDTO" parameterType="int">
@@ -75,20 +77,29 @@
 		SELECT * FROM review_tbl
 	</select>
 	
-	<!-- 답변 등록 -->
-	<insert id="insertAnswer" parameterType="String">
-		INSERT INTO answer_tbl (AnswerContent) VALUES (#{AnswerContent})
+	<!-- 답글 조회 -->
+	<select id="selectAllAnswer" resultType="AnswerDTO" parameterType="int">
+		SELECT * FROM answer_tbl where storeCode = #{storeCode}
+	</select>
+	
+	<!-- 답글 등록 -->
+	<insert id="insertAnswer" parameterType="AnswerDTO">
+		INSERT INTO answer_tbl (answerContent, reviewCode)
+		VALUES (#{answerContent}, #{reviewCode})
 	</insert>
 	
-	<!-- 답변 수정 -->
+	<!-- 답글 수정 -->
 	<update id="updateAnswer" parameterType="AnswerDTO">
 		UPDATE answer_tbl
-		SET AnswerContent = #{AnswerContent}
-		WHERE answerId = #{answerId}
+		SET answerContent = #{answerContent}
+		FROM answerCode = #{answerCode}
 	</update>
 	
-	<!-- 답변 삭제 -->
-	<delete id="deleteAnswer" parameterType="int">
-		DELETE FROM answer_tbl WHERE answerCode=#{answerCode}
-	</delete>
+	<!-- 답글 삭제(상태만 변경) -->
+	<update id="deleteAnswer" parameterType="int">
+		UPDATE review_tbl
+		SET reviewStatus = #{reviewStatus}
+		FROM reviewCode = #{reviewCode}
+	</update>
+
 </mapper>

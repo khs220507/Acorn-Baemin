@@ -126,27 +126,23 @@ button {
 </style>
 <script>
 	$(document).ready(function() {
+		$("div.menu-info-with-btn").each(function() {
+		    var statusText = $(this).find("span").text();
+		    if (statusText.includes("삭제")) {
+		        $(this).hide(); // 해당 조건에 맞는 메뉴 숨기기
+		    }
+		});
+		
 		// 메뉴/정보/리뷰 탭 영역
+		
+		// 메뉴 탭 영역
 		// 메뉴 탭을 클릭하면 보여지고 정보와 리뷰 탭은 감추는 코드
 		$(".menu-tab").click(function() {
 			$(".menu-sub-tab").show();
 			$(".store-info-tab").hide();
 			$(".store-review-tab").hide();
 		})
-		// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
-		$(".info-tab").click(function() {
-			$(".menu-sub-tab").hide();
-			$(".store-info-tab").show();
-			$(".store-review-tab").hide();
-		})
-		// 리뷰 탭을 클릭하면 보여지고 메뉴와 정보 탭은 감추는 코드
-		$(".review-tab").click(function() {
-			$(".menu-sub-tab").hide();
-			$(".store-info-tab").hide();
-			$(".store-review-tab").show();
-		});
 	
-		// 메뉴 탭 영역
 		// + 버튼을 클릭하면 메뉴정보 입력 폼 활성화
 		$(".add-menu").click(function() {
 			$(".menu-form").show();
@@ -157,8 +153,8 @@ button {
 		$(".insert-menu-btn").click(function() {
 			let formData = new FormData(document.querySelector(".menu-form"));
 			$.ajax({
-				type : "post",
-				url : "${path}/store_manage",
+				type : "POST",
+				url : "${path}/sellerMenu",
 				enctype : 'multipart/form-data',
 				data : formData,
 				processData : false, // 데이터 처리를 비활성화
@@ -183,10 +179,45 @@ button {
 		
 		
 		// 정보 탭 영역
-		
-		
+		// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
+		$(".info-tab").click(function() {
+			$(".menu-sub-tab").hide();
+			$(".store-info-tab").show();
+			$(".store-review-tab").hide();
+			function storeInfo(){
+				
+				$.ajax({
+					type : "get",
+					url : "{path}/infoManage/"+storeCode,
+					data : {
+						storeCode : storeCode,
+						storeDescription : storeDescription,
+						operatingTime : operatingTime,
+						sellerCode : sellerCode,
+						sellerName : sellerName,
+						sellerAddress : sellerAddress,
+						sellerRegCode : sellerRegCode
+					},
+					
+					success : function(data){
+						
+					},
+					error : function(){
+						alert("실패");
+					}
+				});
+			}         
+		});
 		
 		// 리뷰 탭 영역
+		
+		// 리뷰 탭을 클릭하면 보여지고 메뉴와 정보 탭은 감추는 코드
+		$(".review-tab").click(function() {
+			$(".menu-sub-tab").hide();
+			$(".store-info-tab").hide();
+			$(".store-review-tab").show();
+		});
+		
 		// 답글달기 버튼을 클릭하면 메뉴정보 입력 폼 활성화
 		$(".active-reply-form-btn").click(function() {
 			$(".reply-form").show();
@@ -215,14 +246,13 @@ button {
 		    	menuStatus : menuStatus
 	    	}
 	    
-	    alert(info);
 	    console.log(info);
 	    
    		let infos = JSON.stringify(info);
        	
    		$.ajax({
-   			type : "Put",
-   			url : "/baemin/store_manage",
+   			type : "PUT",
+   			url : "/baemin/infoManage",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -238,8 +268,8 @@ button {
 	// 메뉴 삭제
 	function deleteMenu(menuCode) {
 		$.ajax({
-			type: "DELETE",
-			url: "${path}/store_manage/"+menuCode, //path Variable  ,
+			type: "PUT",
+			url: "${path}/infoManage/"+menuCode, //path Variable  ,
 			success : function (data){
 				window.location.reload();
 			},
@@ -249,7 +279,10 @@ button {
 		});
 	}
 	
-	// 가게 수정
+	 
+	// 가게 수정\
+
+	   
 </script>
 </head>
 <body>
@@ -266,7 +299,7 @@ button {
 		</div>
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab">메뉴</li>
-			<li class="info-tab">정보</li>
+			<li class="info-tab" onclick="storeInfo()">정보</li>
 			<li class="review-tab">리뷰</li>
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
@@ -297,11 +330,12 @@ button {
 											    <c:choose>
 											        <c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 											        <c:when test="${menuList.menuStatus eq 1}">매진</c:when>
+											        <c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 											    </c:choose>
 											</span>
 											<select class="menuStatus">
 												<option value="0">판매중</option>
-												<option value="1">솔드아웃</option>
+												<option value="1">매진</option>
 											</select>
 										</div>
 										<div class="modify-delete">
@@ -320,7 +354,11 @@ button {
 			<!-- 메뉴 등록 폼 -->
 			<form class="menu-form" style="display: none;">
 				<div class="menu-classification">
-					<input type="text" name="menuClassification" placeholder="메뉴분류">
+					<select name="menuClassification">
+						<c:forEach items="${CList}" var="clist">
+						<option value="${clist.menuClassification}">${clist.menuClassification}</option>
+						</c:forEach>
+					</select>
 				</div>
 				<div class="menu-info-with-btn">
 					<input type="file" name="menuImageFile">
@@ -343,36 +381,36 @@ button {
 		</div>
 		<!-- 가게 정보 탭 -->
 		<div class="store-info-tab">
-			<div class="info-sub-tab-with-btn">
+				<div class="info-sub-tab-with-btn">
 				<div class="info-sub-tab">
 					<div class="store-description">
 						<div>가게소개</div>
-						<input type="text" class="store-introduce" value="${readStore.storeDescription}">
+						<input type="text" class="store-introduce" value="${data.storeDescription}">
 					</div>
 					<div class="operating-time">
 						<div>운영시간</div>
-						<input type="text" class="store-operate-time" value="${readStore.operatingTime}">
+						<input type="text" class="store-operate-time" value="${data.operatingTime}">
 					</div>
 					<div class="seller-info">
 						<div>사업자정보</div>
 						<div class="seller-info-sub">
 							<div class="seller-name">
 								<div>대표자명</div>
-								<input type="text" value="${readSeller.sellerName}">
+								<input type="text" value="${data.sellerName}">
 							</div>
 							<div class="store-address">
 								<div>매장주소</div>
-								<input type="text" value="${readStore.storeAddress}">
+								<input type="text" value="${data.storeAddress}">
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
-								<input type="text" value="${readSeller.sellerRegCode}">
+								<input type="text" value="${data.sellerRegCode}">
 							</div>
 						</div>
 					</div>
 				</div>
 				<button class="store-info-modify-btn"
-					onclick="modifyStoreInfo(${readSeller.sellerCode}, ${readStore.storeCode})">수정하기</button>
+					onclick="modifyStoreInfo(${data.sellerCode}, ${data.storeCode})">수정하기</button>
 			</div>
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
@@ -391,7 +429,7 @@ button {
 					<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
 					<form class="reply-form" style="display: none;">
 						<textarea placeholder="답글 내용을 입력해주세요" rows="5" cols="30"></textarea>
-						<button type="button" class="insert-answer-btn">등록</button>
+						<button type="button" class="insert-answer-btn"   onclick="a()">등록</button>
 					</form>
 				</div>
 				<button class="active-reply-form-btn">답글달기</button>

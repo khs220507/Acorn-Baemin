@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.baemin.domain.AnswerDTO;
 import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
@@ -21,7 +22,6 @@ public class SellerRepository implements SellerRepositoryI {
 	private static String namespaceAnswer = "com.acorn.AnswerMapper.";
 
 
-	// 태민
 	// 메뉴 탭
 	// 메뉴 분류 조회(중복제거)
 	@Override
@@ -34,13 +34,12 @@ public class SellerRepository implements SellerRepositoryI {
 	public List<MenuDTO> selectAllMenuInfo(Integer storeCode) {
 		System.out.println("selectAllMenuInfo @repo");
 		return session.selectList(namespaceSeller + "selectAllMenuInfo", storeCode);
-
 	}
 	// 메뉴 분류 수정
 	@Override
-	public int updateMenuClassification(String menuClassification) {
+	public int updateMenuClassification(MenuDTO menu) {
 		System.out.println("updateMenuClassification @repo");
-		return session.update(namespaceSeller + "updateMenuClassification", menuClassification);
+		return session.update(namespaceSeller + "updateMenuClassification", menu);
 	}
 	// 메뉴 등록
 	@Override
@@ -60,17 +59,18 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("deleteMenu @repo");
 		return session.delete(namespaceSeller + "deleteMenu", menuCode);
 	}
+	
 	// 매장정보 탭
 	// 매장정보 조회
 	@Override
-	public StoreDTO selectStoreInfo(int storeCode) {
+	public StoreDTO selectStoreInfo(Integer storeCode) {
 		System.out.println("storeCode @repo : " + storeCode);
 		System.out.println("selectStoreInfo @repo");
 		return session.selectOne(namespaceSeller + "selectStoreInfo", storeCode);
 	}
 	// 사장님정보 조회
 	@Override
-	public SellerDTO selectSellerInfo(int sellerCode) {
+	public SellerDTO selectSellerInfo(Integer sellerCode) {
 		System.out.println("sellerCode @repo : " + sellerCode);
 		System.out.println("selectSellerInfo @repo");
 		return session.selectOne(namespaceSeller + "selectSellerInfo", sellerCode);
@@ -87,30 +87,37 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("repo : updateSellerSubInfo");
 		return session.update(namespaceSeller + "updateSellerSubInfo", seller);
 	}
+	
 	// 리뷰 탭
 	// 리뷰 전체 조회
 	@Override
-	public List<ReviewDTO> selectAllReview() {
+	public List<ReviewDTO> selectAllReview(Integer storeCode) {
 		System.out.println("selectAllReview @repo");
 		return session.selectList(namespaceReview + "selectAllReview");
 	}
+	// 답변 전체 조회
+	@Override
+	public List<AnswerDTO> selectAllAnswer(Integer storeCode) {
+		System.out.println("selectAllAnswer @repo");
+		return session.selectList(namespaceAnswer + "selectAllAnswer");
+	}
 	// 답변 등록
 	@Override
-	public int insertAnswer(String answerContent) {
+	public int insertAnswer(AnswerDTO answer) {
 		System.out.println("insertAnswer @repo");
-		return session.insert(namespaceAnswer + "insertAnswer", answerContent);
+		return session.insert(namespaceAnswer + "insertAnswer", answer);
 	}
 	// 답변 수정
 	@Override
-	public int updateAnswer(String answerContent) {
+	public int updateAnswer(AnswerDTO answer) {
 		System.out.println("updateAnswer @repo");
-		return session.update(namespaceAnswer + "updateAnswer", answerContent);
+		return session.update(namespaceAnswer + "updateAnswer", answer);
 	}
 	// 답변 삭제
 	@Override
-	public int deleteAnswer(int answerCode) {
+	public int deleteAnswer(AnswerDTO answer) {
 		System.out.println("deleteAnswer @repo");
-		return session.delete(namespaceAnswer + "deleteAnswer", answerCode);
+		return session.update(namespaceAnswer + "deleteAnswer", answer);
 	}
 
 	

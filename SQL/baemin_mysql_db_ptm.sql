@@ -1,6 +1,8 @@
+show databases;
 use baemin_db;
 
 -- 01 회원 user_tbl
+
 CREATE TABLE user_tbl (
     userCode INT AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(20) NOT NULL UNIQUE,
@@ -70,7 +72,7 @@ CREATE TABLE store_tbl (
   deliveryFee INT NOT NULL,           		-- 배달비
   operatingTime VARCHAR(50) , 				-- 운영시간
   deliveryArea VARCHAR(50) NOT NULL,  		-- 배달지역
-  storeStatus TINYINT default 0 ,   -- 가게 상태(0:close, 1:open)
+  storeStatus TINYINT default 0 ,   -- 가게 상태(0:close, 1:open, 2:deleted)
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
 
@@ -85,13 +87,6 @@ VALUES
 select * from store_tbl;
 
 
-SELECT DISTINCT  * FROM store_tbl JOIN menu_tbl ON
-    store_tbl.storeCode = menu_tbl.storeCode
-    WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%') OR
-    REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%');
-
-
-
 -- 04. 태민 menu_tbl
 
 CREATE TABLE menu_tbl (
@@ -102,7 +97,7 @@ CREATE TABLE menu_tbl (
   menuImage VARCHAR(50),      			-- 메뉴사진
   menuContent TEXT NOT NULL,           		-- 메뉴설명
   menuClassification VARCHAR(50) NOT NULL, 	-- 메뉴분류
-  menuStatus TINYINT NOT NULL,           	-- 메뉴상태(0:open, 1:sold out)
+  menuStatus TINYINT DEFAULT 0,           	-- 메뉴판매상태(0:open, 1:sold out, 2:deleted)
   foreign key (storeCode) references store_tbl(storeCode)
 ) auto_increment = 40001;
 
@@ -121,6 +116,7 @@ VALUES
 (30005, '짬뽕', 10000, 'menu11.jpg', '매운 맛이 일품', '면요리', 0);
 
 select * from menu_tbl;
+delete from menu_tbl where menuCode=40013;
 
 -- 05. 옵션 option_tbl
 create table option_tbl (
@@ -236,22 +232,24 @@ CREATE TABLE review_tbl (
     storeCode int,
     reviewImage VARCHAR(300),
     reviewDate DATE,
-    reviewRating INT,
+    reviewRating INT default 5,
     reviewContent VARCHAR(300),
+    reviewStatus tinyint default 0,		-- 0:on 1:deleted 태민 추가
    FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
 
-INSERT INTO review_tbl (menuCode, userCode, storeCode, reviewImage, reviewDate, reviewRating, reviewContent)
+INSERT INTO review_tbl (menuCode, userCode, storeCode, reviewImage, reviewDate, reviewRating, reviewContent, reviewStatus)
 VALUES
-(40001, 10001, 30001, 'review1.jpg', '2023-11-10', 5, '맛있게 잘 먹었습니다!'),
-(40002, 10002, 30002, 'review2.jpg', '2023-11-11', 4, '치즈가 풍부해서 좋았어요.'),
-(40003, 10003, 30003, 'review3.jpg', '2023-11-12', 4, '연어가 신선하고 맛있어요.'),
-(40004, 10004, 30004, 'review4.jpg', '2023-11-13', 5, '고기의 질이 아주 좋았습니다.'),
-(40005, 10005, 30005, 'review5.jpg', '2023-11-14', 4, '짜장면이 진짜 맛있어요!');
+(40001, 10001, 30001, 'review1.jpg', '2023-11-10', 5, '맛있게 잘 먹었습니다!', 0),
+(40002, 10002, 30002, 'review2.jpg', '2023-11-11', 4, '치즈가 풍부해서 좋았어요.', 0),
+(40003, 10003, 30003, 'review3.jpg', '2023-11-12', 4, '연어가 신선하고 맛있어요.', 0),
+(40004, 10004, 30004, 'review4.jpg', '2023-11-13', 5, '고기의 질이 아주 좋았습니다.', 0),
+(40005, 10005, 30005, 'review5.jpg', '2023-11-14', 4, '짜장면이 진짜 맛있어요!', 1);
 
 select * from review_tbl;
+drop table review_tbl;
 
 -- 10
 CREATE TABLE answer_tbl (
@@ -260,19 +258,21 @@ CREATE TABLE answer_tbl (
     reviewCode int,
     answerDate DATE NOT NULL,
     answerContent VARCHAR(300) NOT NULL,
+    answerStatus tinyint default 0,		-- 0:on 1:deleted 태민 추가
     FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
     FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
 ) AUTO_INCREMENT=100001;
 
-INSERT INTO answer_tbl (sellerCode, reviewCode, answerDate, answerContent)
+INSERT INTO answer_tbl (sellerCode, reviewCode, answerDate, answerContent, answerStatus)
 VALUES
-(20001, 90001, '2023-11-10', '감사합니다! 더 좋은 서비스로 보답하겠습니다.'),
-(20002, 90002, '2023-11-11', '앞으로도 더 노력하겠습니다. 감사합니다!'),
-(20003, 90003, '2023-11-12', '맛있게 드셨다니 기쁘네요. 감사합니다!'),
-(20004, 90004, '2023-11-13', '다음에도 기대해주세요! 감사합니다!'),
-(20005, 90005, '2023-11-14', '맛있게 드셨다니 다행입니다. 감사합니다!');
+(20001, 90001, '2023-11-10', '감사합니다! 더 좋은 서비스로 보답하겠습니다.', 0),
+(20002, 90002, '2023-11-11', '앞으로도 더 노력하겠습니다. 감사합니다!', 0),
+(20003, 90003, '2023-11-12', '맛있게 드셨다니 기쁘네요. 감사합니다!', 0),
+(20004, 90004, '2023-11-13', '다음에도 기대해주세요! 감사합니다!', 0),
+(20005, 90005, '2023-11-14', '맛있게 드셨다니 다행입니다. 감사합니다!', 1);
 
 select * from answer_tbl;
+drop table answer_tbl;
 
 -- 11 태민 address_tbl;
 
@@ -293,16 +293,8 @@ VALUES
 
 select * from address_tbl;
 
-commit;
+DROP TABLE answer_tbl, review_tbl, zzim_tbl, cart_tbl, option_tbl, order_tbl, address_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
+
+commit ;
 
 show tables;
-
-
-
-
--- Drop all tables
-DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
-
-
-
-
