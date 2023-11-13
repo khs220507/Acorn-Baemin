@@ -286,7 +286,7 @@ button {
 </script>
 </head>
 <body>
-	<jsp:include page="../base/header.jsp" />
+	<jsp:include page="../base/sellerHeader.jsp" />
 	<section>
 		<div class="store-image">매장 대표 사진</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->

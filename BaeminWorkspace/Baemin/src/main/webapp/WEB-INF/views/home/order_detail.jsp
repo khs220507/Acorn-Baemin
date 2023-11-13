@@ -57,15 +57,9 @@ ul {
 
 /* 섹션 //////////////////////////////////////////////////// */
 section {
-	flex: 7.8;
 	width: 1280px;
-	padding-top: 20px;
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
-}
-
-section::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
+	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 
 /* 배달이 완료되었어요 div*/
@@ -179,7 +173,7 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 
 	<jsp:include page="../base/header.jsp" />
 
-	<section>
+	<section id="content">
 
 
 		<c:forEach items="${orderDetail}" var="detail">
@@ -192,11 +186,12 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 				<p class="finish-message">
 					<strong>배달이 완료되었어요</strong>
 				</p>
-				<p class="strong-title">
-					<strong>${detail.orderStoreName}</strong>
-				</p>
+				<a href="${path}/store?storeCode=${detail.storeCode}">
+					<p class="strong-title">
+						<strong>${detail.orderStoreName}</strong>
+					</p>
+				</a>
 				<p class="normal-text">${detail.orderMenuName }</p>
-
 				<p>주문일시: ${detail.orderDate }</p>
 				<p>주문번호: ${detail.orderNumber }</p>
 			</div>
@@ -291,7 +286,8 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 			<hr class="bold-line">
 
 			<div class="delete-btn-wrap">
-				<h2 class="delete-btn" onclick="deleteOrder(${detail.orderNumber})">주문 내역 삭제</h2>
+				<h2 class="delete-btn" onclick="deleteOrder(${detail.orderNumber})">주문
+					내역 삭제</h2>
 			</div>
 
 			<div class="customer-center-wrap">

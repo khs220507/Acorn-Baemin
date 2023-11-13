@@ -27,8 +27,10 @@ header {
 	margin-bottom: 50px;
 }
 
-section {
-	
+section{
+width: 1280px;
+	padding-top: 140px;
+	margin-bottom: 50px;
 }
 
 footer {
@@ -255,6 +257,185 @@ function signup() {
 			}
 			});
 	}
+   	
+////중요/////
+	$(document)
+			.ready(
+					function() {
+						let userIdValid = false;
+						let userPwValid = false;
+						let confirmPasswordValid = false;
+						let userNameValid = false;
+						let userNicknameValid = false;
+						//alert("문서로드");
+						// 아이디 유효성 검사
+						$("#sellerId").on("input", function() {
+							let idCheck = /^[a-zA-Z0-9]{6,8}$/;
+							let sellerId = $(this).val();
+
+							if (sellerId === "" || !idCheck.test(sellerId)) {
+								$(this).css("border-color", "red");
+								sellerIdValid = false;
+							} else {
+								$(this).css("border-color", "");
+								sellerIdValid = true;
+							}
+						});
+
+						// 아이디 중복 확인
+						$("#checkDuplicate").click(
+								function() {
+
+									alert("중복탄다");
+									if ($("#sellerId").val() == "") {
+										alert("아이디를 입력해주세요.");
+									} else {
+										alert($("#sellerId").val());
+										$.ajax({
+											url : "/baemin/checkDuplicate",
+											type : "POST",
+											data : {
+												'sellerId' : $("#sellerId").val()
+											},
+											contentType : "application/json", // 필수
+											success : function(data) {
+												alert(data);
+												if (data === "yes") {
+													$("#idcheck_blank").css(
+															"color", "red");
+													$("#idcheck_blank").text(
+															"중복된 아이디입니다.");
+													id_check = false;
+													$("#sellerId").val("");
+												} else {
+													$("#idcheck_blank").css(
+															"color", "blue");
+													$("#idcheck_blank").text(
+															"사용가능한 아이디입니다.");
+													id_check = true;
+												}
+											},
+											error : function() {
+												alert("중복확인안됨ㅠ");
+											}
+										});
+									}
+									toggleIdConfirmButton();
+								});
+
+						// 아이디 확인 버튼 토글
+						function toggleIdConfirmButton() {
+							if (sellerIdValid) {
+								$("#id_Confirm").show();
+							} else {
+								$("#id_Confirm").hide();
+							}
+						}
+
+						// 비밀번호 유효성 검사
+						$("#sellerPw")
+								.on(
+										"input",
+										function() {
+											let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+
+											if ($(this).val() === ""
+													|| !pwdCheck.test($(this)
+															.val())) {
+												$(this).css("border-color",
+														"red");
+												sellerPwValid = false;
+											} else {
+												$(this).css("border-color", "");
+												sellerPwValid = true;
+											}
+										});
+
+						// 비밀번호 확인
+						$("#confirmPassword").on(
+								"input",
+								function() {
+									if ($(this).val() === ""
+											|| !sellerPwValid
+											|| $("#sellerPw").val() !== $(this)
+													.val()) {
+										$(this).css("border-color", "red");
+										confirmPasswordValid = false;
+									} else {
+										$(this).css("border-color", "");
+										confirmPasswordValid = true;
+									}
+								});
+
+						// 손님 이름
+						$("#sellerName").blur(function() {
+							if ($("#sellerName").val == "") {
+								sellerName = false;
+							} else {
+								sellerName = true;
+							}
+						});
+
+					
+						
+						// 연락처 유효성 검사
+						$("#sellerPhone").on("input", function () {
+						    let phoneCheck = /^[0-9]{11}$/;
+
+						    if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
+						        $(this).css("border-color", "red");
+						        sellerPhoneValid = false;
+						    } else {
+						        $(this).css("border-color", "");
+						        sellerPhoneValid = true;
+						    }
+						});
+						
+						// 이메일 유효성 검사
+						$("#sellerEmail").on("input", function () {
+						    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+						    if ($(this).val() === "" || !emailCheck.test($(this).val())) {
+						        $(this).css("border-color", "red");
+						        sellerEmailValid = false;
+						    } else {
+						        $(this).css("border-color", "");
+						        sellerEmailValid = true;
+						    }
+						});
+						
+						// 생년월일 유효성 검사
+						$("#sellerBirthdate").on("input", function () {
+						    let birthdateCheck = /^(19\d\d|20[0-2]\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+						    if ($(this).val() === "" || !birthdateCheck.test($(this).val())) {
+						        $(this).css("border-color", "red");
+						        sellerBirthdateValid = false;
+						    } else {
+						        $(this).css("border-color", "");
+						        sellerBirthdateValid = true;
+						    }
+						});
+						
+
+						// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+						$("#signin_button").click(
+								function() {
+									if (sellerIdValid && sellerPwValid
+											&& confirmPasswordValid) {
+										// 서버로 전송할 로직 추가
+										alert("회원가입이 완료되었습니다.");
+									} else {
+										alert("입력 정보를 확인해주세요.");
+									}
+								});
+
+					});
+   	
+   	
+   	
+   	
+   	
 }
 </script>
 
@@ -262,7 +443,7 @@ function signup() {
 
 <body>
 	<jsp:include page="../base/header.jsp"/>
-	<section>
+	<section id="content">
 
 
 		<div class="container">
@@ -276,31 +457,56 @@ function signup() {
 
 
 				<span class="input-container-id"> 
-				<input type="text" id="sellerId" placeholder="아이디" class="vertical-center">
-					<button id="checkDuplicate">중복확인</button>
-				</span> <br> 
+				<table>
+						<td>아이디</td>
+						<td><span><input type="text" id="sellerId"
+								name="sellerIdn" placeholder="영문, 숫자 조합 6~8자"
+								class="vertical-center" maxlength="8"></span>
+							<button id="checkDuplicate">중복확인</button></td>
+				</table>				
+				</span> 
 				
-				<span> 
-				<input type="password" id="sellerPw" placeholder="비밀번호" class="vertical-center">
-				</span> <br> 
-				<span> 
-				<input type="password" id="confirmPassword" placeholder="비밀번호 확인" class="vertical-center">
-				</span> <br> 
-				<span> 
-				<input type="text" id="sellerName" placeholder="이름" class="vertical-center">
-				</span> <br> 
+				<table>
+					<td>비밀번호</td>
+					<td><span><input type="password" id="sellerPw"
+							name="m_password" placeholder="영문, 숫자, 특수문자 조합 8~16자"
+							class="vertical-center" maxlength="16"></span></td>
+				</table>
+				<table>
+					<td>비밀번호 확인</td>
+					<td><span><input type="password" id="confirmPassword"
+							name="confirmPassword" placeholder="비밀번호 확인"
+							class="vertical-center" maxlength="16"> </span></td>
+				</table>
+				<table>
+					<td>이름</td>
+					<td><span><input type="text" id="sellerName"
+							placeholder="이름" class="vertical-center"> </span></td>
+				</table>
+				
+				
+				
 				<span> 
 				<input type="text" id="sellerRegCode" placeholder="사업자등록번호" class="vertical-center">
 				</span> <br> 
-				<span> 
-				<input type="tel" id="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center">
-				</span> <br> 
-				<span> 
-				<input type="email" id="sellerEmail" placeholder="이메일" class="vertical-center">
-				</span> <br> 
-				<span> 
-				<input type="date" id="sellerBirth" placeholder="생년월일 8자리" class="vertical-center">
-				</span>
+				<table>
+					<td>연락처</td>
+					<td><span> <input type="tel" id="sellerPhone"
+							placeholder="연락처('-' 없이 11자리)" class="vertical-center"
+							pattern="[0-9]{11}" title="숫자 11개를 입력하세요"></span></td>
+				</table>
+				<table>
+					<td>이메일</td>
+					<td><span> <input type="email" id="sellerEmail"
+							placeholder="이메일" class="vertical-center">
+					</span></td>
+				</table>
+				<table>
+					<td>생년월일</td>
+					<td><span> <input type="date" id="sellerBirth"
+							placeholder="생년월일 8자리" class="vertical-center">
+					</span></td>
+				</table>
 				
 				<div class="options">
 					<label class="optlab1"><input type="radio" name="option" id="maleOption" value="0">남</label> 

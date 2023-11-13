@@ -22,5 +22,9 @@ public interface UserRepositoryI {
 	public void updateSeller(SellerDTO updateseller);
 
 	// 아이디 중복 확인
-		public int checkDuplicateUserId(UserDTO userDTO);
+	public int checkDuplicateUserId(UserDTO userDTO);
+
+	Object selectUserInfo(Integer userCode, Integer userType) throws Exception;
+	
+	
 }

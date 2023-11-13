@@ -42,15 +42,9 @@ hr {
 }
 /* 섹션  ////////////////////////////////////////////////////*/
 section {
-	flex: 7.8;
 	width: 1280px;
-	padding-top: 20px;
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
-}
-
-section::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
+	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 
 .orderList-title {
@@ -93,8 +87,8 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 }
 
 .store-img {
-	width: 110px;
-	height: 85px;
+	width: 100px;
+	height: 100px;
 	flex: 1;
 }
 
@@ -143,7 +137,7 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 
 	<jsp:include page="../base/header.jsp" />
 
-	<section>
+	<section id="content">
 
 		<h3 class="orderList-title">주문내역</h3>
 		<hr>
@@ -164,12 +158,14 @@ section::-webkit-scrollbar { /* 스크롤바 없애기 */
 
 
 				<div class="wrap-center">
-					<a href=""><img class="store-img"
-						src="${orderList.orderStoreImage }"></a>
+					<a href="${path}/store?storeCode=${orderList.storeCode}">
+					<img class="store-img" src="${path}/storeImages/${orderList.orderStoreImage }"></a>
 					<div class="store-menu-wrap">
-						<p class="store-name">
-							<strong>${orderList.orderStoreName }</strong>
-						</p>
+						<a href="${path}/store?storeCode=${orderList.storeCode}">
+							<p class="store-name">
+								<strong>${orderList.orderStoreName }</strong>
+							</p>
+						</a>
 						<div class="menu-info">
 							<p class="menu-text">${orderList.orderMenuName}</p>
 							<p>${orderList.orderMenuNumber }</p>

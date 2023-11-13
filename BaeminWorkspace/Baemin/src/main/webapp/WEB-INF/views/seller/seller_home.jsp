@@ -85,6 +85,7 @@ font-weight: bolder;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
 }
 
 .store-img {
@@ -208,9 +209,7 @@ width: 100px;
 	margin-bottom: 20px;
 }
 
-.sstoreCode {
-	display: none;
-}
+
 #updateForm{
 display: flex;
 margin: 0 auto;
@@ -225,6 +224,9 @@ margin: 0 auto;
 /* 풋터 */
 </style>
 <script>
+
+	
+	
     $(document).ready(function() {
     	 //	let originalData;
     	 	$("#store-plus-out").click(function() {
@@ -263,19 +265,30 @@ margin: 0 auto;
              };
 		
     
-	    function storedelete(storeCode) {
-		    $.ajax({
-				type: "DELETE",
-				url: "/baemin/sellerHome/"+storeCode, //path Variable  ,
-				
-				success : function (data){
-					window.location.reload();
-				},
-				error: function() {
-					alert( "error");
-				}
-			});
+	    function storedelete(Code) {
+			let storeCode = Code;
+		    let storeStatus = 2;
+	   	let info = {storeCode : storeCode,
+	   			storeStatus : storeStatus}
+	   	let infos = JSON.stringify(info);
+	       	
+	   		$.ajax({
+	   			type : "PUT",
+	   			url : "/baemin/sellerHome",
+	   			data : infos,
+	   			contentType : "application/json", // 필수
+	   			success : function(data) {
+	   				window.location.reload();
+
+	   			},
+	   			error : function() {
+	   				alert("error");
+	   			}
+	   		})
 		}
+	    
+
+	    
 		   $(document).on('click', '#store-update-out', function() {
 		       window.location.reload();
 		   });
@@ -339,11 +352,43 @@ margin: 0 auto;
 		    result += '<div class="store-plus-info"><span>최소주문금액</span><input name="upminOrderPrice" type="text" value="' + d.minOrderPrice + '"></div>';
 		    result += '<div class="store-plus-info"><span>배달비</span><input name="updeliveryFee" type="text" value="' + d.deliveryFee + '"></div>';
 		    result += '<div class="store-plus-info"><span>배달지역</span><input name="updeliveryArea" type="text" value="' + d.deliveryArea + '"></div>';
+		    result += '<div class="store-plus-info"><span>매장 상태 관리</span><select name="upstoreStatus">';
+		    result += '<option value="' + d.storeStatus + '">' + funstoreStatus(d.storeStatus) + '</option><option value="' + renofunstoreStatus(d.storeStatus) + '">' + refunstoreStatus(d.storeStatus) + '</option></select></div>';
 		    result += '<div class="store-plus-but-wrap"><button class="store-plus-but" onclick="updateStore( this)">수정하기</button></div>';
-		    result += '<input class="sstoreCode" type="text" name="sellerCode" value="' + <%= sellerCode%> + '"><input class="sstoreCode" type="text" name="sstoreCode" value="' + s + '"><input class="sstoreCode" name="backupStoreImage" type="text" value="' + d.storeImage + '"></form>';
+		    result += '<input type="hidden" name="sellerCode" value="' + <%= sellerCode%> + '"><input type="hidden" name="sstoreCode" value="' + s + '"><input name="backupStoreImage" type="hidden" value="' + d.storeImage + '"></form>';
 		    return result;
 		}
-
+		
+		function storeStatus(Status) {
+			
+			if (Status == 0){
+				document.write("(영업준비중...)");
+			}
+		}
+		
+		function funstoreStatus(Status) {
+			if (Status == 0){
+				return ("영업준비중");
+			}else if (Status == 1) {
+				return ("영업중");
+		}
+		}
+		
+		function refunstoreStatus(Status) {
+			if (Status == 0){
+				return ("영업중");
+			}else if (Status == 1) {
+				return ("영업준비중");
+		}
+		}
+		
+		function renofunstoreStatus(Status) {
+			if (Status == 0){
+				return (1);
+			}else if (Status == 1) {
+				return (0);
+		}
+		}
 		
     </script>
 <title>Insert title here</title>
@@ -355,15 +400,18 @@ margin: 0 auto;
 	<section>
 		<div class="section-line"><div>가게관리</div></div>
 		<div class="section-wrap">
+		
 			<c:forEach items="${list }" var="item">
-				<div class="store-list">
+				
+				<div class="store-list" style="<c:if test="${item.storeStatus eq 2}">display: none;</c:if>">
+				
 					<div class="store-img-wrap">
 						<div class="store-img"><img alt="" src="${path}/storeImages/${item.storeImage }"></div>
 					</div>
 					
 					<div class="store-info-wrap">
 						<div class="store-info">
-							<div><a href="${path}/sellerMenu?storeCode=${item.storeCode}">${item.storeName }</a></div>
+							<div><a href="${path}/sellerMenu?storeCode=${item.storeCode}">${item.storeName }</a> <span><script >storeStatus(${item.storeStatus});</script></span></div>
 							<div>⭐ ${item.storeRating}(${item.reviewCount})</div>
 							<div>최소주문: ${item.minOrderPrice }</div>
 						</div>

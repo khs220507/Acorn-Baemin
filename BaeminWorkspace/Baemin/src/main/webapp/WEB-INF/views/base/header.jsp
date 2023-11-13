@@ -2,14 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-latest.js"></script>
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
 /* reset css */
@@ -43,12 +35,15 @@ ul {
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
 	display: flex;
-	flex: 1.2;
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
+	height: 120px;
 	background-color: #48D1CC;
-	position: relative;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
 }
 
 .header-wrap {
@@ -125,7 +120,8 @@ header {
 	height: 25px;
 	cursor: pointer;
 }
-#loginStatus{
+
+#loginStatus {
 	flex: 2.5;
 	display: flex;
 	flex-direction: column;
@@ -140,16 +136,19 @@ header {
 }
 
 /* 로그인 했을때 */
-.hello-msg{
+.hello-msg {
 	color: white;
 }
+
 .menu-wrap-ul {
 	position: relative;
 }
+
 .menu-icon {
 	width: 40px;
 	height: 40px;
 }
+
 .hidden-menu {
 	width: 180px;
 	height: 210px;
@@ -172,7 +171,8 @@ header {
 	text-align: center;
 	position: relative;
 }
-.menu-items{
+
+.menu-items {
 	color: white;
 }
 
@@ -184,9 +184,6 @@ header {
 	top: -3px;
 }
 </style>
-
-</head>
-<body>
 
 	<header>
 		<div class="header-wrap">
@@ -205,14 +202,13 @@ header {
 			</div>
 
 			<div id="loginStatus">
-				
-
 					<%
-					if (session.getAttribute("userCode") != null) {
-					%>
+				Integer userCodeInfo= (Integer)session.getAttribute("userCode");
+				if (userCodeInfo != null) {
+				%>
 					<p class="hello-msg">
 						안녕하세요,
-						<%=session.getAttribute("userCode")%>
+						<%=userCodeInfo%>
 						님
 					</p>
 
@@ -232,17 +228,19 @@ header {
 									<a class="menu-items" href="${path }/orderList">주문내역</a></li>
 								<li><img
 									src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVR4nO2SMQrCQBBFF1LkCgpa5xzeySvoXRICQdJppwfQyhukU9FYpHxhYQpZyYhm7PbBwMLu/gcz41zEAmAOlEArVQGZZfiVd27+zkJQMkxhIWgVwePfgruFoFIEuYUgk4GGXIDZaMHLJhW+51K5WXhkECABFsAa2AFn4Cnlz1tgJW+Sb4JTYAk0ynqGNPIn/RQ+BU78zhGYaIKa8Ww0QWcg6DSBCU4RHAzy9+qgIy6gBwTxryZ9UBmqAAAAAElFTkSuQmCC">
-									<a class="menu-items" href="${path }/">내정보수정</a></li>
+									<a class="menu-items" href="${path }/selectUserInfo2?userCode=<%=userCodeInfo%>">내정보수정</a></li>
 								<li><img
 									src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhElEQVR4nO2ZTUrDQBiGQw+gpoqrKCj4d4lurD+n0I2eQd278AaKiB5EULQFEdSlV7D1Bi7MI8FJGQYsGr/50inzwCyyeb/3nSQzky9JEolEIsECzAMtoF1xtAqNOoyvAPfIcQcsa876O/L0gUwjwJVV9APoANcVR8dolFxoBChmqqQtoLdp6fVkXA4vmFsFGwJ6DUsvl3E5vOCAUdb8kRhgTO/ADLADvElp1jJbwIK0ptcAQGr2lTNgQsahboAjS+4BmJRxqRdgy9lXHoEpGadK7wCwD3xass9AU0JbcxXac0K8ANNS+pUCmPP+wR/Gk61trtNaAgBrzoxW5byuAKtBBygA1oFj4OSX43VkHiGhl7gppe81ACEvo8B20BsZcBj6USI1h7nTIA9zLsBi4htPq9AssKvVlfARQFxTtRgeNMc6QB56Y6tvFdwQ+iorUelKXA7KfTdmu/9o7nbraO7OOXdBip5Ke92EWAJuBc3fFJoq5p0gmcAvpkzdeCQSiSRSfAEe/GNDlGJX4gAAAABJRU5ErkJggg==">
 									<a class="menu-items" href="${path }/logout">로그아웃</a></li>
 							</ul></li>
 					</ul>
 			
+
 			</div>
 			<%
 			} else {
-			%>	<!-- 로그인 안했을 때 -->
+			%>
+			<!-- 로그인 안했을 때 -->
 			<a class="login-btn" href="${path }/login">로그인</a>
 			<%
 			}
@@ -261,5 +259,3 @@ header {
 			return true;
 		}
 	</script>
-</body>
-</html>
