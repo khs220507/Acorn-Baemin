@@ -70,9 +70,10 @@ CREATE TABLE store_tbl (
   deliveryFee INT NOT NULL,           		-- 배달비
   operatingTime VARCHAR(50) , 				-- 운영시간
   deliveryArea VARCHAR(50) NOT NULL,  		-- 배달지역
-  storeStatus TINYINT default 0 ,   -- 가게 상태(0:close, 1:open)
+  storeStatus INT default 0 ,   -- 가게 상태(0:close, 1:open)
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
+
 
 INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
 VALUES
@@ -83,12 +84,6 @@ VALUES
 (20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 1);
 
 select * from store_tbl;
-
-
-SELECT DISTINCT  * FROM store_tbl JOIN menu_tbl ON
-    store_tbl.storeCode = menu_tbl.storeCode
-    WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%') OR
-    REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%', REPLACE(LOWER('찌개'), ' ', ''), '%');
 
 
 
@@ -121,7 +116,7 @@ VALUES
 (30005, '짬뽕', 10000, 'menu11.jpg', '매운 맛이 일품', '면요리', 0);
 
 select * from menu_tbl;
-
+select DISTINCT menuClassification from menu_tbl;
 -- 05. 옵션 option_tbl
 create table option_tbl (
     optionCode int auto_increment primary key,
@@ -172,6 +167,14 @@ VALUES
 ('user004', 30004, 40004, 50004, 2, 54000, 1),
 ('user005', 30005, 40005, 50005, 1, 9000, 1);
 
+INSERT INTO cart_tbl (userId, storeCode, menuCode, optionCode, menuCount, cartPrice, optionStatus)
+VALUES
+('user001', 30001, 40001, 50001, 2, 21000, 1),
+('user001', 30001, 40001, 50002, 1, 20000, 1),
+('user001', 30001, 40001, 50005, 1, 9000, 1);
+
+
+SELECT DISTINCT userId, optionCode,menuCount from cart_tbl where userId = 'user001';
 select * from cart_tbl;
 
 -- 07

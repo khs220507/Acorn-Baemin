@@ -27,9 +27,13 @@
 		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
 	</insert>
 	
-	<delete id="deleteStore" parameterType="String"> 
-        DELETE FROM store_tbl WHERE storeCode = #{storeCode} 
-    </delete >   
+       <update id="deleteStore" parameterType="StoreDTO">
+	    UPDATE store_tbl
+	    SET
+	        storeStatus = #{storeStatus}
+	    WHERE
+	        storeCode = #{storeCode}
+	</update>  
     
    	<select id="updateSellerStore" resultType="StoreDTO" parameterType="String">
 		SELECT *
@@ -47,7 +51,8 @@
 	        storePhone = #{storePhone},
 	        minOrderPrice = #{minOrderPrice},
 	        deliveryFee = #{deliveryFee},
-	        deliveryArea = #{deliveryArea}
+	        deliveryArea = #{deliveryArea},
+	        storeStatus = #{storeStatus}
 	    WHERE
 	        storeCode = #{storeCode}
 	</update>

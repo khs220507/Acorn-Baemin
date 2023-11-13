@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.acorn.baemin.domain.OptionDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.sellerhome.repository.SellerHomeRepository;
 @Controller
@@ -67,11 +68,18 @@ public class SellerHomeController {
 	}
 	
 
+//	@ResponseBody
+//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.DELETE)
+//	public void deleteStore(@PathVariable String storecode) {
+//		rep.deleteStore(storecode);
+//	}
+//	
 	@ResponseBody
-	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.DELETE)
-	public void deleteStore(@PathVariable String storecode) {
-		rep.deleteStore(storecode);
+	@RequestMapping( value="/sellerHome" , method=RequestMethod.PUT)
+	public void updateOption(@RequestBody StoreDTO store) {
+		rep.deleteStore(store);
 	}
+	
 	
 	@ResponseBody
 	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.GET)
@@ -82,7 +90,7 @@ public class SellerHomeController {
 
 	@ResponseBody
 	@RequestMapping( value="/upsellerHome" , method=RequestMethod.POST)
-	public void updateStore(int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
+	public void updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
 	
 		String fileName  = upstoreImage.getOriginalFilename();
 
@@ -97,8 +105,8 @@ public class SellerHomeController {
 			storeImageName = backupStoreImage;
 		}
 		
-		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, 0);
-		
+		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, upstoreStatus);
+		System.out.println(Store);
 		
 		rep.updateStore(Store);
 	}
