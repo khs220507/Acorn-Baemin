@@ -5,59 +5,18 @@
 
 <mapper namespace="com.acorn.CartMapper">
 
-	<!-- 고객 id 전달받으면 고객의 장바구니 정보 List로 반환 -->
-
-	<select id="selectCart" resultType="CartDTO"
-		parameterType="String">
-		SELECT *
-		FROM cart_tbl
-		where userId =#{id}
-	</select>
-
 
 	<select id="selectStore" resultType="StoreDTO"
 		parameterType="String">
-		SELECT *
-		FROM store_tbl st
-		INNER JOIN cart_tbl ct ON st.storeCode = ct.storeCode
-		WHERE ct.userId = #{id};
+		SELECT store_tbl.storeName
+		FROM menu_tbl
+		JOIN store_tbl ON
+		menu_tbl.storeCode = store_tbl.storeCode
+		WHERE menu_tbl.menuCode =
+		#{menuCode}
+
 	</select>
 
-	<!-- 장바구니리스트를 넘기면 해당하는 상품에 대한 매장정보를 List로 반환 함 -->
-	<select id="selectStore_ex" resultType="StoreDTO"
-		parameterType="java.util.List">
-      <![CDATA[
-          select *
-          from  store_tbl
-          where storeCode in
-      ]]>
-		<foreach item="item" collection="list" open="(" separator=","
-			close=")">
-			#{item.storeCode}
-		</foreach>
-		order by storeCode desc
-	</select>
-
-	<!-- 장바구니리스트를 넘기면 해당하는 상품에 대한 메뉴정보를 List로 반환 함 -->
-	<select id="selectMenu" resultType="MenuDTO"
-		parameterType="java.util.List">
-      <![CDATA[
-          select *
-          from  menu_tbl
-          where menuCode in
-      ]]>
-		<foreach item="item" collection="list" open="(" separator=","
-			close=")">
-			#{item.menuCode}
-		</foreach>
-		order by menuCode desc
-	</select>
-	
-	<delete id="deleteCart" parameterType="String">
-		DELETE FROM cart_tbl WHERE cartCode = #{cartCode}
-	</delete>
-	
-	
 
 
 </mapper>

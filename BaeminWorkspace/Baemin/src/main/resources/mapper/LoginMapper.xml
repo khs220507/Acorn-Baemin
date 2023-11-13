@@ -57,11 +57,10 @@
 
 <!-- 손님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectCustomerInfo" resultType="UserDTO"
-		parameterType="String">
+		parameterType="Integer">
 		select userNickname, userPhone, userEmail, userPostCode,
 		userAddress, userAddressDetail
-		from user_tbl where userCode =
-		#{userCode}
+		from user_tbl where userCode =	#{userCode}
 	</select>
 
 <!--  사장님 정보 수정 -->

@@ -27,8 +27,10 @@ header {
 	margin-bottom: 50px;
 }
 
-section {
-	
+section{
+width: 1280px;
+	padding-top: 140px;
+	margin-bottom: 50px;
 }
 
 footer {
@@ -212,7 +214,7 @@ a {
 </style>
 <script>
 function updateseller(){
-	let sellerCode = 20003;
+	let sellerCode = 20003;					//${'#modify.sellerCode'}.val();
     let sellerName = $('#sellerName').val();
     let sellerPw = $("#sellerPw").val();
     let confirmPassword = $("#confirmPassword").val();
@@ -238,7 +240,7 @@ function updateseller(){
             contentType: "application/json",
             success: function (data) {
                 alert("수정 성공 q(≧▽≦q)");
-                window.location.href = "http://localhost:8080/baemin/selectSellerInfo";
+                window.location.href = "http://localhost:8080/baemin/selectUserInfo";
             },
             error: function () {
             	alert("수정 정보를 확인해주세요 q(≧▽≦q)");
@@ -260,7 +262,7 @@ function updateseller(){
 <body>
 <jsp:include page="../base/header.jsp"/>
 
-	<section>
+	<section id="content">
 		<div class="container">
 
 			<!-- 사장님 수정 -->
@@ -270,7 +272,7 @@ function updateseller(){
 				</div>
 
 				<span class="input-container-id"> 
-					<input type="text" id="sellerName" placeholder="이름" class="vertical-center" value="${modify2.sellerName}">
+					<input type="text" id="sellerName" placeholder="이름" class="vertical-center" value="${userInfo.sellerName}">
 				</span> 
 				<br> 
 				<span> 
@@ -281,14 +283,14 @@ function updateseller(){
 				</span> <br> 
 				<span> 
 				<span> 
-					<input type="text" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" id="sellerRegCode" placeholder="사업자 등록번호" class="vertical-center" value="${modify2.sellerRegCode}">
+					<input type="text" onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');" id="sellerRegCode" placeholder="사업자 등록번호" class="vertical-center" value="${userInfo.sellerRegCode}">
 				</span> 
 				<br> 
 				<span> 
-					<input type="tel" id="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${modify2.sellerPhone}">
+					<input type="tel" id="sellerPhone" placeholder="연락처('-' 없이 11자리)" class="vertical-center" value="${userInfo.sellerPhone}">
 				</span>  				
 				<span> 
-					<input type="email" id="sellerEmail" placeholder="이메일" class="vertical-center" value="${modify2.sellerEmail}">
+					<input type="email" id="sellerEmail" placeholder="이메일" class="vertical-center" value="${userInfo.sellerEmail}">
 				</span> 
 					<button type="button" onclick="updateseller()" id="updateButton">수정 완료</button>
 

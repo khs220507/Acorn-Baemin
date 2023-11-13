@@ -31,7 +31,10 @@ header {
 }
 
 section {
-	flex: 7.8;
+width: 1280px;
+	padding-top: 140px;
+	margin-bottom: 50px;
+	
 }
 
 body {
@@ -218,13 +221,13 @@ a {
 	${item}
 	</c:forEach>
 
-	<section>
+	<section id="content">
 		<div class="container">
 			<div id="header-links">
 				<c:choose>
 					<c:when test="${empty sessionScope.user}">
 						<!-- 사용자가 로그아웃 상태인 경우 -->
-						<a href="${path}/login">로그인</a>
+						<!-- <a href="${path}/login">로그인</a>-->
 					</c:when>
 					<c:otherwise>
 						<!-- 사용자가 로그인 상태인 경우 -->
@@ -236,7 +239,7 @@ a {
 			<form class="login-form" action="${path}/login" method="post"
 				id="loginForm">
 
-				<!-- <div>${message}</div>-->
+			
 				<div class="login-title">
 					<h1>로그인</h1>
 				</div>

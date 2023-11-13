@@ -28,7 +28,8 @@
 			type="com.acorn.baemin.domain.AddressDTO" />
 		<typeAlias alias="ZzimStoreDTO"
 			type="com.acorn.baemin.domain.ZzimStoreDTO" />
-		
+		<typeAlias alias="CartInfoDTO"
+			type="com.acorn.baemin.cart.domain.CartInfoDTO" />
 
 
 
