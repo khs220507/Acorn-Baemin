@@ -183,6 +183,12 @@ header {
 	left: 0px;
 	top: -3px;
 }
+/* 섹션 ////////////////////////////////////////////////////////*/
+section {
+	width: 1280px;
+	padding-top : 140px; /* 헤더 높이만큼 padding-top 추가 */
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+}
 </style>
 
 	<header>
