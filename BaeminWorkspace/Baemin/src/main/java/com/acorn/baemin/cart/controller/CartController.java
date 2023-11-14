@@ -1,5 +1,7 @@
 package com.acorn.baemin.cart.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
+
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.cart.domain.CartInfoDTO;
 import com.acorn.baemin.cart.service.CartServiceImp;
+import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.StoreDTO;
 
 
@@ -30,11 +33,24 @@ public class CartController {
 	CartServiceImp service;	
 	
 	@PostMapping("/cartList")
-	public String receiveCartData(CartInfoDTO cartinfoDTO, Model model, @RequestParam int menuCode) {
-		List<StoreDTO> storeInfo = service.storeInfo(menuCode);
-		model.addAttribute("menuCode", menuCode);
+	public String receiveCartData( CartInfoDTO cartinfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
+		List<StoreDTO> storeInfo = service.selectStoreInfo(menuCode);
+		List<MenuDTO> menuInfo = service.selectMenuInfo(menuCode);
+		model.addAttribute("cartInfo", cartinfoDTO);
+		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
+		
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("menuInfo", menuInfo);
+		session.setAttribute("storeInfo", storeInfo);
 	    return "home/cart_list";
 	}
 	
+	@PostMapping("/order")
+	public String placeOrder(@RequestParam int totalPrice, HttpSession session) {
+		session.setAttribute("totalPrice", totalPrice);
+		System.out.println(totalPrice);
+	    return "userorder/order";
+	}
 }
