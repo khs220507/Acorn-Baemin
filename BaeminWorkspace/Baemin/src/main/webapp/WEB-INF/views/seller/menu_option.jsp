@@ -103,8 +103,14 @@ width: 100px;
 }
 .option-category-wrap{
 padding-bottom: 20px; 
+display: flex;
+align-items: center;
 }
-
+.option-category-wrap button{
+margin-left: 10px;
+width: 60px;
+height: 30px;
+}
 </style>
 <script>
 
