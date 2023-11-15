@@ -19,6 +19,7 @@
 a {
 	text-decoration: none;
 }
+
 section {
 width: 1280px;
 	padding-top: 140px;
@@ -45,9 +46,11 @@ body {
 	text-align: center;
 	padding: 20px;
 }
+
 .login-title h1 {
 	color: #333;
 }
+
 .container p {
 	font-size: 18px;
 	color: #555;
@@ -66,11 +69,13 @@ body {
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
 }
+
 .span1 {
 	display: block;
 	margin-bottom: 10px;
 	font-weight: bolder;
 }
+
 /* input[type="text"], input[type="password"] { */
 /* 	width: 99%; */
 /* 	height: 30px; */
@@ -80,6 +85,7 @@ body {
 /* 	border: 1px solid #ccc; */
 /* 	border-radius: 4px; */
 /* } */
+
 input[id="userId"], input[id="userPw"] {
 	width: 99%;
 	height: 30px;
@@ -210,6 +216,7 @@ a {
 			</div>
 			<!-- 로그인 폼 -->
 			<form class="login-form" action="${path}/login" method="post" id="loginForm">
+
 			
 				<div class="login-title">
 					<h1>로그인</h1>
@@ -221,6 +228,7 @@ a {
 						name="logintype" value="seller">사장님
 					</label>
 				</div>
+
 				<span class="span1"></span> <input type="text" id="userId" name="userId" placeholder="아이디"
 					class="vertical-center"> <br> <span class="span1"></span> <input
 					type="password" id="userPw"  name="userPw" placeholder="비밀번호"
