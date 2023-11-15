@@ -334,7 +334,6 @@ section {
 	align-items: center;
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정*/
 	margin: 0 auto;
-	position: relative;
 }
 
 table {
@@ -379,45 +378,9 @@ font-weight: normal;
 font-style: normal;
 }
 
-/* 홈화면 꾸미기 */
-footer{
-	border-top: 5px solid #d9d9d9!important;
-}
-.store-img{
-	width: 200px;
-	height: 170px;
-	position: absolute;
-	bottom: -41px;
-	right: -130px;
-}
-.home-img{
-	width: 180px;
-	height: 150px;
-	position: absolute;
-	bottom: -27px;
-    left: -130px;
-}
-.rider-bottom-img{
-	width: 80px;
-	height: 70px;
-	position: absolute;
-	bottom: -20px;
-    right: 55px;
-	animation: moveLeft 120s linear infinite;
-}
-/* @keyframes를 통한 애니메이션 정의 */
-@keyframes moveLeft {
-  0% {
-    transform: translateX(0%); /* 시작 위치: 오른쪽 끝에서 시작 */
-  }
-  100% {
-    transform: translateX(-1350%); /* 종료 위치: 왼쪽 끝으로 이동 */
-  }
-}
-
 </style>
 </head>
-<body style="overflow-x: hidden">
+<body>
 	<header>
 
 		<div class="header-wrap">
@@ -563,15 +526,6 @@ footer{
 					</c:if>
 				</c:forEach>
 			</table>
-
-		<!-- 홈화면 꾸미기 -->	
-			<!-- 가게이미지 -->
-			<img class="store-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAFBklEQVR4nO2aT2hcdRDH3yXvlRp6kEbQJGt3IyvmUNODl5wsHoTqIZd2EdFSut5UevIgVaEULEhbhLISKWRb/xDi0oTaXsQ2+yJLKwgbYrq7h0iVtAYLBbt/UkiNU+alDdEmuzPb39u3m/1+YS7N7uzMfN5v5jePWhYEQRAEQRAEQRAEQRAEVRHF+nopFklRLFykWITa28JF2hc+R3t3PN/I4t8OPvFIs9ltevO5ngYA4Cc/8GSpSW2sAQDQdmgjAPvCdxoAIPCnjJrZACAGAIE/hYQTEHwhCC0o+GJQAIYZENvEAGiyY4Bch2raZXteFPDbz/4t8semLYbUL8cg8cc5SfxNdgz4ByDtnBQFkXriJ1FS7/cUAgfAMUj8cU4Sf2nnpD/F/8XqoLR9SxTEZ9tlAI48dTVwAByDxB/nJAJg3+JamQcwZQ+Jk3onJGtBp55MBw6AY5D445ykPqfsIfMA0s640f7P9u224AFwDFKf0jmQdsbNFn+qs4vSzpLR/s92fmvwLYhjkPqUz4Elrpk5AK59SJyQtP+z/bgl+CHMMUh9SueAZ/YhgwCcrPH+z5Z2gr+GcgxSn5o54DrZxt79tf1fswO4PgLQ7AKaOWBqJxDf/bX9X7MDuD4DkO4CmjlgYidQ3f21/V+zA7g+A5DuAto58Lg7geruzxbv/VOciGYHcH0GIN0F2DhHje/H2QnEd3+2SeeGqkDfbJtqGgAci8Y35ypvQ+P+3/1dh5aSnb+pkvje+b1pAFzYcl3j+96ZzjkFgPp2AtXd33Vo8fD2kqpAP9h3mwYAx6LwffejrqLKfz07AV2yFzQ/cu9AaFl5jP9tGgAci+YEcK4a/5fsv/QARqwSJS2S2D9fdVJhT4gKr3SJLP/aDlo+u5XaxT+NWPr/rkIj1s/SHyinBih38GVxAvzZSupFahf/lLSu1APgPekPzLuf0K/Dn4oTmBk+RjfSH1O7+Kek9a4ewOeWQ0krW8v54ncv0HQ+T9nZPOX2D9Z+evYPUvZanqZzOe+7m92/V8Mxy1YD8CAkre5qEDiA2ZkMZQtznk1fvVI1Cf4bf+bh52dnMlWTaHX/D2rXXVfxVyGMWTYfIe6TPHjYyqld3rH1npwHwazatbx3RL2eyoNtT4hy8d3ev/Hf/v/56Xze87XZ/HPN6n7y19MjgcKoWg2MFR4A5up62ACgEOwpBYACAHhPwnxxuaUt2+onIOgCzgPAShHCiZJRe/qDmf+YCZ+RRIleSpZp77nK5jsBzQyg74sSDZ4t0xsTFYpfXPQMABL+A4gOl2j31xV66/xK0dcaACT8A9D/ZZleHa3QgQuPFh4AEv61oJ2nS/T6WIUOblB0AEiYnwFrB2utogNAwhyA9QYrADTgFhStMlgBwEcA/YLBCgA+AHjmwxz1HLkuGqwAYKj4kUSJug8XqPfoHxQ6dtMzk8XHHpBYv/BrB+vDwgNAA15FRNcZrADQgHdB/VUGKwD4CGCnYGMFAMMAIsqNFQAMAejbYGMdGr1D0eMLng2NFtUAan2/7W9BtTbW6PGF1eJGTyyoAdT6ftsCkG6sUQAwC0DzKjjutZDiSgs5UW8Lqv79tjsBpjfVEBYxAMjiBNzEqwi0oDnMgBDehmIIZ/2+BU1czlA91uq3oIk68waAiwCAE2BSaEEZtKA4ZgCG8ASG8CJuQbiGZhp/DYUgCIIgCIIgCIIgCIKsVtd9o3AHQ3Ov4D0AAAAASUVORK5CYII=">
-
-			<!-- 집 이미지 -->
-			<img class="home-img" src="data:image/png;base64,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">
-
-			<img class="rider-bottom-img" src="${path}/resources/icons/배민캐릭터로고.png">
 
 		</section>
 	</div>
