@@ -4,114 +4,172 @@
 
 <mapper namespace="com.acorn.LoginMapper">
 
-<!-- 손님 회원 가입 -->
+	<select id="findCustomerId" resultType="UserDTO" parameterType="map">
+		select userId
+		from user_tbl
+		where userEmail = #{userEmail}
+	</select>
+
+
+	<select id="findSellerId" resultType="SellerDTO" parameterType="map">
+		select sellerId
+		from seller_tbl
+		where sellerEmail = #{sellerEmail}
+	</select>
+
+
+
+
+
+	<!-- 손님 회원 가입 -->
 	<insert id="customerSignup" parameterType="UserDTO">
 		insert into user_tbl
 		(userId, userPw, userName, userNickname, userPhone, userEmail,
 		userBirth, userGender, userPostCode, userAddress, userAddressDetail)
 		values
 		(#{userId}, #{userPw}, #{userName}, #{userNickname},
-		#{userPhone}, #{userEmail},	#{userBirth}, #{userGender},
+		#{userPhone}, #{userEmail}, #{userBirth}, #{userGender},
 		#{userPostCode}, #{userAddress}, #{userAddressDetail})
 	</insert>
-	
-<!-- 사장님 회원 가입 -->
+
+	<!-- 사장님 회원 가입 -->
 	<insert id="sellerSignup" parameterType="SellerDTO">
 		insert into seller_tbl
-		(sellerRegCode, sellerId, sellerPw, sellerName, sellerPhone, sellerEmail, sellerBirth,
+		(sellerRegCode, sellerId, sellerPw, sellerName, sellerPhone,
+		sellerEmail, sellerBirth,
 		sellerGender)
 		values
-		(#{sellerRegCode}, #{sellerId}, #{sellerPw}, #{sellerName}, #{sellerPhone},
+		(#{sellerRegCode},
+		#{sellerId}, #{sellerPw}, #{sellerName}, #{sellerPhone},
 		#{sellerEmail}, #{sellerBirth}, #{sellerGender})
 	</insert>
 
-<!-- 손님 로그인 -->
+	<!-- 손님 로그인 -->
 	<select id="selectUserById" resultType="UserDTO"
 		parameterType="UserDTO">
 		select * from user_tbl where userId = #{userId} and
 		userPw = #{userPw}
 	</select>
 
-<!-- 사장님 로그인 -->
+	<!-- 사장님 로그인 -->
 	<select id="selectSellerById" resultType="SellerDTO"
 		parameterType="SellerDTO">
 		select * from seller_tbl where sellerId = #{sellerId}
 		and sellerPw =
 		#{sellerPw}
 	</select>
-	
-<!--  손님 정보 수정 -->
 
-   <update id="updateInfoCustomer" parameterType="UserDTO">
-    update user_tbl
-    set 
-      userNickname = #{userNickname},    
-      userPw = #{userPw},      
-      userPhone = #{userPhone},
-      userEmail = #{userEmail},
-      userPostCode = #{userPostCode},
-      userAddress = #{userAddress},
-      userAddressDetail = #{userAddressDetail}
-    where userCode = #{userCode}
-  </update>
+	<!-- 손님 정보 수정 -->
+	<update id="updateInfoCustomer" parameterType="UserDTO">
+		update user_tbl
+		set
+		userNickname = #{userNickname},
+		userPw = #{userPw},
+		userPhone =
+		#{userPhone},
+		userEmail = #{userEmail}
+		where userCode = #{userCode}
+	</update>
 
-<!-- 손님 정보 수정시 기존 정보 불러오기 -->
+	<!-- 손님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectCustomerInfo" resultType="UserDTO"
 		parameterType="Integer">
 		select userNickname, userPhone, userEmail, userPostCode,
 		userAddress, userAddressDetail
-		from user_tbl where userCode =	#{userCode}
+		from user_tbl where userCode =
+		#{userCode}
 	</select>
 
-<!--  사장님 정보 수정 -->
-   <update id="updateInfoSeller" parameterType="SellerDTO">
-    update seller_tbl
-    set 
-      sellerName = #{sellerName},    
-      sellerPw = #{sellerPw},      
-      sellerPhone = #{sellerPhone},
-      sellerEmail = #{sellerEmail},
-      sellerRegCode = #{sellerRegCode}
-    where sellerCode = #{sellerCode}
-  </update>
+	<!-- 손님 정보 수정시 닉네임, 연락처, 이메일 중복 확인 -->
+	<select id="checkForDuplicates" resultType="java.util.Map"
+		parameterType="java.util.Map">
+		select count(*) as nicknameCount
+		from user_tbl
+		where
+		userNickname = #{nickname}
+		or userPhone = #{phone}
+		or userEmail =
+		#{email}
+	</select>
 
-<!-- 사장님 정보 수정시 기존 정보 불러오기 -->
+
+	<!-- 사장님 정보 수정 -->
+	<update id="updateInfoSeller" parameterType="SellerDTO">
+		update seller_tbl
+		set
+		sellerName = #{sellerName},
+		sellerPw = #{sellerPw},
+		sellerPhone =
+		#{sellerPhone},
+		sellerEmail = #{sellerEmail},
+		sellerRegCode =
+		#{sellerRegCode}
+		where sellerCode = #{sellerCode}
+	</update>
+
+	<!-- 사장님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectSellerInfo" resultType="SellerDTO"
 		parameterType="String">
-		select sellerName, sellerPw, sellerPhone, sellerEmail, sellerRegCode		
+		select sellerName, sellerPw, sellerPhone, sellerEmail,
+		sellerRegCode
 		from seller_tbl
 		where sellerCode = #{sellerCode}
 	</select>
-	
-	
 
 
-	
-	
-	
-<!-- 아이디 중복 확인 -->
-	<select id="idCheck" resultType="int" parameterType="UserDTO">
-        select count(*) from user_tbl where userId = #{userId}
-    </select>
+
+
+
+
+
+	<!-- 손님 아이디 중복 확인 -->
+	<select id="idCheck" resultType="int" parameterType="String">
+		select
+		count(*) from user_tbl where userId = #{userId}
+	</select>
+
+	<!-- 사장님 아이디 중복 확인 -->
+	<select id="idCheck2" resultType="int" parameterType="String">
+		select
+		count(*) from seller_tbl where sellerId = #{sellerId}
+	</select>
+
 
 
 	<select id="getUserByUserId" resultType="UserDTO">
 		select * from user_tbl
 		where userId = #{userId}
 	</select>
-	
-<!-- 전체조회 -->
+
+	<!-- 전체조회 -->
 	<select id="selectAll" resultType="UserDTO">
 		select * from user_tbl
 	</select>
-	
-<!-- 손님데이터 삭제  -->
+
+	<!-- 손님데이터 삭제 -->
 
 	<update id="userInfoDelete">
-		
-	
+
+
 	</update>
 
+
+	<select id="findUserById" parameterType="java.lang.String"
+		resultType="UserDTO">
+		SELECT * FROM user_tbl WHERE userId = #{userId}
+	</select>
+
+	<select id="findUserByEmail" parameterType="java.lang.String"
+		resultType="UserDTO">
+		SELECT * FROM user_tbl WHERE userEmail = #{userEmail}
+	</select>
+
+	<update id="updatePassword" parameterType="UserDTO">
+		UPDATE user_tbl
+		SET
+		userPw = #{userPw}
+		WHERE userId = #{userId}
+	</update>
 
 	<!-- <select id="findUserByType" resultType="SellerDTO" parameterType="SellerDTO"> -->
 	<!-- select * from seller_tbl where sellerId = #{sellerId} and sellerPw 

@@ -1,6 +1,8 @@
 package com.acorn.baemin.login.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.login.repository.LoginRepository;
 import com.acorn.baemin.login.repository.LoginRepositoryI;
 import com.acorn.baemin.login.service.LoginService;
 
@@ -25,7 +28,54 @@ public class LoginController {
 	LoginRepositoryI rep;
 
 	@Autowired
+	LoginRepository lr;
+	
+	@Autowired
 	private LoginService loginService;	
+	
+	@GetMapping("/findIdForm")
+	public String findIdForm() {
+	    return "user/findIdForm";
+	}
+
+	@PostMapping("/findId")
+	public String findId(@RequestParam String email, Model model) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("userEmail", email);
+
+	    String customerId = rep.findCustomerId(params);
+	    String sellerId = rep.findSellerId(params);
+
+	    model.addAttribute("customerId", customerId);
+	    model.addAttribute("sellerId", sellerId);
+
+	    return "user/findIdResult";
+	}
+	
+	
+	
+	
+//	// 유저 아이디 찾기 / 보내기
+//	@GetMapping("/findIdForm")
+//    public String findIdForm() {
+//        return "user/findIdForm";
+//    }
+//	// 유저 아이디 찾기 / 받기
+//	@PostMapping("/findId")
+//	public String findId(@RequestParam String email, Model model) {
+//	    Map<String, Object> params = new HashMap<>();
+//	    params.put("userEmail", email);  // user 테이블에서 userEmail을 찾기 위한 파라미터
+//
+//	    String customerId = rep.findCustomerId(params);
+//	    String sellerId = rep.findSellerId(params);
+//
+//	    model.addAttribute("customerId", customerId);
+//	    model.addAttribute("sellerId", sellerId);
+//
+//	    return "user/findIdResult";
+//	}
+	
+	
 
 	// 로그인 보내기
 		@GetMapping("/login")
@@ -46,15 +96,22 @@ public class LoginController {
 	@PostMapping("/login")
 	public String processLogin(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		System.out.println(userId + userPw + logintype);
+		try {
 		UserDTO user = loginService.loginCustomer(userId, userPw);
 		if (user != null) {
 			session.setAttribute("userCode", user.getUserCode());
+			session.setAttribute("user", user.getUserId());
 			return "redirect:/home";
 		} else {
 			model.addAttribute("message", "로그인 실패. 로그인 유형과 계정 정보를 확인해주세요.");
 			return "user/login";			
 		}
+	}catch(Exception e) {
+		e.printStackTrace();
+		model.addAttribute("message", "로그인 중 오류가 발생했습니다.");
+		return "user/login";
 	}
+}
 	
 	// 사장님 로그인 입력 정보 받아오기
 	@PostMapping("/login2")
@@ -91,8 +148,6 @@ public class LoginController {
 			return "user/login";
 		}
 		
-		
-	
 
 	
 

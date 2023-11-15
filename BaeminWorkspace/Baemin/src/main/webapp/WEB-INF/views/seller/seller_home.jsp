@@ -16,7 +16,9 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
+input, option, select{
+font-family: '';
+}
 a {
 	text-decoration: none;
 }
@@ -40,13 +42,6 @@ button {
 	cursor: pointer; /* 손가락모양 */
 }
 
-/* 해더 */
-.header-wrap {
-	width: 1280px;
-	border: 1px solid black;
-	height: 100px;
-	margin: 0 auto;
-}
 /* 세션 */
 .section-line {
 	width: 100%;
@@ -63,7 +58,7 @@ font-weight: bolder;
 
 .section-wrap {
 	margin: 0 auto;
-	width: 60%;
+	width: 75%;
 }
 .section-wrap{
  overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
@@ -394,9 +389,7 @@ margin: 0 auto;
 <title>Insert title here</title>
 </head>
 <body>
-	<header>
-		<div class="header-wrap">해더</div>
-	</header>
+	<jsp:include page="../base/sellerHeader.jsp" />
 	<section>
 		<div class="section-line"><div>가게관리</div></div>
 		<div class="section-wrap">

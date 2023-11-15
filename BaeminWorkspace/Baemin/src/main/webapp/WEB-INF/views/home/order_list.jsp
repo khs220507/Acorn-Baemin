@@ -41,10 +41,9 @@ hr {
 	border: 0px;
 }
 /* 섹션  ////////////////////////////////////////////////////*/
-section {
-	width: 1280px;
-	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
-	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+.wrap-all{
+	width:75%;
+	margin: 0 auto;
 }
 
 .orderList-title {
@@ -139,54 +138,56 @@ section {
 
 	<section id="content">
 
-		<h3 class="orderList-title">주문내역</h3>
-		<hr>
+		<div class="wrap-all">
+			<h3 class="orderList-title">주문내역</h3>
+			<hr>
 
-		<!-- 주문내역 -->
-		<c:forEach items="${orderList }" var="orderList">
+			<!-- 주문내역 -->
+			<c:forEach items="${orderList }" var="orderList">
 
-			<div class="orderList-wrap">
+				<div class="orderList-wrap">
 
-				<img class="delete-icon"
-					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2WQQ6DMAwE+QSofUgkr+T8/xBO5dDnUFE4tBEE27iKRFkpJ7JM7JAlTXPpLwWgA9Avo7P6iSiJ/czcAngAGKdBRM8Y410KNfsxV/k2fZgHycqnOcvc3J9MYAl8CyoGc9aq7AWrbdvzhBBuu2At3A2qgbtDhfs2lJ5ZjuGXSlW5V2qFu0Kl8J9ApWBNwrm32g3Oho/rMBw1jhMLwsESr0VpEskNzoYYdIGj1m8RtS4CvHJ10STSIT/mlSfVZc3Rf+kcegEOjsATVQE+UwAAAABJRU5ErkJggg==">
-				<div class="date-wrap">
-					<p>${orderList.orderDate }</p>
-					<p class="dot">·</p>
-					<p>${orderList.orderStatus}</p>
-					<span class="order-num">${orderList.orderNumber }</span>
-				</div>
+					<img class="delete-icon"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2WQQ6DMAwE+QSofUgkr+T8/xBO5dDnUFE4tBEE27iKRFkpJ7JM7JAlTXPpLwWgA9Avo7P6iSiJ/czcAngAGKdBRM8Y410KNfsxV/k2fZgHycqnOcvc3J9MYAl8CyoGc9aq7AWrbdvzhBBuu2At3A2qgbtDhfs2lJ5ZjuGXSlW5V2qFu0Kl8J9ApWBNwrm32g3Oho/rMBw1jhMLwsESr0VpEskNzoYYdIGj1m8RtS4CvHJ10STSIT/mlSfVZc3Rf+kcegEOjsATVQE+UwAAAABJRU5ErkJggg==">
+					<div class="date-wrap">
+						<p>${orderList.orderDate }</p>
+						<p class="dot">·</p>
+						<p>${orderList.orderStatus}</p>
+						<span class="order-num">${orderList.orderNumber }</span>
+					</div>
 
 
-				<div class="wrap-center">
-					<a href="${path}/store?storeCode=${orderList.storeCode}">
-					<img class="store-img" src="${path}/storeImages/${orderList.orderStoreImage }"></a>
-					<div class="store-menu-wrap">
-						<a href="${path}/store?storeCode=${orderList.storeCode}">
-							<p class="store-name">
-								<strong>${orderList.orderStoreName }</strong>
-							</p>
-						</a>
-						<div class="menu-info">
-							<p class="menu-text">${orderList.orderMenuName}</p>
-							<p>${orderList.orderMenuNumber }</p>
-							<p>${orderList.orderMenuPrice}원</p>
+					<div class="wrap-center">
+						<a href="${path}/store?storeCode=${orderList.storeCode}"> <img
+							class="store-img"
+							src="${path}/storeImages/${orderList.orderStoreImage }"></a>
+						<div class="store-menu-wrap">
+							<a href="${path}/store?storeCode=${orderList.storeCode}">
+								<p class="store-name">
+									<strong>${orderList.orderStoreName }</strong>
+								</p>
+							</a>
+							<div class="menu-info">
+								<p class="menu-text">${orderList.orderMenuName}</p>
+								<p>${orderList.orderMenuNumber }</p>
+								<p>${orderList.orderMenuPrice}원</p>
+							</div>
+						</div>
+						<div class="btn-wrap">
+							<button class="gray-radius-btn" id="order-detail-btn">주문상세</button>
+							<br>
+							<button class="gray-radius-btn">리뷰쓰기</button>
 						</div>
 					</div>
-					<div class="btn-wrap">
-						<button class="gray-radius-btn" id="order-detail-btn">주문상세</button>
-						<br>
-						<button class="gray-radius-btn">리뷰쓰기</button>
-					</div>
+					<button class="add-menu-btn">
+						<strong>같은 메뉴 담기</strong>
+					</button>
+					<hr>
 				</div>
-				<button class="add-menu-btn">
-					<strong>같은 메뉴 담기</strong>
-				</button>
-				<hr>
-			</div>
 
-		</c:forEach>
+			</c:forEach>
 
-
+		</div>
 	</section>
 
 	<jsp:include page="../base/footer.jsp" />
