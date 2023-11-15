@@ -24,11 +24,7 @@ a {
 	text-decoration: none;
 }
 
-header {
-	background-color: #48D1CC;
-	height: 100px;
-	margin-bottom: 50px;
-}
+
 
 section {
 width: 1280px;
@@ -60,11 +56,15 @@ body {
 	padding: 20px;
 }
 
-h1 {
+.login-title h1 {
 	color: #333;
 }
 
-p {
+.container p {
+	font-size: 18px;
+	color: #555;
+}
+.signup-link p{
 	font-size: 18px;
 	color: #555;
 }
@@ -80,13 +80,23 @@ p {
 	border-radius: 10px;
 }
 
-span {
+.span1 {
 	display: block;
 	margin-bottom: 10px;
 	font-weight: bolder;
 }
 
-input[type="text"], input[type="password"] {
+/* input[type="text"], input[type="password"] { */
+/* 	width: 99%; */
+/* 	height: 30px; */
+/* 	padding: 10px; */
+/* 	font-size: 20px; */
+/* 	margin-bottom: 10px; */
+/* 	border: 1px solid #ccc; */
+/* 	border-radius: 4px; */
+/* } */
+
+input[id="userId"], input[id="userPw"] {
 	width: 99%;
 	height: 30px;
 	padding: 10px;
@@ -236,8 +246,7 @@ a {
 				</c:choose>
 			</div>
 			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login" method="post"
-				id="loginForm">
+			<form class="login-form" action="${path}/login" method="post" id="loginForm">
 
 			
 				<div class="login-title">
@@ -251,9 +260,9 @@ a {
 					</label>
 				</div>
 
-				<span></span> <input type="text" name="userId" placeholder="아이디"
-					class="vertical-center"> <br> <span></span> <input
-					type="password" name="userPw" placeholder="비밀번호"
+				<span class="span1"></span> <input type="text" id="userId" name="userId" placeholder="아이디"
+					class="vertical-center"> <br> <span class="span1"></span> <input
+					type="password" id="userPw"  name="userPw" placeholder="비밀번호"
 					class="vertical-center"> <br>
 
 				<!-- 아이디 저장 (Remember Me) 체크박스 -->
@@ -262,12 +271,12 @@ a {
 				</label>
 				<!-- 아이디 찾기와 비밀번호 찾기 링크 -->
 				<div class="remember-links right-links">
-					<a href="/">아이디 찾기</a> | <a href="/">비밀번호 찾기</a>
+					<a href="${path}/findIdForm">아이디 찾기</a> | <a href="${path}/findPwForm">비밀번호 찾기</a>
 				</div>
 				<p class="signup-link">
 					<a href="${path}/select_signup">회원가입</a>
 				</p>
-
+				<span class="span1"></span>
 				<input type="button" id="loginForm" value="로그인" onclick="login()">
 
 				<div class="kakao">
