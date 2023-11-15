@@ -29,38 +29,5 @@ public class SelectStrollerController {
 		model.addAttribute("list", result);
 		return "store/store_list";
 		}
-	
-//	 @ResponseBody
-//	 @RequestMapping(value="/storeimages/{storeImage:.*}" ,method = RequestMethod.GET)
-//	 public Resource sellerStoreImg(@PathVariable String storeImage) throws MalformedURLException {
-//		 return new UrlResource("file:c:\\test\\upload\\"+storeImage);
-//	 }
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome" , method=RequestMethod.POST)
-//	public void insertStore(@RequestBody StoreDTO Store) {
-//		rep.insertStore(Store);
-//	}
-//	
-//
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.DELETE)
-//	public void deleteStore(@PathVariable String storecode) {
-//		rep.deleteStore(storecode);
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.GET)
-//	public StoreDTO updateSellerStore(@PathVariable String storecode , Model model){	
-//		StoreDTO store = rep.updateSellerStore(storecode);
-//		return store;
-//	}
-//
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome" , method=RequestMethod.PUT)
-//	public void updateStore(@RequestBody StoreDTO Store) {
-//		System.out.println(Store);
-//		rep.updateStore(Store);
-//	}
-	
 
 }

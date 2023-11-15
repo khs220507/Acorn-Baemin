@@ -2,23 +2,22 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
     <c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
+    <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-		section {
-			width: 1280px;
-			flex: 8;
-		}
+
 		hr {
 			margin: 0 auto;
 			width: 100%;
 			border-width: 2px;
 		}
 		.nav-var {
-			padding: 10px 0px 10px 0px;
+			padding: 130px 0px 10px 0px;
 			font-size: 20px;
 			font-weight: bolder;
 			display: flex;
@@ -34,7 +33,7 @@
         }
         .section-wrap{
             margin: 0 auto;
-            width: 60%;
+            width: 70%;
         }
         .store-list{
         	padding: 20px;
@@ -82,26 +81,44 @@
             font-size: 15px;
             
         }
+        .categorys{
+        color: gray;
+        }
        
         
        	
        	</style>
        	<script type="text/javascript">
+       	$(function() {
+       	 	let urlParams = new URL(location.href).searchParams;
+          	let name = urlParams.get('storeCategory');
+          	$("#"+name).css("color","black");
+
+       	});
        	function choiceStore(storeCode) {
        		window.opener.location.href = "http://localhost:8080/baemin/store?=storeCode="+storeCode;
 		}
+       	
+
+   		
+       	
        	</script>
 </head>
 <body>
 <jsp:include page="../base/header.jsp" />
-<nav class="nav-var">
-<c:set var="href" value="http://localhost:8080/baemin/storeList"/>
-<a href="${href}">치킨</a><a href="${href}">피자</a><a href="${href}">햄버거</a><a href="${href}">족발,보쌈</a><a href="${href}">한식</a>
-<a href="${href}">중식</a><a href="${href}">일식</a><a href="${href}">양식</a><a href="${href}">분식</a><a href="${href}">디저트</a><a href="${href}">야식</a>
+		<nav class="nav-var">
+<c:set var="href" value="http://localhost:8080/baemin/storeList?storeCategory="/>
+<a class="categorys" id="치킨" href="${href}치킨">치킨</a><a class="categorys" id="피자" href="${href}피자">피자</a>
+<a class="categorys" id="햄버거" href="${href}햄버거">햄버거</a><a class="categorys" id="족발·보쌈" href="${href}족발·보쌈">족발·보쌈</a>
+<a class="categorys" id="한식" href="${href}한식">한식</a><a class="categorys" id="중식" href="${href}중식">중식</a>
+<a class="categorys" id="일식" href="${href}일식">일식</a><a class="categorys" id="양식" href="${href}양식">양식</a>
+<a class="categorys" id="분식" href="${href}분식">분식</a><a class="categorys" id="디저트" href="${href}디저트">디저트</a>
+<a class="categorys" id="야식" href="${href}야식">야식</a>
 </nav>
 <hr>
-<section>
-		
+
+<section class="content">
+
         <div class="section-wrap">
         <c:forEach items="${list }" var="item">
             <div class="store-list" id="store-list">

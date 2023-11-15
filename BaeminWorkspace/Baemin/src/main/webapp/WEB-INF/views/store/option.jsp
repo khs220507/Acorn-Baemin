@@ -13,23 +13,13 @@ body {
 	align-items: center;
 	height: 100vh;
 }
-
-section {
-	width: 1280px;
-	flex: 8;
+section{
+padding-top: 0px;
 }
 
-section {
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
-}
-
-section::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
-}
 
 .nav-var {
-	padding: 10px 0px 10px 0px;
+	padding: 130px 0px 10px 0px;
 	font-size: 20px;
 	font-weight: bolder;
 	display: flex;
@@ -119,11 +109,12 @@ function sendOptionJson() {
 </head>
 <body>
 	<jsp:include page="../base/header.jsp" />
-	<nav class="nav-var">
+		<nav class="nav-var">
 		<a href="">치킨</a><a>피자</a><a>햄버거</a><a>족발,보쌈</a><a>한식</a><a>중식</a><a>일식</a><a>양식</a><a>분식</a><a>디저트</a><a>야식</a>
 	</nav>
+	<section class="content">
+
 	<hr>
-	<section>
 		<div>
 			<form name="frm" method="post"
 				action="/baemin/cartList?menuCode=${menuCode}">

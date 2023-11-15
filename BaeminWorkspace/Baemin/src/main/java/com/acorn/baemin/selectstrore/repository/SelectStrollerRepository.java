@@ -16,25 +16,4 @@ public class SelectStrollerRepository  {
 	    public List<StoreDTO> selectStore(String storeCategory) {
 	    	return session.selectList(namespaceStore+"selectStore",storeCategory);
 	    }
-	    
-//	    public void insertStore (StoreDTO store) {
-//	    	session.insert(namespaceStore+"insertStore", store);
-//	    }
-//	    
-//	    public void deleteStore (String storeCode) {
-//	    	session.insert(namespaceStore+"deleteStore", storeCode);
-//	    }
-//	    
-//	    public StoreDTO updateSellerStore(String storeCode) {
-//	    	return session.selectOne(namespaceStore+"updateSellerStore",storeCode);
-//	    }
-//	    
-//	    public void updateStore (StoreDTO store) {
-//	    	session.insert(namespaceStore+"updateStore", store);
-//	    }
-	    
-	    
-
-
-
 }

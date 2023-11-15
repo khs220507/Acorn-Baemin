@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!DOCTYPE html>
@@ -16,17 +17,7 @@
 	box-sizing: border-box;
 }
 /* 해더 */
-header {
-	background-color: #48D1CC;
-	height: 100px;
-}
 
-.header-wrap {
-	width: 1280px;
-	border: 1px solid black;
-	height: 100px;
-	margin: 0 auto;
-}
 /* 세션 */
 body {
 	display: flex;
@@ -35,16 +26,7 @@ body {
 	height: 100vh;
 }
 
-section {
-	width: 1280px;
-	flex: 8;
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
-}
 
-section::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
-}
 
 .menu-img {
 	width: 200px;
@@ -89,11 +71,40 @@ height: 50px;
   
 }
 
-/* 풋터 */
-footer {
-	height: 100px;
-	background-color: gray;
+.option-category-plus-v1{
+width: 60px;
+margin: 20px auto;
 }
+.option-category-plus-v2{
+padding: 10px;
+position: relative;
+display: none;
+}
+.option-category-xbut{
+position: absolute;
+right: 10px;
+width: 20px;
+}
+#optionCategory, .upOptionCategoryName{
+font-size:25px;
+width: 160px;
+height: 40px;
+}
+.upOptionName, .upOptionPrice{
+
+height: 30px;
+}
+.upOptionName{
+width: 160px;
+margin: 0px 300px 0px 20px;
+}
+.upOptionPrice{
+width: 100px;
+}
+.option-category-wrap{
+padding-bottom: 20px; 
+}
+
 </style>
 <script>
 
@@ -158,9 +169,11 @@ footer {
 		let optionCode = Code;
 		let optionName = $(element).closest('.option-list').find('.upOptionName').val();
 	    let optionPrice = $(element).closest('.option-list').find('.upOptionPrice').val();
-   	let info = {optionCode : optionCode,
-   			optionName : optionName,
-   			optionPrice : optionPrice}
+	    let optionStatus = $("#" + Code).val();
+   	let info = {optionCode:optionCode,
+   			optionName:optionName,
+   			optionPrice:optionPrice,
+   			optionStatus:optionStatus}
    	let infos = JSON.stringify(info);
        	
    		$.ajax({
@@ -183,9 +196,9 @@ footer {
 		let optionCategory = Category;
 		let optionName = $(element).closest('.option-category-wrap').find('.upOptionCategoryName').val();
 	    
-   	let info = {menuCode : menuCode,
-   			optionCategory : optionCategory,
-   			optionName : optionName}
+   	let info = {menuCode:menuCode,
+   			optionCategory:optionCategory,
+   			optionName:optionName}
    	let infos = JSON.stringify(info);
        	
    		$.ajax({
@@ -204,8 +217,8 @@ footer {
 	}
     function optiondelete(optionCode) {
 	    $.ajax({
-			type: "DELETE",
-			url: "/baemin/sellerOptionSolo/"+optionCode, //path Variable  ,
+			type: "put",
+			url: "/baemin/sellerOptionDSolo/"+optionCode, //path Variable  ,
 			
 			success : function (data){
 				window.location.reload();
@@ -217,8 +230,8 @@ footer {
 	}
     function optiondeletecategory(category) {
 	    $.ajax({
-			type: "DELETE",
-			url: "/baemin/sellerOption/" + ${menuCode} + "/" + category, 
+			type: "PUT",
+			url: "/baemin/sellerOptionD/" + ${menuCode} + "/" + category, 
 			
 			success : function (data){
 				window.location.reload();
@@ -229,14 +242,52 @@ footer {
 		});
 	}
 
+    
+    $(document).ready(function() {
+   	 //	let originalData;
+   	 	$(".option-category-plus-v1").click(function() {
+   			$(".option-category-plus-v1").css("display","none");
+           	$(".option-category-plus-v2").css("display","block");
+			})
+			
+           $(".option-category-xbut").click(function(){
+           	$(".option-category-plus-v1").css("display","block");
+           	$(".option-category-plus-v2").css("display","none");
+           });
+          
+           
+       });
+    
+	function funoptionStatus(Status) {
+		if (Status == 0){
+			 document.write("공개");
+		}else if (Status == 1) {
+			 document.write("비공개");
+	}
+	}
+	
+	function refunoptionStatus(Status) {
+		if (Status == 0){
+			document.write("비공개");
+		}else if (Status == 1) {
+			document.write("공개");
+	}
+	}
+	
+	function renofunoptionStatus(Status) {
+		if (Status == 0){
+			document.write(1);
+		}else if (Status == 1) {
+			document.write(0);
+	}
+	}
 </script>
 <title>Insert title here</title>
 </head>
 <body>
-	<header>
-		<div class="header-wrap">해더</div>
-	</header>
-	<section>
+<jsp:include page="../base/sellerHeader.jsp"/>
+	
+	<section id="content">
 		<div>
 			<div>
 				<div class="menu-img"><img alt="" src=""></div>
@@ -246,14 +297,8 @@ footer {
 				<c:forEach items="${get}" var="item">
 					<div class="option-wrap">
 						<div class="option-category-wrap">
-							<span class="option-category">${item.optionCategory}</span>
-							<div>
-								<input value="${item.optionCategory}"
-									class="upOptionCategoryName">
-								<button
-									onclick="optionupdatecategory('${item.optionCategory}',this)">저장하기</button>
-							</div>
-							<button>수정</button>
+							<input value="${item.optionCategory}" class="upOptionCategoryName">
+							<button onclick="optionupdatecategory('${item.optionCategory}',this)">수정</button>
 							<button onclick="optiondeletecategory('${item.optionCategory}')">삭제</button>
 						</div>
 						<c:forEach items="${list}" var="items">
@@ -261,35 +306,38 @@ footer {
 								<c:choose>
 									<c:when test="${items.optionSelectType eq 1 }">
 										<div class="option-list">
-											<input type="radio" name="${item}"> <span>${items.optionName}</span>
-											<span>${items.optionPrice}</span>
-											<button>수정</button>
+											<input type="radio" name="${item}"> 
+											<input value="${items.optionName}" class="upOptionName">
+											<input value="${items.optionPrice}" class="upOptionPrice">
+											<select name="upoptionStatus" id="${items.optionCode }">
+												<option value="1" ${items.optionStatus eq '1' ? 'selected' : ''}>비공개</option>
+                        						<option value="0" ${items.optionStatus eq '0' ? 'selected' : ''}>공개</option>
+											</select>
+											<button onclick="updateSellerOption(${items.optionCode},this)">수정</button>
 											<button onclick="optiondelete(${items.optionCode})">삭제</button>
-											<div class="updatae-but-wrap">
-												<input value="${items.optionName}" class="upOptionName">
-												<input value="${items.optionPrice}" class="upOptionPrice">
-												<button
-													onclick="updateSellerOption(${items.optionCode},this)">저장하기</button>
-											</div>
+											
+											
 										</div>
 									</c:when>
 									<c:otherwise>
 										<div class="option-list">
-											<input type="checkbox" name="${item}"> <span>${items.optionName}</span>
-											<span>${items.optionPrice}</span>
-											<button>수정</button>
+											<input type="checkbox" name="${item}"> 
+											<input value="${items.optionName}" class="upOptionName">
+											<input value="${items.optionPrice}" class="upOptionPrice">
+											<select name="upoptionStatus" id="${items.optionCode }" >
+												<option value="1" ${items.optionStatus eq '1' ? 'selected' : ''}>비공개</option>
+                        						<option value="0" ${items.optionStatus eq '0' ? 'selected' : ''}>공개</option>
+											</select>
+											<button onclick="updateSellerOption(${items.optionCode},this)">수정</button>
 											<button onclick="optiondelete(${items.optionCode})">삭제</button>
-											<div class="updatae-but-wrap">
-												<input value="${items.optionName}" class="upOptionName">
-												<input value="${items.optionPrice}" class="upOptionPrice">
-												<button
-													onclick="updateSellerOption(${items.optionCode},this)">저장하기</button>
-											</div>
+
+											
 										</div>
 									</c:otherwise>
 								</c:choose>
 							</c:if>
 						</c:forEach>
+						
 						<div>
 							<button>추가</button>
 						</div>
@@ -305,21 +353,22 @@ footer {
 
 				</c:forEach>
 				
-					<div class="option-category-plus"></div>
+					<div class="option-category-plus-v1"><img src="${path}/resources/icons/addoption.png"></div>
 				
-				<div>
-					<input type="text" placeholder="옵션분류" id="optionCategory">
-					<label><input type="radio" name="optionSelectType"
-						value="1">단일선택</label> <label><input type="radio"
-						name="optionSelectType" value="0">복수선택</label> <br> <input
-						type="text" placeholder="옵션명" id="optionName"> <input
-						type="text" placeholder="가격" id="optionPrice"> <br>
+				<div class="option-category-plus-v2">
+					<img class="option-category-xbut" src="${path}/resources/icons/optionxbut.png">
+					<input  type="text" placeholder="옵션분류" id="optionCategory">
+					<label><input type="radio" name="optionSelectType" value="1">단일선택</label> 
+					<label><input type="radio" name="optionSelectType" value="0">복수선택</label> <br> 
+					<input type="text" placeholder="옵션명" id="optionName"> 
+					<input type="text" placeholder="가격" id="optionPrice"><br>
 					<button onclick="insertOptionCategory()">추가하기</button>
 				</div>
 			</div>
 		</div>
 
 	</section>
-	<footer> </footer>
+<jsp:include page="../base/footer.jsp"/>
 </body>
 </html>
+

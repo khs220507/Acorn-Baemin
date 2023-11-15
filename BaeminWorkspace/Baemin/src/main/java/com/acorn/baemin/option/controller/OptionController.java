@@ -75,13 +75,13 @@ public class OptionController {
 	}
 	
 	@ResponseBody
-	@RequestMapping( value="/sellerOptionSolo/{optionCode}" , method=RequestMethod.DELETE)
+	@RequestMapping( value="/sellerOptionDSolo/{optionCode}" , method=RequestMethod.PUT)
 	public void deleteOption(@PathVariable String optionCode) {
 		rep.deleteOption(optionCode);
 	}
 	
 	@ResponseBody
-	@RequestMapping( value="/sellerOption/{menuCode}/{category}" , method=RequestMethod.DELETE)
+	@RequestMapping( value="/sellerOptionD/{menuCode}/{category}" , method=RequestMethod.PUT)
 	public void deleteOptionCategory(@PathVariable int menuCode, @PathVariable String category) {
 		OptionDTO option = new OptionDTO(0, menuCode , category, 0, null, 0, null);
 		rep.deleteOptionCategory(option);

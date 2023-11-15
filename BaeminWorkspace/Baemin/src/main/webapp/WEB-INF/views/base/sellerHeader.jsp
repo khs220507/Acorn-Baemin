@@ -52,6 +52,10 @@ header {
 	color: black;
 	font-size: 20px;
 }
+section{
+width: 1280px;
+padding-top: 140px;
+}
 
 .header-wrap {
 	width: 1280px;
