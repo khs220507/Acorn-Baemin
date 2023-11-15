@@ -23,16 +23,15 @@ button {
 
 * {
 	margin: 0;
-	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'BMHANNAPro';
 }
 
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
 }
 
 ul {
@@ -42,16 +41,22 @@ ul {
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
 	display: flex;
-	flex: 1.5;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	background-color: #48D1CC;
+	width: 99vw;
+	height: 140px;
+	background-color: white;
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 99999;
 }
+
 .login-btn {
-	color: white;
-	font-size: 30px;
+	color: black;
+	font-size: 20px;
 }
+
 .header-wrap {
 	width: 1280px;
 	display: flex;
@@ -64,9 +69,19 @@ header {
 	align-items: center;
 }
 
+.small-font {
+	font-size: 30px;
+}
+
+.rider-img {
+	width: 85px;
+	height: 70px;
+}
+
 .logo a {
-	color: white;
-	font-size: 40px;
+	color: black;
+	font-size: 50px;
+	font-weight: bold;
 }
 
 .info-wrap {
@@ -79,11 +94,13 @@ header {
 	margin: 0 auto;
 	justify-content: center;
 	align-items: center;
+	border-bottom: 3px solid black;
+	padding-bottom: 5px;
 }
 
 .address-wrap p {
 	flex: 5;
-	color: white;
+	color: black;
 	font-size: 18px;
 	cursor: pointer;
 }
@@ -99,11 +116,12 @@ header {
 }
 
 .search-wrap {
-	width: 400px;
-	height: 35px;
+	width: 410px;
+	height: 40px;
 	display: flex;
 	align-items: center;
 	background-color: white;
+	border: 2px solid black;
 	border-radius: 10px;
 	margin: 10px auto;
 }
@@ -127,65 +145,30 @@ header {
 	cursor: pointer;
 }
 
-#loginStatus {
-	flex: 2.5;
+/* 메뉴바 */
+.wrap-menu-address {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: flex-end;
-}
-/* 로그인 안했을때 */
-.login-btn {
-	color: white;
-	font-size: 40px;
-}
-/* 로그인 했을때 */
-.hello-msg {
-	color: white;
-}
-
-.menu-wrap-ul {
 	position: relative;
+	top: 10px;
 }
 
-.menu-icon {
-	width: 40px;
-	height: 40px;
+.menu-wrap {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
 }
 
-.hidden-menu {
-	width: 180px;
-	height: 210px;
-	background-color: rgba(71, 209, 205, 0.7);
-	border-radius: 10px;
-	padding: 10px;
-	position: absolute;
-	right: 0px;
-	display: none;
-	transition: .5s;
-	z-index: 999;
+.menu-wrap li {
+	font-size: 22px;
+	font-weight: bold;
 }
 
-.menu-wrap:hover .hidden-menu, .hidden-menu:hover {
-	display: block;
-}
-
-.hidden-menu li {
-	height: 40px;
-	text-align: center;
-	position: relative;
-}
-
-.menu-items {
-	color: white;
-}
-
-.hidden-menu img {
-	width: 30px;
-	height: 30px;
-	position: absolute;
-	left: 0px;
-	top: -3px;
+.menu-bar {
+	color: #d9d9d9;
+	margin: 10px;
+	font-size: 20px;
 }
 
 /* 카카오맵 모달 */
@@ -269,54 +252,129 @@ header {
 	margin-top: 10px;
 }
 /* 슬라이더 ////////////////////////////////////////////////////*/
-.slider-box {
-	flex: 2.5;
+.slider-all-wrap {
 	width: 100vw;
-	background-color: #d9d9d9;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 140px;
+}
+
+.slider-wrap {
+	width: 99.5vw;
+	height: 80%;
+	position: relative;
+	overflow: hidden;
+}
+.slider-box {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.slider-img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+  	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.slider-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+	position: relative;
+}
+
+.pager {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 20px;
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	z-index: 1;
+}
+
+.pager a {
+	width: 15px;
+	height: 15px;
+	background: rgba(0, 0, 0, .2);
+	display: flex;
+	border-radius: 50%;
+	text-indent: -9999em;
+}
+
+a.active {
+	background: #000;
+}
+
+.category-title {
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.category-title h2{
+	font-size: 40px;
 }
 /* 섹션  ////////////////////////////////////////////////////*/
 section {
-	flex: 5;
 	width: 1280px;
 	display: flex;
 	align-items: center;
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정*/
+	margin: 0 auto;
 }
 
 table {
 	width: 100%;
 	height: 100%;
 	text-align: center;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 40px;
+	margin-top: 20px;
 }
 
 .category {
-	width: 120px;
-	height: 120px;
-	border: 2px solid #48D1CC;
+	width: 150px;
+	height: 150px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin: 10px auto;
+	border: 2px solid black;
+}
+
+td {
+	width: 300px;
 }
 
 td img {
 	width: 80px;
 	height: 80px;
 }
-/*푸터///////////////////////////////////*/
-footer {
-	width: 99vw;
-	flex:1;
-	border-top: 1px solid #d9d9d9;
-	padding-top: 20px;
-	padding-left: 10px;
+.category p{
+	font-size: 18px;
+	color: black;
+}
+/* 배민 폰트*/
+@font-face {
+font-family: 'BMHANNAPro';
+src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+font-weight: normal;
+font-style: normal;
 }
 
-.footer-text {
-	font-size: 13px;
-	color: #4B4B4B;
-}
 </style>
 </head>
 <body>
@@ -324,78 +382,64 @@ footer {
 
 		<div class="header-wrap">
 			<div class="logo">
-				<a href="/baemin/home">배달의민족</a>
+				<img class="rider-img" src="${path}/resources/icons/배민캐릭터로고.png">
+				<a href="/baemin/home">배달<span class="small-font">의</span>민족
+				</a>
 			</div>
-			<div class="info-wrap">
+
+			<div class="wrap-menu-address">
 				<div class="address-wrap">
 					<p id="address">회원 기본 설정 주소</p>
 					<img class="down-arrow-icon"
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABDCAYAAADHyrhzAAAACXBIWXMAAAsTAAALEwEAmpwYAAACFUlEQVR4nO3aS6iMYRzH8cchtyMWCpHYkEhu2ZIiyWVhY2FDOolkY2shnYRkYWNLOoSykJ0kFnIpSwq5lGzkFuXuo+mcKYvpeGfmzDvv+7zPp2Y5m2/N9OvfE0KSJEmSJEmSH4zBeVyv4GdNoyA7VM8DjG4UYxRuqI5fWD7cz2U+vqmGE1n+P/rF7xUmZYkxAc/Ebct/Q9RhvXhdDs3CJfH5hFmtxJiBD+Kyr+kQddgvHvcbboqs0IO7yu8nlrUcog4rhgZKmR0PIwWnxL4pmogxGa+V0+YRC1GHbcrnYugUXBP7psgKc/BFOewNnYaDiu9eW5siK4zFI8XeFEtDXrAKfxTT0dxC1OGM4nmJ3pA3TMVbxbIp9xB16FMcF0I3GTwi3yzIppjZ1Rg1WIQfXY6xOxQFjnUxRO3E0BOKAhPxvEubYkkoGmzoQowjoahwJccQL7qyKbLCbHzOKcbGUHQ4kEOIgVCi5w0POxjiYyE2RVZYid8ditEXygano98UWWEK3kS/KbLC9hGM0R/KzuC7qXY9rT2VCGWHefjaZox1IRY41EaIcyEmGIfHLYR4h2khNljdwhF5V4gVBpoIcbt2SQuxwnS8zxDiOxaG2GFPhhiHQxUYfA10Z5gQTzA+VAUWD3NEXhuqBicbhDgbqgi9Q6e7uDdFVtj6T4ydoepwFbei3hRZYS4WZP5CkiRJkiShBP4C7su4G0s4YJkAAAAASUVORK5CYII=">
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVR4nO3XPyvFURzH8RciUVJKGZTBcDeLxWKyeAAmT4AnwKp4AEx3tpksNoPJYjEowx0MyqDoppTkT9fyGwzy597z+6fvq854Ou/PeAghhBBCCP/aFp7QKfg8ZW/3rF1CfCc79ykGNEsc0EwxYBjnJcRfYEQis3goMP4RDYmtFDhgVU72CojflaNBnOYYf4YhOZvGXQ7xbcwoyBLeEsa/Y1nBdhIO2FaCfhwniD/BgJJM4qaH+FtMKdkCXrqIf8WiitjsYsCGCunD4R/ij7I7lTKOq1/EX2NCRc398Pl5xryKW/9mwJqa2P8i/kCNjOLyU3wLY2qmkYW38vichBBCCCEE9fcBzZeL0obnNdUAAAAASUVORK5CYII=">
 					<img class="map-icon"
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACrklEQVR4nO2Zv2sUQRTHN/6IEEliVESNdTRip51c0FYQo8FgY5NWEIREWws5LVRQRJLGwtKAYOslgn9BLAzGRkliIUZFo14sNB8ZfZhF7m7fzM3ObCRfWDjY/b55n72ZeTOzSbKm/1zAXuASMAG8AL7KZX5XgItAT1JUAYeASfQyoAeTogjYCNwBlrGX8dwGNsSG6AKeOADU+ne2xPwnbLpSlp4CrTFATHfyrVsxBrbLmMjSctAJwHOX+leVUBD7yF89IUBMsdNoDhgA2uXqB2aU3pEQIBUlxNY607W5l6XHIUBeKhIZaOA/rfDPhABZVCTS3sDfofAvhgCpNgnSqfBXQ4C8USTS38A/qPDPhQDRrK3M7NRVw7sNmFf4J0KA3FQk8vutysDukGtQCWF0PQTIcfLXsRAgm4HvOUJUgbbcQQTmYY4gD4JACMipHEFOhN5UzeYAMW9iBwMRmOEcQC4EhRAQM6V+8gjx2VT94CACc8MjyLUoEAKyG/jmAeILsDMaiMBc8QByOSqEkez+3jYB8c6Mt6QIAs43AXIuKYqAVmDaAeJ57nUDaAFeZSRyJPV8yfKsyzx7NOU/nOE3BbjFBaSkfKN/D6CB+xYg91K+9cAzhafkAjIq5rKFZwfwQZHQArDdIm5ZfKMuff69mA9Yes8qQM5YxuwV30dgk43RHKYZTdk0qFzmP3KMOWW9OgbGxTTs2OiuOl1swbWCs7JIHbdZDJpd2k9gj0ujEuekz70Gf5ZDP4Al1UchYEganXRtNBVrLAVx1+NXgCG/D2fHapNCOe1jH472JQPd0qWWfO0NZMbp9RSrU3IzOXY3enDEakBFEJqJKFVd6x55xhZZpQHY71R0AousYg1clZtjScHFymxYrrXSfc3q0yywLg3Sx+pVX4ROsaYkS78A4C8IokWKTaoAAAAASUVORK5CYII=">
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlUlEQVR4nO2YTUgVURTH/5op5WdRZErYpqSUonLTJ7V+lfa5qJ2rItr5fLQpSjOCIAyhhD72GURFm8zCImhnC8U+oLKEvqW0sojeixP/gdvjzcydefPuDOEPLgzv3PO/d94999w7B5ji/6cWQALAbQDDAL6yyXMvgFYAixFhGgD0AUhpNnnRVYgQ0wF0AUhygp8AnAewlatTzCbPjQAusE+KPmcAFIT9ErMA3OGkvgFoA1Cm4Sd92gF8V1anAiGuhBVKowwtrywH8JIa/QAKEQJdnMArAFVZ6Ijva2p1wjANjG8JpxUB6K1kmP3mszGskJI9ERTHqSkp2gi1SnZy2tib+cJyhkzwOebQvxzAGLUXwQAJDiZp1I52h/PDaRUvsU8cBujlYHIm2K2E2H8AaAEwny3O31IOK7ON9lswwBMOZnfNsM4VeYl0WmmTMHMK28cwwAQHK3GxV2awVdI2buNbQrto5BzrNJ5hYx+nXcIpnWravtj4Fiu3hJwzysFqXFJz3CFR2IXWQtrlgMw5/S4bNqZs9lae3FV8iZ8uvltovwsDdHIwSbF2tPlMvx3scxoG2MHBhlz6xRhCE5oHojBMbUnDOadMCZH6AHWXUVO0S2GImxz0aICax6h5AwbZzUGfAsgPQE80nlFzFwxSBOAtB5ZP2mxppNYbahvlEAe/H4DWA2olEAKy6T9zAquz0FmrnPYVCIlTnMTVLDSuU+MkQqSady/57F3jw3+dcrfKdDczivWJ+hBAns+9Iak3dEqZbWRC2z347aTPO81amBH2K+eKTvosYl/x2YcIUQBg0EOYWJfKQRPl0jwAz10K0RvTNm6Sd6U6B9169pG+m9LScNJhrBEfe/Av6zUq6un/6EVl40+zuYpYG1wK3RbS95HGeDInz5yjs2QlXWYDeE+/AxnsB2n7CGCOB90O+smcPFGolP6dwiQTe5WTeoHye43yPb/Ho2adUhT0VOhuouMA/HGF/vcYNvlKmeiaT80Bl3paRnocalM6zOX5IBqHARzh8wcA83xqtlDjsq6D1GAnWRmXK4hfrKrhL7ZsP2GrOadJztGVZpeSjZ+EIe1sAHp91GoOvLMLM1mkGOJztjTr/smel0+DJWxBUK4b9nG+sWz2qNKjk4is01XSb1RpcjsalrLDWBgFAA8U8mZgW1c7QWM3ok835ypXl3+QW+ULjUtb1NpIel1tQwQm5bfJ3KdA1PgDYpWe90NC9SoAAAAASUVORK5CYII=">
 				</div>
-				<form class="search-wrap" action="${path }/search" method="get"
-					onsubmit="return validateForm()">
-					<input type="text" name="searchTerm">
-					<button class="search-btn" type="submit">
-						<img
-							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADBElEQVR4nO1YzWsTQRQfFb1Z1Ioaj+rJq1Q9W8281NpaMOhB6sG/olUQeq34PwiibW+1Z7+gaJJ5m30vhsZPBKFFb3qsVSJvE7Q7u5UknU0b2R8MISTz2/dm3sfvrVIpUqRI0bMYXCr258iMA5tZIIPAZlmTWZXP5vdZ+T1bfXlAbSdkq94JzWYGGNeAsd7CWtOMj+A1Ht9Sw/PV6h5NeA8Yf7RoeGg1bgfvnkLcvSXhAoxPOzE84gjj4gWiQ10zfhjxIJB5H2sQoacJJ6BcGtCIGTld+cz65rRmnNSM5XhHzDvh7VLYmBcxhr8B8i61wqG5NKIZ38Y48izxcGrGvG38/EhtcW87PPJ/YLMQDScznWi1iSQs4fyden1nJ3yyz3ZCk1m9WCkdc299cPVBqQyFTbsnbwMKhT6Jf4v3oUqo6oTqfJZw2AW3ZjNq94nBpWK/colGhw1XG5f8kerke9dd8qtAHoRiFScc89+yknnGJb9qaJl1J1QuDbjkHyI8Y91wzSW/AsaV9Q84V3l12CX/ec87anXn7y75VVO3/HmANDSX/MIHViIrxzG6HDohxEySNwCEXxLNAdE2ieYAYzXZKsQ46ZJfs7ltdeQHvdMH6vUdQIbC/OamcgkZA+1OLKrSBTf4OGbroaFq8YhKWgsFkrhQ6NsM56jv79OEHyze+yoJyAxrl1PN5nGnajQ/N7dL9tunD+XySZUUZIaNmaYW2r2J4OQt46GxplSSCEZEwudxI2GugpdbSlgfxzThx7jRMkdmXHVlJrY1/N/49UWYSV2X5hSMoIgZYDwbCDa72kT3/wQqXUvcCdHrms2TfxnT6dLihGs5vWE4sZm2E7tlQxv7poDxRmA0h7VQV25CIDOsjIGtvpkTw6VUrq82YixE93fPiYYjlf1y9UG/IKwB4zdN5hew+SraRuSBdNiNmhRsByc2C6hgPtrxu5QTrgD/hRNsrvS+ExSfE/IaRvUKcuRdjThB+Fn1EnJRJ1ZUr0EHb+/MJzl9V3NIihQpUijn+A1qcPW2rNhwowAAAABJRU5ErkJggg==">
-					</button>
-				</form>
-			</div>
 
-			<c:set var="noResults" value="${noResults}" scope="request" />
-
-			<div id="loginStatus">
+				<!-- 로그인시 -->
+				<div id="loginStatus">
 
 
+					<%
+					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
+					if (userCodeInfo != null) {
+					%>
+					<!-- 로그인 했을 때 -->
+					<ul class="menu-wrap">
+						<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/orderList"><li>주문내역</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/orderList"><li>알림</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/zzim"><li>찜</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/logout"><li>로그아웃</li></a>
+					</ul>
+
+				</div>
 				<%
-				Integer userCodeInfo= (Integer)session.getAttribute("userCode");
-				if (userCodeInfo != null) {
+				} else {
 				%>
-				<p class="hello-msg">
-					안녕하세요,
-					<%=userCodeInfo%>
-					님
-				</p>
-
-				<!-- 로그인 했을 때 -->
-				<ul class="menu-wrap-ul">
-					<li class="menu-wrap"><img class="menu-icon"
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABMklEQVR4nO3aPU4DMRCGYUuhgZJU/JSEkiwtERULXCDcASQirsE1wm0ioeQWQEcq6HjRaFPR0PBJY/Z7pOnH47VXHrsUMzMzMzMzs18B18ATsACek8Rik9NlUQIegC/yitxmqsEPgU/yixx3FQVoqUerKEBDPU4UBdgCluQXm+LgzwsQgFHyIsTgj4oSMADGwBS4SRLTTU6amTczM+sAh8Ad8JgsIqeDogRcAWvyWsuOxMAO8EZ+L8C2ogDn1GOiKMCEepyplsArfV0CITYY4J28IreLogTsA7cJfns/I3Lakw7ezMz6jq493iRsijbypihwDKzIK1r2I+XMr8hvKfkSgFPqMVYUoKXnl6PDSq7HPyTX4yEeH1TwQOK+KNEdiecJn8jM5UdhMzMzMzMzK//DN5h1UDYzOEebAAAAAElFTkSuQmCC">
-						<ul class="hidden-menu">
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACZUlEQVR4nO3aS4hPURwH8CPPlGkKoTxKLMTOwsajKDMrWwtZoDwXliRSomTDwsIjk5KyILYWlCKxIEqKFBbKayHPEh+d5j81aboz///879zz///Pp872dO63e3/nnkcIWZZlWZZlg2A8FmBhQesO7QZdOI9vRuYJ1oR2gevq9x3LQqvDYo07G1odekcRwDscT6Rtj59yIwHMx1/t4W18oxsJ4Zz2cbuRACbiIF60wdsQxz+t7hCK4KbW0tXsAE5pHa+b+vARdmgd10KzYbXWcaCMAKZrHT1NDyDCR61hZigD7ujEAjgAZ3RiARyAvTqxAA7Aep1aACPMlbY/cbYKZcE4fJGue6U9/AA8lK6NoWy4KE2344buWASwT3oeY0bpDx9hg7SK3oWmL32LYNEwg3qDVyW2l7hb2wNcEio6OPlZEMCK0O7wtCCALaHd4UpBACdDu8PhggC+4nTJ+/+HsK7KAHqk4XL8O60igKn4JA3bxjyAqHaGkIKroQqYlMi6oJoABm2UVh1CtdOu/jchVuXPFTz8pUqKYEFh7K0tlso+Bo/1Z+2QA8kqhilxakJfrW3F5FH0twTHanP+CSwPqdJ/0eL5EN/qM8xroL89+D3E0feRkBr9+4UPCgrW/XoKVryBVlvvV7f9VQ+sGkHVXtnEW2sPQkqwewQB7Kqjv7jxUeRHSAk2jyCATXX092iYvt6HlGAOfhUMOO4iza6jv6PDBNAXUoMDBQPeX2df3QWfwft4ShVSpL8WDL5H8AE7R/FW3fhvNrjV0D3AsYQJWFpr45u06FqOWc0ZYZZlWZZlWehs/wCBV7DzRAFk9gAAAABJRU5ErkJggg==">
-								<a class="menu-items" href="${path }/">장바구니</a></li>
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAACXBIWXMAAAsTAAALEwEAmpwYAAACPklEQVR4nO3aPWsUQRwH4DGC7/EDCIpRooJaWdhYiDYWFgGxsFFQRFELNYW12IR8BKOWotiIL0F7IY2CNsFWUFQk4gu+J3lkyApXRM3N7eZ2wj6wcHB3/5sfszc7O7MhNBqNRqPRyA424BweYBwf8QXP8RBnsT6hbl9R92FR60tRe7z4rfjehmpSzQLbcd/cTOE6Ns2h7mbcKL4zF/ewLVQFizHcRoNafcd5LJqlbg8Gi8+0axJDsW1lh+1to1f/5SaWttRdhlsl1I293Vtmz95XnlEsKY74nyxLDN1TRuBh5RvBlQrqDpUxQE3Jx2RHA5mZ0y83d1PDbpSvvpTAg/J1NiXwA/kaTQn8XL7GUwJ/lK8PKYG/y9e3lMCv5etlSuCn8vUkJfA1+RpJCXxKvk6kBF6PafmJbV7XduAIj+VnLKTCGfk52UngFZiQj/dYmRw4wiX5uBhKWs96o/7eYnXHgSOcthAvRX9TLKU+Ul9jpSzgtcLWOClXP7FNW0IVcFz9HK0k7B+4qj4uh6qZ2S2owwws3s0trzxwy85hNyckE0krk53ATnzuQti4fbqro8anwt55Xgr6gX2hmzCAX/O0jXIw1AGOVbwHFcMeCXWCQ/hZQdh49hwOdYT9+Fpi2Dg+DIQ6w56SRu9P2B1yYGZf+UUHYV9hR8gJ1iTOyJ5hbcgRVuFOG2Fvd7xE021YhAv/uWxNF48flXtPW4MR/MMsYeMAdyAsROgvnsx7VxzxdX+329VoNBqNRiPMi9/bQE5mUguLBwAAAABJRU5ErkJggg==">
-								<a class="menu-items" href="${path }/zzim">찜</a></li>
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAACNUlEQVR4nO2Zu27UQBRAh0cRECH5BUSLoEARX4BEUhDxNSsRVqILElUU0qRBoUGIX6FKSQNRlCq7SLTZoIOG2MRyYnvGM7O+9t4juVjdedw5Gs+1vcYoiqK0ALhvFjlXYAq8qRvcxoDlhPEVh/42x6mJDZf8Bt4Bq4XYPWCUSbLX24TxSUP8HykF5NjJtnLjXGWSxcfAr4r468B45fzzECAaFRAbmslviXHNLRG65evic98B48KhtVU8nbPTOI9PromvFBaSL8wnXhw/r07zFWAuE+myLP6fvxMBklABJfpnuO8CuHg69Loq5mnVV4IAb1zmce3rMnYQvgmoAAdcRLv2lbADRr5XxTyt+nYuoGtUQIm5GyZhyRtEGTQOY/qgAkroDmgQFAwNE6QseVoGHeh8B5hFF0BASWtTJiUKCMJlzrr2LuMF4ZuACvDERXpdewk7YBSzrDWNKU5A10jPLzkqoIRZNIgtAHgGfAKOgBkCSSIAuAm8B/4gnFQC9ugJ0QUAL+kRUQUAt4CfyOcYeA7ciS1gE/mcAY8q8g8WsI98PtfkHyzgEPm8SClginwepBRwhnyWKnK/HUPAhJ7uAOBhqd3pUM+A9YrcN0rtvg21CnypyP1rqd2HoT4FzoDHpbyfXPOyttH2SfAH8jmx5RC4a2+J7HeR7/aFzluABXhF/9k0IQC79JedoMVbgBvZvy/ivwcUOAe2be4mFsAacJCdCxK/CM2y3D4CT6MtXFEURTHD5S+dwCdTx4ClcAAAAABJRU5ErkJggg==">
-								<a class="menu-items" href="${path }/orderList">주문내역</a></li>
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVR4nO2SMQrCQBBFF1LkCgpa5xzeySvoXRICQdJppwfQyhukU9FYpHxhYQpZyYhm7PbBwMLu/gcz41zEAmAOlEArVQGZZfiVd27+zkJQMkxhIWgVwePfgruFoFIEuYUgk4GGXIDZaMHLJhW+51K5WXhkECABFsAa2AFn4Cnlz1tgJW+Sb4JTYAk0ynqGNPIn/RQ+BU78zhGYaIKa8Ww0QWcg6DSBCU4RHAzy9+qgIy6gBwTxryZ9UBmqAAAAAElFTkSuQmCC">
-								<a class="menu-items" href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>">내정보수정</a></li>
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhElEQVR4nO2ZTUrDQBiGQw+gpoqrKCj4d4lurD+n0I2eQd278AaKiB5EULQFEdSlV7D1Bi7MI8FJGQYsGr/50inzwCyyeb/3nSQzky9JEolEIsECzAMtoF1xtAqNOoyvAPfIcQcsa876O/L0gUwjwJVV9APoANcVR8dolFxoBChmqqQtoLdp6fVkXA4vmFsFGwJ6DUsvl3E5vOCAUdb8kRhgTO/ADLADvElp1jJbwIK0ptcAQGr2lTNgQsahboAjS+4BmJRxqRdgy9lXHoEpGadK7wCwD3xass9AU0JbcxXac0K8ANNS+pUCmPP+wR/Gk61trtNaAgBrzoxW5byuAKtBBygA1oFj4OSX43VkHiGhl7gppe81ACEvo8B20BsZcBj6USI1h7nTIA9zLsBi4htPq9AssKvVlfARQFxTtRgeNMc6QB56Y6tvFdwQ+iorUelKXA7KfTdmu/9o7nbraO7OOXdBip5Ke92EWAJuBc3fFJoq5p0gmcAvpkzdeCQSiSRSfAEe/GNDlGJX4gAAAABJRU5ErkJggg==">
-								<a class="menu-items" href="${path }/logout">로그아웃</a></li>
-						</ul></li>
+				<!-- 로그인 안했을 때 -->
+				<ul class="menu-wrap">
+					<a href="${path }/login"><li>내정보수정</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/login"><li>주문내역</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/orderList"><li>알림</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/login"><li>찜</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/login"><li>로그인</li></a>
 				</ul>
+				<%
+				}
+				%>
 
 			</div>
-			<%
-			} else {
-			%>
-			<!-- 로그인 안했을 때 -->
-			<a class="login-btn" href="${path }/login">로그인</a>
-			<%
-			}
-			%>
 
 		</div>
-
-
-
 
 	</header>
 
@@ -415,45 +459,75 @@ footer {
 		</div>
 	</div>
 
-	<!--슬라이더박스-->
-	<div class="slider-box"></div>
+	<div id="content">
+		<!--슬라이더박스-->
+		<div class="slider-all-wrap">
+			<div class="slider-wrap">
+				<div class="pager">
+					<a href="#slide2">2</a> <a
+						href="#slide3">3</a> <a href="#slide4">4</a> <a href="#slide5">5</a>
+					<a href="#slide7">7</a>
+				</div>
 
-	<section>
 
-		<table>
-			<c:forEach var="category" items="${categories}" varStatus="status">
-				<c:if test="${status.index % 4 == 0}">
-					<tr>
-				</c:if>
-
-				<td>
-					<div class="category">
-						<a class="category-wrap-a"
-							href="${path}/storeList?storeCategory=${category}"> <img
-							src="${path}/resources/icons/${category}.png">
-							<p>
-								<strong>${category}</strong>
-							</p>
-						</a>
-					</div>
-				</td>
-
-				<c:if test="${status.index % 4 == 3 or status.last}">
-					</tr>
-				</c:if>
-			</c:forEach>
-		</table>
-
-	</section>
-
-	<footer id=footer>
-		<div class="footer-info-wrap">
-			<p class="footer-text">©2023. Icons8 LLC all rights reserved.</p>
-			<p class="footer-text">© 2010-2023 Freepik Company S.L. all rights reserved.</p>
-			<p class="footer-text">곽단야, 김민지, 김현수, 박태민, 표준태</p>
+				<ul class="slider-box">
+					<li class="slider-img" id="slide2"><img
+						src="${path}/resources/images/slider3.png"></li>
+					<li class="slider-img" id="slide3"><img
+						src="${path}/resources/images/slider2.jpg"></li>
+					<li class="slider-img" id="slide4"><img
+						src="${path}/resources/images/slider4.jpg"></li>
+					<li class="slider-img" id="slide5"><img
+						src="${path}/resources/images/slider5.jpg"></li>
+					<li class="slider-img" id="slide7"><img
+						src="${path}/resources/images/slider7.png"></li>
+				</ul>
+			</div>
+			<div class="category-title">
+				<h2>MENU</h2>
+				<form class="search-wrap" action="${path }/search" method="get"
+			onsubmit="return validateForm()">
+			<input type="text" name="searchTerm">
+			<button class="search-btn" type="submit">
+				<img
+					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADBElEQVR4nO1YzWsTQRQfFb1Z1Ioaj+rJq1Q9W8281NpaMOhB6sG/olUQeq34PwiibW+1Z7+gaJJ5m30vhsZPBKFFb3qsVSJvE7Q7u5UknU0b2R8MISTz2/dm3sfvrVIpUqRI0bMYXCr258iMA5tZIIPAZlmTWZXP5vdZ+T1bfXlAbSdkq94JzWYGGNeAsd7CWtOMj+A1Ht9Sw/PV6h5NeA8Yf7RoeGg1bgfvnkLcvSXhAoxPOzE84gjj4gWiQ10zfhjxIJB5H2sQoacJJ6BcGtCIGTld+cz65rRmnNSM5XhHzDvh7VLYmBcxhr8B8i61wqG5NKIZ38Y48izxcGrGvG38/EhtcW87PPJ/YLMQDScznWi1iSQs4fyden1nJ3yyz3ZCk1m9WCkdc299cPVBqQyFTbsnbwMKhT6Jf4v3oUqo6oTqfJZw2AW3ZjNq94nBpWK/colGhw1XG5f8kerke9dd8qtAHoRiFScc89+yknnGJb9qaJl1J1QuDbjkHyI8Y91wzSW/AsaV9Q84V3l12CX/ec87anXn7y75VVO3/HmANDSX/MIHViIrxzG6HDohxEySNwCEXxLNAdE2ieYAYzXZKsQ46ZJfs7ltdeQHvdMH6vUdQIbC/OamcgkZA+1OLKrSBTf4OGbroaFq8YhKWgsFkrhQ6NsM56jv79OEHyze+yoJyAxrl1PN5nGnajQ/N7dL9tunD+XySZUUZIaNmaYW2r2J4OQt46GxplSSCEZEwudxI2GugpdbSlgfxzThx7jRMkdmXHVlJrY1/N/49UWYSV2X5hSMoIgZYDwbCDa72kT3/wQqXUvcCdHrms2TfxnT6dLihGs5vWE4sZm2E7tlQxv7poDxRmA0h7VQV25CIDOsjIGtvpkTw6VUrq82YixE93fPiYYjlf1y9UG/IKwB4zdN5hew+SraRuSBdNiNmhRsByc2C6hgPtrxu5QTrgD/hRNsrvS+ExSfE/IaRvUKcuRdjThB+Fn1EnJRJ1ZUr0EHb+/MJzl9V3NIihQpUijn+A1qcPW2rNhwowAAAABJRU5ErkJggg==">
+			</button>
+		</form>
+			</div>
 		</div>
 
-	</footer>
+		<!--섹션-->
+
+		<section>
+
+			<table>
+				<c:forEach var="category" items="${categories}" varStatus="status">
+					<c:if test="${status.index % 4 == 0}">
+						<tr>
+					</c:if>
+
+					<td>
+						<div class="category">
+							<a class="category-wrap-a"
+								href="${path}/storeList?storeCategory=${category}"> <img
+								src="${path}/resources/icons/${category}.png">
+								<p>
+									<strong>${category}</strong>
+								</p>
+							</a>
+						</div>
+					</td>
+
+					<c:if test="${status.index % 4 == 3 or status.last}">
+						</tr>
+					</c:if>
+				</c:forEach>
+			</table>
+
+		</section>
+	</div>
+
+	<%@ include file="../base/footer.jsp"%>
 
 	<!-- 검색 -->
 	<script>
@@ -649,6 +723,73 @@ footer {
 				}
 			}
 		}
+
+		/////////////////////// 슬라이더 //////////////////////////////
+	
+		let slideWrapper = $('.slider-wrap'), slides = slideWrapper.find('li'), currentIdx = 0,
+        timer = undefined,
+        pager = slideWrapper
+				.find('.pager a');
+
+		// 슬라이드 배치
+		slides.each(function(idx) {
+		  let leftValue = idx === 0 ? '0%' : '-100%';
+		  $(this).css({
+		    left: leftValue
+		  });
+		});
+		
+
+		// 페이저 슬라이드 작동시키기
+		pager.click(function(e) {
+			e.preventDefault();
+			let idx = $(this).index();
+			moveSlide(idx);
+		});
+
+		function moveSlide(i) {
+			if (currentIdx === i)
+				return;
+
+			let currentSlide = slides.eq(currentIdx);
+			let nextSlide = slides.eq(i);
+			// 다음슬라이드 순간 left 100%, animate 0
+			// 현재슬라이드 순간  animate -100%
+			nextSlide.css({
+				left : '100%'
+			}).animate({
+				left : '0%'
+			});
+			currentSlide.animate({left : '-100%'});
+
+            currentIdx = i;
+
+            // 모든페이저에서 active제거 현재 번호에 맞는 요소에 active추가
+            pager.removeClass('active');
+            pager.eq(currentIdx).addClass('active');
+		}
+
+        function autoSlide(){
+            if(timer == undefined){
+                timer = setInterval(() => {
+                let ni = currentIdx +1;
+                if(ni=== slides.length){
+                    ni = 0;
+                }
+                moveSlide(ni);
+            }, 3000);
+            }       
+        }
+        autoSlide();
+        slideWrapper.mouseenter(function(){
+            clearInterval(timer);
+            timer = undefined;
+        })
+        .mouseleave(function(){
+            autoSlide();
+        })
+
+
 	</script>
 
 </body>
