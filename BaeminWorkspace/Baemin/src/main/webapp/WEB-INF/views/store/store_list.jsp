@@ -16,8 +16,11 @@
 			width: 100%;
 			border-width: 2px;
 		}
+		section{
+		padding-top:0px!important; 
+		}
 		.nav-var {
-			padding: 130px 0px 10px 0px;
+			padding: 150px 0px 10px 0px;
 			font-size: 20px;
 			font-weight: bolder;
 			display: flex;
