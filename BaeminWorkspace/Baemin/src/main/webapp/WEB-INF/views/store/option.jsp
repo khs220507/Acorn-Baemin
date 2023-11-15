@@ -98,8 +98,6 @@ function insertCart(){
 	    resultArr.push(el.value +"");
 	  });
 	  
-	  console.log(resultArr);
-	  
 	  optionString = resultArr.toString();  //
 	  
 	  
@@ -110,7 +108,6 @@ function insertCart(){
 function sendOptionJson() {
     let test  = { options :resultArr };
     optionString = resultArr.toString();
-    alert(optionString)
     document.frm.options.value  = optionString;
     document.frm.submit();
 }
@@ -153,7 +150,7 @@ function sendOptionJson() {
 										<c:otherwise>
 											<div class="option-list">
 												<input type="checkbox" name="option"
-													value="${items.optionCode} / ${items.optionName} / ${items.optionPrice} "
+													value="${items.optionCode} / ${items.optionName} / ${items.optionPrice} / ${items.optionCategory}"
 													onclick="insertCart()"> <span>${items.optionName}</span>
 												<span>${items.optionPrice}</span> <input type="hidden"
 													name="${items.optionCode}" value="${items.optionCode}" >

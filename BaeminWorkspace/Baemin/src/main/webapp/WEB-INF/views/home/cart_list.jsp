@@ -74,51 +74,57 @@
 }
 </style>
 
+
+
 <script>
-	$(document).ready(function() {
-		function adjustQuantity(change) {
-			var quantityInput = $(".quantity-input");
-			var currentQuantity = parseInt(quantityInput.val());
+$(document).ready(function() {
+    // Use JSTL to set unitPrice as a JavaScript variable
+    var unitPrice = ${menuInfo[0].menuPrice};
 
-			// Ensure the quantity is not negative
-			if (currentQuantity + change >= 1) {
-				quantityInput.val(currentQuantity + change);
-				updateTotalPrice();
-			}
-		}
 
-		$(".minus").click(function() {
-			adjustQuantity(-1);
-		});
+    function adjustQuantity(change) {
+        var quantityInput = $(".quantity-input");
+        var currentQuantity = parseInt(quantityInput.val());
 
-		$(".plus").click(function() {
-			adjustQuantity(1);
-		});
+        // Ensure the quantity is not negative
+        if (currentQuantity + change >= 1) {
+            quantityInput.val(currentQuantity + change);
+            updateTotalPrice();
+        }
+    }
 
-		function updateTotalPrice() {
-			var unitPrice = $
-			{
-				menuInfo[0].menuPrice
-			}
-			var quantity = parseInt($(".quantity-input").val());
+    $(".minus").click(function() {
+        adjustQuantity(-1);
+    });
 
-			var totalOptionsPrice = 0;
-			$(".menu-option p").each(function() {
-				var optionValues = $(this).text().split(":");
-				var optionPrice = parseInt(optionValues[1].trim());
-				totalOptionsPrice += optionPrice;
-			});
+    $(".plus").click(function() {
+        adjustQuantity(1);
+    });
 
-			var totalPrice = (unitPrice + totalOptionsPrice) * quantity;
-			$("#total-price").text(totalPrice + "원");
-			
-			 
-		}
+    function updateTotalPrice() {
+        var quantity = parseInt($(".quantity-input").val());
 
-		// Initial update when the page loads
-		updateTotalPrice();
-	});
+ 
+        var totalOptionsPrice = 0;
+        $(".menu-option p").each(function() {
+            var optionValues = $(this).text().split(":");
+            var optionPrice = parseInt(optionValues[2].trim());
+            totalOptionsPrice += optionPrice;
+        });
+        
+   
+
+        var totalPrice = (unitPrice + totalOptionsPrice) * quantity;
+    
+
+        $("#totalPriceInput").val(totalPrice);
+        $("#total-price").text(totalPrice + "원");
+    }
+
+    updateTotalPrice();
+});
 </script>
+
 
 
 
@@ -151,7 +157,7 @@
 			<div class="menu-option">
 				<c:forEach var="cartItem" items="${cartInfo.options}">
 					<c:set var="splitValues" value="${fn:split(cartItem, '/')}" />
-					<p>${splitValues[1]}:${splitValues[2]}</p>
+					<p>${splitValues[3]}:${splitValues[1]}:${splitValues[2]}:</p>
 				</c:forEach>
 			</div>
 		</div>
@@ -163,7 +169,7 @@
 		</div>
 
 
-		<form id="orderForm" action="/placeOrder" method="post">
+		<form id="orderForm" action="order" method="post">
 			<input type="hidden" id="totalPriceInput" name="totalPrice" value="0">
 			<div class="total-price-wrap">
 				<div class="total-price-title">총 주문금액</div>

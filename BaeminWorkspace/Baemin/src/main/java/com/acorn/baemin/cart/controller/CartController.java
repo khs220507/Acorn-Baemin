@@ -24,33 +24,44 @@ import com.acorn.baemin.cart.domain.CartInfoDTO;
 import com.acorn.baemin.cart.service.CartServiceImp;
 import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.StoreDTO;
-
+import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.order.service.UserOrderServiceImp;
 
 @Controller
 public class CartController {
 
 	@Autowired
-	CartServiceImp service;	
-	
+	CartServiceImp cartService;
+
+	@Autowired
+	UserOrderServiceImp userOrderService;
+
 	@PostMapping("/cartList")
 	public String receiveCartData( CartInfoDTO cartinfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
-		List<StoreDTO> storeInfo = service.selectStoreInfo(menuCode);
-		List<MenuDTO> menuInfo = service.selectMenuInfo(menuCode);
+		List<StoreDTO> storeInfo = cartService.selectStoreInfo(menuCode);
+		List<MenuDTO> menuInfo = cartService.selectMenuInfo(menuCode);
 		model.addAttribute("cartInfo", cartinfoDTO);
 		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
 		
-		
 		HttpSession session = request.getSession();
+		session.setAttribute("cartInfo", cartinfoDTO);
 		session.setAttribute("menuInfo", menuInfo);
 		session.setAttribute("storeInfo", storeInfo);
 	    return "home/cart_list";
 	}
-	
+
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int totalPrice, HttpSession session) {
+	public String placeOrder(@RequestParam int totalPrice, HttpSession session, Model model, CartInfoDTO cartinfoDTO) {
 		session.setAttribute("totalPrice", totalPrice);
-		System.out.println(totalPrice);
+		Integer userCode = (Integer)session.getAttribute("userCode");
+		System.out.println(userCode);
+		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
+		model.addAttribute("cartInfo", cartinfoDTO);
+		model.addAttribute("userInfo", userInfo);
 	    return "userorder/order";
 	}
+	
+	
+	
 }

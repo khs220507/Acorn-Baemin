@@ -11,13 +11,15 @@ import com.acorn.baemin.domain.UserDTO;
 
 
 @Repository
-public class UserOrderRepository {
+public class UserOrderRepositoryImp implements UserOrderRepositoryI {
+
 	@Autowired
 	private SqlSession session;
-
-	private static String namespace = "com.acorn.UserOrderMapper.";
-
-	public List<UserDTO> selectUser(String id) {
-		return session.selectList(namespace + "selectUser", id);
+	private static String namespace = "com.acorn.baemin.UserOrderMapper.";
+	
+	@Override
+	public List<UserDTO> getUserByCode(int userCode) {
+		System.out.println("test01 : " + userCode);
+		return session.selectList(namespace + "getUserByCode", userCode);
 	}
 }

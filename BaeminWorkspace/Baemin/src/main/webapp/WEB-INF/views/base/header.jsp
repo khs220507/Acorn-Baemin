@@ -211,7 +211,9 @@ section {
 					<%
 				Integer userCodeInfo= (Integer)session.getAttribute("userCode");
 				if (userCodeInfo != null) {
+					
 				%>
+				
 					<p class="hello-msg">
 						안녕하세요,
 						<%=userCodeInfo%>

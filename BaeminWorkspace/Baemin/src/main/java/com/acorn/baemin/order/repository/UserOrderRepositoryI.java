@@ -7,6 +7,6 @@ import com.acorn.baemin.domain.UserDTO;
 
 public interface UserOrderRepositoryI {
 	
-	public List<UserDTO> selectUser(String id);
+	public List<UserDTO> getUserByCode(int userCode); 
 
 }
