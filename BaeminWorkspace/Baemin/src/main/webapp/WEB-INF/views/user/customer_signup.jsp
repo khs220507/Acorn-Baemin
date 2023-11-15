@@ -321,24 +321,23 @@ td {
 				contentType : "application/json", // 필수
 				success : function(data) {
 					alert("가입축하 q(≧▽≦q)");
-					window.location.href = "http://localhost:8080/baemin/home";
+					window.location.href = "http://localhost:8080/baemin/login";
 				},
 				error : function() {
-					alert("입력한 정보를 확인해주세요");
+					alert("입력한 정보를 확인해주세요.");
 				}
 			});
 		}
 	}
 
 	//// 중요/////
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 						let userIdValid = false;
 						let userPwValid = false;
 						let confirmPasswordValid = false;
 						let userNameValid = false;
 						let userNicknameValid = false;
+						let userEmailValid = false;
 						//alert("문서로드");
 						// 아이디 유효성 검사
 						$("#userId").on("input", function() {
@@ -358,37 +357,32 @@ td {
 						$("#checkDuplicate").click(
 								function() {
 
-									alert("중복탄다");
+									//alert("중복탄다");
 									if ($("#userId").val() == "") {
 										alert("아이디를 입력해주세요.");
 									} else {
-										alert($("#userId").val());
+										//alert($("#userId").val());
 										$.ajax({
 											url : "/baemin/checkDuplicate",
 											type : "POST",
-											data : {
-												'userId' : $("#userId").val()
-											},
-											contentType : "application/json", // 필수
+											data : { userId: $("#userId").val() },
+											//contentType : "application/json", 
 											success : function(data) {
-												alert(data);
-												if (data === "yes") {
-													$("#idcheck_blank").css(
-															"color", "red");
-													$("#idcheck_blank").text(
-															"중복된 아이디입니다.");
-													id_check = false;
+												
+												if (data === "yes") {													
+													  $("#userId").css("border-color", "red");  // 테두리 색상 변경
+													  alert("중복된 아이디 입니다.");
+									                    id_check = false;
 													$("#userId").val("");
 												} else {
-													$("#idcheck_blank").css(
-															"color", "blue");
-													$("#idcheck_blank").text(
-															"사용가능한 아이디입니다.");
-													id_check = true;
+													$("#userId").css("border-color", "");  // 기본 테두리 색상으로 변경
+													alert("사용가능한 아이디 입니다.");
+								                   
+								                    id_check = true;
 												}
 											},
 											error : function() {
-												alert("중복확인안됨ㅠ");
+												alert("에러발생");
 											}
 										});
 									}
@@ -405,10 +399,7 @@ td {
 						}
 
 						// 비밀번호 유효성 검사
-						$("#userPw")
-								.on(
-										"input",
-										function() {
+						$("#userPw").on("input",function() {
 											let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
 											if ($(this).val() === ""
@@ -424,9 +415,7 @@ td {
 										});
 
 						// 비밀번호 확인
-						$("#confirmPassword").on(
-								"input",
-								function() {
+						$("#confirmPassword").on("input",function() {
 									if ($(this).val() === ""
 											|| !userPwValid
 											|| $("#userPw").val() !== $(this)
@@ -441,11 +430,17 @@ td {
 
 						// 손님 이름
 						$("#userName").blur(function() {
-							if ($("#userName").val == "") {
-								userName = false;
-							} else {
-								userName = true;
-							}
+						    let userName = $(this).val();
+
+						    let namePattern = /^[가-힣]{1,10}$|^[a-zA-Z]{1,16}$/;
+
+						    if (userName === "" || !namePattern.test(userName)) {
+						        $(this).css("border-color", "red");
+						        userNameValid = false;
+						    } else {
+						        $(this).css("border-color", "");
+						        userNameValid = true;
+						    }
 						});
 
 						// 닉네임 유효성 검사
