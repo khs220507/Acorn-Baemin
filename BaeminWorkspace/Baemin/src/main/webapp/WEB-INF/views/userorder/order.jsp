@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +11,8 @@
 </head>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript"
+	src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
 * {
@@ -253,33 +257,33 @@ body {
 </script>
 
 <script>
-	$("#check_module").click(function () {
+	$("#check_module").click(function() {
 		var IMP = window.IMP; // 생략가능
-		IMP.init('가맹점식별코드'); 
+		IMP.init('가맹점식별코드');
 		// i'mport 관리자 페이지 -> 내정보 -> 가맹점식별코드
 		// ''안에 띄어쓰기 없이 가맹점 식별코드를 붙여넣어주세요. 안그러면 결제창이 안뜹니다.
 		IMP.request_pay({
-			pg: 'kakao',
-			pay_method: 'card',
-			merchant_uid: 'merchant_' + new Date().getTime(),
+			pg : 'kakao',
+			pay_method : 'card',
+			merchant_uid : 'merchant_' + new Date().getTime(),
 			/* 
 			 *  merchant_uid에 경우 
 			 *  https://docs.iamport.kr/implementation/payment
 			 *  위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
 			 */
-			name: '주문명 : 아메리카노',
+			name : '주문명 : 아메리카노',
 			// 결제창에서 보여질 이름
 			// name: '주문명 : ${auction.a_title}',
 			// 위와같이 model에 담은 정보를 넣어 쓸수도 있습니다.
-			amount: 2000,
+			amount : 2000,
 			// amount: ${bid.b_bid},
 			// 가격 
-			buyer_name: '이름',
+			buyer_name : '이름',
 			// 구매자 이름, 구매자 정보도 model값으로 바꿀 수 있습니다.
 			// 구매자 정보에 여러가지도 있으므로, 자세한 내용은 맨 위 링크를 참고해주세요.
-			buyer_postcode: '123-456',
-			}, function (rsp) {
-				console.log(rsp);
+			buyer_postcode : '123-456',
+		}, function(rsp) {
+			console.log(rsp);
 			if (rsp.success) {
 				var msg = '결제가 완료되었습니다.';
 				msg += '결제 금액 : ' + rsp.paid_amount;
@@ -299,7 +303,6 @@ body {
 <body>
 
 
-	<c:set var="userInfo" value="${sessionScope.userInfo}" />
 
 
 
@@ -315,26 +318,32 @@ body {
 
 		<div class="section-order-select">
 			<div class="section-select-ordertype">
-				<input id="select-ordertype-delivery" type="radio" name="order-type" value="delivery" checked="checked"> 배달
+				<input id="select-ordertype-delivery" type="radio" name="order-type"
+					value="delivery" checked="checked"> 배달
 			</div>
 			<div class="section-select-ordertype">
-				<input id="select-ordertype-pickup" type="radio" name="order-type" value="pickup"> 포장
+				<input id="select-ordertype-pickup" type="radio" name="order-type"
+					value="pickup"> 포장
 			</div>
 		</div>
+
 
 		<div class="section-order-address-wrap" id="address-wrap">
 			<div class="section-order-address">
 				<div class="section-order-address-api" id="base-structure">
-					<img class="current-location-img" src="resources/icons/current-location.png"> 기타
+					<img class="current-location-img"
+						src="resources/icons/current-location.png"> 기타
 				</div>
-				<div class="section-order-address-citygu">${userInfo[0].userAddress}</div>
-				<input class="section-order-address-detail" placeholder="상세주소" id="base-structure-input">
+				
+				<div class="section-order-address-citygu">현재주소 : ${userInfo[0].userAddress}</div>
+				<input class="section-order-address-detail" placeholder="상세주소"
+					id="base-structure-input">
 			</div>
 		</div>
 
 
 		<div class="section-order-phone-wrap">
-			<div class="section-order-phone" id="base-structure">010-7553-5128</div>
+			<div class="section-order-phone" id="base-structure">${userInfo[0].userPhone}</div>
 		</div>
 
 		<div class="section-order-request-wrap">
@@ -351,7 +360,8 @@ body {
 			<div class="section-order-paytype-title" id="base-structure">결제수단</div>
 			<div class="section-order-paytype-card">
 				<div class="section-order-paytype-card-wrap">
-					<input type="radio" id="card" name="select-paytype" checked="checked">
+					<input type="radio" id="card" name="select-paytype"
+						checked="checked">
 					<div id="base-structure">카드결제</div>
 				</div>
 				<div id="payment-image" style="display: none;">

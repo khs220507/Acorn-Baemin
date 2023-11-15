@@ -13,15 +13,21 @@ import com.acorn.baemin.domain.StoreDTO;
 @Repository
 public class CartRepositoryImp implements CartRepositoryI {
 	
+	
+	 
 	@Autowired
-	CartRepositoryImp rep;
 	private SqlSession session;
 	private static String namespace = "com.acorn.CartMapper.";
 	
 	@Override
-	public List<StoreDTO> selectStore(int menuCode) {
-		System.out.println("selectStore repo");
-		return session.selectList(namespace + "selectStore", menuCode);
+	public List<StoreDTO> selectStoreInfo(int menuCode) {		
+		return session.selectList(namespace + "selectStoreInfo", menuCode);
+		
+	}
+
+	@Override
+	public List<MenuDTO> selectMenuInfo(int menuCode) {
+		return session.selectList(namespace + "selectMenuInfo", menuCode);
 		
 	}
 }

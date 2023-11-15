@@ -17,24 +17,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.acorn.baemin.domain.UserDTO;
-import com.acorn.baemin.order.repository.UserOrderRepository;
-import com.acorn.baemin.order.service.UserOrderService;
+import com.acorn.baemin.order.repository.UserOrderRepositoryImp;
+import com.acorn.baemin.order.service.UserOrderServiceImp;
 
 @Controller
 public class UserOrderController {
 
 	@Autowired
-	UserOrderRepository rep;
+	UserOrderRepositoryImp rep;
 	
 	@Autowired
-	UserOrderService userOrderService;
+	UserOrderServiceImp userOrderService;
 	
-	@GetMapping("/orderDelivery")
-	public String order(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		String id = "user1";
-		List<UserDTO> userInfo = userOrderService.userInfo(id);
-		session.setAttribute("userInfo", userInfo);
-		return "userorder/order";
-	}
+	
 }

@@ -6,15 +6,23 @@
 <mapper namespace="com.acorn.CartMapper">
 
 
-	<select id="selectStore" resultType="StoreDTO"
-		parameterType="String">
-		SELECT store_tbl.storeName
+	<select id="selectStoreInfo" resultType="StoreDTO"
+		parameterType="int">
+		SELECT store_tbl.*
 		FROM menu_tbl
 		JOIN store_tbl ON
 		menu_tbl.storeCode = store_tbl.storeCode
 		WHERE menu_tbl.menuCode =
 		#{menuCode}
 
+	</select>
+	
+	<select id="selectMenuInfo" resultType="MenuDTO"
+		parameterType="int">
+		SELECT *
+		FROM menu_tbl
+		WHERE menuCode =
+		#{menuCode}
 	</select>
 
 

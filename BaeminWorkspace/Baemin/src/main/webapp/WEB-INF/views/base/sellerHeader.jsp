@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
-	<style>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="path" value="<%=request.getContextPath()%>"></c:set>
+<style>
 /* reset css */
 a {
 	text-decoration: none;
+	color: black;
 }
 
 button {
@@ -15,33 +16,41 @@ button {
 
 * {
 	margin: 0;
-	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'BMHANNAPro';
 }
 
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
 }
 
 ul {
 	list-style: none;
+}
+input, option, select{
+font-family: '';
 }
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	height: 120px;
-	background-color: #48D1CC;
+	width: 99vw;
+	height: 140px;
+	background-color: white;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 99999;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.login-btn {
+	color: black;
+	font-size: 20px;
 }
 section{
 width: 1280px;
@@ -60,102 +69,122 @@ padding-top: 140px;
 	align-items: center;
 }
 
-.logo a {
-	color: white;
-	font-size: 40px;
-}
-#loginStatus {
-	flex: 2.5;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-end;
-}/* 로그인 안했을 때 */
-.login-btn {
-	color: white;
+.small-font {
 	font-size: 30px;
 }
 
-/* 로그인 했을때 */
-.hello-msg {
-	color: white;
+.rider-img {
+	width: 85px;
+	height: 70px;
 }
 
-.menu-wrap-ul {
-	position: relative;
+.logo a {
+	color: black;
+	font-size: 50px;
+	font-weight: bold;
 }
 
-.menu-icon {
-	width: 40px;
+
+.search-wrap {
+	width: 250px;
 	height: 40px;
-}
-
-.hidden-menu {
-	width: 180px;
-	height: 80px;
-	background-color: rgba(71, 209, 205, 0.7);
-	border-radius: 10px;
-	padding: 10px;
+	display: flex;
+	align-items: flex-end;
+	background-color: white;
+	border-bottom: 2px solid black;
 	position: absolute;
-	right: 0px;
-	display: none;
-	transition: .5s;
-	z-index: 999;
+    right: 0;
+    top: -30px;
 }
 
-.menu-wrap:hover .hidden-menu, .hidden-menu:hover {
-	display: block;
-}
-
-.hidden-menu li {
-	height: 40px;
-	text-align: center;
-	position: relative;
-}
-
-.menu-items {
-	color: white;
-}
-
-.hidden-menu img {
-	width: 30px;
+.search-wrap input {
+	width: 360px;
 	height: 30px;
-	position: absolute;
-	left: 0px;
-	top: -3px;
+	margin-left: 10px;
+	border: none;
+	outline: none;
 }
 
+.search-btn {
+	border: none;
+	background: none;
+}
 
-	</style>
-    <header>
-		<div class="header-wrap">
-			<div class="logo">
-				<a href="/baemin/sellerHome?sellerCode=<%=session.getAttribute("user")%>">배달의민족<br><span style="font-size: 35px;">사장님</span></a>
-			</div>
+.search-wrap img {
+	width: 25px;
+	height: 25px;
+	cursor: pointer;
+}
 
+/* 메뉴바 */
+.wrap-menu-address {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	top: 10px;
+}
+
+.menu-wrap {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.menu-wrap li {
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.menu-bar {
+	color: #d9d9d9;
+	margin: 10px;
+	font-size: 20px;
+}
+/* 섹션 ////////////////////////////////////////////////////////*/
+section {
+	width: 1280px;
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정*/
+	padding-top: 160px;
+}
+
+/* 배민 폰트*/
+@font-face {
+	font-family: 'BMHANNAPro';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+</style>
+
+<header>
+
+	<div class="header-wrap">
+		<div class="logo">
+			<img class="rider-img" src="${path}/resources/icons/배민캐릭터로고.png">
+			<a href="/baemin/sellerHome?sellerCode=<%= session.getAttribute("user")%>">배달<span class="small-font">의</span>민족<br><span class="small-font">사장님</span>
+			</a>
+		</div>
+
+		<div class="wrap-menu-address">
+			
+			<!-- 로그인시 -->
 			<div id="loginStatus">
 
-				<%
-				if (session.getAttribute("user") != null) {
-				%>
-				<p class="hello-msg">
-					안녕하세요,
-					<%=session.getAttribute("user")%>
-					님
-				</p>
 
+				<%
+				Integer userCodeInfo = (Integer) session.getAttribute("user");
+				if (userCodeInfo != null) {
+				%>
 				<!-- 로그인 했을 때 -->
-				<ul class="menu-wrap-ul">
-					<li class="menu-wrap"><img class="menu-icon"
-						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAABMklEQVR4nO3aPU4DMRCGYUuhgZJU/JSEkiwtERULXCDcASQirsE1wm0ioeQWQEcq6HjRaFPR0PBJY/Z7pOnH47VXHrsUMzMzMzMzs18B18ATsACek8Rik9NlUQIegC/yitxmqsEPgU/yixx3FQVoqUerKEBDPU4UBdgCluQXm+LgzwsQgFHyIsTgj4oSMADGwBS4SRLTTU6amTczM+sAh8Ad8JgsIqeDogRcAWvyWsuOxMAO8EZ+L8C2ogDn1GOiKMCEepyplsArfV0CITYY4J28IreLogTsA7cJfns/I3Lakw7ezMz6jq493iRsijbypihwDKzIK1r2I+XMr8hvKfkSgFPqMVYUoKXnl6PDSq7HPyTX4yEeH1TwQOK+KNEdiecJn8jM5UdhMzMzMzMzK//DN5h1UDYzOEebAAAAAElFTkSuQmCC">
-						<ul class="hidden-menu">
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAtElEQVR4nO2SMQrCQBBFF1LkCgpa5xzeySvoXRICQdJppwfQyhukU9FYpHxhYQpZyYhm7PbBwMLu/gcz41zEAmAOlEArVQGZZfiVd27+zkJQMkxhIWgVwePfgruFoFIEuYUgk4GGXIDZaMHLJhW+51K5WXhkECABFsAa2AFn4Cnlz1tgJW+Sb4JTYAk0ynqGNPIn/RQ+BU78zhGYaIKa8Ww0QWcg6DSBCU4RHAzy9+qgIy6gBwTxryZ9UBmqAAAAAElFTkSuQmCC">
-								<a class="menu-items" href="${path }/">내정보수정</a></li>
-							<li><img
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABhElEQVR4nO2ZTUrDQBiGQw+gpoqrKCj4d4lurD+n0I2eQd278AaKiB5EULQFEdSlV7D1Bi7MI8FJGQYsGr/50inzwCyyeb/3nSQzky9JEolEIsECzAMtoF1xtAqNOoyvAPfIcQcsa876O/L0gUwjwJVV9APoANcVR8dolFxoBChmqqQtoLdp6fVkXA4vmFsFGwJ6DUsvl3E5vOCAUdb8kRhgTO/ADLADvElp1jJbwIK0ptcAQGr2lTNgQsahboAjS+4BmJRxqRdgy9lXHoEpGadK7wCwD3xass9AU0JbcxXac0K8ANNS+pUCmPP+wR/Gk61trtNaAgBrzoxW5byuAKtBBygA1oFj4OSX43VkHiGhl7gppe81ACEvo8B20BsZcBj6USI1h7nTIA9zLsBi4htPq9AssKvVlfARQFxTtRgeNMc6QB56Y6tvFdwQ+iorUelKXA7KfTdmu/9o7nbraO7OOXdBip5Ke92EWAJuBc3fFJoq5p0gmcAvpkzdeCQSiSRSfAEe/GNDlGJX4gAAAABJRU5ErkJggg==">
-								<a class="menu-items" href="${path }/logout">로그아웃</a></li>
-						</ul></li>
+				<ul class="menu-wrap">
+					<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/"><li>알림</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/logout"><li>로그아웃</li></a>
 				</ul>
 
 			</div>
@@ -163,12 +192,19 @@ padding-top: 140px;
 			} else {
 			%>
 			<!-- 로그인 안했을 때 -->
-			<a class="login-btn" href="${path }/login">로그인</a>
+			<ul class="menu-wrap">
+			<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/"><li>알림</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/login"><li>로그인</li></a>
+			</ul>
 			<%
 			}
 			%>
-		</div>
-	</header>
 
-</body>
-</html>
+		</div>
+
+	</div>
+
+</header>

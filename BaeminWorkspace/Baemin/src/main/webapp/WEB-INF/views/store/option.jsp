@@ -85,10 +85,8 @@ function insertCart(){
 	let optionList = document.querySelectorAll(option);
 	resultArr = [];
 	  optionList.forEach((el) => {
-	    resultArr.push(el.value );
+	    resultArr.push(el.value +"");
 	  });
-	  
-	  console.log(resultArr);
 	  
 	  optionString = resultArr.toString();  //
 	  
@@ -98,36 +96,10 @@ function insertCart(){
 
 
 function sendOptionJson() {
-    alert("작동  !!");
-    console.log(resultArr);
-    
     let test  = { options :resultArr };
-  
-    
-    optionString = resultArr.toString();  
-  
+    optionString = resultArr.toString();
     document.frm.options.value  = optionString;
-    
-    
-    alert(    document.frm.options.value  );
     document.frm.submit();
-    
-    
-    /*
-    $.ajax({
-        type: "POST", // 요청 유형을 POST로 변경
-        url: "/baemin/cartList",
-        contentType: "application/json",
-        data: JSON.stringify({ options: optionString }), // 데이터를 요청 본문에 보냄
-        success: function(data) {
-            console.log("/cartList로 데이터 성공적으로 전송");
-           
-        },
-        error: function(error) {
-            // 에러 처리
-            console.error("/cartList로 데이터 전송 중 오류 발생", error);
-        }
-    });*/
 }
 
 
@@ -144,7 +116,8 @@ function sendOptionJson() {
 
 	<hr>
 		<div>
-			<form  name="frm"   method="post"  action="/baemin/cartList?menuCode=${menuCode}">
+			<form name="frm" method="post"
+				action="/baemin/cartList?menuCode=${menuCode}">
 				<div>
 					<div class="menu-img"></div>
 					<div class="menu-name">메뉴선택에서 불러와야함</div>
@@ -168,10 +141,10 @@ function sendOptionJson() {
 										<c:otherwise>
 											<div class="option-list">
 												<input type="checkbox" name="option"
-													value="${items.optionCode} ${items.optionName}  ${items.optionPrice} " onclick="insertCart()">
-												<span>${items.optionName}</span> <span>${items.optionPrice}</span>
-												<input type="hidden" name="${items.optionCode}"
-													value="${items.optionCode}">
+													value="${items.optionCode} / ${items.optionName} / ${items.optionPrice} / ${items.optionCategory}"
+													onclick="insertCart()"> <span>${items.optionName}</span>
+												<span>${items.optionPrice}</span> <input type="hidden"
+													name="${items.optionCode}" value="${items.optionCode}" >
 											</div>
 										</c:otherwise>
 									</c:choose>
@@ -179,11 +152,11 @@ function sendOptionJson() {
 							</c:forEach>
 						</div>
 					</c:forEach>
-					<input type="text"  name="options">
+					<input type="hidden" name="options">
 				</div>
 
 				<div class="plus-cart-but">
-					<button type="button"   onclick="sendOptionJson()">장바구니에 추가</button>
+					<button type="button" onclick="sendOptionJson()">장바구니에 추가</button>
 				</div>
 			</form>
 		</div>

@@ -1,6 +1,7 @@
 package com.acorn.baemin.login.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Spring;
 
@@ -19,6 +20,31 @@ public class LoginRepository implements LoginRepositoryI {
 
 	@Autowired
 	private static String namespace = "com.acorn.LoginMapper.";
+	 
+		@Override
+	    public String findCustomerId(Map<String, Object> params) {
+	        return session.selectOne("com.acorn.LoginMapper.findCustomerId", params);
+	    }
+
+	    @Override
+	    public String findSellerId(Map<String, Object> params) {
+	        return session.selectOne("com.acorn.LoginMapper.findSellerId", params);
+	    }
+	
+	
+	
+//	// 유저 아이디 찾기
+//	@Override
+//    public String findCustomerId(Map<String, Object> params) {
+//        return session.selectOne(namespace + "findCustomerId", params);
+//    }
+//    @Override
+//    public String findSellerId(Map<String, Object> params) {
+//        return session.selectOne(namespace + "findSellerId", params);
+//    }
+    
+   
+	
 	
 	// 손님 로그인
 	@Override
@@ -30,27 +56,26 @@ public class LoginRepository implements LoginRepositoryI {
 		System.out.println("select" + user);
 		UserDTO result = session.selectOne(namespace + "selectUserById", user);
 		System.out.println("result" + result);
-		
+
 		return result;
 	}
-	
+
 	// 사장님 로그인
-		@Override
-		public SellerDTO loginseller(String sellerId, String sellerPw) {
-			System.out.println(sellerId + sellerPw);
-			SellerDTO seller = new SellerDTO();
-			seller.setSellerId(sellerId);
-			seller.setSellerPw(sellerPw);
-			System.out.println("select" + seller);
-			SellerDTO result2 = session.selectOne(namespace + "selectSellerById", seller);
-			System.out.println("result" + result2);
-			return result2;			
-		}
-		
+	@Override
+	public SellerDTO loginseller(String sellerId, String sellerPw) {
+		System.out.println(sellerId + sellerPw);
+		SellerDTO seller = new SellerDTO();
+		seller.setSellerId(sellerId);
+		seller.setSellerPw(sellerPw);
+		System.out.println("select" + seller);
+		SellerDTO result2 = session.selectOne(namespace + "selectSellerById", seller);
+		System.out.println("result" + result2);
+		return result2;
+	}
+
 	//
-		
-		
-		// 전체조회
+
+	// 전체조회
 	@Override
 	public List<UserDTO> selectAll() throws Exception {
 		System.out.println("good");
@@ -70,22 +95,27 @@ public class LoginRepository implements LoginRepositoryI {
 		return null;
 	}
 
-
-
 	// 로그아웃
 	@Override
 	public String logout() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
 
-	
+	// 아이디, 비번 찾기
+	@Override
+	public UserDTO findUserById(String userId) {
+		return session.selectOne("com.acorn.mapper.LoginMapper.findUserById", userId);
+	}
 
-	
-	
-	
+	@Override
+	public UserDTO findUserByEmail(String userEmail) {
+		return session.selectOne("com.acorn.mapper.LoginMapper.findUserByEmail", userEmail);
+	}
+
+	@Override
+	public void updatePassword(UserDTO user) {
+		session.update("com.acorn.mapper.LoginMapper.updatePassword", user);
+	}
 
 }
-

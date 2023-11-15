@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <style>
-
 /* reset css */
 a {
 	text-decoration: none;
+	color: black;
 }
 
 button {
@@ -16,34 +16,41 @@ button {
 
 * {
 	margin: 0;
-	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'BMHANNAPro';
 }
 
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
 }
 
 ul {
 	list-style: none;
 }
-
+input, option, select{
+font-family: '';
+}
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	height: 120px;
-	background-color: #48D1CC;
+	width: 99vw;
+	height: 140px;
+	background-color: white;
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 99999;
+	border-bottom: 1px solid #d9d9d9;
+}
+
+.login-btn {
+	color: black;
+	font-size: 20px;
 }
 
 .header-wrap {
@@ -58,48 +65,32 @@ header {
 	align-items: center;
 }
 
+.small-font {
+	font-size: 30px;
+}
+
+.rider-img {
+	width: 85px;
+	height: 70px;
+}
+
 .logo a {
-	color: white;
-	font-size: 40px;
+	color: black;
+	font-size: 50px;
+	font-weight: bold;
 }
 
-.info-wrap {
-	flex: 5;
-}
-
-.address-wrap {
-	width: 400px;
-	display: flex;
-	margin: 0 auto;
-	justify-content: center;
-	align-items: center;
-}
-
-.address-wrap p {
-	flex: 5;
-	color: white;
-	font-size: 20px;
-	cursor: pointer;
-}
-
-.address-wrap img {
-	width: 20px;
-	height: 20px;
-	cursor: pointer;
-}
-
-.map-icon {
-	margin-left: 10px;
-}
 
 .search-wrap {
-	width: 400px;
-	height: 35px;
+	width: 250px;
+	height: 40px;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	background-color: white;
-	border-radius: 10px;
-	margin: 10px auto;
+	border-bottom: 2px solid black;
+	position: absolute;
+    right: 0;
+    top: -30px;
 }
 
 .search-wrap input {
@@ -121,97 +112,79 @@ header {
 	cursor: pointer;
 }
 
-#loginStatus {
-	flex: 2.5;
+/* 메뉴바 */
+.wrap-menu-address {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: flex-end;
-}
-
-/* 로그인 안했을 때 */
-.login-btn {
-	color: white;
-	font-size: 30px;
-}
-
-/* 로그인 했을때 */
-.hello-msg {
-	color: white;
-}
-
-.menu-wrap-ul {
 	position: relative;
+	top: 10px;
 }
 
-.menu-icon {
-	width: 40px;
-	height: 40px;
+.menu-wrap {
+	display: flex;
+	align-items: center;
+	margin-top: 20px;
 }
 
-.hidden-menu {
-	width: 180px;
-	height: 210px;
-	background-color: rgba(71, 209, 205, 0.7);
-	border-radius: 10px;
-	padding: 10px;
-	position: absolute;
-	right: 0px;
-	display: none;
-	transition: .5s;
-	z-index: 999;
+.menu-wrap li {
+	font-size: 22px;
+	font-weight: bold;
 }
 
-.menu-wrap:hover .hidden-menu, .hidden-menu:hover {
-	display: block;
-}
-
-.hidden-menu li {
-	height: 40px;
-	text-align: center;
-	position: relative;
-}
-
-.menu-items {
-	color: white;
-}
-
-.hidden-menu img {
-	width: 30px;
-	height: 30px;
-	position: absolute;
-	left: 0px;
-	top: -3px;
+.menu-bar {
+	color: #d9d9d9;
+	margin: 10px;
+	font-size: 20px;
 }
 /* 섹션 ////////////////////////////////////////////////////////*/
 section {
 	width: 1280px;
-	padding-top : 140px; /* 헤더 높이만큼 padding-top 추가 */
-	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정*/
+	padding-top: 160px;
+}
+
+/* 배민 폰트*/
+@font-face {
+	font-family: 'BMHANNAPro';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 </style>
 
-	<header>
-		<div class="header-wrap">
-			<div class="logo">
-				<a href="/baemin/home">배달의민족</a>
-			</div>
-			<div class="info-wrap">
-				<form class="search-wrap" action="${path }/search" method="get"
-					onsubmit="return validateForm()">
-					<input type="text" name="searchTerm">
-					<button class="search-btn" type="submit">
-						<img
-							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADBElEQVR4nO1YzWsTQRQfFb1Z1Ioaj+rJq1Q9W8281NpaMOhB6sG/olUQeq34PwiibW+1Z7+gaJJ5m30vhsZPBKFFb3qsVSJvE7Q7u5UknU0b2R8MISTz2/dm3sfvrVIpUqRI0bMYXCr258iMA5tZIIPAZlmTWZXP5vdZ+T1bfXlAbSdkq94JzWYGGNeAsd7CWtOMj+A1Ht9Sw/PV6h5NeA8Yf7RoeGg1bgfvnkLcvSXhAoxPOzE84gjj4gWiQ10zfhjxIJB5H2sQoacJJ6BcGtCIGTld+cz65rRmnNSM5XhHzDvh7VLYmBcxhr8B8i61wqG5NKIZ38Y48izxcGrGvG38/EhtcW87PPJ/YLMQDScznWi1iSQs4fyden1nJ3yyz3ZCk1m9WCkdc299cPVBqQyFTbsnbwMKhT6Jf4v3oUqo6oTqfJZw2AW3ZjNq94nBpWK/colGhw1XG5f8kerke9dd8qtAHoRiFScc89+yknnGJb9qaJl1J1QuDbjkHyI8Y91wzSW/AsaV9Q84V3l12CX/ec87anXn7y75VVO3/HmANDSX/MIHViIrxzG6HDohxEySNwCEXxLNAdE2ieYAYzXZKsQ46ZJfs7ltdeQHvdMH6vUdQIbC/OamcgkZA+1OLKrSBTf4OGbroaFq8YhKWgsFkrhQ6NsM56jv79OEHyze+yoJyAxrl1PN5nGnajQ/N7dL9tunD+XySZUUZIaNmaYW2r2J4OQt46GxplSSCEZEwudxI2GugpdbSlgfxzThx7jRMkdmXHVlJrY1/N/49UWYSV2X5hSMoIgZYDwbCDa72kT3/wQqXUvcCdHrms2TfxnT6dLihGs5vWE4sZm2E7tlQxv7poDxRmA0h7VQV25CIDOsjIGtvpkTw6VUrq82YixE93fPiYYjlf1y9UG/IKwB4zdN5hew+SraRuSBdNiNmhRsByc2C6hgPtrxu5QTrgD/hRNsrvS+ExSfE/IaRvUKcuRdjThB+Fn1EnJRJ1ZUr0EHb+/MJzl9V3NIihQpUijn+A1qcPW2rNhwowAAAABJRU5ErkJggg==">
-					</button>
-				</form>
-			</div>
+<header>
 
+	<div class="header-wrap">
+		<div class="logo">
+			<img class="rider-img" src="${path}/resources/icons/배민캐릭터로고.png">
+			<a href="/baemin/home">배달<span class="small-font">의</span>민족
+			</a>
+		</div>
+
+		<div class="wrap-menu-address">
+			<form class="search-wrap" action="${path }/search" method="get"
+				onsubmit="return validateForm()">
+				<input type="text" name="searchTerm">
+				<button class="search-btn" type="submit">
+					<img
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAADBElEQVR4nO1YzWsTQRQfFb1Z1Ioaj+rJq1Q9W8281NpaMOhB6sG/olUQeq34PwiibW+1Z7+gaJJ5m30vhsZPBKFFb3qsVSJvE7Q7u5UknU0b2R8MISTz2/dm3sfvrVIpUqRI0bMYXCr258iMA5tZIIPAZlmTWZXP5vdZ+T1bfXlAbSdkq94JzWYGGNeAsd7CWtOMj+A1Ht9Sw/PV6h5NeA8Yf7RoeGg1bgfvnkLcvSXhAoxPOzE84gjj4gWiQ10zfhjxIJB5H2sQoacJJ6BcGtCIGTld+cz65rRmnNSM5XhHzDvh7VLYmBcxhr8B8i61wqG5NKIZ38Y48izxcGrGvG38/EhtcW87PPJ/YLMQDScznWi1iSQs4fyden1nJ3yyz3ZCk1m9WCkdc299cPVBqQyFTbsnbwMKhT6Jf4v3oUqo6oTqfJZw2AW3ZjNq94nBpWK/colGhw1XG5f8kerke9dd8qtAHoRiFScc89+yknnGJb9qaJl1J1QuDbjkHyI8Y91wzSW/AsaV9Q84V3l12CX/ec87anXn7y75VVO3/HmANDSX/MIHViIrxzG6HDohxEySNwCEXxLNAdE2ieYAYzXZKsQ46ZJfs7ltdeQHvdMH6vUdQIbC/OamcgkZA+1OLKrSBTf4OGbroaFq8YhKWgsFkrhQ6NsM56jv79OEHyze+yoJyAxrl1PN5nGnajQ/N7dL9tunD+XySZUUZIaNmaYW2r2J4OQt46GxplSSCEZEwudxI2GugpdbSlgfxzThx7jRMkdmXHVlJrY1/N/49UWYSV2X5hSMoIgZYDwbCDa72kT3/wQqXUvcCdHrms2TfxnT6dLihGs5vWE4sZm2E7tlQxv7poDxRmA0h7VQV25CIDOsjIGtvpkTw6VUrq82YixE93fPiYYjlf1y9UG/IKwB4zdN5hew+SraRuSBdNiNmhRsByc2C6hgPtrxu5QTrgD/hRNsrvS+ExSfE/IaRvUKcuRdjThB+Fn1EnJRJ1ZUr0EHb+/MJzl9V3NIihQpUijn+A1qcPW2rNhwowAAAABJRU5ErkJggg==">
+				</button>
+			</form>
+
+			<!-- 로그인시 -->
 			<div id="loginStatus">
-					<%
-				Integer userCodeInfo= (Integer)session.getAttribute("userCode");
+
+
+				<%
+				Integer userCodeInfo = (Integer) session.getAttribute("userCode");
 				if (userCodeInfo != null) {
+					
 				%>
+<<<<<<< HEAD
+				
 					<p class="hello-msg">
 						안녕하세요,
 						<%=userCodeInfo%>
@@ -241,27 +214,55 @@ section {
 							</ul></li>
 					</ul>
 			
+=======
+				<!-- 로그인 했을 때 -->
+				<ul class="menu-wrap">
+					<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/orderList"><li>주문내역</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/orderList"><li>알림</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/zzim"><li>찜</li></a>
+					<span class="menu-bar">|</span>
+					<a href="${path }/logout"><li>로그아웃</li></a>
+				</ul>
+>>>>>>> 55f402c3751ce9bca96ce35dea44cb2b09c6f680
 
 			</div>
 			<%
 			} else {
 			%>
 			<!-- 로그인 안했을 때 -->
-			<a class="login-btn" href="${path }/login">로그인</a>
+			<ul class="menu-wrap">
+				<a href="${path }/login"><li>내정보수정</li></a>
+				<span class="menu-bar">|</span>
+				<a href="${path }/login"><li>주문내역</li></a>
+				<span class="menu-bar">|</span>
+				<a href="${path }/orderList"><li>알림</li></a>
+				<span class="menu-bar">|</span>
+				<a href="${path }/login"><li>찜</li></a>
+				<span class="menu-bar">|</span>
+				<a href="${path }/login"><li>로그인</li></a>
+			</ul>
 			<%
 			}
 			%>
-		</div>
-	</header>
 
-	<!-- 검색 -->
-	<script>
-		function validateForm() {
-			var searchTerm = document.getElementsByName('searchTerm')[0].value;
-			if (searchTerm.trim() === '') {
-				alert('검색어를 입력하세요');
-				return false;
-			}
-			return true;
+		</div>
+
+	</div>
+
+</header>
+
+<!-- 검색 -->
+<script>
+	function validateForm() {
+		var searchTerm = document.getElementsByName('searchTerm')[0].value;
+		if (searchTerm.trim() === '') {
+			alert('검색어를 입력하세요');
+			return false;
 		}
-	</script>
+		return true;
+	}
+</script>

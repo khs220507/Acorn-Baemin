@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acorn.baemin.cart.repository.CartRepositoryImp;
+import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.StoreDTO;
 
 @Service
@@ -13,13 +14,17 @@ public class CartServiceImp implements CartServiceI {
 
 	@Autowired
 	CartRepositoryImp rep;
-	
+
 	@Override
-	public List<StoreDTO> storeInfo(int menuCode) {
-		System.out.println("storeInfo service");
-		List<StoreDTO> storeInfo = rep.selectStore(menuCode);
-		
+	public List<StoreDTO> selectStoreInfo(int menuCode) {
+		List<StoreDTO> storeInfo = rep.selectStoreInfo(menuCode);
 		return storeInfo;
 	}
-	
+
+	@Override
+	public List<MenuDTO> selectMenuInfo(int menuCode) {
+		List<MenuDTO> menuInfo = rep.selectMenuInfo(menuCode);
+		return menuInfo;
+	}
+
 }
