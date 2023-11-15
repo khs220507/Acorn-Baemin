@@ -65,13 +65,6 @@ font-weight: bolder;
 	margin: 0 auto;
 	width: 60%;
 }
-.section-wrap{
- overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-          -ms-overflow-style: none;	/* 스크롤바 없애기 */
-}
- .section-wrap::-webkit-scrollbar{	/* 스크롤바 없애기 */
-            display:none;
-    }
 
 .store-list {
 	padding: 20px;
@@ -361,32 +354,32 @@ margin: 0 auto;
 		
 		function storeStatus(Status) {
 			
-			if (Status == 0){
+			if (Status == 1){
 				document.write("(영업준비중...)");
 			}
 		}
 		
 		function funstoreStatus(Status) {
-			if (Status == 0){
+			if (Status == 1){
 				return ("영업준비중");
-			}else if (Status == 1) {
+			}else if (Status == 0) {
 				return ("영업중");
 		}
 		}
 		
 		function refunstoreStatus(Status) {
-			if (Status == 0){
+			if (Status == 1){
 				return ("영업중");
-			}else if (Status == 1) {
+			}else if (Status == 0) {
 				return ("영업준비중");
 		}
 		}
 		
 		function renofunstoreStatus(Status) {
-			if (Status == 0){
-				return (1);
-			}else if (Status == 1) {
+			if (Status == 1){
 				return (0);
+			}else if (Status == 0) {
+				return (1);
 		}
 		}
 		
@@ -394,16 +387,14 @@ margin: 0 auto;
 <title>Insert title here</title>
 </head>
 <body>
-	<header>
-		<div class="header-wrap">해더</div>
-	</header>
-	<section>
+<jsp:include page="../base/sellerHeader.jsp"/>
+	<section class="content">
 		<div class="section-line"><div>가게관리</div></div>
 		<div class="section-wrap">
 		
 			<c:forEach items="${list }" var="item">
 				
-				<div class="store-list" style="<c:if test="${item.storeStatus eq 2}">display: none;</c:if>">
+				<div class="store-list" >
 				
 					<div class="store-img-wrap">
 						<div class="store-img"><img alt="" src="${path}/storeImages/${item.storeImage }"></div>

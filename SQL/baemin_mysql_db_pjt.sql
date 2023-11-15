@@ -70,7 +70,7 @@ CREATE TABLE store_tbl (
   deliveryFee INT NOT NULL,           		-- 배달비
   operatingTime VARCHAR(50) , 				-- 운영시간
   deliveryArea VARCHAR(50) NOT NULL,  		-- 배달지역
-  storeStatus INT default 0 ,   -- 가게 상태(0:close, 1:open)
+  storeStatus INT default 0 ,   -- 가게 상태(0:open, 1:close)
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
 
@@ -85,9 +85,9 @@ VALUES
 
 select * from store_tbl;
 
+UPDATE store_tbl SET storeStatus = 0 where storeCode = 30006;
 
-
--- 04. 태민 menu_tbl
+-- 04. 태민 menu_tbl 
 
 CREATE TABLE menu_tbl (
   menuCode INT AUTO_INCREMENT PRIMARY KEY,     	-- 메뉴코드
@@ -125,8 +125,11 @@ create table option_tbl (
     optionSelectType tinyint,
     optionName varchar(255),
     optionPrice int, 
-    optionStatus tinyint
+    optionStatus INT default 0 
 )auto_increment = 50001;
+
+UPDATE option_tbl SET optionStatus = 1 where optionCode = 50002 ;
+
 
 INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
 VALUES

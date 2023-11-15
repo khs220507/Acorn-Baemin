@@ -10,14 +10,14 @@
 		parameterType="String">
 		SELECT *
 		FROM store_tbl
-		where storeCategory = #{storeCategory}
+		where storeCategory = #{storeCategory} and storeStatus = 0
 	</select>
 
 	<select id="sellerStore" resultType="StoreDTO"
 		parameterType="String">
 		SELECT *
 		FROM store_tbl
-		where sellerCode = #{sellerCode}
+		where sellerCode = #{sellerCode} and storeStatus != 2
 	</select>
 
 	<insert id="insertStore" parameterType="StoreDTO">

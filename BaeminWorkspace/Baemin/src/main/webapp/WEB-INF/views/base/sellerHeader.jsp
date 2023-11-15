@@ -43,6 +43,10 @@ header {
 	left: 0;
 	z-index: 1000;
 }
+section{
+width: 1280px;
+padding-top: 140px;
+}
 
 .header-wrap {
 	width: 1280px;
