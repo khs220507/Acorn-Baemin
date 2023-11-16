@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
-	int  orderNumber;
+	int orderNumber;
 	int userCode;
 	int storeCode;
 	String orderMenuName;
