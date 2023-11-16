@@ -149,11 +149,13 @@ CREATE TABLE review_tbl (
 -- 10
 CREATE TABLE answer_tbl (
     answerCode int AUTO_INCREMENT PRIMARY KEY,
+    storeCode int,
     sellerCode int,
     reviewCode int,
     answerDate DATE NOT NULL,
     answerContent VARCHAR(300) NOT NULL,
     FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
+    FOREIGN KEY (storeCode) REFERENCES review_tbl(storeCode),
     FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
 ) AUTO_INCREMENT=100001;
 

@@ -37,28 +37,28 @@ public class CartController {
 	UserOrderServiceImp userOrderService;
 
 	@PostMapping("/cartList")
-	public String receiveCartData( CartInfoDTO cartinfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
+	public String receiveCartData( CartInfoDTO cartInfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
 		List<StoreDTO> storeInfo = cartService.selectStoreInfo(menuCode);
 		List<MenuDTO> menuInfo = cartService.selectMenuInfo(menuCode);
-		model.addAttribute("cartInfo", cartinfoDTO);
+		model.addAttribute("cartInfo", cartInfoDTO);
 		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("cartInfo", cartinfoDTO);
+		session.setAttribute("cartInfo", cartInfoDTO);
 		session.setAttribute("menuInfo", menuInfo);
 		session.setAttribute("storeInfo", storeInfo);
 	    return "home/cart_list";
 	}
 
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int totalPrice, HttpSession session, Model model, CartInfoDTO cartinfoDTO) {
+	public String placeOrder(@RequestParam int totalPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO) {
 		session.setAttribute("totalPrice", totalPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
-		System.out.println(userCode);
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
-		model.addAttribute("cartInfo", cartinfoDTO);
+		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("userInfo", userInfo);
+		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
 	    return "userorder/order";
 	}
 	

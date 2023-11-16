@@ -184,76 +184,54 @@ body {
 </style>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						function loadPaymentImage(selectedPaytype) {
-							if (selectedPaytype === 'card') {
-								// AJAX 요청을 보내서 이미지를 가져옴
-								$
-										.ajax({
-											url : '/baemin/orderDelivery?selectedPaytype=card',
-											type : 'GET',
-											success : function(data) {
-												// 'data'에 이미지 URL이 있을 것으로 가정
-												var imageUrl = 'resources/images/addcard.png';
-												$('#paymentImageElement').attr(
-														'src', imageUrl);
-												$('#payment-image').show(); // 이미지 컨테이너 표시
-											},
-											error : function() {
-												// AJAX 요청 중 발생한 오류를 처리
-											}
-										});
-							} else if (selectedPaytype === 'cash') {
-								// 현장 결제가 선택되어 있으면 이미지를 숨김
-								$('#paymentImageElement').attr('src', ''); // 이미지 소스 지우기
-								$('#payment-image').hide(); // 이미지 컨테이너 숨김
-							}
-						}
+$(document).ready(function () {
+    function loadPaymentImage(selectedPaytype) {
+        if (selectedPaytype === 'card') {
+            // AJAX 요청을 보내서 이미지를 가져옴
+            $.ajax({
+                url: '/baemin/order?selectedPaytype=card',
+                type: 'GET',
+                success: function (data) {
+                    // 'data'에 이미지 URL이 있을 것으로 가정
+                    var imageUrl = 'resources/images/addcard.png';
+                    $('#paymentImageElement').attr('src', imageUrl);
+                    $('#payment-image').show(); // 이미지 컨테이너 표시
+                },
+                error: function () {
+                    // AJAX 요청 중 발생한 오류를 처리
+                }
+            });
+        } else if (selectedPaytype === 'cash') {
+            // 현장 결제가 선택되어 있으면 이미지를 숨김
+            $('#paymentImageElement').attr('src', ''); // 이미지 소스 지우기
+            $('#payment-image').hide(); // 이미지 컨테이너 숨김
+        }
+    }
 
-						// 첫 페이지 로드 시, 선택한 결제 방법을 확인
-						var selectedPaytype = $(
-								"input[name='select-paytype']:checked").attr(
-								"id");
-						loadPaymentImage(selectedPaytype);
+    // 첫 페이지 로드 시, 선택한 결제 방법을 확인
+    var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+    loadPaymentImage(selectedPaytype);
 
-						// 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
-						$("input[name='select-paytype']")
-								.change(
-										function() {
-											var selectedPaytype = $(
-													"input[name='select-paytype']:checked")
-													.attr("id");
-											loadPaymentImage(selectedPaytype);
-										});
+    // 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
+    $("input[name='select-paytype']").change(function () {
+        var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+        loadPaymentImage(selectedPaytype);
+    });
 
-						// 초기 상태에서 라디오 버튼의 선택 여부에 따라 "section-order-address-wrap"을 숨김
-						if ($("#select-ordertype-pickup").is(":checked")) {
-							$("#address-wrap").hide();
-						}
+    // "카카오페이로 결제하기" 버튼 클릭 시 처리
+    $("#order-button").click(function () {
+        // Assuming this is the button for KakaoPay
+        var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+        if (selectedPaytype === 'card') {
+            // Show the payment image
+            $('#paymentImageElement').show();
+        } else {
+            // Hide the payment image
+            $('#paymentImageElement').hide();
+        }
+    });
+});
 
-						// 라디오 버튼 변경 이벤트 감지
-						$("input[name='order-type']")
-								.change(
-										function() {
-											if ($("#select-ordertype-pickup")
-													.is(":checked")) {
-												// "pickup"이 선택되면 "section-order-address-wrap" 숨김
-												$("#address-wrap").hide();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.hide();
-											} else {
-												// 다른 라디오 버튼이 선택되면 "section-order-address-wrap" 표시
-												$("#address-wrap").show();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.show();
-											}
-										});
-
-					});
 </script>
 
 <script>
@@ -360,8 +338,7 @@ body {
 			<div class="section-order-paytype-title" id="base-structure">결제수단</div>
 			<div class="section-order-paytype-card">
 				<div class="section-order-paytype-card-wrap">
-					<input type="radio" id="card" name="select-paytype"
-						checked="checked">
+					<input type="radio" id="card" name="select-paytype" checked="checked">
 					<div id="base-structure">카드결제</div>
 				</div>
 				<div id="payment-image" style="display: none;">
@@ -381,17 +358,19 @@ body {
 			<div class="section-order-price-title" id="base-structure">결제금액</div>
 			<div class="section-order-price-detail-wrap">
 				<div class="section-order-price-detail">주문금액</div>
-				<div class="section-order-price-detail-amount">26000원</div>
+				<div class="section-order-price-detail-amount">${totalPrice}원</div>
 			</div>
 			<div class="section-order-price-detail-wrap-delivery">
 				<div class="section-order-price-detail-delivery">배달팁</div>
-				<div class="section-order-price-detail-amount-delivery">3000원</div>
+				<div class="section-order-price-detail-amount-delivery">${storeInfo[0].deliveryFee}원</div>
 			</div>
 		</div>
+		
+		<c:set var="totalAmount" value="${totalPrice + storeInfo[0].deliveryFee}" />
 
 		<div class="section-order-totalprice-wrap">
 			<div class="section-order-totalprice">총 결제금액</div>
-			<div class="section-order-totalprice">29000원</div>
+			<div class="section-order-totalprice">${totalAmount}원</div>
 		</div>
 
 		<div class="section-order-button-wrap">
