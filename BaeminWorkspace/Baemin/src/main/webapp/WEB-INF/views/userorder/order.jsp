@@ -185,6 +185,52 @@ body {
 
 <script>
 $(document).ready(function () {
+	
+	
+	 function updateTotalPaymentAmount() {
+	        var selectedOrderType = $("input[name='order-type']:checked").val();
+	        var deliveryFee = parseInt("${storeInfo[0].deliveryFee}"); // Assuming delivery fee is a numeric value
+	        var totalPrice = parseInt("${totalPrice}");
+
+	        // Check if the selected order type is 'pickup'
+	        if (selectedOrderType === 'pickup') {
+	            // If 'pickup', set delivery fee to 0
+	            deliveryFee = 0;
+	        }
+
+	        // Update the total amount and display
+	        var totalAmount = totalPrice + deliveryFee;
+	        $(".section-order-totalprice").text(totalAmount + "원");
+	        $(".section-order-price-detail-amount-delivery").text(deliveryFee + "원");
+	    }
+
+	    // Initial call to set the total payment amount based on the default selected order type
+	    updateTotalPaymentAmount();
+
+	    // Handle radio button change event
+	    $("input[name='order-type']").change(function () {
+	        updateTotalPaymentAmount(); // Update total payment amount when the order type changes
+	    });
+	
+	function toggleAddressWrapVisibility() {
+        var selectedOrderType = $("input[name='order-type']:checked").val();
+
+        // Check if the selected order type is 'pickup'
+        if (selectedOrderType === 'pickup') {
+            $('#address-wrap').hide(); // Hide the address wrap
+        } else {
+            $('#address-wrap').show(); // Show the address wrap for other order types
+        }
+    }
+
+    // Initial call to set visibility based on the default selected order type
+    toggleAddressWrapVisibility();
+
+    // Handle radio button change event
+    $("input[name='order-type']").change(function () {
+        toggleAddressWrapVisibility(); // Toggle visibility when the order type changes
+    });
+	
     function loadPaymentImage(selectedPaytype) {
         if (selectedPaytype === 'card') {
             // AJAX 요청을 보내서 이미지를 가져옴
@@ -217,6 +263,9 @@ $(document).ready(function () {
         var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
         loadPaymentImage(selectedPaytype);
     });
+    
+    
+    
 
     // "카카오페이로 결제하기" 버튼 클릭 시 처리
     $("#order-button").click(function () {
@@ -287,7 +336,6 @@ $(document).ready(function () {
 	<jsp:include page="../base/header.jsp" />
 
 	<section>
-
 		<div class="section-order-title">
 			<div class="section-order-title-inner">
 				<h1>주문하기</h1>
@@ -325,14 +373,14 @@ $(document).ready(function () {
 		</div>
 
 		<div class="section-order-request-wrap">
-			<div class="section-order-request-seller">
-				<div class="section-order-request-title" id="base-structure">요청사항</div>
-				<div class="section-order-request-seller">가게 사장님께</div>
-				<input type="text" placeholder="예)덜 맵게 해주세요">
-				<div class="section-order-request-rider">라이더님께</div>
-				<input type="text" placeholder="예)문 앞에 두고 벨 눌러주세요">
-			</div>
-		</div>
+    <div class="section-order-request-seller">
+        <div class="section-order-request-title" id="base-structure">요청사항</div>
+        <div class="section-order-request-seller">가게 사장님께</div>
+        <input type="text" name="requestToSeller" placeholder="예)덜 맵게 해주세요">
+        <div class="section-order-request-rider">라이더님께</div>
+        <input type="text" name="requestToRider" placeholder="예)문 앞에 두고 벨 눌러주세요">
+    </div>
+</div>
 
 		<div class="section-order-paytype-wrap">
 			<div class="section-order-paytype-title" id="base-structure">결제수단</div>
@@ -373,9 +421,22 @@ $(document).ready(function () {
 			<div class="section-order-totalprice">${totalAmount}원</div>
 		</div>
 
-		<div class="section-order-button-wrap">
-			<button id="order-button">결제하기</button>
-		</div>
+		 <div class="section-order-button-wrap">
+            <form id="order-form" method="post" action="orderDetail">
+          
+                <input type="hidden" name="orderType" id="orderType" value="delivery">
+                <input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${userInfo[0].userAddress}">
+                <input type="hidden" name="userPhone" id="userPhone" value="${userInfo[0].userPhone}">
+                <input type="hidden" name="requestToSeller" id="requestToSeller" value="">
+                <input type="hidden" name="requestToRider" id="requestToRider" value="">
+                <input type="hidden" name="paymentType" id="paymentType" value="card">
+                <input type="hidden" name="totalPrice" id="totalPrice" value="${totalPrice}">
+                
+                
+                <button type="submit" id="order-button">결제하기</button>
+               
+            </form>
+        </div>
 	</section>
 
 

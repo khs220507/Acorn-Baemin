@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.acorn.baemin.cart.domain.CartInfoDTO;
 import com.acorn.baemin.cart.service.CartServiceImp;
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.order.service.UserOrderServiceImp;
@@ -52,13 +53,31 @@ public class CartController {
 	}
 
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int totalPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO) {
+	public String placeOrder(@RequestParam int totalPrice , HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
+		
+		
 		session.setAttribute("totalPrice", totalPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
+		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
+		List<MenuDTO> menuInfo = (List<MenuDTO>) session.getAttribute("menuInfo");
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
+		orderDTO.setOrderStoreName(storeInfo.get(0).getStoreName());
+		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage());
+		orderDTO.setOrderMenuName(menuInfo.get(0).getMenuName());
+		orderDTO.setStoreCode(storeInfo.get(0).getStoreCode());
+		orderDTO.setOrderType(userCode);
+		
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("userInfo", userInfo);
-		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
+		
+		
+		orderDTO.setUserCode(userCode);
+		session.setAttribute("orderDTO", orderDTO);
+		System.out.println("카트테스트 : " + orderDTO);
+		
+		
+		
+		
 	    return "userorder/order";
 	}
 	

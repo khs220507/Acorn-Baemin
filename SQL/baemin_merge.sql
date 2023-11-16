@@ -49,7 +49,7 @@ CREATE TABLE store_tbl (
   deliveryFee INT NOT NULL,           		-- 배달비
   operatingTime VARCHAR(50) , 				-- 운영시간
   deliveryArea VARCHAR(50) NOT NULL,  		-- 배달지역
-  storeStatus TINYINT default 0 ,   -- 가게 상태(0:close, 1:open)
+  storeStatus INT default 0 ,   -- 가게 상태(0:close, 1:open)
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
 
@@ -106,14 +106,12 @@ CREATE TABLE order_tbl (
 	orderStoreName varchar(100),
 	orderStoreImage varchar(100),
     orderDate DATE,
-    payType TINYINT(1) UNSIGNED,
-    orderType TINYINT(1) UNSIGNED,
-    reqToSeller VARCHAR(300),
-    reqToRider VARCHAR(300),
+    paymentType varchar(50),
+    orderType varchar(50),
+    requestToSeller VARCHAR(300),
+    requestToRider VARCHAR(300),
     orderStatus VARCHAR(20),
-    -- 추가
-    optionCategory varchar(255),
-    optionName varchar(255),
+    optionsInfo VARCHAR(300),
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
@@ -234,14 +232,6 @@ VALUES
 ('user004', 30004, 40004, 50004, 2, 54000, 1),
 ('user005', 30005, 40005, 50005, 1, 9000, 1);
 
-INSERT INTO order_tbl (userCode, storeCode, orderMenuName, orderMenuNumber, orderMenuPrice, orderStoreName, orderStoreImage, orderDate, payType, orderType, reqToSeller, reqToRider, orderStatus, optionCategory, optionName, deliveryFee, deliveryAddress, userPhone)
-VALUES
-(10001, 30001, '김치찌개', 2, 18000, '맛있는 음식점1', 'store1.jpg', '2023-11-10', 0, 0, '특별한 요청 없음', '빨리 배달 부탁드립니다', '주문접수', '소스', '간장 소스', 3000, '서울시 강남구 강남대로 123 아파트 101호', '010-1234-5678'),
-(10002, 30002, '페퍼로니 피자', 1, 18000, 'Pizza Heaven', 'store2.jpg', '2023-11-11', 1, 0, '얇게 구워주세요', '종이 포장 부탁드립니다', '주문접수', '치즈', '모짜렐라 치즈', 2500, '서울시 강서구 강서로 456 오피스텔 202호', '010-2345-6789'),
-(10003, 30003, '연어 초밥', 3, 60000, 'Sushi Master', 'store3.jpg', '2023-11-12', 0, 1, '무엇이든 맛있게 부탁드려요', '빨리 배달 해주세요', '배달중', '맛 추가', '매운맛 추가', 3500, '서울시 송파구 올림픽로 789 단독주택', '010-3456-7890'),
-(10004, 30004, '스테이크', 1, 25000, 'BBQ Grill', 'store4.jpg', '2023-11-13', 1, 1, '매우 덜익혀주세요', '양파는 빼주세요', '배달완료', '토핑', '계란 토핑', 2000, '서울시 서초구 강남대로 1010 맨션 303호', '010-4567-8901'),
-(10005, 30005, '짜장면', 2, 16000, 'Noodle House', 'store5.jpg', '2023-11-14', 0, 0, '맵게 해주세요', '양파는 빼주세요', '주문접수', '스프', '미소 스프', 2800, '서울시 강북구 북촌로 111 단독주택', '010-5678-9012');
-
 
 INSERT INTO zzim_tbl (userCode, storeCode)
 VALUES
@@ -280,8 +270,15 @@ commit;
 
 show tables;
 
+select * from user_tbl;
+select * from seller_tbl;
+select * from store_tbl;
+select * from order_tbl;
+
 -- Drop all tables
 DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
+
+
 
 
 
