@@ -53,18 +53,18 @@ hr {
 }
 
 .option-list-wrap {
-	width: 70%;
-	border: 1px solid black;
+	width: 75%;
 	margin: 0 auto;
-	padding: 20px 40px 20px 40px;
+	padding: 20px 60px;
 }
 
 .option-category {
-	font-size: 25px;
+	font-size: 40px;
 }
 
 .option-list {
-	padding-bottom: 20px;
+	padding: 10px 20px;
+	font-size: 20px;
 }
 
 .plus-cart-but {
@@ -109,12 +109,8 @@ function sendOptionJson() {
 </head>
 <body>
 	<jsp:include page="../base/header.jsp" />
-		<nav class="nav-var">
-		<a href="">치킨</a><a>피자</a><a>햄버거</a><a>족발,보쌈</a><a>한식</a><a>중식</a><a>일식</a><a>양식</a><a>분식</a><a>디저트</a><a>야식</a>
-	</nav>
-	<section class="content">
+	<section id="content">
 
-	<hr>
 		<div>
 			<form name="frm" method="post"
 				action="/baemin/cartList?menuCode=${menuCode}">

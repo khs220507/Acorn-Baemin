@@ -128,7 +128,7 @@ create table option_tbl (
     optionStatus INT default 0 
 )auto_increment = 50001;
 
-UPDATE option_tbl SET optionStatus = 1 where optionCode = 50002 ;
+UPDATE option_tbl SET optionStatus = 0 where optionCode = 50001 ;
 
 
 INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
