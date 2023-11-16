@@ -40,6 +40,7 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
+	
 	// 사장님의 메뉴 탭 화면
 	@GetMapping("/sellerMenu")
 	public String readMenu(Integer storeCode, Model model) {
