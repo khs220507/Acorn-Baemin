@@ -21,5 +21,7 @@ public class UserDTO {
 	String userAddress;
 	String userAddressDetail;	
 	int userStatus;
+	int mail_auth;
+	String mail_key;
 	
 }

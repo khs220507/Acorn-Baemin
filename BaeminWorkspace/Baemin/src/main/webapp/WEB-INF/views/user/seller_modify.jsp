@@ -20,11 +20,7 @@
                     text-decoration: none;
                 }
 
-                header {
-                    background-color: #48D1CC;
-                    height: 100px;
-                    margin-bottom: 50px;
-                }
+               
 
                 body {
                     font-family: Arial, sans-serif;
@@ -45,7 +41,7 @@
                 button#checkDuplicate,
                 #searchpc,
                 #modify_button {
-                    background-color: #48D1CC;
+                    background-color: #82d9d0;
                     color: white;
                     border: none;
                     border-radius: 4px;
@@ -63,28 +59,26 @@
                 .signup-title {
                     text-align: center;
                     padding: 20px;
+                    font-size: 20px;
                 }
 
                 h1 {
                     color: #333;
                 }
 
-                p {
-                    font-size: 18px;
-                    color: #555;
-                }
+               
 
                 .signup-div {
                     background-color: #fff;
                     padding: 20px;
                     max-width: 350px;
                     width: 100%;
-                    border: 3px solid #48D1CC;
+                    border: 3px solid #82d9d0;
                     box-shadow: 0px 0px 5px #ccc;
                     border-radius: 10px;
                 }
 
-                span {
+                .signup-div span {
                     display: block;
                     margin-top: 5px;
                     margin-bottom: 5px;
@@ -102,7 +96,7 @@
                 }
 
                 button#modify_button {
-                    background-color: #48D1CC;
+                    background-color: #82d9d0;
                     height: 30px;
                     color: white;
                     border-radius: 4px;
@@ -158,7 +152,7 @@
                 }
 
                 input[type="button"] {
-                    background-color: #48D1CC;
+                    background-color: #82d9d0;
                     color: white;
                     border: none;
                     border-radius: 4px;
@@ -264,14 +258,11 @@
                     margin-bottom: 50px;
                 }
 
-                footer {}
-
                 td {
                     display: flex;
                 }
             </style>
             <script>
-
                 function updateseller() {
                     let sellerCode = $('#userInfo').val();				//${'#modify.sellerCode'}.val();
                     let sellerName = $('#sellerName').val();
@@ -311,12 +302,8 @@
                         alert("비밀번호를 확인해주세요 ┑(￣Д ￣)┍");
                         $("#sellerPw").val("");
                         $("#confirmPassword").val("");
-
                     }
                 };
-
-
-
                 ////중요/////
                 $(document)
                     .ready(
@@ -326,8 +313,6 @@
                             let confirmPasswordValid = false;
                             let sellerNameValid = false;
                             let sellerRegCodeValid = false;
-                            //alert("문서로드");
-
 
                             // 비밀번호 유효성 검사
                             $("#sellerPw")
@@ -408,9 +393,6 @@
                                 }
                             });
 
-
-
-
                             // 수정완료 버튼 클릭 시 유효성 검사 및 서버 전송
                             $("#modify_button").click(
                                 function () {
@@ -424,10 +406,6 @@
                                 });
 
                         });
-
-
-
-
 
 
             </script>
@@ -494,10 +472,6 @@
                         <button onclick="updateseller()" value="수정완료" id="modify_button">수정완료</button>
 
                     </div>
-
-                    <p>
-                        <a href="${path}/home">홈으로 돌아가기</a>
-                    </p>
                 </div>
 
             </section>

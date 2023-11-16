@@ -4,17 +4,23 @@
 
 <mapper namespace="com.acorn.LoginMapper">
 
-	<select id="findCustomerId" resultType="UserDTO" parameterType="map">
+
+
+
+	<!-- 손님 아이디 찾기 -->
+	<select id="findCustomerId" resultType="UserDTO"
+		parameterType="map">
 		select userId
 		from user_tbl
 		where userEmail = #{userEmail}
 	</select>
 
-
-	<select id="findSellerId" resultType="SellerDTO" parameterType="map">
+	<!-- 사장님 아이디 찾기 -->
+	<select id="findSellerId" resultType="SellerDTO"
+		parameterType="map">
 		select sellerId
 		from seller_tbl
-		where sellerEmail = #{sellerEmail}
+		where sellerEmail =	#{sellerEmail}
 	</select>
 
 
@@ -36,8 +42,7 @@
 	<insert id="sellerSignup" parameterType="SellerDTO">
 		insert into seller_tbl
 		(sellerRegCode, sellerId, sellerPw, sellerName, sellerPhone,
-		sellerEmail, sellerBirth,
-		sellerGender)
+		sellerEmail, sellerBirth, sellerGender)
 		values
 		(#{sellerRegCode},
 		#{sellerId}, #{sellerPw}, #{sellerName}, #{sellerPhone},
@@ -47,16 +52,13 @@
 	<!-- 손님 로그인 -->
 	<select id="selectUserById" resultType="UserDTO"
 		parameterType="UserDTO">
-		select * from user_tbl where userId = #{userId} and
-		userPw = #{userPw}
+		select * from user_tbl where userId = #{userId} and	userPw = #{userPw}
 	</select>
 
 	<!-- 사장님 로그인 -->
 	<select id="selectSellerById" resultType="SellerDTO"
 		parameterType="SellerDTO">
-		select * from seller_tbl where sellerId = #{sellerId}
-		and sellerPw =
-		#{sellerPw}
+		select * from seller_tbl where sellerId = #{sellerId} and sellerPw = #{sellerPw}
 	</select>
 
 	<!-- 손님 정보 수정 -->
@@ -65,8 +67,7 @@
 		set
 		userNickname = #{userNickname},
 		userPw = #{userPw},
-		userPhone =
-		#{userPhone},
+		userPhone =	#{userPhone}, 
 		userEmail = #{userEmail}
 		where userCode = #{userCode}
 	</update>
@@ -88,8 +89,7 @@
 		where
 		userNickname = #{nickname}
 		or userPhone = #{phone}
-		or userEmail =
-		#{email}
+		or userEmail = #{email}
 	</select>
 
 
@@ -99,21 +99,19 @@
 		set
 		sellerName = #{sellerName},
 		sellerPw = #{sellerPw},
-		sellerPhone =
-		#{sellerPhone},
+		sellerPhone = #{sellerPhone},
 		sellerEmail = #{sellerEmail},
-		sellerRegCode =
-		#{sellerRegCode}
+		sellerRegCode =	#{sellerRegCode}
 		where sellerCode = #{sellerCode}
 	</update>
 
 	<!-- 사장님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectSellerInfo" resultType="SellerDTO"
-		parameterType="String">
+		parameterType="Integer">
 		select sellerName, sellerPw, sellerPhone, sellerEmail,
 		sellerRegCode
 		from seller_tbl
-		where sellerCode = #{sellerCode}
+		where sellerCode = #{userCode}
 	</select>
 
 
