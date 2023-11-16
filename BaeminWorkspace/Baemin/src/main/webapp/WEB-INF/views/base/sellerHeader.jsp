@@ -157,6 +157,31 @@ section {
 	font-weight: normal;
 	font-style: normal;
 }
+
+/* 반응형 /////////////////////////////////////////////////////////////////*/
+
+/* 중간화면 */
+@media (max-width:1280px) {
+	header{
+		width: 100vw;
+		padding: 0 20px;
+	}
+}
+
+@media (max-width:767px) {
+	header{
+		height: 200px;
+	}
+	.header-wrap {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	}
+	section{
+		padding-top: 220px;
+	}
+}
 </style>
 
 <header>

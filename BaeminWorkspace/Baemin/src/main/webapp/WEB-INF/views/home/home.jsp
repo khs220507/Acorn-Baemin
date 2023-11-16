@@ -47,8 +47,8 @@ header {
 	height: 140px;
 	background-color: white;
 	position: fixed;
-	top:0;
-	left:0;
+	top: 0;
+	left: 0;
 	z-index: 99999;
 }
 
@@ -165,9 +165,11 @@ header {
 	font-size: 22px;
 	font-weight: bold;
 }
-.menu-wrap li:hover{
+
+.menu-wrap li:hover {
 	color: #48D1CC;
 }
+
 .menu-bar {
 	color: #d9d9d9;
 	margin: 10px;
@@ -188,16 +190,20 @@ header {
 
 .kakao-map-modal-content {
 	background-color: white;
-	width: 700px;
-	height: 600px;
+	width: 50vw;
+	height: 70vh;
 	border-radius: 10px;
 	position: absolute;
-	top: 50%;
+	top: 60%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	padding: 20px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 	text-align: center;
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .close-btn img {
@@ -206,11 +212,12 @@ header {
 	position: absolute;
 	top: 10px;
 	right: 10px;
+	z-index: 9999;
 }
 
 .kakao-map-wrap {
-	width: 600px;
-	height: 500px;
+	width: 45vw;
+	height: 65vh;
 	margin: 0 auto;
 	position: relative;
 }
@@ -245,7 +252,7 @@ header {
 }
 
 .set-address-btn {
-	width: 600px;
+	width: 45vw;
 	height: 50px;
 	background-color: #48D1CC;
 	border: none;
@@ -270,6 +277,7 @@ header {
 	position: relative;
 	overflow: hidden;
 }
+
 .slider-box {
 	width: 100%;
 	height: 100%;
@@ -281,7 +289,7 @@ header {
 	height: 100%;
 	position: absolute;
 	top: 0;
-  	left: 0;
+	left: 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -324,7 +332,8 @@ a.active {
 	flex-direction: column;
 	align-items: center;
 }
-.category-title h2{
+
+.category-title h2 {
 	font-size: 40px;
 }
 /* 섹션  ////////////////////////////////////////////////////*/
@@ -367,54 +376,152 @@ td img {
 	width: 80px;
 	height: 80px;
 }
-.category p{
+
+.category p {
 	font-size: 18px;
 	color: black;
 }
 /* 배민 폰트*/
 @font-face {
-font-family: 'BMHANNAPro';
-src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
-font-weight: normal;
-font-style: normal;
+	font-family: 'BMHANNAPro';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* 홈화면 꾸미기 */
-footer{
-	border-top: 5px solid #d9d9d9!important;
+footer {
+	border-top: 5px solid #d9d9d9 !important;
 }
-.store-img{
+
+.store-img {
 	width: 200px;
 	height: 170px;
 	position: absolute;
 	bottom: -41px;
 	right: -130px;
 }
-.home-img{
+
+.home-img {
 	width: 180px;
 	height: 150px;
 	position: absolute;
 	bottom: -27px;
-    left: -130px;
+	left: -130px;
 }
-.rider-bottom-img{
+
+.rider-bottom-img {
 	width: 80px;
 	height: 70px;
 	position: absolute;
 	bottom: -20px;
-    right: 55px;
+	right: 55px;
 	animation: moveLeft 120s linear infinite;
 }
 /* @keyframes를 통한 애니메이션 정의 */
 @keyframes moveLeft {
-  0% {
-    transform: translateX(0%); /* 시작 위치: 오른쪽 끝에서 시작 */
-  }
-  100% {
-    transform: translateX(-1350%); /* 종료 위치: 왼쪽 끝으로 이동 */
-  }
+    0% {
+        transform: translateX(0%); /* 시작 위치: 오른쪽 끝에서 시작 */
+    }
+    100% {
+        transform: translateX(-1350%); /* 종료 위치: 왼쪽 끝으로 이동 */
+    }
 }
 
+/* 반응형////////////////////////////////////////////////////////////////////////////////////// */
+
+  /* 중간화면 //////////////////////*/
+@media (max-width: 1280px) {
+	header{
+		height: 200px;
+	}
+ 	section{
+		width: 100vw;
+	}
+	.slider-wrap {
+		height: 60%;
+	}
+	.category-title {
+    margin-top: 80px;
+	}
+
+	/* 홈화면 꾸민거 없애기 */
+
+	.store-img {
+		display: none;
+	}
+
+	.home-img {
+		display: none;
+	}
+
+	.rider-bottom-img {
+		display: none;
+	}
+	/* 카카오맵 모달 */
+	.kakao-map-modal-content{
+			top: 62%;
+		}
+}
+
+  /* 작은화면 ///////////////////////////*/
+
+@media (max-width:767px) {
+	header{
+		height: 200px;
+	}
+	.header-wrap {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	}
+	section{
+		width: 100vw;
+	}
+	.slider-all-wrap{
+		margin-top: 100px;
+		height:70vh;
+	}
+	.slider-wrap {
+	height: 100%;
+	}
+	.category-title {
+    margin-top: 80px;
+	}
+
+	/* 카테고리 행,열 바꾸기 */
+	tr {
+    display: block;
+    width: 100%;
+ 	}
+  
+	td {
+		display: block;
+		width: 33.33%; /* 3열을 4행으로 바꾸기 위해 각 셀이 33.33%의 너비를 가지도록 설정 */
+		float: left;
+	}
+
+	/* 홈화면 꾸민거 없애기 */
+	.store-img {
+		display: none;
+	}
+
+	.home-img {
+		display: none;
+	}
+
+	.rider-bottom-img {
+		display: none;
+	}
+
+	/* 카카오맵 모달 */
+	.kakao-map-modal-content{
+		top: 62%;
+	}
+}
 </style>
 </head>
 <body style="overflow-x: hidden">
@@ -504,9 +611,8 @@ footer{
 		<div class="slider-all-wrap">
 			<div class="slider-wrap">
 				<div class="pager">
-					<a href="#slide2">2</a> <a
-						href="#slide3">3</a> <a href="#slide4">4</a> <a href="#slide5">5</a>
-					<a href="#slide7">7</a>
+					<a href="#slide2">2</a> <a href="#slide3">3</a> <a href="#slide4">4</a>
+					<a href="#slide5">5</a> <a href="#slide7">7</a>
 				</div>
 
 
@@ -526,13 +632,13 @@ footer{
 			<div class="category-title">
 				<h2>MENU</h2>
 				<form class="search-wrap" action="${path }/search" method="get"
-			onsubmit="return validateForm()">
-			<input type="text" name="searchTerm">
-			<button class="search-btn" type="submit">
-				<img
-					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII=">
-			</button>
-		</form>
+					onsubmit="return validateForm()">
+					<input type="text" name="searchTerm">
+					<button class="search-btn" type="submit">
+						<img
+							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII=">
+					</button>
+				</form>
 			</div>
 		</div>
 
@@ -564,14 +670,17 @@ footer{
 				</c:forEach>
 			</table>
 
-		<!-- 홈화면 꾸미기 -->	
+			<!-- 홈화면 꾸미기 -->
 			<!-- 가게이미지 -->
-			<img class="store-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAFBklEQVR4nO2aT2hcdRDH3yXvlRp6kEbQJGt3IyvmUNODl5wsHoTqIZd2EdFSut5UevIgVaEULEhbhLISKWRb/xDi0oTaXsQ2+yJLKwgbYrq7h0iVtAYLBbt/UkiNU+alDdEmuzPb39u3m/1+YS7N7uzMfN5v5jePWhYEQRAEQRAEQRAEQRAEVRHF+nopFklRLFykWITa28JF2hc+R3t3PN/I4t8OPvFIs9ltevO5ngYA4Cc/8GSpSW2sAQDQdmgjAPvCdxoAIPCnjJrZACAGAIE/hYQTEHwhCC0o+GJQAIYZENvEAGiyY4Bch2raZXteFPDbz/4t8semLYbUL8cg8cc5SfxNdgz4ByDtnBQFkXriJ1FS7/cUAgfAMUj8cU4Sf2nnpD/F/8XqoLR9SxTEZ9tlAI48dTVwAByDxB/nJAJg3+JamQcwZQ+Jk3onJGtBp55MBw6AY5D445ykPqfsIfMA0s640f7P9u224AFwDFKf0jmQdsbNFn+qs4vSzpLR/s92fmvwLYhjkPqUz4Elrpk5AK59SJyQtP+z/bgl+CHMMUh9SueAZ/YhgwCcrPH+z5Z2gr+GcgxSn5o54DrZxt79tf1fswO4PgLQ7AKaOWBqJxDf/bX9X7MDuD4DkO4CmjlgYidQ3f21/V+zA7g+A5DuAto58Lg7geruzxbv/VOciGYHcH0GIN0F2DhHje/H2QnEd3+2SeeGqkDfbJtqGgAci8Y35ypvQ+P+3/1dh5aSnb+pkvje+b1pAFzYcl3j+96ZzjkFgPp2AtXd33Vo8fD2kqpAP9h3mwYAx6LwffejrqLKfz07AV2yFzQ/cu9AaFl5jP9tGgAci+YEcK4a/5fsv/QARqwSJS2S2D9fdVJhT4gKr3SJLP/aDlo+u5XaxT+NWPr/rkIj1s/SHyinBih38GVxAvzZSupFahf/lLSu1APgPekPzLuf0K/Dn4oTmBk+RjfSH1O7+Kek9a4ewOeWQ0krW8v54ncv0HQ+T9nZPOX2D9Z+evYPUvZanqZzOe+7m92/V8Mxy1YD8CAkre5qEDiA2ZkMZQtznk1fvVI1Cf4bf+bh52dnMlWTaHX/D2rXXVfxVyGMWTYfIe6TPHjYyqld3rH1npwHwazatbx3RL2eyoNtT4hy8d3ev/Hf/v/56Xze87XZ/HPN6n7y19MjgcKoWg2MFR4A5up62ACgEOwpBYACAHhPwnxxuaUt2+onIOgCzgPAShHCiZJRe/qDmf+YCZ+RRIleSpZp77nK5jsBzQyg74sSDZ4t0xsTFYpfXPQMABL+A4gOl2j31xV66/xK0dcaACT8A9D/ZZleHa3QgQuPFh4AEv61oJ2nS/T6WIUOblB0AEiYnwFrB2utogNAwhyA9QYrADTgFhStMlgBwEcA/YLBCgA+AHjmwxz1HLkuGqwAYKj4kUSJug8XqPfoHxQ6dtMzk8XHHpBYv/BrB+vDwgNAA15FRNcZrADQgHdB/VUGKwD4CGCnYGMFAMMAIsqNFQAMAejbYGMdGr1D0eMLng2NFtUAan2/7W9BtTbW6PGF1eJGTyyoAdT6ftsCkG6sUQAwC0DzKjjutZDiSgs5UW8Lqv79tjsBpjfVEBYxAMjiBNzEqwi0oDnMgBDehmIIZ/2+BU1czlA91uq3oIk68waAiwCAE2BSaEEZtKA4ZgCG8ASG8CJuQbiGZhp/DYUgCIIgCIIgCIIgCIKsVtd9o3AHQ3Ov4D0AAAAASUVORK5CYII=">
+			<img class="store-img"
+				src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAACXBIWXMAAAsTAAALEwEAmpwYAAAFBklEQVR4nO2aT2hcdRDH3yXvlRp6kEbQJGt3IyvmUNODl5wsHoTqIZd2EdFSut5UevIgVaEULEhbhLISKWRb/xDi0oTaXsQ2+yJLKwgbYrq7h0iVtAYLBbt/UkiNU+alDdEmuzPb39u3m/1+YS7N7uzMfN5v5jePWhYEQRAEQRAEQRAEQRAEVRHF+nopFklRLFykWITa28JF2hc+R3t3PN/I4t8OPvFIs9ltevO5ngYA4Cc/8GSpSW2sAQDQdmgjAPvCdxoAIPCnjJrZACAGAIE/hYQTEHwhCC0o+GJQAIYZENvEAGiyY4Bch2raZXteFPDbz/4t8semLYbUL8cg8cc5SfxNdgz4ByDtnBQFkXriJ1FS7/cUAgfAMUj8cU4Sf2nnpD/F/8XqoLR9SxTEZ9tlAI48dTVwAByDxB/nJAJg3+JamQcwZQ+Jk3onJGtBp55MBw6AY5D445ykPqfsIfMA0s640f7P9u224AFwDFKf0jmQdsbNFn+qs4vSzpLR/s92fmvwLYhjkPqUz4Elrpk5AK59SJyQtP+z/bgl+CHMMUh9SueAZ/YhgwCcrPH+z5Z2gr+GcgxSn5o54DrZxt79tf1fswO4PgLQ7AKaOWBqJxDf/bX9X7MDuD4DkO4CmjlgYidQ3f21/V+zA7g+A5DuAto58Lg7geruzxbv/VOciGYHcH0GIN0F2DhHje/H2QnEd3+2SeeGqkDfbJtqGgAci8Y35ypvQ+P+3/1dh5aSnb+pkvje+b1pAFzYcl3j+96ZzjkFgPp2AtXd33Vo8fD2kqpAP9h3mwYAx6LwffejrqLKfz07AV2yFzQ/cu9AaFl5jP9tGgAci+YEcK4a/5fsv/QARqwSJS2S2D9fdVJhT4gKr3SJLP/aDlo+u5XaxT+NWPr/rkIj1s/SHyinBih38GVxAvzZSupFahf/lLSu1APgPekPzLuf0K/Dn4oTmBk+RjfSH1O7+Kek9a4ewOeWQ0krW8v54ncv0HQ+T9nZPOX2D9Z+evYPUvZanqZzOe+7m92/V8Mxy1YD8CAkre5qEDiA2ZkMZQtznk1fvVI1Cf4bf+bh52dnMlWTaHX/D2rXXVfxVyGMWTYfIe6TPHjYyqld3rH1npwHwazatbx3RL2eyoNtT4hy8d3ev/Hf/v/56Xze87XZ/HPN6n7y19MjgcKoWg2MFR4A5up62ACgEOwpBYACAHhPwnxxuaUt2+onIOgCzgPAShHCiZJRe/qDmf+YCZ+RRIleSpZp77nK5jsBzQyg74sSDZ4t0xsTFYpfXPQMABL+A4gOl2j31xV66/xK0dcaACT8A9D/ZZleHa3QgQuPFh4AEv61oJ2nS/T6WIUOblB0AEiYnwFrB2utogNAwhyA9QYrADTgFhStMlgBwEcA/YLBCgA+AHjmwxz1HLkuGqwAYKj4kUSJug8XqPfoHxQ6dtMzk8XHHpBYv/BrB+vDwgNAA15FRNcZrADQgHdB/VUGKwD4CGCnYGMFAMMAIsqNFQAMAejbYGMdGr1D0eMLng2NFtUAan2/7W9BtTbW6PGF1eJGTyyoAdT6ftsCkG6sUQAwC0DzKjjutZDiSgs5UW8Lqv79tjsBpjfVEBYxAMjiBNzEqwi0oDnMgBDehmIIZ/2+BU1czlA91uq3oIk68waAiwCAE2BSaEEZtKA4ZgCG8ASG8CJuQbiGZhp/DYUgCIIgCIIgCIIgCIKsVtd9o3AHQ3Ov4D0AAAAASUVORK5CYII=">
 
 			<!-- 집 이미지 -->
-			<img class="home-img" src="data:image/png;base64,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">
+			<img class="home-img"
+				src="data:image/png;base64,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">
 
-			<img class="rider-bottom-img" src="${path}/resources/icons/배민캐릭터로고.png">
+			<img class="rider-bottom-img"
+				src="${path}/resources/icons/배민캐릭터로고.png">
 
 		</section>
 	</div>
@@ -649,7 +758,7 @@ footer{
 							// alert("위도: "+lat+" ,경도: "+lon);
 
 							locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-							var message = '<div style="padding:5px; position:relative; bottom:5px;">현위치</div>'; // 인포윈도우에 표시될 내용입니다
+							var message = '<div style="padding:5px; position:relative; bottom:3px;">현위치</div>'; // 인포윈도우에 표시될 내용입니다
 
 							// 마커와 인포윈도우를 표시합니다
 							displayMarker(locPosition, message);
@@ -838,6 +947,37 @@ footer{
             autoSlide();
         })
 
+		//////////////////// 스크롤 ////////////////////////////
+		// 원하는 좌표로 스크롤 이동하는 함수
+		/*var isScrolled = false;
+		
+		function scrollToY(yPosition) {
+		    window.scrollTo({
+		        top: yPosition,
+		        behavior: 'smooth'
+		    });
+		}
+		
+		window.addEventListener('scroll', function() {
+		    var desiredScrollPosition = 400;
+		    var currentScrollPosition = window.scrollY || document.documentElement.scrollTop;
+		
+		    if (currentScrollPosition >= desiredScrollPosition && !isScrolled) {
+		        scrollToY(678);
+		        isScrolled = true;
+		    } else if (currentScrollPosition < desiredScrollPosition) {
+		        isScrolled = false;
+		    }
+		});*/
+
+
+
+		
+		/*window.addEventListener('scroll', function() {
+  const scrollPosition = window.scrollY;
+  console.log(scrollPosition); // 스크롤 위치를 실시간으로 출력
+  // 여기서 스크롤 위치에 따른 추가적인 로직을 수행할 수 있습니다.
+});*/
 
 	</script>
 

@@ -63,35 +63,41 @@ ul {
 
 /* 배달이 완료되었어요 div*/
 .store-menu-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+    padding: 3px 30px;
 }
 
 .finish-message {
 	color: #48D1CC;
 	font-size: 20px;
-	margin-bottom: 4px;
 }
 
 .strong-title {
 	font-size: 23px;
-	margin-top: 3px;
-	margin-bottom: 3px;
+	margin: 5px 0;
+	color: black;
 }
 
 .normal-text {
 	font-size: 20px;
-	margin-bottom: 20px;
+	margin: 5px 0;
+}
+.small-text{
+	font-size: 14px;
+	line-height: 20px;
 }
 
 .menu-detail-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+    padding: 3px 30px;
 }
-
+.menu-detail-wrap ul{
+	margin: 7px 0;
+}
+.menu-detail-wrap ul li{
+	line-height: 22px;
+	color: #4B4B4B;
+}
 .payment-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+    padding: 3px 30px;
 }
 
 .left-right-wrap {
@@ -109,24 +115,24 @@ ul {
 }
 
 .total-payment-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+    padding: 3px 30px;
 }
 
 .payment-type-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+    padding: 3px 30px;
 }
-
+.black-text{
+	color:black;
+	margin-bottom: 7px;
+}
 .gray-text {
 	font-size: 20px;
-	margin-bottom: 20px;
 	color: #4b4b4b;
+	margin: 5px 0;
 }
 
 .user-info-wrap {
-	padding-left: 30px;
-	padding-right: 30px;
+	padding: 3px 30px;
 }
 
 .delete-btn-wrap {
@@ -166,6 +172,31 @@ ul {
 	margin-top: 30px;
 	font-size: 23px;
 }
+
+/* 반응형 /////////////////////////////////////////////////////////////////*/
+
+/* 중간화면 */
+@media (max-width:1280px) {
+
+section{
+	width: 100vw;
+}
+.wrap-all{
+	width: 75vw;
+
+}
+}
+
+/* 작은화면 */
+@media (max-width:767px) {
+section{
+	width: 100vw;
+}
+.wrap-all{
+	width: 90vw;
+}
+
+}
 </style>
 </head>
 <body>
@@ -184,23 +215,23 @@ ul {
 				<!--배달이 완료되었어요 div-->
 				<div class="store-menu-wrap">
 					<p class="finish-message">
-						<strong>배달이 완료되었어요</strong>
+						배달이 완료되었어요
 					</p>
 					<a href="${path}/store?storeCode=${detail.storeCode}">
 						<p class="strong-title">
-							<strong>${detail.orderStoreName}</strong>
+							${detail.orderStoreName}
 						</p>
 					</a>
 					<p class="normal-text">${detail.orderMenuName }</p>
-					<p>주문일시: ${detail.orderDate }</p>
-					<p>주문번호: ${detail.orderNumber }</p>
+					<p class="small-text">주문일시: ${detail.orderDate }</p>
+					<p class="small-text">주문번호: ${detail.orderNumber }</p>
 				</div>
 				<hr class="bold-line">
 
 				<!--메뉴 div-->
 				<div class="menu-detail-wrap">
 					<p class="strong-title">
-						<strong>${detail.orderMenuName } ${detail.orderMenuNumber }개</strong>
+						${detail.orderMenuName } ${detail.orderMenuNumber }개
 					</p>
 					<ul>
 						<li>· 옵션 : 옵션내용</li>
@@ -215,7 +246,7 @@ ul {
 				<!--결제 금액 div-->
 				<div class="payment-wrap">
 					<p class="strong-title">
-						<strong>결제 금액</strong>
+						결제 금액
 					</p>
 					<div class="left-right-wrap">
 						<p class="normal-text left-text">주문금액</p>
@@ -231,7 +262,7 @@ ul {
 
 				<div class="total-payment-wrap left-right-wrap">
 					<p class="strong-title left-text">
-						<strong>총 결제금액</strong>
+						총 결제금액
 					</p>
 					<p class="normal-text rigth-text">${detail.orderMenuPrice + detail.deliveryFee}원</p>
 				</div>
@@ -240,7 +271,7 @@ ul {
 
 				<div class="payment-type-wrap left-right-wrap">
 					<p class="strong-title left-text">
-						<strong>결제방법</strong>
+						결제방법
 					</p>
 					<c:choose>
 						<c:when test="${detail.payType eq 0}">
@@ -258,28 +289,28 @@ ul {
 				<hr class="bold-line">
 
 				<div class="user-info-wrap">
-					<p class="normal-text">배달주소</p>
+					<p class="normal-text black-text">배달주소</p>
 					<p class="gray-text">${detail.deliveryAddress }</p>
 				</div>
 
 				<hr class="thin-line">
 
 				<div class="user-info-wrap">
-					<p class="normal-text">전화번호</p>
+					<p class="normal-text black-text">전화번호</p>
 					<p class="gray-text">${detail.userPhone}</p>
 				</div>
 
 				<hr class="thin-line">
 
 				<div class="user-info-wrap">
-					<p class="normal-text">가게 사장님께</p>
+					<p class="normal-text black-text">가게 사장님께</p>
 					<p class="gray-text">${detail.reqToSeller }</p>
 				</div>
 
 				<hr class="thin-line">
 
 				<div class="user-info-wrap">
-					<p class="normal-text">라이더님께</p>
+					<p class="normal-text black-text">라이더님께</p>
 					<p class="gray-text">${detail.reqToRider }</p>
 				</div>
 
@@ -296,7 +327,7 @@ ul {
 				</div>
 
 				<button class="add-cart-btn">
-					<strong>같은 메뉴 담기</strong>
+					같은 메뉴 담기
 				</button>
 
 			</c:forEach>
