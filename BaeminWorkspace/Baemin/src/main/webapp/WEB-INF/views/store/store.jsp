@@ -50,8 +50,9 @@ section {
 	width: 1280px;
 	border: 1px solid black;
 	padding-top: 5%;
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
+	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
+	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+}
 }
 
 section::-webkit-scrollbar { /* 스크롤바 없애기 */
@@ -238,26 +239,25 @@ button {
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
 		<div class="store-review-tab">
-			<!--<c:forEach items="${reviewList}" var="review-list">
-			</c:forEach> -->
-			<div class="review-answer">
-				<div>(닉네임)</div>
-				<div>
-					<!-- ${review-list.reviewRating} -->
-				</div>
-					<!-- 주문내역에서 가져오기 -->
-				<div>주문메뉴 : (메뉴명)</div>
-				<div>
-					<!-- ${review-list.reviewContent} -->
-					<div>리뷰등록날짜</div>
-				</div>
-				<div>
+			<c:forEach items="${reviewList}" var="review-list">
+				<div class="review-answer">
 					<div>
-						<textarea></textarea>
+						${review-list.reviewRating}
 					</div>
-					<button>등록하기</button>
+						주문내역에서 가져오기
+					<div>주문메뉴 : (메뉴명)</div>
+					<div>
+						${review-list.reviewContent}
+						<div>리뷰등록날짜</div>
+					</div>
+					<div>
+						<div>
+							<textarea></textarea>
+						</div>
+						<button>등록하기</button>
+					</div>
 				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />

@@ -40,42 +40,21 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
-
-//	@GetMapping("/menu_manage")
-// public String readmNst(@RequestParam("storeCode") int storeCode, Model model) {
-//	 	
-//		System.out.println("storeCode @service : " + storeCode);
-//		List<MenuDTO> readMenuInfo = sc.selectMenuInfo();
-//		System.out.println(readMenuInfo);
-//		StoreDTO readStoreNmRtRcMp = sc.selectStoreNmRtRcMp(storeCode);
-//		
-//		/*
-//		Map<String , Object> map = new HashMap<>();
-//		map.put("list", readtMenuInfo);
-//		map.put("storeInfo", readStoreNmRtRcMp);
-//		*/
-//		model.addAttribute("readStoreNmRtRcMp", readStoreNmRtRcMp);
-//		model.addAttribute("readMenuInfo", readMenuInfo);
-//		
-//		return "seller/store_manage";
-//	}
-//	
-
 	// 사장님의 메뉴 탭 화면
 	@GetMapping("/sellerMenu")
 	public String readMenu(Integer storeCode, Model model) {
 
 		System.out.println("storeCode @service: " + storeCode);
 		StoreDTO readStore = sc.selectStore(storeCode);
+		StoreDTO readSeller = sc.selectStore(readStore.getSellerCode());
 		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 		System.out.println(readMenuInfo);
-		//List<ReviewDTO> reviewList = sc.selectAllReview();
 		
 		model.addAttribute("readStore", readStore);
+		model.addAttribute("readSeller", readSeller);
 		model.addAttribute("readMenuInfo", readMenuInfo);
 		model.addAttribute("CList", CList);
-		//model.addAttribute("reviewList", reviewList);
 
 		return "seller/store_manage";
 	}
@@ -126,7 +105,7 @@ public class SellerController {
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/sellerMenu")
-	public void updateInfo(@RequestBody MenuDTO menu) {
+	public void updateMenuInfo(@RequestBody MenuDTO menu) {
 		sc.modifingMenu(menu);
 	}
 	// 메뉴 삭제
@@ -139,27 +118,31 @@ public class SellerController {
 	
 	
 	// 사장님 정보 탭 화면
+	// 정보 조회
 	@GetMapping("/infoManage")
-	public ResponseEntity<Map<String, Object>> readInfo(@RequestParam("storeCode") int storeCode) {
+	@ResponseBody
+	public HashMap<String, Object> readInfo(@RequestParam Integer storeCode) {
+	    HashMap<String, Object> infoMap = new HashMap<>();
+	    
+	    System.out.println("storeCode @service: " + storeCode);
+	    StoreDTO readStore = sc.selectStore(storeCode);
+	    SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+	    System.out.println("sellerCode @service : " + readSeller);
 
-		System.out.println("storeCode @service: " + storeCode);
-		StoreDTO readStore = sc.selectStore(storeCode);
-		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
-		System.out.println("sellerCode @service : " + readSeller);
-		
-		Map<String, Object> map = new HashMap<>();
-		map.put("storeInfo", readStore);
-		map.put("sellerInfo", readSeller);
-		
-		//List<ReviewDTO> reviewList = sc.selectAllReview();
-		System.out.println(map);
-		return ResponseEntity.ok(map);
-		
-		//model.addAttribute("reviewList", reviewList);
+	    infoMap.put("readStore", readStore);
+	    infoMap.put("readSeller", readSeller);
+	    
+	    System.out.println("infoMap : " + infoMap);
+	    return infoMap;
 	}
-	
-	
-	
+	// 가게정보 수정
+		@ResponseBody
+		@PutMapping("/infoManage")
+		public void updateStoreInfo(@RequestBody StoreDTO store, @RequestBody SellerDTO seller) {
+			sc.modifingStoreDTA(store);
+			sc.modifingSellerNmRn(seller);
+		}
+		
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
 	public String storeMain(@RequestParam("storeCode") int storeCode,
@@ -172,25 +155,18 @@ public class SellerController {
 		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 		System.out.println(readMenuInfo);
-		//List<ReviewDTO> reviewList = sc.selectAllReview();
+		List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
+		List<AnswerDTO> answerList = sc.selectAllAnswer(storeCode);
 		
 		model.addAttribute("readStore", readStore);
 		model.addAttribute("readSeller", readSeller);
 		model.addAttribute("readMenuInfo", readMenuInfo);
 		model.addAttribute("CList", CList);
+		model.addAttribute("RList", reviewList);
+		model.addAttribute("AList", answerList);
 		//model.addAttribute("reviewList", reviewList);
 
-		return "seller/store";
+		return "store/store";
 	}
-	
-//	@ResponseBody
-//	@RequestMapping(value="/menu_list" , method=RequestMethod.GET)
-//	public List<MenuDTO> selectAllMenuList() {
-//		List<MenuDTO> menu = sc.selectAllMenuInfo();
-//		return menu;
-//	}
-	
-	
-	// 매장 정보 수정
 	
 }
