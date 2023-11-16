@@ -16,7 +16,7 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-/* 해더 */
+
 
 /* 세션 */
 body {
@@ -26,6 +26,44 @@ body {
 	height: 100vh;
 }
 
+
+/* 인풋 */
+section input {
+  border: 2px solid #d9d9d9;
+  /* border-radius: 10px; */
+  outline: none;
+  padding-left: 10px;
+}
+.insert-optoin-wrap input{
+height: 30px;
+}
+
+
+#optionCategory, .upOptionCategoryName{
+font-size:25px;
+width: 160px;
+height: 40px;
+}
+#optionCategory{
+margin-bottom: 10px; 
+}
+.upOptionName, .upOptionPrice, #OptionName, #OptionPrice{
+height: 30px;
+}
+.upOptionName{
+width: 160px;
+}
+.upOptionPrice, .insertOptoinPrice{
+width: 100px;
+}
+.option-list select{
+  border: 2px solid #d9d9d9;
+  border-radius: 10px;
+  outline: none;
+  padding-left: 10px;
+  height: 30px;
+  margin-right: 40%;
+}
 
 
 .menu-img {
@@ -42,13 +80,12 @@ body {
 	font-size: 35px;
 	margin: 0 auto;
 	padding: 20px;
-	width: 70%;
+	width: 75%;
 	border-top: 1px solid gray;
 }
 
 .option-list-wrap {
-	width: 70%;
-	border: 1px solid black;
+	width: 75%;
 	margin: 0 auto;
 	padding: 20px 40px 20px 40px;
 }
@@ -58,11 +95,16 @@ body {
 }
 
 .option-list {
-	padding-bottom: 20px;
+	padding: 10px 20px;
+}
+.option-plus-v1{
+margin: 10px 38px;
 }
 
 .option-wrap {
-	border-bottom: 1px solid gray;
+	border-bottom: 2px solid gray;
+	padding-bottom: 20px; 	
+	margin-bottom: 20px;
 }
 .option-category-plus{
 width: 50px;
@@ -76,31 +118,25 @@ width: 60px;
 margin: 20px auto;
 }
 .option-category-plus-v2{
-padding: 10px;
+padding: 10px 0px;
 position: relative;
 display: none;
 }
-.option-category-xbut{
-position: absolute;
-right: 10px;
-width: 20px;
-}
-#optionCategory, .upOptionCategoryName{
-font-size:25px;
-width: 160px;
-height: 40px;
-}
-.upOptionName, .upOptionPrice{
 
-height: 30px;
+.option-category-xbut, .option-xbut{
+position: absolute;
+right: 30px;
+width: 20px;
+top: 0px;
+height: 20px;
 }
-.upOptionName{
-width: 160px;
-margin: 0px 300px 0px 20px;
+.insert-optoin-wrap{
+margin: 0 auto;
+position: relative;
+display: none;
+padding: 10px 38px;
 }
-.upOptionPrice{
-width: 100px;
-}
+
 .option-category-wrap{
 padding-bottom: 20px; 
 display: flex;
@@ -111,6 +147,48 @@ margin-left: 10px;
 width: 60px;
 height: 30px;
 }
+
+/* 버 튼 */
+section button{
+ 	border: none;
+ 	background-color: #d9d9d9;
+ 	padding: 5px 10px;
+ 	
+}
+.option-category-wrap button{
+font-size: 20px;
+border-radius: 10px;
+
+}
+.option-list button{
+font-size: 15px;
+border-radius: 5px;
+}
+.insert-optoin-wrap button{
+font-size: 15px;
+border-radius: 5px;
+}
+.option-plus-v1 button {
+font-size: 20px;
+background-color: white;
+border: 2px solid #d9d9d9;
+box-sizing: border-box;
+width: 160px;
+}
+.insertOptoin{
+background-color: #d9d9d9!important;
+border: none!important;
+}
+.option-category-plus-v2 button {
+	position: absolute;
+    right: 50px;
+    bottom: 15px;
+    width: 100px;
+    height: 30px;
+    font-size: 15px;
+    border-radius: 10px;
+}
+
 </style>
 <script>
 
@@ -256,13 +334,27 @@ height: 30px;
            	$(".option-category-plus-v2").css("display","block");
 			})
 			
-           $(".option-category-xbut").click(function(){
-           	$(".option-category-plus-v1").css("display","block");
-           	$(".option-category-plus-v2").css("display","none");
-           });
+        $(".option-category-xbut").click(function(){
+        	$(".option-category-plus-v1").css("display","block");
+        	$(".option-category-plus-v2").css("display","none");
+        });	
+        $(".option-xbut").click(function(){
+        	$("#"+${Category}-v1).css("display","flex");
+        	$("#"+${Category}-v2).css("display","none");
+        });
+
           
            
        });
+    function optionPlus(key){
+    	$("#"+key+"-v1").css("display","none");
+       	$("#"+key+"-v2").css("display","block");
+    }
+    function optionPlusX(key){
+    	$("#"+key+"-v1").css("display","flex");
+    	$("#"+key+"-v2").css("display","none");
+    }
+ 
     
 	function funoptionStatus(Status) {
 		if (Status == 0){
@@ -343,23 +435,21 @@ height: 30px;
 								</c:choose>
 							</c:if>
 						</c:forEach>
+							<div class="option-plus-v1" id="${item.optionCategory}-v1">
+								<button onclick="optionPlus('${item.optionCategory}')">옵션추가하기</button>
+							</div>
+							<div class="insert-optoin-wrap" id="${item.optionCategory}-v2">
+								
+								<input placeholder="옵션명" class="insertOptoinName"> <input placeholder="가격" class="insertOptoinPrice">
+								<button class="insertOptoin" onclick="insertOptoin( '${item.optionCategory}' , ${item.optionSelectType}, this)">추가하기</button>
+								<button onclick="optionPlusX('${item.optionCategory}')">취소</button>
+							</div>
 						
-						<div>
-							<button>추가</button>
-						</div>
-						<div class="insert-optoin-wrap">
-							<input class="insertOptoinName"> <input
-								class="insertOptoinPrice">
-							<button
-								onclick="insertOptoin( '${item.optionCategory}' , ${item.optionSelectType}, this)">추가하기</button>
-
-
-						</div>
 					</div>
 
 				</c:forEach>
 				
-					<div class="option-category-plus-v1"><img src="${path}/resources/icons/addoption.png"></div>
+					<div class="option-category-plus-v1"><img src="${path}/resources/icons/addoption.png"/></div>
 				
 				<div class="option-category-plus-v2">
 					<img class="option-category-xbut" src="${path}/resources/icons/optionxbut.png">

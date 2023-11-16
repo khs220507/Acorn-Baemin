@@ -106,7 +106,6 @@ public class SellerHomeController {
 		}
 		
 		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, upstoreStatus);
-		System.out.println(Store);
 		
 		rep.updateStore(Store);
 	}
