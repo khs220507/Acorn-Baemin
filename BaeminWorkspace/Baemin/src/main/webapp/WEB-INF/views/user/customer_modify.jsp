@@ -19,13 +19,10 @@
 
 	a {
 		text-decoration: none;
+		color: #007bff;
 	}
 
-	header {
-		background-color: #48D1CC;
-		height: 100px;
-		margin-bottom: 50px;
-	}
+
 
 	body {
 		font-family: Arial, sans-serif;
@@ -61,21 +58,24 @@
 		justify-content: center;
 	}
 
-	.signup-title {
+	.modify-title {
 		text-align: center;
 		padding: 20px;
+		font-size: 20px;
 	}
 
 	h1 {
 		color: #333;
 	}
-
-	p {
-		font-size: 18px;
-		color: #555;
+	
+	.modify-div span {
+		display: block;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-weight: bolder;
 	}
 
-	.signup-div {
+	.modify-div {
 		background-color: #fff;
 		padding: 20px;
 		max-width: 350px;
@@ -85,12 +85,7 @@
 		border-radius: 10px;
 	}
 
-	span {
-		display: block;
-		margin-top: 5px;
-		margin-bottom: 5px;
-		font-weight: bolder;
-	}
+	
 
 	.input-container-id {
 		display: flex;
@@ -187,7 +182,6 @@
 		width: 20px;
 	}
 	
-
 	input[type="submit"] {
 		font-weight: bolder;
 		font-size: 18px;
@@ -201,11 +195,6 @@
 		width: 250px;
 		display: block;
 		margin: 0 auto;
-	}
-
-	a {
-		color: #007bff;
-		text-decoration: none;
 	}
 
 	.options {
@@ -378,9 +367,9 @@ function updatecustomer() {
 		<div class="container">
 
 			<!-- 회원가입 폼 -->
-			<div class="signup-div">
+			<div class="modify-div">
 
-				<div class="signup-title">
+				<div class="modify-title">
 					<h1>내 정보 수정</h1>
 				</div>
 
@@ -436,9 +425,7 @@ function updatecustomer() {
 
 			</div>
 
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+		
 		</div>
 
 	</section>

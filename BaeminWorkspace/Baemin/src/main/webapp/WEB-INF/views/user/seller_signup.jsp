@@ -21,11 +21,7 @@ a {
 	text-decoration: none;
 }
 
-header {
-	background-color: #48D1CC;
-	height: 100px;
-	margin-bottom: 50px;
-}
+
 
 body {
 	font-family: Arial, sans-serif;
@@ -44,12 +40,15 @@ input[type="text"] {
 }
 
 button#checkDuplicate2, #searchpc, #signin_button {
-	background-color: #48D1CC;
+	background-color: #82d9d0;
 	color: white;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
 	margin-left: 10px;
+}
+#checkDuplicate2{
+	font-size: 16px;
 }
 
 .container {
@@ -62,28 +61,26 @@ button#checkDuplicate2, #searchpc, #signin_button {
 .signup-title {
 	text-align: center;
 	padding: 20px;
+	font-size: 18px;
 }
 
 h1 {
 	color: #333;
 }
 
-p {
-	font-size: 18px;
-	color: #555;
-}
+
 
 .signup-div {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
 	width: 100%;
-	border: 3px solid #48D1CC;
+	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
 }
 
-span {
+.signup-div span {
 	display: block;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -96,7 +93,7 @@ span {
 }
 
 button#signin_button {
-	background-color: #48D1CC;
+	background-color: #82d9d0;
 	height: 30px;
 	color: white;
 	border-radius: 4px;
@@ -147,7 +144,7 @@ input[id="sellerId"] {
 }
 
 input[type="button"] {
-	background-color: #48D1CC;
+	background-color: #82d9d0;
 	color: white;
 	border: none;
 	border-radius: 4px;
@@ -503,7 +500,7 @@ td {
 </head>
 
 <body>
-	<jsp:include page="../base/header.jsp" />
+	<jsp:include page="../base/header_login.jsp" />
 	<section id="content">
 
 
@@ -588,9 +585,7 @@ td {
 			</div>
 
 
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+			
 		</div>
 
 	</section>

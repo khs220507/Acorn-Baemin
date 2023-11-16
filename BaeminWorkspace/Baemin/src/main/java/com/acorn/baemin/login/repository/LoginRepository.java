@@ -20,32 +20,21 @@ public class LoginRepository implements LoginRepositoryI {
 
 	@Autowired
 	private static String namespace = "com.acorn.LoginMapper.";
-	 
-		@Override
-	    public String findCustomerId(Map<String, Object> params) {
-	        return session.selectOne("com.acorn.LoginMapper.findCustomerId", params);
-	    }
 
-	    @Override
-	    public String findSellerId(Map<String, Object> params) {
-	        return session.selectOne("com.acorn.LoginMapper.findSellerId", params);
-	    }
-	
-	
-	
-//	// 유저 아이디 찾기
-//	@Override
-//    public String findCustomerId(Map<String, Object> params) {
-//        return session.selectOne(namespace + "findCustomerId", params);
-//    }
-//    @Override
-//    public String findSellerId(Map<String, Object> params) {
-//        return session.selectOne(namespace + "findSellerId", params);
-//    }
-    
-   
-	
-	
+	// 손님 아이디 찾기
+	@Override
+	public String findCustomerId(Map<String, Object> params) {
+		UserDTO user = session.selectOne(namespace + "findCustomerId", params);
+		return (user != null) ? user.getUserId() : null;
+	}
+
+	// 사장님 아이디 찾기
+	@Override
+	public String findSellerId(Map<String, Object> params) {
+		SellerDTO seller = session.selectOne(namespace + "findSellerId", params);
+		return (seller != null) ? seller.getSellerId() : null;
+	}
+
 	// 손님 로그인
 	@Override
 	public UserDTO login(String userId, String userPw) {
@@ -72,8 +61,6 @@ public class LoginRepository implements LoginRepositoryI {
 		System.out.println("result" + result2);
 		return result2;
 	}
-
-	//
 
 	// 전체조회
 	@Override
@@ -114,8 +101,20 @@ public class LoginRepository implements LoginRepositoryI {
 	}
 
 	@Override
-	public void updatePassword(UserDTO user) {
-		session.update("com.acorn.mapper.LoginMapper.updatePassword", user);
+	public void updatePassword(UserDTO userPw) {
+		session.update("com.acorn.mapper.LoginMapper.updatePassword", userPw);
 	}
+
+//	// 아이디 찾기 손님
+//	@Override
+//	public String findCustomerId(Map<String, Object> params) {
+//		return session.selectOne("com.acorn.LoginMapper.findCustomerId", params);
+//	}
+//
+//	// 아이디 찾기 사장님
+//	@Override
+//	public String findSellerId(Map<String, Object> params) {
+//		return session.selectOne("com.acorn.LoginMapper.findSellerId", params);
+//	}
 
 }

@@ -180,7 +180,7 @@ section {
 				%>
 				<!-- 로그인 했을 때 -->
 				<ul class="menu-wrap">
-					<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<a href="${path}/selectUserInfo3?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/"><li>알림</li></a>
 					<span class="menu-bar">|</span>
