@@ -78,14 +78,8 @@ public class SellerRepository implements SellerRepositoryI {
 	// 매장정보 일부수정(가게소개, 운영시간, 매장주소)
 	@Override
 	public int updateStoreSubInfo(StoreDTO store) {
-		System.out.println("updateStoreSubInfo @repo");
-		return session.selectOne(namespaceSeller + "updateStoreSubInfo", store);
-	}
-	// 사장님정보 일부수정(이름, 사업자등록번호)
-	@Override
-	public int updateSellerSubInfo(SellerDTO seller) {
-		System.out.println("repo : updateSellerSubInfo");
-		return session.update(namespaceSeller + "updateSellerSubInfo", seller);
+		System.out.println("updateStoreSubInfo @repo : " + store);
+		return session.update(namespaceSeller + "updateStoreSubInfo", store);
 	}
 	
 	// 리뷰 탭
@@ -97,7 +91,7 @@ public class SellerRepository implements SellerRepositoryI {
 	}
 	// 답변 전체 조회
 	@Override
-	public List<AnswerDTO> selectAllAnswer(Integer storeCode) {
+	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {
 		System.out.println("selectAllAnswer @repo");
 		return session.selectList(namespaceAnswer + "selectAllAnswer");
 	}

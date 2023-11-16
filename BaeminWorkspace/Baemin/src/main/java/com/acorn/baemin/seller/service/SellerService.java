@@ -77,16 +77,9 @@ public class SellerService implements SellerServiceI{
 	// 매장정보 일부수정(가게소개, 운영시간, 매장주소)
 	@Override
 	public void modifingStoreDTA(StoreDTO store) {
-		System.out.println("modifingStoreDTA @service");
+		System.out.println("modifingStoreDTA @service : " + store);
 		rep.updateStoreSubInfo(store);
-	}
-	// 사장님정보 일부수정(이름, 사업자등록번호)
-	@Override
-	public void modifingSellerNmRn(SellerDTO seller) {
-		System.out.println("modifingSellerNmRn @service");
-		rep.updateSellerSubInfo(seller);
-	}
-	
+	}	
 	
 	// 리뷰 탭
 	// 리뷰 전체 조회
@@ -97,9 +90,9 @@ public class SellerService implements SellerServiceI{
 	}
 	// 답글 전체 조회
 	@Override
-	public List<AnswerDTO> selectAllAnswer(Integer storeCode) {
+	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {
 		System.out.println("selectAllAnswer @service");
-		return rep.selectAllAnswer(storeCode);
+		return rep.selectAllAnswer(reviewCode);
 	}
 	// 답변 등록
 	@Override

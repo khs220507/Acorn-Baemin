@@ -32,14 +32,12 @@ public interface SellerServiceI {
 		public SellerDTO selectSeller(Integer sellerCode);
 		// 매장정보 일부수정(가게소개, 운영시간, 매장주소)
 		public void modifingStoreDTA(StoreDTO store);
-		// 사장님정보 일부수정(이름, 사업자등록번호)
-		public void modifingSellerNmRn(SellerDTO seller);
 		
 		// 리뷰탭
 		// 리뷰 전체 조회
 		public List<ReviewDTO> selectAllReview(Integer storeCode);
 		// 답변 전체 조회
-		public List<AnswerDTO> selectAllAnswer(Integer storeCode);
+		public List<AnswerDTO> selectAllAnswer(Integer reviewCode);
 		// 답변 등록
 		public void insertAnswer(AnswerDTO answer);
 		// 답변 수정

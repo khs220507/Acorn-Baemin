@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -27,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.baemin.domain.AnswerDTO;
+import com.acorn.baemin.domain.InfoDTO;
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
@@ -47,7 +51,7 @@ public class SellerController {
 
 		System.out.println("storeCode @service: " + storeCode);
 		StoreDTO readStore = sc.selectStore(storeCode);
-		StoreDTO readSeller = sc.selectStore(readStore.getSellerCode());
+		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
 		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 		System.out.println(readMenuInfo);
@@ -137,35 +141,84 @@ public class SellerController {
 	    return infoMap;
 	}
 	// 가게정보 수정
-		@ResponseBody
-		@PutMapping("/infoManage")
-		public void updateStoreInfo(@RequestBody StoreDTO store, @RequestBody SellerDTO seller) {
-			sc.modifingStoreDTA(store);
-			sc.modifingSellerNmRn(seller);
-		}
+	@ResponseBody
+	@PutMapping("/infoManage")
+	public void updateStoreInfo(@RequestBody StoreDTO store) {
+		System.out.println(store);
 		
+		sc.modifingStoreDTA(store);
+	}
+	
+	
+	// 사장님의 리뷰 탭 화면
+	// 리뷰 조회
+	@GetMapping("/registerAnswer")
+	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
+	    HashMap<String, Object> raMap = new HashMap<>();
+	    ReviewDTO reviewcode = new ReviewDTO();
+	    int reviewCode = reviewcode.getReviewCode();
+	    System.out.println("storeCode @service: " + storeCode);
+	    List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
+	    List<AnswerDTO> readAnswer = sc.selectAllAnswer(reviewCode);
+	    
+	    raMap.put("readReview", readReview);
+	    raMap.put("readAnswer", readAnswer);
+	    System.out.println("infoMap : " + raMap);
+	    return raMap;
+	}
+	
+	
+	@GetMapping("/registerAnswer")
+	public String readReview(Integer storeCode, Model model, HttpSession session) {
+		
+		int userCode = (int) session.getAttribute("userCode");
+	    ReviewDTO reviewcode = new ReviewDTO();
+	    int reviewCode = reviewcode.getReviewCode();
+		System.out.println("storeCode @service: " + storeCode);
+		List<ReviewDTO> review = sc.selectAllReview(storeCode);
+		List<AnswerDTO> answer = sc.selectAllAnswer(reviewCode);
+		
+		model.addAttribute("review", review);
+		model.addAttribute("answer", answer);
+
+		return "seller/store_manage";
+	}
+	
+	// 리뷰 수정
+	
+	
+	// 리뷰 삭제
+	
+	
+	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
 	public String storeMain(@RequestParam("storeCode") int storeCode,
 			Model model) {
-
+		// 메뉴 탭
+		// 메뉴정보
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+		// 메뉴분류 정보
+		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+		System.out.println(readMenuInfo);
 		System.out.println("storeCode @service: " + storeCode);
+		
+		// 가게 정보 탭
 		StoreDTO readStore = sc.selectStore(storeCode);
 		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
 		System.out.println("sellerCode @service : " + readStore.getSellerCode());
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
-		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
-		System.out.println(readMenuInfo);
+		
+		// 리뷰 탭
 		List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
 		List<AnswerDTO> answerList = sc.selectAllAnswer(storeCode);
 		
+		// 모델 심기
 		model.addAttribute("readStore", readStore);
 		model.addAttribute("readSeller", readSeller);
 		model.addAttribute("readMenuInfo", readMenuInfo);
 		model.addAttribute("CList", CList);
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
-		//model.addAttribute("reviewList", reviewList);
 
 		return "store/store";
 	}

@@ -60,15 +60,8 @@
 	<update id="updateStoreSubInfo" parameterType="StoreDTO">
 		UPDATE store_tbl
 		SET storeDescription = #{storeDescription},
-		operatingTime = #{operatingTime}
-		WHERE storeCode = #{storeCode}
-	</update>
-	
-	<!-- 사장님정보 일부수정 -->
-	<update id="updateSellerSubInfo" parameterType="SellerDTO">
-		UPDATE seller_tbl
-		SET storeDescription = #{storeDescription},
-		operatingTime = #{operatingTime}
+		operatingTime = #{operatingTime},
+		storeAddress = #{storeAddress}
 		WHERE storeCode = #{storeCode}
 	</update>
 	

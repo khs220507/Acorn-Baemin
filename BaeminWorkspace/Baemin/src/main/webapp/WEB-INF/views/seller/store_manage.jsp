@@ -142,8 +142,6 @@ button {
 			$(".menu-sub-tab").show();
 			$(".store-info-tab, .store-review-tab").hide();
 		})
-		
-		
 	
 		// + 버튼을 클릭하면 메뉴정보 입력 폼 활성화
 	    $(".add-menu").click(function() {
@@ -177,156 +175,152 @@ button {
 			$(this).hide();
 		});
 		
+		// 메뉴 수정
+		function menuModifyBtnWithoutC(Code, element){
+			
+			let menuCode = Code;
+			let menuName = $(element).closest('.menu-info-with-btn').find('.menuName').val();
+			let menuImage = $(element).closest('.menu-info-with-btn').find('.menuImage').val();
+		    let menuContent = $(element).closest('.menu-info-with-btn').find('.menuContent').val();
+		    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menuPrice').val();
+		    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menuStatus').val();
+		    
+		    let info = {
+			    	menuCode : menuCode,
+			    	menuName : menuName,
+			    	menuImage : menuImage,
+			    	menuContent : menuContent,
+			    	menuPrice : menuPrice,
+			    	menuStatus : menuStatus
+		    	}
+		    
+		    console.log(info);
+		    
+	   		let infos = JSON.stringify(info);
+	       	
+	   		$.ajax({
+	   			type : "PUT",
+	   			url : "/baemin/sellerMenu",
+	   			data : infos,
+	   			contentType : "application/json", // 필수
+	   			success : function(data) {
+	   				alert("변경되었습니다");
+	   				window.location.reload();
+	   			},
+	   			error : function() {
+	   				alert("error");
+	   			}
+	   		})
+		};
 		
-		
-		
-		// 리뷰 탭 영역
-		
-		// 리뷰 탭을 클릭하면 보여지고 메뉴와 정보 탭은 감추는 코드
-		$(".review-tab").click(function() {
-			$(".menu-sub-tab, .store-info-tab").hide();
-			$(".store-review-tab").show();
-		});
-		
-		// 답글달기 버튼을 클릭하면 메뉴정보 입력 폼 활성화
-		$(".active-reply-form-btn").click(function() {
-			$(".reply-form").show();
-			$(this).hide();
-			$(".cancel-btn").show();
-		});
-		
-});
-
-	// 메뉴 수정
-	function menuModifyBtnWithoutC(Code, element){
-		
-		let menuCode = Code;
-		let menuName = $(element).closest('.menu-info-with-btn').find('.menuName').val();
-		let menuImage = $(element).closest('.menu-info-with-btn').find('.menuImage').val();
-	    let menuContent = $(element).closest('.menu-info-with-btn').find('.menuContent').val();
-	    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menuPrice').val();
-	    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menuStatus').val();
-	    
-	    let info = {
-		    	menuCode : menuCode,
-		    	menuName : menuName,
-		    	menuImage : menuImage,
-		    	menuContent : menuContent,
-		    	menuPrice : menuPrice,
-		    	menuStatus : menuStatus
-	    	}
-	    
-	    console.log(info);
-	    
-   		let infos = JSON.stringify(info);
-       	
-   		$.ajax({
-   			type : "PUT",
-   			url : "/baemin/sellerMenu",
-   			data : infos,
-   			contentType : "application/json", // 필수
-   			success : function(data) {
-   				alert("변경되었습니다");
-   				window.location.reload();
-   			},
-   			error : function() {
-   				alert("error");
-   			}
-   		})
-	};
-	
-	// 메뉴 삭제
-	function deleteMenu(menuCode) {
-		$.ajax({
-			type: "PUT",
-			url: "${path}/sellerMenu/"+menuCode, //path Variable  ,
-			success : function (data){
-				window.location.reload();
-			},
-			error : function() {
-				alert("error");
-			}
-		});
-	}
-	
-	// 정보 탭 영역
-	// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
-	function storeInfo(storeCode) {
-		$(".menu-sub-tab, .store-review-tab").hide();
-		$(".store-info-tab").show();
+		// 메뉴 삭제
+		function deleteMenu(menuCode) {
 			$.ajax({
-				type : "GET",
-				url : "baemin/infoManage",
-				data : {
-					storeCode : storeCode
+				type: "PUT",
+				url: "${path}/sellerMenu/"+menuCode, //path Variable  ,
+				success : function (data){
+					window.location.reload();
 				},
-				success : function(){
-					let readStore = data.readStore;
-					let readSeller = data.readSeller;
-					
-					console.log(readStore);
-		            console.log(readSeller);
-					
-					// 가게 소개
-		            $(".store-introduce").val(readStore.storeDescription);
-
-		            // 운영 시간
-		            $(".store-operate-time").val(readStore.operatingTime);
-
-		            // 대표자명
-		            $(".seller-name input").val(readSeller.sellerName);
-
-		            // 매장 주소
-		            $(".store-address input").val(readStore.storeAddress);
-
-		            // 사업자 등록번호
-		            $(".seller-regcode input").val(readSeller.sellerRegCode);
-				},
-				error : function(){
-					alert("실패");
+				error : function() {
+					alert("error");
 				}
 			});
 		}
-	// 가게정보 수정
-	function modifyStoreInfo(selCode, stCode, element){
+
 		
-		let sellerCode = selCode;
-		let storeCode = stCode;
-		let storeDescription = $(element).closest('.store-info-modify-btn').find('.storeDescription').val();
-		let operatingTime = $(element).closest('.store-info-modify-btn').find('.operatingTime').val();
-	    let sellerName = $(element).closest('.store-info-modify-btn').find('.sellerName').val();
-	    let storeAddress = $(element).closest('.store-info-modify-btn').find('.storeAddress').val();
-	    let sellerRegCode = $(element).closest('.store-info-modify-btn').find('.sellerRegCode').val();
-	    
-	    let info = {
-	    		sellerCode : sellerCode,
-		    	storeCode : storeCode,
-		    	storeDescription : storeDescription,
-		    	operatingTime : operatingTime,
-		    	sellerName : sellerName,
-		    	storeAddress : storeAddress,
-		    	sellerRegCode : sellerRegCode
-	    	}
-	    
-	    console.log(info);
-	    
-   		let infos = JSON.stringify(info);
-       	
-   		$.ajax({
-   			type : "PUT",
-   			url : "{path}/infoManage",
-   			data : infos,
-   			contentType : "application/json", // 필수
-   			success : function(data) {
-   				alert("변경되었습니다");
-   				window.location.reload();
-   			},
-   			error : function() {
-   				alert("error");
-   			}
-   		})
-	};
-	   
+		// 정보 탭 영역
+		// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
+		function storeInfo(storeCode) {
+			$(".menu-sub-tab, .store-review-tab").hide();
+			$(".store-info-tab").show();
+				$.ajax({
+					type : "GET",
+					url : "/baemin/infoManage",
+					data : {
+						storeCode : storeCode
+					},
+					success : function(response){
+						let readStore = response.readStore;
+						let readSeller = response.readSeller;
+						
+						// 가게 소개 정보 적용
+			            $("#store-description").val(readStore.storeDescription);
+			            $("#operating-time").val(readStore.operatingTime);
+
+			            // 사업자 정보 적용
+			            $("#seller-name").val(readSeller.sellerName);
+			            $("#store-address").val(readStore.storeAddress);
+			            $("#seller-regCode").val(readSeller.sellerRegCode);
+					},
+					error : function(){
+						alert("실패");
+					}
+				});
+			}
+		
+		// 가게정보 수정
+		function modifyStoreInfo(Code, element){
+			let storeCode = Code;
+			let storeDescription = $(element).closest('.store-info-tab').find('#store-description').val();
+			let operatingTime = $(element).closest('.store-info-tab').find('#operating-time').val();
+		    let storeAddress = $(element).closest('.store-info-tab').find('#store-address').val();
+		    
+		    let storeInfo = {
+		    		storeCode : storeCode,
+			    	storeDescription : storeDescription,
+			    	operatingTime : operatingTime,
+			    	storeAddress : storeAddress
+		    	}
+		    
+		    console.log(storeInfo);
+		    
+	   		let infos = JSON.stringify(storeInfo);
+
+		    console.log(infos);
+		    
+	   		$.ajax({
+	   			type : "PUT",
+	   			url : "/baemin/infoManage",
+	   			data : infos,
+	   			dataType : "text",
+	   			contentType : "application/json", // 필수
+	   			success : function() {
+	   				alert("변경되었습니다");
+	   			},
+	   			error : function(e) {
+	   				console.log(e)
+	   				alert("error");
+	   			}
+	   		})
+		};
+		
+		
+		// 리뷰 탭 영역
+		// 리뷰 조회
+		function review(storeCode){
+			$(".menu-sub-tab, .store-info-tab").hide();
+			$(".store-review-tab").show();
+			
+			$.ajax({
+				type : "GET",
+	   			url : "/baemin/reviewAnswer",
+	   			success : function(response) {
+	   				alert("조회완료");
+
+					let readReview = response.readReview;
+					let readAnswer = response.readAnswer;
+	   			},
+	   			error : function(e) {
+	   				console.log(e)
+	   				alert("error");
+	   			}
+			})
+		}
+		
+});
+
+	
+
 </script>
 </head>
 <body>
@@ -344,7 +338,7 @@ button {
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab">메뉴</li>
 			<li class="info-tab" onclick="storeInfo(${readStore.storeCode})">정보</li>
-			<li class="review-tab">리뷰</li>
+			<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
@@ -429,46 +423,45 @@ button {
 				<div class="info-sub-tab">
 					<div class="store-description">
 						<div>가게소개</div>
-						<input type="text" value="">
+						<input type="text" id="store-description" value="">
 					</div>
 					<div class="operating-time">
 						<div>운영시간</div>
-						<input type="text"  value="">
+						<input type="text" id="operating-time" value="">
 					</div>
 					<div class="seller-info">
 						<div>사업자정보</div>
 						<div class="seller-info-sub">
 							<div class="seller-name">
 								<div>대표자명</div>
-								<input type="text" value="">
+								<input type="text" id="seller-name" value="" readonly>
 							</div>
 							<div class="store-address">
 								<div>매장주소</div>
-								<input type="text" value="">
+								<input type="text" id="store-address" value="">
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
-								<input type="text" value="">
+								<input type="text" id="seller-regCode" value="" readonly>
 							</div>
 						</div>
 					</div>
 				</div>
 				<button class="store-info-modify-btn"
-					onclick="modifyStoreInfo(${readSeller.sellerCode}, ${readStore.storeCode}, this)">수정하기</button>
+					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
 		<div class="store-review-tab">
-			<!--<c:forEach items="${reviewList}" var="review-list">
-			</c:forEach> -->
+			<c:forEach items="${readReview}" var="readReview">
 			<div class="review-answer">
 				<div>(닉네임)</div>
 				<div>
-					<!-- ${review-list.reviewRating} -->
+					${readReview.reviewRating}
 				</div>
 				<div>주문메뉴 : (메뉴명)</div>
 				<div>
-					<!-- ${review-list.reviewContent} -->
+					${readReview.reviewContent}
 					<div>리뷰등록날짜</div>
 					<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
 					<form class="reply-form" style="display: none;">
@@ -482,6 +475,7 @@ button {
 				<button class="reply-delete-btn" style="display: none">삭제</button>
 				<button class="cancel-btn" style="display: none">취소</button>
 			</div>
+			</c:forEach>
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
