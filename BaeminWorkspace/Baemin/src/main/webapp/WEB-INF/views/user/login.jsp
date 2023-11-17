@@ -135,7 +135,7 @@ a {
 	right: 0px;
 }
 .options label {
-	margin-right: 20px;
+	margin-right: 200px;
 	/* 각 옵션 사이의 간격 조절 */
 	position: absolute;
 }
@@ -252,9 +252,7 @@ a {
 					</label>
 				</div>
 			</form>
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+			
 		</div>
 	</section>
 <jsp:include page="../base/footer.jsp" />
