@@ -7,25 +7,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDTO {
-	int  orderNumber;
+	int orderNumber;
 	int userCode;
 	int storeCode;
 	String orderMenuName;
 	int orderMenuNumber;
-	int orderMenuPrice;
+	int totalPrice;
 	String orderStoreName;
 	String orderStoreImage;
 	String orderDate;
-	int payType;
+	int paymentType;
 	int orderType;
-	String reqToSeller;
-	String reqToRider;
+	String requestToSeller;
+	String requestToRider;
 	String orderStatus;
-	
-	// 추가
-	String optionCategory;
-	String optionName;
 	int deliveryFee;
 	String deliveryAddress;
 	String userPhone;
+	String optionsInfo;
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.acorn.AnswerMapper">
+	
+	
+	<!-- 리뷰 전체 조회 -->
+	<select id="selectAllReview" resultType="ReviewDTO">
+		SELECT * FROM review_tbl
+	</select>
+	
+	<!-- 답글 조회 -->
+	<select id="selectAllAnswer" resultType="AnswerDTO" parameterType="int">
+		SELECT * FROM answer_tbl where storeCode = #{storeCode}
+	</select>
+	
+	<!-- 답글 등록 -->
+	<insert id="insertAnswer" parameterType="AnswerDTO">
+		INSERT INTO answer_tbl (answerContent, reviewCode)
+		VALUES (#{answerContent}, #{reviewCode})
+	</insert>
+	
+	<!-- 답글 수정 -->
+	<update id="updateAnswer" parameterType="AnswerDTO">
+		UPDATE answer_tbl
+		SET answerContent = #{answerContent}
+		FROM answerCode = #{answerCode}
+	</update>
+	
+	<!-- 답글 삭제(상태만 변경) -->
+	<update id="deleteAnswer" parameterType="int">
+		UPDATE review_tbl
+		SET reviewStatus = #{reviewStatus}
+		FROM reviewCode = #{reviewCode}
+	</update>
+
+</mapper>

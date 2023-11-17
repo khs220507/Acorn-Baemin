@@ -21,13 +21,8 @@ a {
 	text-decoration: none;
 }
 
-header {
-	background-color: #48D1CC;
-	height: 100px;
-	margin-bottom: 50px;
-}
 
-button {
+input[name="signupType"]{
 	outline: none;
 	cursor: pointer;
 }
@@ -60,21 +55,26 @@ body {
 	justify-content: center;
 }
 
+
+
 .signup-select-form {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
 	/* 폼의 최대 너비 설정 */
 	width: 100%;
-	border: 3px solid #48D1CC;
+	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
+	position: absolute;
+    top: 250px;
+    font-size: 18px;
 }
 
 input[type="submit"] {
 	font-weight: bolder;
 	font-size: 18px;
-	background-color: #48D1CC;
+	background-color: #82d9d0;
 	color: white;
 	height: 50px;
 	padding: 10px 20px;
@@ -90,7 +90,7 @@ input[type="submit"] {
 input[type="button"] {
 	font-weight: bolder;
 	font-size: 18px;
-	background-color: #48D1CC;
+	background-color: #82d9d0;
 	color: white;
 	height: 50px;
 	padding: 10px 20px;
@@ -117,13 +117,15 @@ width: 1280px;
 </head>
 
 <body>
-	<jsp:include page="../base/header.jsp"/>
+	<jsp:include page="../base/header_login.jsp"/>
 	<section id="content">
 		<div class="container">
 			<!-- 회원가입 유형 선택 폼 -->
 			<form class="signup-select-form" method="post">
 				<div class="signup-select-form-title">
 					<h1>회원가입</h1>
+					<br>
+					<br>
 				</div>
 
 				<input type="button" name="signupType" value="소비자 회원가입"
@@ -132,9 +134,7 @@ width: 1280px;
 					onclick="location.href='${path}/seller_signup'">
 
 			</form>
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+			
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp"/>

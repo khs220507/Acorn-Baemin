@@ -120,7 +120,7 @@
 </nav>
 <hr>
 
-<section class="content">
+<section id="content">
 
         <div class="section-wrap">
         <c:forEach items="${list }" var="item">

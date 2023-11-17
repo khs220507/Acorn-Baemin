@@ -157,6 +157,31 @@ section {
 	font-weight: normal;
 	font-style: normal;
 }
+
+/* 반응형 /////////////////////////////////////////////////////////////////*/
+
+/* 중간화면 */
+@media (max-width:1280px) {
+	header{
+		width: 100vw;
+		padding: 0 20px;
+	}
+}
+
+@media (max-width:767px) {
+	header{
+		height: 200px;
+	}
+	.header-wrap {
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	}
+	section{
+		padding-top: 220px;
+	}
+}
 </style>
 
 <header>
@@ -180,7 +205,7 @@ section {
 				%>
 				<!-- 로그인 했을 때 -->
 				<ul class="menu-wrap">
-					<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<a href="${path}/selectUserInfo3?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/"><li>알림</li></a>
 					<span class="menu-bar">|</span>

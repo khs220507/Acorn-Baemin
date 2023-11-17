@@ -184,76 +184,103 @@ body {
 </style>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						function loadPaymentImage(selectedPaytype) {
-							if (selectedPaytype === 'card') {
-								// AJAX 요청을 보내서 이미지를 가져옴
-								$
-										.ajax({
-											url : '/baemin/orderDelivery?selectedPaytype=card',
-											type : 'GET',
-											success : function(data) {
-												// 'data'에 이미지 URL이 있을 것으로 가정
-												var imageUrl = 'resources/images/addcard.png';
-												$('#paymentImageElement').attr(
-														'src', imageUrl);
-												$('#payment-image').show(); // 이미지 컨테이너 표시
-											},
-											error : function() {
-												// AJAX 요청 중 발생한 오류를 처리
-											}
-										});
-							} else if (selectedPaytype === 'cash') {
-								// 현장 결제가 선택되어 있으면 이미지를 숨김
-								$('#paymentImageElement').attr('src', ''); // 이미지 소스 지우기
-								$('#payment-image').hide(); // 이미지 컨테이너 숨김
-							}
-						}
+$(document).ready(function () {
+	
+	
+	 function updateTotalPaymentAmount() {
+	        var selectedOrderType = $("input[name='order-type']:checked").val();
+	        var deliveryFee = parseInt("${storeInfo[0].deliveryFee}"); // Assuming delivery fee is a numeric value
+	        var totalPrice = parseInt("${totalPrice}");
 
-						// 첫 페이지 로드 시, 선택한 결제 방법을 확인
-						var selectedPaytype = $(
-								"input[name='select-paytype']:checked").attr(
-								"id");
-						loadPaymentImage(selectedPaytype);
+	        // Check if the selected order type is 'pickup'
+	        if (selectedOrderType === 'pickup') {
+	            // If 'pickup', set delivery fee to 0
+	            deliveryFee = 0;
+	        }
 
-						// 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
-						$("input[name='select-paytype']")
-								.change(
-										function() {
-											var selectedPaytype = $(
-													"input[name='select-paytype']:checked")
-													.attr("id");
-											loadPaymentImage(selectedPaytype);
-										});
+	        // Update the total amount and display
+	        var totalAmount = totalPrice + deliveryFee;
+	        $(".section-order-totalprice").text(totalAmount + "원");
+	        $(".section-order-price-detail-amount-delivery").text(deliveryFee + "원");
+	    }
 
-						// 초기 상태에서 라디오 버튼의 선택 여부에 따라 "section-order-address-wrap"을 숨김
-						if ($("#select-ordertype-pickup").is(":checked")) {
-							$("#address-wrap").hide();
-						}
+	    // Initial call to set the total payment amount based on the default selected order type
+	    updateTotalPaymentAmount();
 
-						// 라디오 버튼 변경 이벤트 감지
-						$("input[name='order-type']")
-								.change(
-										function() {
-											if ($("#select-ordertype-pickup")
-													.is(":checked")) {
-												// "pickup"이 선택되면 "section-order-address-wrap" 숨김
-												$("#address-wrap").hide();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.hide();
-											} else {
-												// 다른 라디오 버튼이 선택되면 "section-order-address-wrap" 표시
-												$("#address-wrap").show();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.show();
-											}
-										});
+	    // Handle radio button change event
+	    $("input[name='order-type']").change(function () {
+	        updateTotalPaymentAmount(); // Update total payment amount when the order type changes
+	    });
+	
+	function toggleAddressWrapVisibility() {
+        var selectedOrderType = $("input[name='order-type']:checked").val();
 
-					});
+        // Check if the selected order type is 'pickup'
+        if (selectedOrderType === 'pickup') {
+            $('#address-wrap').hide(); // Hide the address wrap
+        } else {
+            $('#address-wrap').show(); // Show the address wrap for other order types
+        }
+    }
+
+    // Initial call to set visibility based on the default selected order type
+    toggleAddressWrapVisibility();
+
+    // Handle radio button change event
+    $("input[name='order-type']").change(function () {
+        toggleAddressWrapVisibility(); // Toggle visibility when the order type changes
+    });
+	
+    function loadPaymentImage(selectedPaytype) {
+        if (selectedPaytype === 'card') {
+            // AJAX 요청을 보내서 이미지를 가져옴
+            $.ajax({
+                url: '/baemin/order?selectedPaytype=card',
+                type: 'GET',
+                success: function (data) {
+                    // 'data'에 이미지 URL이 있을 것으로 가정
+                    var imageUrl = 'resources/images/addcard.png';
+                    $('#paymentImageElement').attr('src', imageUrl);
+                    $('#payment-image').show(); // 이미지 컨테이너 표시
+                },
+                error: function () {
+                    // AJAX 요청 중 발생한 오류를 처리
+                }
+            });
+        } else if (selectedPaytype === 'cash') {
+            // 현장 결제가 선택되어 있으면 이미지를 숨김
+            $('#paymentImageElement').attr('src', ''); // 이미지 소스 지우기
+            $('#payment-image').hide(); // 이미지 컨테이너 숨김
+        }
+    }
+
+    // 첫 페이지 로드 시, 선택한 결제 방법을 확인
+    var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+    loadPaymentImage(selectedPaytype);
+
+    // 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
+    $("input[name='select-paytype']").change(function () {
+        var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+        loadPaymentImage(selectedPaytype);
+    });
+    
+    
+    
+
+    // "카카오페이로 결제하기" 버튼 클릭 시 처리
+    $("#order-button").click(function () {
+        // Assuming this is the button for KakaoPay
+        var selectedPaytype = $("input[name='select-paytype']:checked").attr('id');
+        if (selectedPaytype === 'card') {
+            // Show the payment image
+            $('#paymentImageElement').show();
+        } else {
+            // Hide the payment image
+            $('#paymentImageElement').hide();
+        }
+    });
+});
+
 </script>
 
 <script>
@@ -309,7 +336,6 @@ body {
 	<jsp:include page="../base/header.jsp" />
 
 	<section>
-
 		<div class="section-order-title">
 			<div class="section-order-title-inner">
 				<h1>주문하기</h1>
@@ -347,21 +373,20 @@ body {
 		</div>
 
 		<div class="section-order-request-wrap">
-			<div class="section-order-request-seller">
-				<div class="section-order-request-title" id="base-structure">요청사항</div>
-				<div class="section-order-request-seller">가게 사장님께</div>
-				<input type="text" placeholder="예)덜 맵게 해주세요">
-				<div class="section-order-request-rider">라이더님께</div>
-				<input type="text" placeholder="예)문 앞에 두고 벨 눌러주세요">
-			</div>
-		</div>
+    <div class="section-order-request-seller">
+        <div class="section-order-request-title" id="base-structure">요청사항</div>
+        <div class="section-order-request-seller">가게 사장님께</div>
+        <input type="text" name="requestToSeller" placeholder="예)덜 맵게 해주세요">
+        <div class="section-order-request-rider">라이더님께</div>
+        <input type="text" name="requestToRider" placeholder="예)문 앞에 두고 벨 눌러주세요">
+    </div>
+</div>
 
 		<div class="section-order-paytype-wrap">
 			<div class="section-order-paytype-title" id="base-structure">결제수단</div>
 			<div class="section-order-paytype-card">
 				<div class="section-order-paytype-card-wrap">
-					<input type="radio" id="card" name="select-paytype"
-						checked="checked">
+					<input type="radio" id="card" name="select-paytype" checked="checked">
 					<div id="base-structure">카드결제</div>
 				</div>
 				<div id="payment-image" style="display: none;">
@@ -381,22 +406,37 @@ body {
 			<div class="section-order-price-title" id="base-structure">결제금액</div>
 			<div class="section-order-price-detail-wrap">
 				<div class="section-order-price-detail">주문금액</div>
-				<div class="section-order-price-detail-amount">26000원</div>
+				<div class="section-order-price-detail-amount">${totalPrice}원</div>
 			</div>
 			<div class="section-order-price-detail-wrap-delivery">
 				<div class="section-order-price-detail-delivery">배달팁</div>
-				<div class="section-order-price-detail-amount-delivery">3000원</div>
+				<div class="section-order-price-detail-amount-delivery">${storeInfo[0].deliveryFee}원</div>
 			</div>
 		</div>
+		
+		<c:set var="totalAmount" value="${totalPrice + storeInfo[0].deliveryFee}" />
 
 		<div class="section-order-totalprice-wrap">
 			<div class="section-order-totalprice">총 결제금액</div>
-			<div class="section-order-totalprice">29000원</div>
+			<div class="section-order-totalprice">${totalAmount}원</div>
 		</div>
 
-		<div class="section-order-button-wrap">
-			<button id="order-button">결제하기</button>
-		</div>
+		 <div class="section-order-button-wrap">
+            <form id="order-form" method="post" action="orderDetail">
+          
+                <input type="hidden" name="orderType" id="orderType" value="delivery">
+                <input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${userInfo[0].userAddress}">
+                <input type="hidden" name="userPhone" id="userPhone" value="${userInfo[0].userPhone}">
+                <input type="hidden" name="requestToSeller" id="requestToSeller" value="">
+                <input type="hidden" name="requestToRider" id="requestToRider" value="">
+                <input type="hidden" name="paymentType" id="paymentType" value="card">
+                <input type="hidden" name="totalPrice" id="totalPrice" value="${totalPrice}">
+                
+                
+                <button type="submit" id="order-button">결제하기</button>
+               
+            </form>
+        </div>
 	</section>
 
 

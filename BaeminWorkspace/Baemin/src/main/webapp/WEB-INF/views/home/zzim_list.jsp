@@ -78,7 +78,12 @@ hr {
 	flex: 2;
 	margin-left: 30px;
 }
-
+.store-info-wrap a{
+	font-size: 17px;
+}
+.store-info-wrap p{
+	font-size: 15px;
+}
 .store-code {
 	display: none;
 }
@@ -87,6 +92,7 @@ hr {
 	display: flex;
 	margin-top: 3px;
 	margin-bottom: 3px;
+	align-items: center; 
 }
 
 .scope-star-img {
@@ -96,6 +102,40 @@ hr {
 
 .store-msg {
 	flex: 6;
+	font-size: 15px;
+}
+
+/* 반응형 /////////////////////////////////////////////////////////////////*/
+/* 중간화면 */
+@media (max-width:1280px) {
+
+section{
+	width: 100vw;
+}
+.wrap-all{
+	width: 75vw;
+
+}
+}
+
+/* 작은화면 */
+@media (max-width:767px) {
+section{
+	width: 100vw;
+}
+.wrap-all{
+	width: 90vw;
+}
+.zzimList-wrap{
+	flex-direction: column;
+}
+.store-info-wrap{
+	margin-left: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 7px;
+}
 }
 </style>
 </head>
