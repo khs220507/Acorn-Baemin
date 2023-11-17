@@ -91,10 +91,12 @@ public class SellerRepository implements SellerRepositoryI {
 	}
 	// 리뷰 갯수 카운트
 	@Override
-	public int countReview(Integer storeCode) {
-		System.out.println("countReview @repo");
-		String statement = namespaceReview + "countReview";
-        return session.selectOne(statement, storeCode);
+	public int reviewCount(Integer storeCode) {
+		System.out.println("reviewCount @repo");
+		String statement = namespaceReview + "reviewCount";
+		 int cnt  =session.selectOne(statement, storeCode);
+		System.out.println(  "djdjd="+ cnt);
+        return  cnt;
 	}
 	// 답변 전체 조회
 	@Override

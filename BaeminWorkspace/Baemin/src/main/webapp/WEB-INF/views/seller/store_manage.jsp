@@ -183,7 +183,30 @@ button {
 		$(".active-reply-form-btn").show();	// 답글 달기 활성화
 		$(this).hide();
 	});
-	
+	// 메뉴 분류 수정
+	function modifyMenuClassification(Code, element){
+		let menuCode = Code;
+		let menuClassification = $(element).closest(this).find('.menu-classification-list').val();
+		
+		let info = {
+				menuCode : menuCode,
+				menuClassification : menuClassification
+		}
+		
+		let infos = JSON.stringify(info);
+		
+		$.ajax({
+			type : "PUT",
+			url : "${path}/updateSellerClassification",
+			data : infos,
+			success : function(){
+				alert("수정완료");
+			},
+			error : function(){
+				alert("실패")
+			}
+		});
+	}
 	// 메뉴 수정
 	function menuModifyBtnWithoutC(Code, element){
 
@@ -212,7 +235,7 @@ button {
    			url : "${path}/updateSellerMenu",
    			data : infos,
    			contentType : "application/json", // 필수
-   			success : function(data) {
+   			success : function() {
    				alert("변경되었습니다");
    				window.location.reload();
    			},
@@ -224,10 +247,10 @@ button {
 	}
 	
 	// 메뉴 삭제
-	function deleteMenu(menuCode) {
+	function deleteMenu() {
 		$.ajax({
 			type: "PUT",
-			url: "${path}/sellerMenu/"+menuCode, //path Variable  ,
+			url: "${path}/sellerMenu", //path Variable  ,
 			success : function (data){
 				window.location.reload();
 			},
@@ -240,7 +263,7 @@ button {
 	
 	// 정보 탭 영역
 	// 정보 탭을 클릭하면 가게정보 조회, 메뉴와 리뷰 탭 비활
-	function storeInfo(storeCode) {
+	function storeInfo() {
 		
 		$(".menu-sub-tab, .store-review-tab").hide();
 		$(".store-info-tab").show();
@@ -248,9 +271,6 @@ button {
 		$.ajax({
 			type : "GET",
 			url : "${path}/infoManage",
-			data : {
-				storeCode : storeCode
-			},
 			success : function(response){
 				let readStore = response.readStore;
 				let readSeller = response.readSeller;
@@ -314,22 +334,20 @@ button {
 		// 리뷰 탭을 클릭하면 리뷰 리스트 조회, 메뉴와 정보 탭 비활
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
-		/*
+		
 		$.ajax({
 			type : "GET",
-   			url : "${path}/reviewAnswer",
-   			success : function(response) {
+   			url : "${path}/registerAnswer",
+   			success : function(  res) {
+   				console.log(res);
    				alert("조회완료");
-				let readUser = response.readUser;
-				let readReview = response.readReview;
-				let readAnswer = response.readAnswer;
    			},
    			error : function(e) {
    				console.log(e)
    				alert("error");
    			}
 		});
-		*/
+		
 	}
 
 </script>
@@ -337,18 +355,21 @@ button {
 <body>
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
-		<div class="store-image"><img alt="가게 로고" src="${path}/storeImages/${item.storeImage}"></div>
+	<c:set var="storeImage" value="파일 이름을 어떻게 가져올까" />
+		<div class="store-image">
+			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
+		</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 		<div>-------------------------------------------------------------------</div>
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-review-minprice">
 			<div>⭐: ${readStore.storeRating}</div>
-			<div>리뷰수: ${reviewCount.reviewCount}</div>
+			<div>리뷰수: ${RCount}</div>
 			<div>최소주문금액: ${readStore.minOrderPrice}</div>
 		</div>
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
-			<li class="info-tab" onclick="storeInfo(${readStore.storeCode})">정보</li>
+			<li class="info-tab" onclick="storeInfo()">정보</li>
 			<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
@@ -362,8 +383,8 @@ button {
 			<div>
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
-					<div class="menu-classification-list">
-						${classificationList.menuClassification}</div>
+					<input type="text" class="menu-classification-list" value="${classificationList.menuClassification}">
+						<button class="CModify" onclick="modifyMenuClassification(${classificationList.menuClassification}, this)">수정</button>
 					<c:forEach items="${readMenuInfo}" var="menuList">
 						<c:if
 							test="${menuList.menuClassification eq classificationList.menuClassification}">
@@ -392,7 +413,7 @@ button {
 											<button class="menu-modify-btn-without-c"
 												onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
 											<button class="menu-delete-btn"
-												onclick="deleteMenu(${menuList.menuCode})">삭제</button>
+												onclick="deleteMenu()">삭제</button>
 										</div>
 									</div>
 								</c:when>
@@ -467,14 +488,14 @@ button {
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
 		<div class="store-review-tab">
-			<c:forEach items="${readReview}" var="readReview">
+			<c:forEach items="${review}" var="readReview">
 				<div class="review-answer">
 					<div>(닉네임)</div>
 					<div>${readReview.reviewRating}</div>
 					<div>주문메뉴 : (메뉴명)</div>
 					<div>
 						${readReview.reviewContent}
-						<div>리뷰등록날짜</div>
+						<div>${readReview.reviewDate}</div>
 						<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
 						<form class="reply-form" style="display: none;">
 							<textarea placeholder="답글 내용을 입력해주세요" rows="5" cols="30"></textarea>

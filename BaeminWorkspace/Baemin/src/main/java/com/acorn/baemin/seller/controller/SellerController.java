@@ -69,7 +69,7 @@ public class SellerController {
 			model.addAttribute("readSeller", readSeller);
 			model.addAttribute("readMenuInfo", readMenuInfo);
 			model.addAttribute("CList", CList);
-			model.addAttribute("reviewCount", reviewCount);
+			model.addAttribute("RCount", reviewCount);
 
 			return "seller/store_manage";
 			} else {
@@ -117,6 +117,13 @@ public class SellerController {
 		}
 		return "seller/store_manage";
 	}
+	// 메뉴 분류 수정
+	@ResponseBody
+	@PutMapping("/updateSellerClassification")
+	public void updateSellerClassification(@RequestBody MenuDTO menu) {
+		sc.modifingMenuClassification(menu);
+	}
+	
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/updateSellerMenu")
@@ -137,9 +144,9 @@ public class SellerController {
 	// 정보 조회
 	@GetMapping("/infoManage")
 	@ResponseBody
-	public HashMap<String, Object> readInfo(@RequestParam Integer storeCode) {
+	public HashMap<String, Object> readInfo(HttpSession session) {
 	    HashMap<String, Object> infoMap = new HashMap<>();
-	    
+	    int storeCode = (int) session.getAttribute("storeCode");
 	    System.out.println("storeCode @service: " + storeCode);
 	    StoreDTO readStore = sc.selectStore(storeCode);
 	    SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
@@ -163,11 +170,12 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-  @GetMapping("/registerAnswer")
-	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
+	@ResponseBody
+	@GetMapping("/rNaList")
+	public HashMap<String, Object> readRnA(HttpSession session) {
 	    HashMap<String, Object> raMap = new HashMap<>();
-	    ReviewDTO reviewcode = new ReviewDTO();
-	    int reviewCode = reviewcode.getReviewCode();
+	    int storeCode = (int) session.getAttribute("storeCode");
+	    int reviewCode = (int) session.getAttribute("reviewCode");
 	    System.out.println("storeCode @service: " + storeCode);
 	    List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
 	    List<AnswerDTO> readAnswer = sc.selectAllAnswer(reviewCode);
@@ -178,42 +186,27 @@ public class SellerController {
 	    return raMap;
 	}
 	
-	*/
-	
-	//@GetMapping("/registerAnswer")
-	public String readReview(Integer storeCode, Model model, HttpSession session) {
-		
-		int userCode = (int) session.getAttribute("userCode");
-	    ReviewDTO reviewcode = new ReviewDTO();
-	    int reviewCode = reviewcode.getReviewCode();
-		System.out.println("storeCode @service: " + storeCode);
-		List<ReviewDTO> review = sc.selectAllReview(storeCode);
-		List<AnswerDTO> answer = sc.selectAllAnswer(reviewCode);
-		
-		model.addAttribute("review", review);
-		model.addAttribute("answer", answer);
-
-		return "seller/store_manage";
-	}
-	
 	
 	// 리뷰 수정
 	
 	
 	// 리뷰 삭제
-	*/
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
-	public String storeMain(@RequestParam("storeCode") int storeCode,
-			Model model) {
+	public String storeMain(@RequestParam("storeCode") int storeCode, Model model) {
+		// 고정 정보 내용
+		// 리뷰 평점
+		
+		// 리뷰 갯수 카운트
+		int reviewCount = sc.reviewCount(storeCode);
 		// 메뉴 탭
-		// 메뉴정보
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보
 		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+		// 메뉴정보
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		System.out.println(readMenuInfo);
-		System.out.println("storeCode @service: " + storeCode);
 		
 		// 가게 정보 탭
 		StoreDTO readStore = sc.selectStore(storeCode);
@@ -231,7 +224,8 @@ public class SellerController {
 		model.addAttribute("CList", CList);
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
-
+		model.addAttribute("RCount", reviewCount);
+		
 		return "store/store";
 	}
 	
