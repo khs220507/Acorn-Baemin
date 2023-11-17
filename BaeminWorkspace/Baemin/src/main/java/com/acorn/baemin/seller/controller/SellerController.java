@@ -152,7 +152,8 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-	//@GetMapping("/registerAnswer")
+
+	/*@GetMapping("/registerAnswer")
 	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
 	    HashMap<String, Object> raMap = new HashMap<>();
 	    ReviewDTO reviewcode = new ReviewDTO();
@@ -184,11 +185,12 @@ public class SellerController {
 		return "seller/store_manage";
 	}
 	
+	
 	// 리뷰 수정
 	
 	
 	// 리뷰 삭제
-	
+	*/
 	
 	
 	// 손님이 볼 가게 화면

@@ -29,6 +29,10 @@ public class UserController {
 	@Autowired
 	UserRepository userrep;
 
+//	@Autowired
+//	UserService userService;
+
+
 	// 손님 아이디 중복 확인
 	@ResponseBody
 	@PostMapping("/checkDuplicate")
@@ -71,7 +75,9 @@ public class UserController {
 		return userrep.checkForDuplicates(nickname, phone, email);
 	}
 
+
 	// 내 정보 수정 시, 기존 정보 가져오기 손님
+
 	@RequestMapping("/selectUserInfo2")
 	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
 		try {
@@ -81,6 +87,7 @@ public class UserController {
 			if (userCode != null) {
 				Object userInfo = rep.selectUserInfo(userCode, 1);
 
+
 				System.out.println("aaaaaa=" + userInfo);
 				model.addAttribute("userInfo", userInfo);
 				return "user/customer_modify"; // 여기서 customer_modify 페이지로 이동
@@ -88,6 +95,7 @@ public class UserController {
 
 				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
 				return "error";
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -215,6 +223,7 @@ public class UserController {
 			return "수정 실패: " + e.getMessage();
 		}
 	}
+	}
 
 //	// 손님 정보 수정
 //	@ResponseBody
@@ -239,4 +248,4 @@ public class UserController {
 //			return "수정실패 : " + e.getMessage();
 //		}
 //	}
-}
+
