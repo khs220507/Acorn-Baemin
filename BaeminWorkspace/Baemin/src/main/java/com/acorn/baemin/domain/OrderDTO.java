@@ -12,14 +12,14 @@ public class OrderDTO {
 	int storeCode;
 	String orderMenuName;
 	int orderMenuNumber;
-	int totalPrice;
+	int orderMenuPrice;
 	String orderStoreName;
 	String orderStoreImage;
 	String orderDate;
-	int paymentType;
+	int payType;
 	int orderType;
-	String requestToSeller;
-	String requestToRider;
+	String reqToSeller;
+	String reqToRider;
 	String orderStatus;
 	int deliveryFee;
 	String deliveryAddress;

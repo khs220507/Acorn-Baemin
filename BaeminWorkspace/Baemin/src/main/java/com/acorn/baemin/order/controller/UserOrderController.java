@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.UserDTO;
@@ -29,15 +30,29 @@ public class UserOrderController {
 	UserOrderServiceImp userOrderService;
 
 	@PostMapping("/orderDetail")
-	public String submitOrder(HttpSession session) {
+	public String submitOrder(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam String deliveryAddress, @RequestParam int deliveryFee, 
+			@RequestParam int payType,
+			@RequestParam int orderType,
+			@RequestParam String reqToSeller, 
+            @RequestParam String reqToRider,
+            @RequestParam String userPhone) {
 		System.out.println("테스트On");
 		OrderDTO orderDTO = (OrderDTO) session.getAttribute("orderDTO");
-
-		System.out.println("테스트전 : " + orderDTO);
+		orderDTO.setDeliveryAddress(deliveryAddress);
+		orderDTO.setDeliveryFee(deliveryFee);
+		orderDTO.setReqToRider(reqToRider);
+	    orderDTO.setReqToSeller(reqToSeller);
+	    orderDTO.setOrderStatus("주문접수");
+		orderDTO.setUserPhone(userPhone);
+		orderDTO.setPayType(payType);
+		orderDTO.setOrderType(orderType);
+		
 		userOrderService.insertOrder(orderDTO);
-		System.out.println("테스트후 : " + orderDTO);
-
-		return "home/order_detail";
+		
+		OrderDTO lastOrderDTO = userOrderService.getLastOrder();
+		System.out.println(lastOrderDTO.getOrderNumber());
+		redirectAttributes.addAttribute("orderNumber", lastOrderDTO.getOrderNumber());
+		return "redirect:orderDetail";
 	}
 
 }

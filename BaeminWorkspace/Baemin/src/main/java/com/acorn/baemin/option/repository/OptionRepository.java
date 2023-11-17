@@ -17,6 +17,9 @@ public class OptionRepository  {
 	    public List<OptionDTO> selectOption(String menuCode) {
 	    	return session.selectList(namespaceStore+"selectOption",menuCode);
 	    }
+	    public List<OptionDTO> selectOptionUser(String menuCode) {
+	    	return session.selectList(namespaceStore+"selectOptionUser",menuCode);
+	    }
 	    
 	    public void insertOption (OptionDTO Option) {
 	    	session.insert(namespaceStore+"insertOption", Option);

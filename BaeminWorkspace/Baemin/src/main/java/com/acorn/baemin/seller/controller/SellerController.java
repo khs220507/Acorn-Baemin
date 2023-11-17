@@ -44,7 +44,6 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
-
 	// 이미지 조회
 	@ResponseBody
 	@GetMapping("/images/{menuImage:.*}")
@@ -171,7 +170,7 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-	/*	@ResponseBody
+	@ResponseBody
 	@GetMapping("/rNaList")
 	public HashMap<String, Object> readRnA(HttpSession session) {
 	    HashMap<String, Object> raMap = new HashMap<>();
@@ -187,37 +186,11 @@ public class SellerController {
 	    return raMap;
 	}
 	
-
-
-	@ResponseBody
-	@GetMapping("/registerAnswer")
-	public List<AnswerDTO> readReview(Model model, HttpSession session) {
-		
-		//int userCode = (int) session.getAttribute("userCode");
-		int storeCode = (int) session.getAttribute("storeCode");
-	    ReviewDTO reviewcode = new ReviewDTO();
-	    int reviewCode = reviewcode.getReviewCode();
-	    
-		System.out.println("storeCode @service: " + storeCode);
-		List<ReviewDTO> review = sc.selectAllReview(storeCode);
-		List<AnswerDTO> answer = sc.selectAllAnswer(reviewCode);
-		
-	//	model.addAttribute("review", review);
-	//	model.addAttribute("answer", answer);
-		
-		
-		System.out.println( "answer:" + answer);
-		
-		return answer;
-		
-	}*/
-	
 	
 	// 리뷰 수정
 	
 	
 	// 리뷰 삭제
-	
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
