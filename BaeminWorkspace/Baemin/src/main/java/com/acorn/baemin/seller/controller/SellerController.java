@@ -44,35 +44,44 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
-	
-	// 사장님의 메뉴 탭 화면
-	@GetMapping("/sellerMenu")
-	public String readMenu(Integer storeCode, Model model) {
 
-		System.out.println("storeCode @service: " + storeCode);
-		StoreDTO readStore = sc.selectStore(storeCode);
-		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
-		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
-		System.out.println(readMenuInfo);
-		
-		model.addAttribute("readStore", readStore);
-		model.addAttribute("readSeller", readSeller);
-		model.addAttribute("readMenuInfo", readMenuInfo);
-		model.addAttribute("CList", CList);
-
-		return "seller/store_manage";
-	}
-	// 이미지 업로드와 관련
+	// 이미지 조회
 	@ResponseBody
 	@GetMapping("/images/{menuImage:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
 		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
 	}
+	
+	// 사장님의 메뉴 탭 화면
+	@GetMapping("/sellerMenu")
+	public String readMenu(Integer storeCode, Model model, HttpSession session) {
+		
+		System.out.println("storeCode @service: " + storeCode);
+		session.setAttribute("storeCode", storeCode);
+		if(storeCode != null) {
+			StoreDTO readStore = sc.selectStore(storeCode);
+			SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+			List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+			List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+			System.out.println(readMenuInfo);
+			int reviewCount = sc.reviewCount(storeCode);
+			
+			model.addAttribute("readStore", readStore);
+			model.addAttribute("readSeller", readSeller);
+			model.addAttribute("readMenuInfo", readMenuInfo);
+			model.addAttribute("CList", CList);
+			model.addAttribute("reviewCount", reviewCount);
+
+			return "seller/store_manage";
+			} else {
+				return "redirect:/home";
+			}
+	}
+	
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
 	public String createtMenu(Integer storeCode, Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus)
+			String menuContent, String menuClassification, Integer menuStatus, HttpSession session)
 					throws IllegalStateException, IOException {
 		
 		System.out.println("menuName" + menuName);
@@ -84,7 +93,7 @@ public class SellerController {
 		
 		try {
 			if (!menuImageFile.isEmpty()) {
-				// 이미지 업로드 파트
+				// 이미지 업로드
 				String fileName = menuImageFile.getOriginalFilename();
 				String menuRealImage = fileDir + menuName + fileName; // c:\\test\\upload\\고양이.jpg
 				menuImageFile.transferTo(new File(menuRealImage));
@@ -99,6 +108,8 @@ public class SellerController {
 				
 				System.out.println(menu);
 				sc.insertMenu(menu);
+				session.setAttribute("menuCode", menuCode);
+				
 			}
 			
 		} catch (Exception e) {
@@ -109,14 +120,15 @@ public class SellerController {
 	}
 	// 메뉴 수정
 	@ResponseBody
-	@PutMapping("/sellerMenu")
+	@PutMapping("/updateSellerMenu")
 	public void updateMenuInfo(@RequestBody MenuDTO menu) {
 		sc.modifingMenu(menu);
 	}
 	// 메뉴 삭제
 	@ResponseBody
-	@PutMapping("/sellerMenu/{menuCode}")
-	public void deleteMenu(@PathVariable Integer menuCode) {
+	@PutMapping("/sellerMenu")
+	public void deleteMenu(HttpSession session) {
+		Integer menuCode = (Integer) session.getAttribute("menuCode");
 		System.out.println(menuCode);
 		sc.deleteMenu(menuCode);
 	}
@@ -152,7 +164,7 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-	/*@GetMapping("/registerAnswer")
+/*	@GetMapping("/registerAnswer")
 	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
 	    HashMap<String, Object> raMap = new HashMap<>();
 	    ReviewDTO reviewcode = new ReviewDTO();
@@ -167,6 +179,7 @@ public class SellerController {
 	    return raMap;
 	}
 	
+	*/
 	
 	@GetMapping("/registerAnswer")
 	public String readReview(Integer storeCode, Model model, HttpSession session) {
@@ -189,7 +202,6 @@ public class SellerController {
 	
 	
 	// 리뷰 삭제
-	*/
 	
 	
 	// 손님이 볼 가게 화면
