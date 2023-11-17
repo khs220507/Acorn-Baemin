@@ -11,5 +11,5 @@ public interface UserOrderServiceI {
 	
 	public List<UserDTO> getUserByCode(int userCode);
 	public void insertOrder(OrderDTO orderDTO);
-
+	public OrderDTO getLastOrder();
 }

@@ -36,6 +36,9 @@ public class OptionController {
 		model.addAttribute("Categorylist", result2);
 		model.addAttribute("list", result);
 		model.addAttribute("menuCode", menuCode);
+		
+		
+		
 		return "store/option";
 		}
 	
