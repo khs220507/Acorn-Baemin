@@ -240,7 +240,7 @@ margin: 0 auto;
 		
     
 	    function storedelete(Code) {
-	    	confirm("정말 매장을 삭제 하시겠습니까?");
+	    	if(confirm("정말 매장을 삭제 하시겠습니까?")){
 			let storeCode = Code;
 		    let storeStatus = 2;
 	   	let info = {storeCode : storeCode,
@@ -260,7 +260,7 @@ margin: 0 auto;
 	   				alert("매장정보 수정에 실패하였습니다.");
 	   			}
 	   		})
-		}
+		}}
 	    
 
 	    
