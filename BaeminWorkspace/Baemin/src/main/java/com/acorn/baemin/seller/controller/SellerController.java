@@ -170,15 +170,11 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-<<<<<<< HEAD
 
-	/*@GetMapping("/registerAnswer")
-	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
-=======
+	
 	@ResponseBody
 	@GetMapping("/rNaList")
 	public HashMap<String, Object> readRnA(HttpSession session) {
->>>>>>> 1498509649bafc825be2ac5dcd4410344c4d6b62
 	    HashMap<String, Object> raMap = new HashMap<>();
 	    int storeCode = (int) session.getAttribute("storeCode");
 	    int reviewCode = (int) session.getAttribute("reviewCode");
@@ -193,7 +189,6 @@ public class SellerController {
 	}
 	
 	
-<<<<<<< HEAD
 	//@GetMapping("/registerAnswer")
 	public String readReview(Integer storeCode, Model model, HttpSession session) {
 		
@@ -211,8 +206,6 @@ public class SellerController {
 	}
 	
 	
-=======
->>>>>>> 1498509649bafc825be2ac5dcd4410344c4d6b62
 	// 리뷰 수정
 	
 	
