@@ -9,8 +9,8 @@
 	</select>
 	
 	<!-- 해당 가게의 리뷰 갯수 카운트 -->
-	<select id="countReview" resultType="int" parameterType="int">
-        SELECT COUNT(*) FROM reviews WHERE store_code = #{storeCode}
+	<select id="reviewCount" resultType="int" parameterType="int">
+        SELECT COUNT(*) FROM review_tbl WHERE storeCode = #{storeCode}
     </select>
     
 	<!-- 리뷰 등록 -->

@@ -40,7 +40,7 @@ public interface SellerRepositoryI {
 	// 리뷰 전체 조회
 	public List<ReviewDTO> selectAllReview(Integer storeCode);
 	// 리뷰 갯수 카운트
-	public int countReview(Integer storeCode);
+	public int reviewCount(Integer storeCode);
 	// 답변 전체 조회
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode);
 	// 답변 등록

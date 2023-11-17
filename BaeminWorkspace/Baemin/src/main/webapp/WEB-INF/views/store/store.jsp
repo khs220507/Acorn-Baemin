@@ -122,6 +122,19 @@ button {
 }
 </style>
 <script>
+
+	window.onload = function() {
+	  // URL의 앵커를 획득
+	  var hash = window.location.hash;
+	  // 앵커가 존재하는 경우 해당 앵커로 자동으로 이동
+	  if (hash) {
+		var element = document.querySelector(hash);
+		if (element) {
+			element.scrollIntoView({ behavior: 'smooth' }); // 스크롤 부드럽게 이동
+		}
+	  }
+	};
+	
 	$(document).ready(function() {
 		// 메뉴/정보/리뷰 탭 영역
 		// 메뉴 탭을 클릭하면 보여지고 정보와 리뷰 탭은 감추는 코드
@@ -158,8 +171,8 @@ button {
 		<!-- 평점을 가져오면서 평균내야함 -->
 			<div>⭐: ${readStore.storeRating}</div>
 			<!-- 매장코드에 맞는 리뷰 전체를 카운트해서 가져와야함 -->
-			<div>리뷰수: ${readStore.reviewCount}</div>
-			<div>최소주문금액: ${readStore.minOrderPrice}</div>
+			<div>리뷰수: ${RCount}</div>
+			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab">메뉴</li>
@@ -189,7 +202,7 @@ button {
 										<div>
 											<div class="menuName">${menuList.menuName}</div>
 											<div class="menuName">${menuList.menuContent}</div>
-											<div class="menuName">${menuList.menuPrice}</div>
+											<div class="menuName">${menuList.menuPrice}원</div>
 											<span>상태 :
 											    <c:choose>
 											        <c:when test="${menuList.menuStatus eq 0}">판매중</c:when>

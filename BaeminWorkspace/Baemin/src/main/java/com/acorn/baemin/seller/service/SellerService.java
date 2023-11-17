@@ -92,7 +92,7 @@ public class SellerService implements SellerServiceI{
 	@Override
 	public int reviewCount(Integer storeCode) {
 		System.out.println("reviewCount @service");
-		return rep.countReview(storeCode);
+		return rep.reviewCount(storeCode);
 	}
 	// 답글 전체 조회
 	@Override
