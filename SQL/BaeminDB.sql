@@ -195,7 +195,7 @@ CREATE TABLE order_tbl (
     orderType TINYINT(1) UNSIGNED,
     reqToSeller VARCHAR(300),
     reqToRider VARCHAR(300),
-    orderStatus VARCHAR(20),
+    orderStatus VARCHAR(200),
     -- 추가
     optionCategory varchar(255),
     optionName varchar(255),
