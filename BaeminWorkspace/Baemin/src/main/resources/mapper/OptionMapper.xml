@@ -6,7 +6,11 @@
 <mapper namespace="com.acorn.OptionMapper">
 	
 	
-
+	<select id="selectOptionUser" resultType="OptionDTO" parameterType="String">
+		SELECT *
+		FROM option_tbl
+		where menuCode  = #{menuCode} and optionStatus = 0
+	</select>
 
 	<select id="selectOption" resultType="OptionDTO" parameterType="String">
 		SELECT *
@@ -48,8 +52,7 @@
 	    <update id="updateOptionCategory" parameterType="OptionDTO">
 	    UPDATE option_tbl
 	    SET
-	        optionCategory = #{optionName},
-	        optionStatus = #{optionStatus}
+	        optionCategory = #{optionName}
 	    WHERE
 	        optionCategory = #{optionCategory} and
 	        menuCode = #{menuCode}

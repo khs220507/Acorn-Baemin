@@ -16,5 +16,5 @@ public class OptionDTO {
     public int optionSelectType;
     public String optionName;
     public int optionPrice;
-    public String optionStatus;
+    public int optionStatus;
 }
