@@ -270,6 +270,7 @@ margin: 0 auto;
 		   
 		   function updateStore(element) {
 			   let formData = new FormData(element.closest('#updateForm'));
+			   console.log(formData);
 			   		$.ajax({
 			   			type : "POST",
 			   			enctype : 'multipart/form-data',

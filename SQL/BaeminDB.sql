@@ -1,6 +1,5 @@
 use baemin_db;
 
-
 -- 01 회원 user_tbl
 CREATE TABLE user_tbl (
     userCode INT AUTO_INCREMENT PRIMARY KEY,
@@ -320,12 +319,6 @@ DROP TABLE store_tbl;
 DROP TABLE seller_tbl;
 DROP TABLE user_tbl;
 DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
-
-
-
-
-
-
 
 
 
