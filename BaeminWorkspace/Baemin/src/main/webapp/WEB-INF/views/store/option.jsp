@@ -48,14 +48,15 @@ hr {
 	font-size: 35px;
 	margin: 0 auto;
 	padding: 20px;
-	width: 70%;
-	border-top: 1px solid gray;
+	width: 75%;
+	border-top: 2px solid gray;
 }
 
 .option-list-wrap {
-	width: 75%;
+	width: 60%;
 	margin: 0 auto;
 	padding: 20px 60px;
+	border-top: 1px solid #d9d9d9;
 }
 
 .option-category {
@@ -65,12 +66,25 @@ hr {
 .option-list {
 	padding: 10px 20px;
 	font-size: 20px;
+	display: flex;
+	
 }
-
+.option-name{
+margin-left: 10px;
+width: 520px;
+}
 .plus-cart-but {
 	display: flex;
 	width: 100%;
 	justify-content: center;
+}
+.plus-cart-but button{
+background-color: white;
+width: 170px;
+height: 50px;
+border: 2px solid #82d9d0;
+border-radius: 10px;
+font-size: 20px;
 }
 </style>
 
@@ -129,7 +143,7 @@ function sendOptionJson() {
 											<div class="option-list">
 												<input type="radio" name="option"
 													value="${items.optionCode}" onclick="insertCart()">
-												<span>${items.optionName}</span> <span>${items.optionPrice}</span>
+												<div class="option-name">${items.optionName}</div> <div>${items.optionPrice}원</div>
 												<input type="hidden" name="${items.optionCode}"
 													value="${items.optionCode}">
 											</div>
@@ -138,9 +152,9 @@ function sendOptionJson() {
 											<div class="option-list">
 												<input type="checkbox" name="option"
 													value="${items.optionCode} / ${items.optionName} / ${items.optionPrice} / ${items.optionCategory}"
-													onclick="insertCart()"> <span>${items.optionName}</span>
-												<span>${items.optionPrice}</span> <input type="hidden"
-													name="${items.optionCode}" value="${items.optionCode}" >
+													onclick="insertCart()"> 
+													<div class="option-name">${items.optionName}</div> <div>${items.optionPrice}원</div>
+												<input type="hidden" name="${items.optionCode}" value="${items.optionCode}" >
 											</div>
 										</c:otherwise>
 									</c:choose>

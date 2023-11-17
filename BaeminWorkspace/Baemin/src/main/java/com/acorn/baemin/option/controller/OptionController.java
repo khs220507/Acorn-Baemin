@@ -26,7 +26,7 @@ public class OptionController {
 	//user
 	@GetMapping("/option")
 	public String selectOption(@RequestParam String menuCode, Model model) {
-		List<OptionDTO> result  = rep.selectOption(menuCode);
+		List<OptionDTO> result  = rep.selectOptionUser(menuCode);
 		List<String> OptionCategoryList = new ArrayList<>(result.size());
 		for(OptionDTO list : result) {
 			String OptionCategory =list.getOptionCategory();
