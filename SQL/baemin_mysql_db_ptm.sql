@@ -249,6 +249,12 @@ VALUES
 (40005, 10005, 30005, 'review5.jpg', '2023-11-14', 4, '짜장면이 진짜 맛있어요!', 1);
 
 select * from review_tbl;
+-- 리뷰 갯수를 세는 쿼리
+SELECT COUNT(reviewCode) reviewCodeCount
+FROM review_tbl
+WHERE storeCode = 30001;
+
+
 drop table review_tbl;
 
 -- 10

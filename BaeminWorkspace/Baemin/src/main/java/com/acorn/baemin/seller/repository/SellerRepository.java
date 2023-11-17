@@ -89,6 +89,13 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("selectAllReview @repo");
 		return session.selectList(namespaceReview + "selectAllReview");
 	}
+	// 리뷰 갯수 카운트
+	@Override
+	public int countReview(Integer storeCode) {
+		System.out.println("countReview @repo");
+		String statement = namespaceReview + "countReview";
+        return session.selectOne(statement, storeCode);
+	}
 	// 답변 전체 조회
 	@Override
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {
@@ -113,7 +120,6 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("deleteAnswer @repo");
 		return session.update(namespaceAnswer + "deleteAnswer", answer);
 	}
-
 	
 
 
