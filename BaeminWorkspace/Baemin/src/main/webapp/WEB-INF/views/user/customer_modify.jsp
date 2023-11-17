@@ -19,13 +19,10 @@
 
 	a {
 		text-decoration: none;
+		color: #007bff;
 	}
 
-	header {
-		background-color: #48D1CC;
-		height: 100px;
-		margin-bottom: 50px;
-	}
+
 
 	body {
 		font-family: Arial, sans-serif;
@@ -61,21 +58,24 @@
 		justify-content: center;
 	}
 
-	.signup-title {
+	.modify-title {
 		text-align: center;
 		padding: 20px;
+		font-size: 20px;
 	}
 
 	h1 {
 		color: #333;
 	}
-
-	p {
-		font-size: 18px;
-		color: #555;
+	
+	.modify-div span {
+		display: block;
+		margin-top: 5px;
+		margin-bottom: 5px;
+		font-weight: bolder;
 	}
 
-	.signup-div {
+	.modify-div {
 		background-color: #fff;
 		padding: 20px;
 		max-width: 350px;
@@ -85,12 +85,7 @@
 		border-radius: 10px;
 	}
 
-	span {
-		display: block;
-		margin-top: 5px;
-		margin-bottom: 5px;
-		font-weight: bolder;
-	}
+	
 
 	.input-container-id {
 		display: flex;
@@ -187,7 +182,6 @@
 		width: 20px;
 	}
 	
-
 	input[type="submit"] {
 		font-weight: bolder;
 		font-size: 18px;
@@ -201,11 +195,6 @@
 		width: 250px;
 		display: block;
 		margin: 0 auto;
-	}
-
-	a {
-		color: #007bff;
-		text-decoration: none;
 	}
 
 	.options {
@@ -364,7 +353,54 @@ function updatecustomer() {
 
 
 </script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+        	
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+				autoClose: true;
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
 
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    
+                
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postCode').value = data.zonecode;
+                document.getElementById("userAddress").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("userAddressdetail").focus();
+            }
+        }).open();
+    }
+</script>
 
 
 </head>
@@ -378,9 +414,9 @@ function updatecustomer() {
 		<div class="container">
 
 			<!-- 회원가입 폼 -->
-			<div class="signup-div">
+			<div class="modify-div">
 
-				<div class="signup-title">
+				<div class="modify-title">
 					<h1>내 정보 수정</h1>
 				</div>
 
@@ -424,7 +460,7 @@ function updatecustomer() {
 						<td>주소</td>
 						<td><span><input type="text" id="postCode"
 								name="postCode" placeholder="우편번호" class="vertical-center"></span>
-							<button value="우편번호 찾기" class="vertical-center" id="searchpc"
+							<button value="우편번호 찾기" class="vertical-center" id="searchpc" onclick="sample6_execDaumPostcode()"
 								style="width: 100px;">우편번호 찾기</button></td>
 					</table>
 				</span> <input type="text" id="userAddress" placeholder="주소"
@@ -436,9 +472,7 @@ function updatecustomer() {
 
 			</div>
 
-			<p>
-				<a href="${path}/home">홈으로 돌아가기</a>
-			</p>
+		
 		</div>
 
 	</section>

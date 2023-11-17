@@ -69,6 +69,9 @@ hr {
 .date-wrap {
 	display: flex;
 }
+.date-wrap p{
+	font-size: 14px;
+}
 
 .dot {
 	margin-left: 5px;
@@ -98,12 +101,17 @@ hr {
 
 .store-name {
 	cursor: pointer;
+	font-size: 17px;
+	color:black;
 }
 
 .menu-info {
 	display: flex;
+	margin-top: 5px;
 }
-
+.menu-info p{
+	font-size: 15px;
+}
 .menu-text {
 	margin-right: 10px;
 }
@@ -119,6 +127,7 @@ hr {
 	border-radius: 30px;
 	padding: 5px;
 	margin: 5px;
+	font-size: 15px;
 }
 
 .add-menu-btn {
@@ -129,6 +138,39 @@ hr {
 	border: 2px solid #48D1CC;
 	border-radius: 5px;
 	margin-bottom: 20px;
+	font-size: 17px;
+}
+
+/* 반응형 /////////////////////////////////////////////////////////////////*/
+/* 중간화면 */
+	@media (max-width:1280px) {
+
+	section{
+		width: 100vw;
+	}
+	.wrap-all{
+		width: 75vw;
+	
+	}
+}
+
+/* 작은화면 */
+@media (max-width:767px) {
+	section{
+		width: 100vw;
+	}
+	.wrap-all{
+		width: 90vw;
+	}
+	.wrap-center{
+		flex-direction: column;
+	}
+	.store-menu-wrap{
+		margin-left: 0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }
 </style>
 </head>
@@ -164,12 +206,12 @@ hr {
 						<div class="store-menu-wrap">
 							<a href="${path}/store?storeCode=${orderList.storeCode}">
 								<p class="store-name">
-									<strong>${orderList.orderStoreName }</strong>
+									${orderList.orderStoreName}
 								</p>
 							</a>
 							<div class="menu-info">
 								<p class="menu-text">${orderList.orderMenuName}</p>
-								<p>${orderList.orderMenuNumber }</p>
+								<p class="menu-text">${orderList.orderMenuNumber}개</p>
 								<p>${orderList.orderMenuPrice}원</p>
 							</div>
 						</div>
@@ -180,7 +222,7 @@ hr {
 						</div>
 					</div>
 					<button class="add-menu-btn">
-						<strong>같은 메뉴 담기</strong>
+						같은 메뉴 담기
 					</button>
 					<hr>
 				</div>

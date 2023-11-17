@@ -11,10 +11,13 @@ public interface LoginRepositoryI {
 	public List<UserDTO> selectAll() throws Exception;
 
 	public boolean loginCustomer(String inputId, String inputPw) throws Exception;
-	
-	String findCustomerId(Map<String, Object> params);
-    String findSellerId(Map<String, Object> params);
 
+	// 아이디 찾기 기능(손님, 사장님)
+	String findCustomerId(Map<String, Object> params);
+
+	String findSellerId(Map<String, Object> params);
+
+	
 	// 로그인
 	public String customerlogin();
 
@@ -27,6 +30,7 @@ public interface LoginRepositoryI {
 	// 사장님 로그인
 	SellerDTO loginseller(String sellerId, String sellerPw);
 
+	
 	// 아이디 비번 찾기
 
 	UserDTO findUserById(String userId);

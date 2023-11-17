@@ -343,7 +343,7 @@ button {
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-review-minprice">
 			<div>⭐: ${readStore.storeRating}</div>
-			<div>리뷰수: ${readStore.reviewCount}</div>
+			<div>리뷰수: ${reviewCount.reviewCount}</div>
 			<div>최소주문금액: ${readStore.minOrderPrice}</div>
 		</div>
 		<ul class="menu-info-review-tab">

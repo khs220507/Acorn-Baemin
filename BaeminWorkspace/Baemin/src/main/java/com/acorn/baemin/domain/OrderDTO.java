@@ -21,11 +21,8 @@ public class OrderDTO {
 	String reqToSeller;
 	String reqToRider;
 	String orderStatus;
-	
-	// 추가
-	String optionCategory;
-	String optionName;
 	int deliveryFee;
 	String deliveryAddress;
 	String userPhone;
+	String optionsInfo;
 }

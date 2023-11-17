@@ -90,8 +90,10 @@ public class SellerHomeController {
 
 	@ResponseBody
 	@RequestMapping( value="/upsellerHome" , method=RequestMethod.POST)
-	public void updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
+	public String updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
 	
+		System.out.println("테스트1 : " + upstoreStatus);
+		
 		String fileName  = upstoreImage.getOriginalFilename();
 
 		String storeRealImage = fileDir +sellerCode+fileName ; // c:\\test\\upload\\고양이.jpg
@@ -106,9 +108,9 @@ public class SellerHomeController {
 		}
 		
 		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, upstoreStatus);
-		System.out.println(Store);
-		
+		System.out.println("테스트2 : " + Store);
 		rep.updateStore(Store);
+		return "sss";
 	}
 	
 

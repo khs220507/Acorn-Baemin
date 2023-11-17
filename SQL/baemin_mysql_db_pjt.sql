@@ -127,8 +127,8 @@ create table option_tbl (
     optionPrice int, 
     optionStatus INT default 0 
 )auto_increment = 50001;
-
-UPDATE option_tbl SET optionStatus = 1 where optionCode = 50002 ;
+DELETE FROM option_tbl  where optionCode = 50019;
+UPDATE option_tbl SET optionStatus = 0 where optionCode = 50018 ;
 
 
 INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
@@ -262,6 +262,7 @@ select * from review_tbl;
 -- 10
 CREATE TABLE answer_tbl (
     answerCode int AUTO_INCREMENT PRIMARY KEY,
+    storeCode int,
     sellerCode int,
     reviewCode int,
     answerDate DATE NOT NULL,
@@ -270,13 +271,15 @@ CREATE TABLE answer_tbl (
     FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
 ) AUTO_INCREMENT=100001;
 
-INSERT INTO answer_tbl (sellerCode, reviewCode, answerDate, answerContent)
+
+INSERT INTO answer_tbl (sellerCode, storeCode, reviewCode, answerDate, answerContent)
 VALUES
-(20001, 90001, '2023-11-10', '감사합니다! 더 좋은 서비스로 보답하겠습니다.'),
-(20002, 90002, '2023-11-11', '앞으로도 더 노력하겠습니다. 감사합니다!'),
-(20003, 90003, '2023-11-12', '맛있게 드셨다니 기쁘네요. 감사합니다!'),
-(20004, 90004, '2023-11-13', '다음에도 기대해주세요! 감사합니다!'),
-(20005, 90005, '2023-11-14', '맛있게 드셨다니 다행입니다. 감사합니다!');
+(20001, 30001, 90001, '2023-11-10', '감사합니다! 더 좋은 서비스로 보답하겠습니다.'),
+(20002, 30001, 90002, '2023-11-11', '앞으로도 더 노력하겠습니다. 감사합니다!'),
+(20003, 30001, 90003, '2023-11-12', '맛있게 드셨다니 기쁘네요. 감사합니다!'),
+(20004, 30001, 90004, '2023-11-13', '다음에도 기대해주세요! 감사합니다!'),
+(20005, 30001, 90005, '2023-11-14', '맛있게 드셨다니 다행입니다. 감사합니다!');
+
 
 select * from answer_tbl;
 

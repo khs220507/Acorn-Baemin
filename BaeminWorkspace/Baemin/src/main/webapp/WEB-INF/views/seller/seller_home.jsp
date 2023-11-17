@@ -179,23 +179,10 @@ width: 100px;
 	justify-content: center;
 	align-items: center;
 }
-
-.plus-but div {
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	background-color: gray;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
+.plus-but img {
+width: 100px;
 }
 
-.plus-but span {
-	font-size: 100px;
-	color: white;
-	margin-bottom: 20px;
-}
 
 
 #updateForm{
@@ -242,9 +229,8 @@ margin: 0 auto;
          			url : "/baemin/sellerHome",
          			data : formData,
          			success : function(data) {
-         				
+         				alert("새로운 매장이 등록되었습니다.");
          				window.location.reload();
-
          			},
 		   			error : function() {
 		   				alert("저장에 실패하였습니다. 확인 후 다시 시도해주세요");
@@ -254,6 +240,7 @@ margin: 0 auto;
 		
     
 	    function storedelete(Code) {
+	    	if(confirm("정말 매장을 삭제 하시겠습니까?")){
 			let storeCode = Code;
 		    let storeStatus = 2;
 	   	let info = {storeCode : storeCode,
@@ -266,14 +253,14 @@ margin: 0 auto;
 	   			data : infos,
 	   			contentType : "application/json", // 필수
 	   			success : function(data) {
+	   				alert("매장이 삭제되었습니다.");
 	   				window.location.reload();
-
 	   			},
 	   			error : function() {
-	   				alert("error");
+	   				alert("매장정보 수정에 실패하였습니다.");
 	   			}
 	   		})
-		}
+		}}
 	    
 
 	    
@@ -282,7 +269,10 @@ margin: 0 auto;
 		   });
 		   
 		   function updateStore(element) {
+			   
+			   alert("fgfg");
 			   let formData = new FormData(element.closest('#updateForm'));
+			   console.log(formData);
 			   		$.ajax({
 			   			type : "POST",
 			   			enctype : 'multipart/form-data',
@@ -291,15 +281,17 @@ margin: 0 auto;
 			   			url : "/baemin/upsellerHome",
 			   			data : formData,
 			   			success : function(data) {
+			   				alert("매장정보가 수정되었습니다.");
+			   				console.log( data);
 			   				window.location.reload();
-			
 			   			},
 			   			error : function() {
-			   				alert("error");
+			   				alert("매장정보 수정에 실패하였습니다.");
 			   			}
 			   		})
 			   
 		}
+
 		   
 	    <% String sellerCode = (String)session.getAttribute("seller"); %>
        
@@ -384,7 +376,7 @@ margin: 0 auto;
 <body>
 
 	<jsp:include page="../base/sellerHeader.jsp" />
-	<section>
+	<section id="content">
 		<div class="section-line"><div>가게관리</div></div>
 		<div class="section-wrap">
 		
@@ -459,7 +451,7 @@ margin: 0 auto;
 					</div>
 					<div class="store-plus-but-wrap">
 					<button class="store-plus-but" onclick="plusclick2()">저장하기</button>
-					<input class="sstoreCode" type="text" name="sellerCode" value="<%= sellerCode%>">
+					<input class="sstoreCode" type="hidden" name="sellerCode" value="<%= sellerCode%>">
 					</div>
 				
 			</div>
@@ -467,7 +459,7 @@ margin: 0 auto;
 			<div class="plus-but" id="plus-but">
 
 				<div id="plus-click">
-					<span>+</span>
+					<img src="${path}/resources/icons/addoption.png">
 				</div>
 
 			</div>

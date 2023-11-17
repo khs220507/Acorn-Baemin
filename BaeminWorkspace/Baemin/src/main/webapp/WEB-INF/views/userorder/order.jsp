@@ -159,7 +159,7 @@ body {
 	margin-bottom: 10px;
 }
 
-.section-order-totalprice-wrap {
+.section-order-orderMenuPrice-wrap {
 	display: flex;
 	justify-content: space-between;
 	margin-left: 100px;
@@ -167,7 +167,7 @@ body {
 	border-bottom: 1px #d9d9d9 solid;
 }
 
-.section-order-totalprice {
+.section-order-orderMenuPrice {
 	font-size: 20px;
 }
 
@@ -187,12 +187,59 @@ body {
 	$(document)
 			.ready(
 					function() {
+
+						function updateTotalPaymentAmount() {
+			                var selectedOrderType = $("input[name='orderType']:checked").val();
+			                var deliveryFee = parseInt("${storeInfo[0].deliveryFee}"); // Assuming delivery fee is a numeric value
+			                var orderMenuPrice = parseInt("${orderMenuPrice}");
+
+			                // Check if the selected order type is 'pickup'
+			                if (selectedOrderType === 'pickup') {
+			                    // If 'pickup', set delivery fee to 0
+			                    deliveryFee = 0;
+			                }
+
+			                // Update the total amount and display
+			                var totalAmount = orderMenuPrice + deliveryFee;
+			                $(".section-order-orderMenuPrice").text(totalAmount + "원");
+			                $(".section-order-price-detail-amount-delivery").text(deliveryFee + "원");
+			            }
+
+			            // Initial call to set the total payment amount based on the default selected order type
+			            updateTotalPaymentAmount();
+
+			            // Handle radio button change event
+			            $("input[name='orderType']").change(function () {
+			                updateTotalPaymentAmount(); // Update total payment amount when the order type changes
+			            });
+
+
+						function toggleAddressWrapVisibility() {
+							var selectedOrderType = $(
+									"input[name='orderType']:checked").val();
+
+							// Check if the selected order type is 'pickup'
+							if (selectedOrderType === 'pickup') {
+								$('#address-wrap').hide(); // Hide the address wrap
+							} else {
+								$('#address-wrap').show(); // Show the address wrap for other order types
+							}
+						}
+
+						// Initial call to set visibility based on the default selected order type
+						toggleAddressWrapVisibility();
+
+						// Handle radio button change event
+						$("input[name='orderType']").change(function() {
+							toggleAddressWrapVisibility(); // Toggle visibility when the order type changes
+						});
+
 						function loadPaymentImage(selectedPaytype) {
 							if (selectedPaytype === 'card') {
 								// AJAX 요청을 보내서 이미지를 가져옴
 								$
 										.ajax({
-											url : '/baemin/orderDelivery?selectedPaytype=card',
+											url : '/baemin/order?selectedPaytype=card',
 											type : 'GET',
 											success : function(data) {
 												// 'data'에 이미지 URL이 있을 것으로 가정
@@ -213,46 +260,34 @@ body {
 						}
 
 						// 첫 페이지 로드 시, 선택한 결제 방법을 확인
-						var selectedPaytype = $(
-								"input[name='select-paytype']:checked").attr(
-								"id");
+						var selectedPaytype = $("input[name='payType']:checked")
+								.attr('id');
 						loadPaymentImage(selectedPaytype);
 
 						// 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
-						$("input[name='select-paytype']")
-								.change(
-										function() {
-											var selectedPaytype = $(
-													"input[name='select-paytype']:checked")
-													.attr("id");
-											loadPaymentImage(selectedPaytype);
-										});
+						$("input[name='payType']").change(
+								function() {
+									var selectedPaytype = $(
+											"input[name='payType']:checked")
+											.attr('id');
+									loadPaymentImage(selectedPaytype);
+								});
 
-						// 초기 상태에서 라디오 버튼의 선택 여부에 따라 "section-order-address-wrap"을 숨김
-						if ($("#select-ordertype-pickup").is(":checked")) {
-							$("#address-wrap").hide();
-						}
-
-						// 라디오 버튼 변경 이벤트 감지
-						$("input[name='order-type']")
-								.change(
-										function() {
-											if ($("#select-ordertype-pickup")
-													.is(":checked")) {
-												// "pickup"이 선택되면 "section-order-address-wrap" 숨김
-												$("#address-wrap").hide();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.hide();
-											} else {
-												// 다른 라디오 버튼이 선택되면 "section-order-address-wrap" 표시
-												$("#address-wrap").show();
-												$(
-														".section-order-price-detail-wrap-delivery")
-														.show();
-											}
-										});
-
+						// "카카오페이로 결제하기" 버튼 클릭 시 처리
+						$("#order-button").click(
+								function() {
+									// Assuming this is the button for KakaoPay
+									var selectedPaytype = $(
+											"input[name='payType']:checked")
+											.attr('id');
+									if (selectedPaytype === 'card') {
+										// Show the payment image
+										$('#paymentImageElement').show();
+									} else {
+										// Hide the payment image
+										$('#paymentImageElement').hide();
+									}
+								});
 					});
 </script>
 
@@ -297,6 +332,83 @@ body {
 			alert(msg);
 		});
 	});
+
+	$(document).ready(function() {
+		// ...
+
+		// Function to update the hidden deliveryAddress field
+		function updateDeliveryAddress() {
+			var deliveryAddress = "${userInfo[0].userAddress}"; // Get the user's address
+			var detailedAddress = $("#base-structure-input").val(); // Get the detailed address
+
+			// Concatenate user's address and detailed address
+			if (detailedAddress.trim() !== "") {
+				deliveryAddress += " " + detailedAddress;
+			}
+
+			// Update the hidden deliveryAddress field value
+			$("#deliveryAddress").val(deliveryAddress);
+		}
+
+		// Initial call to set the delivery address based on the default value
+		updateDeliveryAddress();
+
+		// Handle detailed address input change event
+		$("#base-structure-input").on("input", function() {
+			updateDeliveryAddress(); // Update delivery address when the detailed address changes
+		});
+
+		// ...
+	});
+</script>
+
+<script>
+	$(document).ready(
+			function() {
+				// Function to update hidden fields with request values
+				function updateRequestValues() {
+					var reqToSellerStoreValue = $("input[name='reqToSeller']")
+							.val();
+					var reqToRiderValue = $("input[name='reqToRider']").val();
+
+					// Set values in hidden fields
+					$("#reqToSeller").val(reqToSellerStoreValue);
+					$("#reqToRider").val(reqToRiderValue);
+				}
+
+				// Initial call to set the request values based on default values
+				updateRequestValues();
+
+				// Handle input change event
+				$("input[name='reqToSeller'], input[name='reqToRider']").on(
+						"input", function() {
+							updateRequestValues(); // Update request values when input changes
+						});
+			});
+
+	$("#order-button").click(function() {
+		// Assuming this is the button for KakaoPay
+		var selectedPaytype = $("input[name='payType']:checked").attr('id');
+		if (selectedPaytype === 'card') {
+			// Show the payment image
+			$('#paymentImageElement').show();
+		} else {
+			// Hide the payment image
+			$('#paymentImageElement').hide();
+		}
+
+		// After KakaoPay payment is successful, redirect to the specified URL
+		// You might want to replace 'baemin/kakaopay' with the actual URL you want to redirect to
+		var redirectUrl = 'baemin/kakaopay';
+
+		// Assuming the payment is successful, you can replace this with your actual logic
+		var paymentSuccessful = true;
+
+		if (paymentSuccessful) {
+			// Redirect to the specified URL
+			window.location.href = redirectUrl;
+		}
+	});
 </script>
 
 
@@ -309,94 +421,106 @@ body {
 	<jsp:include page="../base/header.jsp" />
 
 	<section>
-
 		<div class="section-order-title">
 			<div class="section-order-title-inner">
 				<h1>주문하기</h1>
 			</div>
 		</div>
-
-		<div class="section-order-select">
-			<div class="section-select-ordertype">
-				<input id="select-ordertype-delivery" type="radio" name="order-type"
-					value="delivery" checked="checked"> 배달
-			</div>
-			<div class="section-select-ordertype">
-				<input id="select-ordertype-pickup" type="radio" name="order-type"
-					value="pickup"> 포장
-			</div>
-		</div>
-
-
-		<div class="section-order-address-wrap" id="address-wrap">
-			<div class="section-order-address">
-				<div class="section-order-address-api" id="base-structure">
-					<img class="current-location-img"
-						src="resources/icons/current-location.png"> 기타
+		<form id="order-form" method="post" action="orderDetail">
+			<div class="section-order-select">
+				<div class="section-select-ordertype">
+					<input id="select-ordertype-delivery" type="radio"
+						name="orderType" value=0 checked="checked"> 배달
 				</div>
-				
-				<div class="section-order-address-citygu">현재주소 : ${userInfo[0].userAddress}</div>
-				<input class="section-order-address-detail" placeholder="상세주소"
-					id="base-structure-input">
-			</div>
-		</div>
-
-
-		<div class="section-order-phone-wrap">
-			<div class="section-order-phone" id="base-structure">${userInfo[0].userPhone}</div>
-		</div>
-
-		<div class="section-order-request-wrap">
-			<div class="section-order-request-seller">
-				<div class="section-order-request-title" id="base-structure">요청사항</div>
-				<div class="section-order-request-seller">가게 사장님께</div>
-				<input type="text" placeholder="예)덜 맵게 해주세요">
-				<div class="section-order-request-rider">라이더님께</div>
-				<input type="text" placeholder="예)문 앞에 두고 벨 눌러주세요">
-			</div>
-		</div>
-
-		<div class="section-order-paytype-wrap">
-			<div class="section-order-paytype-title" id="base-structure">결제수단</div>
-			<div class="section-order-paytype-card">
-				<div class="section-order-paytype-card-wrap">
-					<input type="radio" id="card" name="select-paytype"
-						checked="checked">
-					<div id="base-structure">카드결제</div>
-				</div>
-				<div id="payment-image" style="display: none;">
-					<img src="" alt="Payment Image" id="paymentImageElement">
-					<form method="post" action="/baemin/kakaoPay">
-						<button>카카오페이로 결제하기</button>
-					</form>
+				<div class="section-select-ordertype">
+					<input id="select-ordertype-pickup" type="radio" name="orderType"
+						value=1> 포장
 				</div>
 			</div>
-			<div class="section-order-paytype-cash">
-				<input type="radio" id="cash" name="select-paytype">
-				<div id="base-structure">현장결제</div>
-			</div>
-		</div>
 
-		<div class="section-order-price-wrap">
-			<div class="section-order-price-title" id="base-structure">결제금액</div>
-			<div class="section-order-price-detail-wrap">
-				<div class="section-order-price-detail">주문금액</div>
-				<div class="section-order-price-detail-amount">26000원</div>
-			</div>
-			<div class="section-order-price-detail-wrap-delivery">
-				<div class="section-order-price-detail-delivery">배달팁</div>
-				<div class="section-order-price-detail-amount-delivery">3000원</div>
-			</div>
-		</div>
 
-		<div class="section-order-totalprice-wrap">
-			<div class="section-order-totalprice">총 결제금액</div>
-			<div class="section-order-totalprice">29000원</div>
-		</div>
+			<div class="section-order-address-wrap" id="address-wrap">
+				<div class="section-order-address">
+					<div class="section-order-address-api" id="base-structure">
+						<img class="current-location-img"
+							src="resources/icons/current-location.png"> 기타
+					</div>
 
-		<div class="section-order-button-wrap">
-			<button id="order-button">결제하기</button>
-		</div>
+					<div class="section-order-address-citygu">현재주소 :
+						${userInfo[0].userAddress}</div>
+					<input class="section-order-address-detail" placeholder="상세주소"
+						id="base-structure-input">
+				</div>
+			</div>
+
+
+			<div class="section-order-phone-wrap">
+				<div class="section-order-phone" id="base-structure">${userInfo[0].userPhone}</div>
+			</div>
+
+			<div class="section-order-request-wrap">
+				<div class="section-order-request-seller">
+					<div class="section-order-request-title" id="base-structure">요청사항</div>
+					<div class="section-order-request-seller">가게 사장님께</div>
+					<input type="text" name="reqToSeller" placeholder="예)덜 맵게 해주세요">
+					<div class="section-order-request-rider">라이더님께</div>
+					<input type="text" name="reqToRider"
+						placeholder="예)문 앞에 두고 벨 눌러주세요">
+				</div>
+			</div>
+
+			<div class="section-order-paytype-wrap">
+				<div class="section-order-paytype-title" id="base-structure">결제수단</div>
+				<div class="section-order-paytype-card">
+					<div class="section-order-paytype-card-wrap">
+						<input type="radio" id="card" name="payType" value="0"
+							checked="checked">
+						<div id="base-structure">카카오페이 결제</div>
+					</div>
+
+				</div>
+				<div class="section-order-paytype-cash">
+					<input type="radio" id="cash" name="payType" value="1">
+					<div id="base-structure">현장결제</div>
+				</div>
+			</div>
+
+			<div class="section-order-price-wrap">
+				<div class="section-order-price-title" id="base-structure">결제금액</div>
+				<div class="section-order-price-detail-wrap">
+					<div class="section-order-price-detail">주문금액</div>
+					<div class="section-order-price-detail-amount">${orderMenuPrice}원</div>
+				</div>
+				<div class="section-order-price-detail-wrap-delivery">
+					<div class="section-order-price-detail-delivery">배달팁</div>
+					<div class="section-order-price-detail-amount-delivery">${storeInfo[0].deliveryFee}원</div>
+				</div>
+			</div>
+
+			<c:set var="totalAmount"
+				value="${orderMenuPrice + storeInfo[0].deliveryFee}" />
+
+			<div class="section-order-orderMenuPrice-wrap">
+				<div class="section-order-orderMenuPrice">총 결제금액</div>
+				<div class="section-order-orderMenuPrice">${totalAmount}원</div>
+			</div>
+
+			<div class="section-order-button-wrap">
+
+
+				<input type="hidden" name="deliveryAddress" id="deliveryAddress"
+					value="${userInfo[0].userAddress}"> <input type="hidden"
+					name="deliveryFee" id="deliveryFee"
+					value="${storeInfo[0].deliveryFee}"> <input type="hidden"
+					name="userPhone" id="userPhone" value="${userInfo[0].userPhone}"><input
+					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
+					value="${orderMenuPrice}">
+
+
+				<button type="submit" id="order-button">결제하기</button>
+			</div>
+		</form>
+
 	</section>
 
 

@@ -6,9 +6,29 @@
 <mapper namespace="com.acorn.baemin.UserOrderMapper">
 
 	<select id="getUserByCode" resultType="UserDTO">
-		SELECT * FROM user_tbl WHERE userCode = #{userCode}
+		SELECT * FROM user_tbl
+		WHERE userCode = #{userCode}
 	</select>
 
+	<insert id="insertOrder" parameterType="OrderDTO">
+        INSERT INTO order_tbl (userCode, storeCode, orderMenuName, orderMenuNumber,
+        orderMenuPrice, orderStoreName, orderStoreImage, orderDate, payType, orderType,
+        reqToSeller, reqToRider, orderStatus, optionsInfo, deliveryFee,
+        deliveryAddress, userPhone)
+        VALUES (#{userCode}, #{storeCode}, #{orderMenuName}, #{orderMenuNumber},
+        #{orderMenuPrice}, #{orderStoreName}, #{orderStoreImage}, NOW(),
+        #{payType}, #{orderType}, #{reqToSeller}, #{reqToRider}, #{orderStatus},
+        #{optionsInfo}, #{deliveryFee}, #{deliveryAddress}, #{userPhone});
+    </insert>
+    
+    <select id="getLastOrder" resultType="OrderDTO">
+         SELECT * FROM order_tbl
+        ORDER BY orderNumber DESC
+        LIMIT 1;
+    </select>
+    
+    
+    
 
 
 

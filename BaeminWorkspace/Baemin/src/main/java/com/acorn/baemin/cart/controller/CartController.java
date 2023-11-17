@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.acorn.baemin.cart.domain.CartInfoDTO;
 import com.acorn.baemin.cart.service.CartServiceImp;
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.order.service.UserOrderServiceImp;
@@ -37,28 +38,46 @@ public class CartController {
 	UserOrderServiceImp userOrderService;
 
 	@PostMapping("/cartList")
-	public String receiveCartData( CartInfoDTO cartinfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
+	public String receiveCartData( CartInfoDTO cartInfoDTO, Model model, @RequestParam int menuCode, HttpServletRequest request) {
 		List<StoreDTO> storeInfo = cartService.selectStoreInfo(menuCode);
 		List<MenuDTO> menuInfo = cartService.selectMenuInfo(menuCode);
-		model.addAttribute("cartInfo", cartinfoDTO);
+		model.addAttribute("cartInfo", cartInfoDTO);
 		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("cartInfo", cartinfoDTO);
+		session.setAttribute("cartInfo", cartInfoDTO);
 		session.setAttribute("menuInfo", menuInfo);
 		session.setAttribute("storeInfo", storeInfo);
 	    return "home/cart_list";
 	}
 
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int totalPrice, HttpSession session, Model model, CartInfoDTO cartinfoDTO) {
-		session.setAttribute("totalPrice", totalPrice);
+	public String placeOrder(@RequestParam int orderMenuPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
+		
+		
+		session.setAttribute("orderMenuPrice", orderMenuPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
-		System.out.println(userCode);
+		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
+		List<MenuDTO> menuInfo = (List<MenuDTO>) session.getAttribute("menuInfo");
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
-		model.addAttribute("cartInfo", cartinfoDTO);
+		orderDTO.setOrderStoreName(storeInfo.get(0).getStoreName());
+		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage()); 
+		orderDTO.setOrderMenuName(menuInfo.get(0).getMenuName());
+		orderDTO.setStoreCode(storeInfo.get(0).getStoreCode());
+		
+		orderDTO.setOrderMenuPrice(orderMenuPrice);
 		model.addAttribute("userInfo", userInfo);
+		CartInfoDTO cartInfo = (CartInfoDTO) session.getAttribute("cartInfo");
+		String optionsInfo = cartInfo.getOptions();
+		orderDTO.setOptionsInfo(optionsInfo);
+		orderDTO.setUserCode(userCode);
+		session.setAttribute("orderDTO", orderDTO);
+		System.out.println("카트테스트2 : " + orderDTO);
+		
+		
+		
+		
 	    return "userorder/order";
 	}
 	

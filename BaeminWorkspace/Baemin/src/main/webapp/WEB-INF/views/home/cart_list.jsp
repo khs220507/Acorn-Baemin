@@ -114,11 +114,11 @@ $(document).ready(function() {
         
    
 
-        var totalPrice = (unitPrice + totalOptionsPrice) * quantity;
+        var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
     
 
-        $("#totalPriceInput").val(totalPrice);
-        $("#total-price").text(totalPrice + "원");
+        $("#totalPriceInput").val(orderMenuPrice);
+        $("#total-price").text(orderMenuPrice + "원");
     }
 
     updateTotalPrice();
@@ -161,16 +161,19 @@ $(document).ready(function() {
 				</c:forEach>
 			</div>
 		</div>
+		
+		<form id="orderForm" action="order" method="post">
 
 		<div class="quantity-wrap">
 			<button class="minus" type="button">-</button>
-			<input class="quantity-input" value="1">
+			<input class="quantity-input" id="quantity" name="orderMenuNumber" value="1">
 			<button class="plus" type="button">+</button>
 		</div>
+		
+	
 
-
-		<form id="orderForm" action="order" method="post">
-			<input type="hidden" id="totalPriceInput" name="totalPrice" value="0">
+		
+			<input type="hidden" id="totalPriceInput" name="orderMenuPrice" value="0">
 			<div class="total-price-wrap">
 				<div class="total-price-title">총 주문금액</div>
 				<div class="total-price" id="total-price"></div>

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.order.repository.UserOrderRepositoryImp;
 
@@ -19,9 +20,18 @@ public class UserOrderServiceImp implements UserOrderServiceI{
 	@Override
 	public List<UserDTO> getUserByCode(int userCode) {
 		List<UserDTO> userInfo = userOrderRepository.getUserByCode(userCode);
-		System.out.println("test02 : " + userCode);
-		System.out.println("test03 : " + userInfo);
 		return userInfo;
+	}
+
+	@Override
+	public void insertOrder(OrderDTO orderDTO) {
+		userOrderRepository.insertOrder(orderDTO);
+	}
+
+	@Override
+	public OrderDTO getLastOrder() {
+		OrderDTO lastOrderDTO = userOrderRepository.getLastOrder();
+		return lastOrderDTO;
 	}
 	
 	
