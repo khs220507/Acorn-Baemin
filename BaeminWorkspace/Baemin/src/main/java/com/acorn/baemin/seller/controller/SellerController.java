@@ -44,7 +44,6 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
-
 	// 이미지 조회
 	@ResponseBody
 	@GetMapping("/images/{menuImage:.*}")
@@ -202,7 +201,7 @@ public class SellerController {
 	
 	
 	// 리뷰 삭제
-	
+	*/
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
