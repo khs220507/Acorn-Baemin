@@ -212,6 +212,7 @@ border: none!important;
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
+   				alert("옵션이 추가되었습니다.");
    				window.location.reload();
 
    			},
@@ -240,6 +241,7 @@ border: none!important;
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
+   				alert("옵션이 추가되었습니다.");
    				window.location.reload();
 
    			},
@@ -266,6 +268,7 @@ border: none!important;
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
+   				alert("옵션이 수정되었습니다.");
    				window.location.reload();
 
    			},
@@ -291,6 +294,7 @@ border: none!important;
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
+   				alert("옵션이 수정되었습니다.");
    				window.location.reload();
 
    			},
@@ -300,31 +304,35 @@ border: none!important;
    		})
 	}
     function optiondelete(optionCode) {
+    	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({
 			type: "put",
 			url: "/baemin/sellerOptionDSolo/"+optionCode, //path Variable  ,
 			
 			success : function (data){
+				alert("옵션이 삭제되었습니다.");
 				window.location.reload();
 			},
 			error: function() {
 				alert( "error");
 			}
 		});
-	}
+	}}
     function optiondeletecategory(category) {
+    	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({
 			type: "PUT",
 			url: "/baemin/sellerOptionD/" + ${menuCode} + "/" + category, 
 			
 			success : function (data){
+				alert("옵션이 삭제되었습니다.");
 				window.location.reload();
 			},
 			error: function() {
 				alert( "error");
 			}
 		});
-	}
+	}}
 
     
     $(document).ready(function() {

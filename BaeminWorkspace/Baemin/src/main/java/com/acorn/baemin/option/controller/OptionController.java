@@ -26,7 +26,7 @@ public class OptionController {
 	//user
 	@GetMapping("/option")
 	public String selectOption(@RequestParam String menuCode, Model model) {
-		List<OptionDTO> result  = rep.selectOption(menuCode);
+		List<OptionDTO> result  = rep.selectOptionUser(menuCode);
 		List<String> OptionCategoryList = new ArrayList<>(result.size());
 		for(OptionDTO list : result) {
 			String OptionCategory =list.getOptionCategory();
@@ -86,7 +86,7 @@ public class OptionController {
 	@ResponseBody
 	@RequestMapping( value="/sellerOptionD/{menuCode}/{category}" , method=RequestMethod.PUT)
 	public void deleteOptionCategory(@PathVariable int menuCode, @PathVariable String category) {
-		OptionDTO option = new OptionDTO(0, menuCode , category, 0, null, 0, null);
+		OptionDTO option = new OptionDTO(0, menuCode , category, 0, null, 0, 0);
 		rep.deleteOptionCategory(option);
 	}
 	

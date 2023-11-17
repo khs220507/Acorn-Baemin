@@ -152,6 +152,7 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
+
 	/*@GetMapping("/registerAnswer")
 	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
 	    HashMap<String, Object> raMap = new HashMap<>();
@@ -168,7 +169,7 @@ public class SellerController {
 	}
 	
 	
-	@GetMapping("/registerAnswer")
+	//@GetMapping("/registerAnswer")
 	public String readReview(Integer storeCode, Model model, HttpSession session) {
 		
 		int userCode = (int) session.getAttribute("userCode");
