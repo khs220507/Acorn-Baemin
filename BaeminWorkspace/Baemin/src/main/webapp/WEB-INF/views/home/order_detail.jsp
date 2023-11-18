@@ -212,10 +212,10 @@ section{
 				<h3 class="detailList-title">주문내역</h3>
 				<hr class="thin-line">
 
-				<!--배달이 완료되었어요 div-->
+				<!--주문이 완료되었어요 div-->
 				<div class="store-menu-wrap">
 					<p class="finish-message">
-						배달이 완료되었어요
+						주문이 완료되었어요
 					</p>
 					<a href="${path}/store?storeCode=${detail.storeCode}">
 						<p class="strong-title">
