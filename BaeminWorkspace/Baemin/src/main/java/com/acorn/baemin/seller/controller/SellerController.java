@@ -45,9 +45,9 @@ public class SellerController {
 
 	String fileDir = "c:\\test\\upload\\";
 	
-	// 이미지 조회
+	// 이미지 주소 리턴
 	@ResponseBody
-	@GetMapping("/images/{menuImage:.*}")
+	@GetMapping("/images/{menuImageFile:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
 		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
 	}
@@ -213,12 +213,17 @@ public class SellerController {
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
-	public String storeMain(@RequestParam("storeCode") int storeCode, Model model) {
+	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
 		// 고정 정보 내용
+		
 		// 리뷰 평점
 		
 		// 리뷰 갯수 카운트
 		int reviewCount = sc.reviewCount(storeCode);
+		
+		// 찜
+		int userCodoe = (int) session.getAttribute("userCode");
+		
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보

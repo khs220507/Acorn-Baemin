@@ -65,8 +65,37 @@ button {
 }
 
 .store-image {
-	width: 15.6%;
-	height: 28%;
+	width: 200px;
+	height: 200px;
+}
+
+.menu-sub-tab {
+	width: 60%;
+}
+@media (max-width:767px) {
+	.menu-sub-tab {
+	width: 54%;
+	}
+	.modify-delete {
+	width: 10%;
+	}
+	.menu-modify-btn-without-c, .menu-delete-btn {
+	width: 50%;
+	}
+}
+
+.classification {
+	font-size: 30px;
+	height: 40px;
+}
+
+.menu-image-link {
+	width: 19.5%;
+	height: 100%;
+}
+
+.menu-image {
+	
 }
 
 .rating-review-minprice {
@@ -87,10 +116,36 @@ button {
 
 .menu-info-with-btn {
 	display: flex;
+	justify-content: space-between;
+	height: 150px;
+}
+
+.input-menu-image {
+	width: 30%;
+	height: 50%;
+	margin: auto;
+}
+
+.input-menu-content {
+	width: 22%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.menuName, .menuContent, .menuPrice {
+	width: 100%;
 }
 
 .modify-delete {
 	display: flex;
+	width: 20%;
+}
+
+
+.menu-modify-btn-without-c, .menu-delete-btn {
+	width: 50%;
 }
 
 .info-sub-tab-with-btn {
@@ -124,6 +179,8 @@ button {
 .store-info-tab, .store-review-tab {
 	display: none;
 }
+
+ 
 </style>
 <script>
 	$(document).ready(function() {
@@ -396,7 +453,7 @@ button {
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
 				<div class="classification">
-					<a class="old-menu-classification" name="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+					<a class="old-menu-classification" id="${classificationList.menuClassification}${st.index}">${classificationList.menuClassification}</a>
 					<input type="text" class="new-menu-classification" placeholder="메뉴분류 입력">
 					<button class="CModify" onclick="modifyMenuClassification(${readStore.storeCode}, this)">수정</button>
 				</div>
@@ -407,22 +464,22 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-										<input type="file" name="menuImageFile">
-										<div>
-											<input type="text" class="menuName" value="${menuList.menuName}">
-											<input type="text" class="menuContent" value="${menuList.menuContent}">
-											<input type="text" class="menuPrice" value="${menuList.menuPrice}">
-											<span>상태 : <c:choose>
+										<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
+										<input type="file" class="input-menu-image" name="menuImageFile">
+										<div class="input-menu-content">
+											<div><input type="text" class="menuName" value="${menuList.menuName}"></div>
+											<div><input type="text" class="menuContent" value="${menuList.menuContent}"></div>
+											<div><input type="text" class="menuPrice" value="${menuList.menuPrice}"></div>
+											<div>상태 : <c:choose>
 													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 													<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 												</c:choose>
-											</span>
-											<select class="menuStatus">
-												<option value="0">판매중</option>
-												<option value="1">매진</option>
-											</select>
+												<select class="menuStatus">
+													<option value="0">판매중</option>
+													<option value="1">매진</option>
+												</select>
+											</div>
 										</div>
 										<div class="modify-delete">
 											<button class="menu-modify-btn-without-c" onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
