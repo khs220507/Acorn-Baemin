@@ -8,7 +8,7 @@
 </head>
 <body>
    <h1>비밀번호 찾기 결과</h1>
-    <p>${message}</p>
-    <p><a href="/user/findPasswordForm">비밀번호 찾기 폼으로 돌아가기</a></p>
+    <%-- <p>${message}</p>
+    <p><a href="/user/findPasswordForm">비밀번호 찾기 폼으로 돌아가기</a></p> --%>
 </body>
 </html>

@@ -45,7 +45,7 @@ input[type="button"] {
 <jsp:include page="../base/header_login.jsp" />
 <body>
     <!-- 아이디찾기 폼 -->
-	<form class="findIdResult-form" action="${path}/findId" method="post"
+	<form class="findIdResult-form" 
 		id="findId-form">
 
 
@@ -56,9 +56,9 @@ input[type="button"] {
 		
     <p id="customerId" style="display: none;">손님 아이디 : ${customerId}</p>
     <p id="sellerId" style="display: none;">사장님 아이디: ${sellerId}</p>
-    <div><a href="/baemin/findPw">비밀번호 찾기</a></div>
+    <div><a href="/baemin/findPwForm">비밀번호 찾기</a></div>
     
-
+</form>
     <script>
         let customerId = "${customerId}";
         let sellerId = "${sellerId}";
@@ -77,5 +77,7 @@ input[type="button"] {
             sellerElement.style.display = "block";
         }
     </script>
+    
+    
 </body>
 </html>

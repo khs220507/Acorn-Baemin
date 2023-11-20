@@ -46,7 +46,22 @@ public class UserController {
 	}
 	
 	
-	
+	//  닉네임 중복 확인
+		@ResponseBody
+		@PostMapping("/checkDuplicateNick")
+		public String checkDuplicateNick(@RequestParam("userNickname") String userNickname) {
+			System.out.println("중복확인");
+			String result;
+			System.out.println("user" + userNickname);
+			int count = userrep.checkDuplicateNickname(userNickname);
+			System.out.println(count + userNickname);
+			if (count != 0) {
+				result = "yes";
+			} else {
+				result = "no";
+			}
+			return result;
+		}
 	
 	
 	// 손님 아이디 중복 확인
@@ -203,6 +218,17 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/customer_signup", method = RequestMethod.POST)
 	public void insertUserSignup(@RequestBody UserDTO user) {
+		
+		System.out.println( "dfdfd" + user);
+		
+		String email = user.getUserEmail();   //   .com.com
+		
+		int index = email.lastIndexOf('.');
+		if(index != -1) {
+			email = email.substring(0, index);
+		}
+		
+		
 		userrep.insertCustomer(user);
 	}
 

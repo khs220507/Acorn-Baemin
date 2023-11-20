@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
@@ -21,9 +21,9 @@
 	position: absolute;
 	top: 250px;
 }
-.findId-title{
+
+.findId-title {
 	text-align: center;
-	
 }
 </style>
 </head>
@@ -42,19 +42,11 @@
 			<br>
 		</div>
 
-
-		<form action="/user/findId" method="post">
-			이메일: <input type="email" name="email" required>
-			<input type="submit" id="findIdForm" value="아이디찾기">
+		<form action="/baemin/findId" method="post">
+			이메일: <input type="email" name="email" required> 
+			<input type="submit" id="findId" value="아이디찾기">
 		</form>
-
-
-
-
-
-
-
-		</div>
+		
 	</form>
 
 
