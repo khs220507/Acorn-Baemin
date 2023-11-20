@@ -1,6 +1,8 @@
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -56,14 +58,14 @@ ul {
 }
 
 /* 섹션 //////////////////////////////////////////////////// */
-.wrap-all{
-	width:75%;
+.wrap-all {
+	width: 75%;
 	margin: 0 auto;
 }
 
 /* 배달이 완료되었어요 div*/
 .store-menu-wrap {
-    padding: 3px 30px;
+	padding: 3px 30px;
 }
 
 .finish-message {
@@ -81,23 +83,27 @@ ul {
 	font-size: 20px;
 	margin: 5px 0;
 }
-.small-text{
+
+.small-text {
 	font-size: 14px;
 	line-height: 20px;
 }
 
 .menu-detail-wrap {
-    padding: 3px 30px;
+	padding: 3px 30px;
 }
-.menu-detail-wrap ul{
+
+.menu-detail-wrap ul {
 	margin: 7px 0;
 }
-.menu-detail-wrap ul li{
+
+.menu-detail-wrap ul li {
 	line-height: 22px;
 	color: #4B4B4B;
 }
+
 .payment-wrap {
-    padding: 3px 30px;
+	padding: 3px 30px;
 }
 
 .left-right-wrap {
@@ -115,16 +121,18 @@ ul {
 }
 
 .total-payment-wrap {
-    padding: 3px 30px;
+	padding: 3px 30px;
 }
 
 .payment-type-wrap {
-    padding: 3px 30px;
+	padding: 3px 30px;
 }
-.black-text{
-	color:black;
+
+.black-text {
+	color: black;
 	margin-bottom: 7px;
 }
+
 .gray-text {
 	font-size: 20px;
 	color: #4b4b4b;
@@ -176,26 +184,23 @@ ul {
 /* 반응형 /////////////////////////////////////////////////////////////////*/
 
 /* 중간화면 */
-@media (max-width:1280px) {
-
-section{
-	width: 100vw;
-}
-.wrap-all{
-	width: 75vw;
-
-}
+@media ( max-width :1280px) {
+	section {
+		width: 100vw;
+	}
+	.wrap-all {
+		width: 75vw;
+	}
 }
 
 /* 작은화면 */
-@media (max-width:767px) {
-section{
-	width: 100vw;
-}
-.wrap-all{
-	width: 90vw;
-}
-
+@media ( max-width :767px) {
+	section {
+		width: 100vw;
+	}
+	.wrap-all {
+		width: 90vw;
+	}
 }
 </style>
 </head>
@@ -209,152 +214,251 @@ section{
 
 			<c:forEach items="${orderDetail}" var="detail">
 
-				<h3 class="detailList-title">주문내역</h3>
-				<hr class="thin-line">
+				<c:choose>
+					<c:when test="${detail.orderType == 0}">
+						<h3 class="detailList-title">주문내역</h3>
+						<hr class="thin-line">
 
-				<!--주문이 완료되었어요 div-->
-				<div class="store-menu-wrap">
-					<p class="finish-message">
-						주문이 완료되었어요
-					</p>
-					<a href="${path}/store?storeCode=${detail.storeCode}">
-						<p class="strong-title">
-							${detail.orderStoreName}
-						</p>
-					</a>
-					<p class="normal-text">${detail.orderMenuName }</p>
-					<p class="small-text">주문일시: ${detail.orderDate }</p>
-					<p class="small-text">주문번호: ${detail.orderNumber }</p>
-				</div>
-				<hr class="bold-line">
+						<!--주문이 완료되었어요 div-->
+						<div class="store-menu-wrap">
+							<p class="finish-message">주문이 완료되었어요</p>
+							<a href="${path}/store?storeCode=${detail.storeCode}">
+								<p class="strong-title">${detail.orderStoreName}</p>
+							</a>
+							<p class="normal-text">${detail.orderMenuName }</p>
+							<p class="small-text">주문일시: ${detail.orderDate }</p>
+							<p class="small-text">주문번호: ${detail.orderNumber }</p>
+						</div>
+						<hr class="bold-line">
 
-				<!--메뉴 div-->
-				<div class="menu-detail-wrap">
-					<p class="strong-title">
-						${detail.orderMenuName } ${detail.orderMenuNumber }개
-					</p>
-					<ul>
-						<li>· 옵션 : 옵션내용</li>
-						<li>· 황올 부분육 선택 : 순살 변경 (2000원)</li>
-						<li>· 기본제공 품목제외 : 치킨무 미제공</li>
-						<li>· 기타 선택 : 미선택</li>
-					</ul>
-					<p class="normal-text">${detail.orderMenuPrice}원</p>
-				</div>
-				<hr class="bold-line">
+						<!--메뉴 div-->
+						<div class="menu-detail-wrap">
+							<p class="strong-title">${detail.orderMenuName }
+								${detail.orderMenuNumber }개</p>
 
-				<!--결제 금액 div-->
-				<div class="payment-wrap">
-					<p class="strong-title">
-						결제 금액
-					</p>
-					<div class="left-right-wrap">
-						<p class="normal-text left-text">주문금액</p>
-						<p class="normal-text rigth-text">${detail.orderMenuPrice}원</p>
-					</div>
-					<div class="left-right-wrap">
-						<p class="normal-text left-text">배달팁</p>
-						<p class="normal-text rigth-text">${detail.deliveryFee }원</p>
-					</div>
-				</div>
+							<!-- 옵션 -->
+							<c:set var="optionsInfo" value="${detail.optionsInfo }" />
+							<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
 
-				<hr class="thin-line">
+							<ul>
+								<c:forEach items="${options}" var="option">
+									<c:set var="parts" value="${fn:split(option, '/')}" />
+									<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
+								</c:forEach>
+							</ul>
 
-				<div class="total-payment-wrap left-right-wrap">
-					<p class="strong-title left-text">
-						총 결제금액
-					</p>
-					<p class="normal-text rigth-text">${detail.orderMenuPrice + detail.deliveryFee}원</p>
-				</div>
+							<p class="normal-text">${detail.orderMenuPrice}원</p>
+						</div>
+						<hr class="bold-line">
 
-				<hr class="bold-line">
+						<!--결제 금액 div-->
+						<div class="payment-wrap">
+							<p class="strong-title">결제 금액</p>
+							<div class="left-right-wrap">
+								<p class="normal-text left-text">주문금액</p>
+								<p class="normal-text rigth-text">${detail.orderMenuPrice}원</p>
+							</div>
+							<div class="left-right-wrap">
+								<p class="normal-text left-text">배달팁</p>
+								<p class="normal-text rigth-text">${detail.deliveryFee }원</p>
+							</div>
+						</div>
 
-				<div class="payment-type-wrap left-right-wrap">
-					<p class="strong-title left-text">
-						결제방법
-					</p>
-					<c:choose>
-						<c:when test="${detail.payType eq 0}">
-							<p class="normal-text right-text">카카오페이</p>
-						</c:when>
-						<c:when test="${detail.payType eq 1}">
-							<p class="normal-text right-text">현장결제</p>
-						</c:when>
-						<c:otherwise>
-							<p class="normal-text right-text">알 수 없는 결제방법</p>
-						</c:otherwise>
-					</c:choose>
-				</div>
+						<hr class="thin-line">
 
-				<hr class="bold-line">
+						<div class="total-payment-wrap left-right-wrap">
+							<p class="strong-title left-text">총 결제금액</p>
+							<p class="normal-text rigth-text">${detail.orderMenuPrice + detail.deliveryFee}원</p>
+						</div>
 
-				<div class="user-info-wrap">
-					<p class="normal-text black-text">배달주소</p>
-					<p class="gray-text">${detail.deliveryAddress }</p>
-				</div>
+						<hr class="bold-line">
 
-				<hr class="thin-line">
+						<div class="payment-type-wrap left-right-wrap">
+							<p class="strong-title left-text">결제방법</p>
+							<c:choose>
+								<c:when test="${detail.payType eq 0}">
+									<p class="normal-text right-text">카카오페이</p>
+								</c:when>
+								<c:when test="${detail.payType eq 1}">
+									<p class="normal-text right-text">현장결제</p>
+								</c:when>
+								<c:otherwise>
+									<p class="normal-text right-text">알 수 없는 결제방법</p>
+								</c:otherwise>
+							</c:choose>
+						</div>
 
-				<div class="user-info-wrap">
-					<p class="normal-text black-text">전화번호</p>
-					<p class="gray-text">${detail.userPhone}</p>
-				</div>
+						<hr class="bold-line">
 
-				<hr class="thin-line">
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">배달주소</p>
+							<p class="gray-text">${detail.deliveryAddress }</p>
+						</div>
 
-				<div class="user-info-wrap">
-					<p class="normal-text black-text">가게 사장님께</p>
-					<p class="gray-text">${detail.reqToSeller }</p>
-				</div>
+						<hr class="thin-line">
 
-				<hr class="thin-line">
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">전화번호</p>
+							<p class="gray-text">${detail.userPhone}</p>
+						</div>
 
-				<div class="user-info-wrap">
-					<p class="normal-text black-text">라이더님께</p>
-					<p class="gray-text">${detail.reqToRider }</p>
-				</div>
+						<hr class="thin-line">
 
-				<hr class="bold-line">
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">가게 사장님께</p>
+							<p class="gray-text">${detail.reqToSeller }</p>
+						</div>
 
-				<div class="delete-btn-wrap">
-					<h2 class="delete-btn" onclick="deleteOrder(${detail.orderNumber})">주문
-						내역 삭제</h2>
-				</div>
+						<hr class="thin-line">
 
-				<div class="customer-center-wrap">
-					<p>24시간 연중무휴 고객센터</p>
-					<h2>1600-0987</h2>
-				</div>
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">라이더님께</p>
+							<p class="gray-text">${detail.reqToRider }</p>
+						</div>
 
-				<button class="add-cart-btn">
-					같은 메뉴 담기
-				</button>
+						<hr class="bold-line">
+
+						<div class="delete-btn-wrap">
+							<h2 class="delete-btn"
+								onclick="deleteOrder(${detail.orderNumber})">주문 내역 삭제</h2>
+						</div>
+
+						<div class="customer-center-wrap">
+							<p>24시간 연중무휴 고객센터</p>
+							<h2>1600-0987</h2>
+						</div>
+
+						<button class="add-cart-btn">같은 메뉴 담기</button>
+					</c:when>
+
+					<c:when test="${detail.orderType == 1}">
+
+						<h3 class="detailList-title">주문내역</h3>
+						<hr class="thin-line">
+
+						<!--주문이 완료되었어요 div-->
+						<div class="store-menu-wrap">
+							<p class="finish-message">주문이 완료되었어요</p>
+							<a href="${path}/store?storeCode=${detail.storeCode}">
+								<p class="strong-title">${detail.orderStoreName}</p>
+							</a>
+							<p class="normal-text">${detail.orderMenuName }</p>
+							<p class="small-text">주문일시: ${detail.orderDate }</p>
+							<p class="small-text">주문번호: ${detail.orderNumber }</p>
+						</div>
+						<hr class="bold-line">
+
+						<!--메뉴 div-->
+						<div class="menu-detail-wrap">
+							<p class="strong-title">${detail.orderMenuName }
+								${detail.orderMenuNumber }개</p>
+
+							<!-- 옵션 -->
+							<c:set var="optionsInfo" value="${detail.optionsInfo }" />
+							<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
+
+							<ul>
+								<c:forEach items="${options}" var="option">
+									<c:set var="parts" value="${fn:split(option, '/')}" />
+									<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
+								</c:forEach>
+							</ul>
+
+							<p class="normal-text">${detail.orderMenuPrice}원</p>
+						</div>
+						<hr class="bold-line">
+
+						<!--결제 금액 div-->
+						<div class="payment-wrap">
+							<p class="strong-title">결제 금액</p>
+							<div class="left-right-wrap">
+								<p class="normal-text left-text">주문금액</p>
+								<p class="normal-text rigth-text">${detail.orderMenuPrice}원</p>
+							</div>
+						</div>
+
+						<hr class="thin-line">
+
+						<div class="total-payment-wrap left-right-wrap">
+							<p class="strong-title left-text">총 결제금액</p>
+							<p class="normal-text rigth-text">${detail.orderMenuPrice}원</p>
+						</div>
+
+						<hr class="bold-line">
+
+						<div class="payment-type-wrap left-right-wrap">
+							<p class="strong-title left-text">결제방법</p>
+							<c:choose>
+								<c:when test="${detail.payType eq 0}">
+									<p class="normal-text right-text">카카오페이</p>
+								</c:when>
+								<c:when test="${detail.payType eq 1}">
+									<p class="normal-text right-text">현장결제</p>
+								</c:when>
+								<c:otherwise>
+									<p class="normal-text right-text">알 수 없는 결제방법</p>
+								</c:otherwise>
+							</c:choose>
+						</div>
+
+						<hr class="bold-line">
+
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">전화번호</p>
+							<p class="gray-text">${detail.userPhone}</p>
+						</div>
+
+						<hr class="thin-line">
+
+						<div class="user-info-wrap">
+							<p class="normal-text black-text">가게 사장님께</p>
+							<p class="gray-text">${detail.reqToSeller }</p>
+						</div>
+						
+						<hr class="bold-line">
+
+						<div class="delete-btn-wrap">
+							<h2 class="delete-btn"
+								onclick="deleteOrder(${detail.orderNumber})">주문 내역 삭제</h2>
+						</div>
+
+						<div class="customer-center-wrap">
+							<p>24시간 연중무휴 고객센터</p>
+							<h2>1600-0987</h2>
+						</div>
+
+						<button class="add-cart-btn">같은 메뉴 담기</button>
+
+					</c:when>
+				</c:choose>
+
 
 			</c:forEach>
 		</div>
+
 	</section>
 
 	<jsp:include page="../base/footer.jsp" />
 
 	<!-- 자바스크립트 -->
 	<script>
-	 // 주문내역 삭제 함수
-    function deleteOrder(orderNumber) {
-        if (confirm("주문 내역을 삭제하시겠습니까?")) {
-            $.ajax({
-                type: "GET",
-                url: "${path}/orderListDelete",
-                data: "orderNumber=" + orderNumber,
-                success: function () {
-                	alert("주문 내역이 삭제되었습니다");
-                    window.location.href = "${path}/orderList"; 
-                },
-                error: function () {
-                    alert("삭제에 실패했습니다.");
-                }
-            });
-        }
-    }
+		// 주문내역 삭제 함수
+		function deleteOrder(orderNumber) {
+			if (confirm("주문 내역을 삭제하시겠습니까?")) {
+				$.ajax({
+					type : "GET",
+					url : "${path}/orderListDelete",
+					data : "orderNumber=" + orderNumber,
+					success : function() {
+						alert("주문 내역이 삭제되었습니다");
+						window.location.href = "${path}/orderList";
+					},
+					error : function() {
+						alert("삭제에 실패했습니다.");
+					}
+				});
+			}
+		}
 	</script>
 
 </body>

@@ -211,7 +211,7 @@ hr {
 							<div class="menu-info">
 								<p class="menu-text">${orderList.orderMenuName}</p>
 								<p class="menu-text">${orderList.orderMenuNumber}개</p>
-								<p>${orderList.orderMenuPrice}원</p>
+								<p>${orderList.orderMenuPrice + orderList.deliveryFee}원</p>
 							</div>
 						</div>
 						<div class="btn-wrap">

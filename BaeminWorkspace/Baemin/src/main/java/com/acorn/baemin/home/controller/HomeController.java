@@ -80,13 +80,14 @@ public class HomeController {
 		try {
 			result = zzimDAO.zzimSelectAll(userCode);
 			model.addAttribute("zzimList", result);
+			System.out.println("찜리스트" + result);
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "home/zzim_list";
-		//return "home/test";
+		
 	}
 
 	// 찜 삭제
@@ -139,6 +140,7 @@ public class HomeController {
 
 		List<OrderDTO> result = detailDAO.orderDetailSelect(orderNumber);
 		model.addAttribute("orderDetail", result);
+		System.out.println(result);
 		System.out.println("orderNumber= " + orderNumber);
 
 		return "home/order_detail";

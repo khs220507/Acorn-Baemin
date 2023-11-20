@@ -14,5 +14,5 @@ public class ZzimStoreDTO {
 	int reviewCount;
 	int minOrderPrice;
 	String storeDescription;
-	
+	int storeStatus;
 }

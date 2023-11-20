@@ -135,6 +135,9 @@ padding-top: 140px;
 	font-size: 22px;
 	font-weight: bold;
 }
+.menu-wrap li:hover{
+	color: #48D1CC;
+}
 
 .menu-bar {
 	color: #d9d9d9;
