@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -52,7 +53,6 @@ section {
 	padding-top: 5%;
 	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
-}
 }
 
 section::-webkit-scrollbar { /* 스크롤바 없애기 */
@@ -122,74 +122,117 @@ button {
 }
 </style>
 <script>
-
-	window.onload = function() {
-	  // URL의 앵커를 획득
-	  var hash = window.location.hash;
-	  // 앵커가 존재하는 경우 해당 앵커로 자동으로 이동
-	  if (hash) {
-		var element = document.querySelector(hash);
-		if (element) {
-			element.scrollIntoView({ behavior: 'smooth' }); // 스크롤 부드럽게 이동
-		}
-	  }
-	};
-	
 	$(document).ready(function() {
-		// 메뉴/정보/리뷰 탭 영역
-		// 메뉴 탭을 클릭하면 보여지고 정보와 리뷰 탭은 감추는 코드
-		$(".menu-tab").click(function() {
-			$(".menu-sub-tab").show();
-			$(".store-info-tab").hide();
-			$(".store-review-tab").hide();
-		})
-		// 정보 탭을 클릭하면 보여지고 메뉴와 리뷰 탭은 감추는 코드
-		$(".info-tab").click(function() {
-			$(".menu-sub-tab").hide();
-			$(".store-info-tab").show();
-			$(".store-review-tab").hide();
-		})
-		// 리뷰 탭을 클릭하면 보여지고 메뉴와 정보 탭은 감추는 코드
-		$(".review-tab").click(function() {
-			$(".menu-sub-tab").hide();
-			$(".store-info-tab").hide();
-			$(".store-review-tab").show();
+		// 삭제된 메뉴는 보이지 않게 처리
+		$("div.menu-info-with-btn").each(function() {
+		    var statusText = $(this).find("span").text();
+		    if (statusText.includes("삭제")) {
+		        $(this).hide();
+		    }
 		});
 		
 });
+
+	// 메뉴/정보/리뷰 탭 영역
+	
+	// 메뉴 탭 영역
+	// 메뉴 탭을 클릭하면 메뉴 리스트 조회, 정보와 리뷰 탭 비활
+	function sellerMenu(){
+		
+		$(".menu-sub-tab").show();
+		$(".store-info-tab, .store-review-tab").hide();
+		
+	}
+	
+	// 정보 탭 영역
+	// 정보 탭을 클릭하면 가게정보 조회, 메뉴와 리뷰 탭 비활
+	function storeInfo() {
+		
+		$(".menu-sub-tab, .store-review-tab").hide();
+		$(".store-info-tab").show();
+		
+		$.ajax({
+			type : "GET",
+			url : "${path}/infoManage",
+			success : function(response){
+				let readStore = response.readStore;
+				let readSeller = response.readSeller;
+				
+				// 가게 소개 정보 적용
+	            $("#store-description").text(readStore.storeDescription);
+	            $("#operating-time").text(readStore.operatingTime);
+
+	            // 사업자 정보 적용
+	            $("#seller-name").text(readSeller.sellerName);
+	            $("#store-address").text(readStore.storeAddress);
+	            $("#seller-regCode").text(readSeller.sellerRegCode);
+			},
+			error : function(){
+				alert("실패");
+			}
+		});
+	}
+	
+	// 리뷰 탭 영역
+	// 리뷰 조회
+	function review(storeCode){
+		// 리뷰 탭을 클릭하면 리뷰 리스트 조회, 메뉴와 정보 탭 비활
+		$(".menu-sub-tab, .store-info-tab").hide();
+		$(".store-review-tab").show();
+		
+		$.ajax({
+			type : "GET",
+   			url : "${path}/reviewAnswer",
+   			success : function(response) {
+   				let reviewList = response.readReview;
+   				let answerList = response.readAnswer;
+   				console.log(res);
+   				alert("조회완료");
+   			},
+   			error : function(e) {
+   				console.log(e)
+   				alert("error");
+   			}
+		});
+		
+	}
 
 </script>
 </head>
 <body>
 	<jsp:include page="../base/header.jsp" />
-	<section>
-		<div class="store-image">매장 대표 사진</div>
+	<section id="content">
+	<c:set var="storeImage" value="${readStore.storeImage}" />
+		<div class="store-image">
+			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
+		</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 		<div>-------------------------------------------------------------------</div>
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-review-minprice">
-		<!-- 평점을 가져오면서 평균내야함 -->
-			<div>⭐: ${readStore.storeRating}</div>
-			<!-- 매장코드에 맞는 리뷰 전체를 카운트해서 가져와야함 -->
+			<div>⭐: ${avgRating}</div>
 			<div>리뷰수: ${RCount}</div>
 			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
 		<ul class="menu-info-review-tab">
-			<li class="menu-tab">메뉴</li>
-			<li class="info-tab">정보</li>
-			<li class="review-tab">리뷰</li>
+			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
+			<li class="info-tab" onclick="storeInfo()">정보</li>
+			<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
-			<div>	<!-- 메뉴 카테고리 -->
+			<div>
+				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 				<c:forEach items="${CList}" var="classificationList">
-					<span>${classificationList.menuClassification}</span>
+					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 				</c:forEach>
 			</div>
-			<div>	<!-- 메뉴 리스트 -->
+			<div>
+				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
-					<div class="menu-classification-list">
-						${classificationList.menuClassification}</div>
+				<div class="classification">
+					<a class="old-menu-classification" name="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+				</div>
 					<c:forEach items="${readMenuInfo}" var="menuList">
 						<c:if
 							test="${menuList.menuClassification eq classificationList.menuClassification}">
@@ -197,17 +240,15 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<!-- 메뉴 사진을 클릭하면 옵션을 선택하는 페이지로?-->
-										<a href="${path}/option?menuCode=${menuList.menuCode}">${menuList.menuImage}</a>
+										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
 										<div>
 											<div class="menuName">${menuList.menuName}</div>
 											<div class="menuName">${menuList.menuContent}</div>
-											<div class="menuName">${menuList.menuPrice}원</div>
-											<span>상태 :
-											    <c:choose>
-											        <c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
-											        <c:when test="${menuList.menuStatus eq 1}">매진</c:when>
-											    </c:choose>
+											<div class="menuName">${menuList.menuPrice}</div>
+											<span>상태 : <c:choose>
+													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
+													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
+												</c:choose>
 											</span>
 										</div>
 									</div>
@@ -224,26 +265,26 @@ button {
 				<div class="info-sub-tab">
 					<div class="store-description">
 						<div>가게소개</div>
-						<div class="store-introduce">${readStore.storeDescription}</div>
+						<div id="store-description">${readStore.storeDescription}</div>
 					</div>
 					<div class="operating-time">
 						<div>운영시간</div>
-						<div class="store-operate-time">${readStore.operatingTime}</div>
+						<div id="operating-time">${readStore.operatingTime}</div>
 					</div>
 					<div class="seller-info">
 						<div>사업자정보</div>
 						<div class="seller-info-sub">
 							<div class="seller-name">
 								<div>대표자명</div>
-								<div>${readSeller.sellerName}</div>
+								<div id="seller-name">${readSeller.sellerName}</div>
 							</div>
 							<div class="store-address">
 								<div>매장주소</div>
-								<div>${readStore.storeAddress}</div>
+								<div id="store-address">${readStore.storeAddress}</div>
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
-								<div>${readSeller.sellerRegCode}</div>
+								<div id="seller-regcode">${readSeller.sellerRegCode}</div>
 							</div>
 						</div>
 					</div>
@@ -252,22 +293,32 @@ button {
 		</div>
 		<!-- 리뷰 리스트 나오는 탭 -->
 		<div class="store-review-tab">
-			<c:forEach items="${reviewList}" var="review-list">
+			<c:forEach items="${review}" var="readReview">
 				<div class="review-answer">
-					<div>
-						${review-list.reviewRating}
-					</div>
-						주문내역에서 가져오기
-					<div>주문메뉴 : (메뉴명)</div>
-					<div>
-						${review-list.reviewContent}
-						<div>리뷰등록날짜</div>
-					</div>
-					<div>
+					<div class="review">
+						<div>(닉네임)</div>
 						<div>
-							<textarea></textarea>
+						<c:set var="reviewRating" value="${reviewList.reviewRating}" />
+	
+							<p>평점: ${reviewRating} (별 ${fn:substringBefore(reviewRating, '.')}개)</p>
+							
+							<c:forEach var="star" begin="1" end="${fn:substringBefore(reviewRating, '.')}">
+							    ★
+							</c:forEach>
+							
+							<c:forEach var="star" begin="${fn:substringBefore(reviewRating, '.') + 1}" end="5">
+							    ☆
+							</c:forEach>
 						</div>
-						<button>등록하기</button>
+						<div>주문메뉴 : (메뉴명)</div>
+					</div>
+					<div class="reviewImage">리뷰사진</div>
+					<!-- 답글 -->
+					<div>
+						<div class = answer>
+							<span>사장님</span><br />
+							<div>답글 내용</div>
+						</div>
 					</div>
 				</div>
 			</c:forEach>

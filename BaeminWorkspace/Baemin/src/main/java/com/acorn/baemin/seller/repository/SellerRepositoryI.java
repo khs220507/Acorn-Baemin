@@ -39,6 +39,8 @@ public interface SellerRepositoryI {
 	// 리뷰관리탭
 	// 리뷰 전체 조회
 	public List<ReviewDTO> selectAllReview(Integer storeCode);
+	// 가게 평점 평균
+	public double storeAvgRating(Integer storeCode);
 	// 리뷰 갯수 카운트
 	public int reviewCount(Integer storeCode);
 	// 답변 전체 조회

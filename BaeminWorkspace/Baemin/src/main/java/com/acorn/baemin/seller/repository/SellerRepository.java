@@ -89,18 +89,23 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("selectAllReview @repo");
 		return session.selectList(namespaceReview + "selectAllReview");
 	}
+	// 가게 평점 평균
+	@Override
+	public double storeAvgRating(Integer storeCode) {
+		System.out.println("storeAvgRating @repo");
+		double avgRating = session.selectOne(namespaceReview + "storeAvgRating", storeCode);
+		return avgRating;
+	}
 	// 리뷰 갯수 카운트
 	@Override
 	public int reviewCount(Integer storeCode) {
 		System.out.println("reviewCount @repo");
-		String statement = namespaceReview + "reviewCount";
-		 int cnt  =session.selectOne(statement, storeCode);
-		System.out.println(  "djdjd="+ cnt);
-        return  cnt;
+		int reviewCount = session.selectOne(namespaceReview + "reviewCount", storeCode);
+        return reviewCount;
 	}
 	// 답변 전체 조회
 	@Override
-	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {
+	public List<AnswerDTO> selectAllAnswer(Integer storeCode) {
 		System.out.println("selectAllAnswer @repo");
 		return session.selectList(namespaceAnswer + "selectAllAnswer");
 	}
@@ -122,6 +127,7 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("deleteAnswer @repo");
 		return session.update(namespaceAnswer + "deleteAnswer", answer);
 	}
+	
 	
 
 
