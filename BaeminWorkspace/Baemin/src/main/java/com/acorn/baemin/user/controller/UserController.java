@@ -5,9 +5,12 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +22,7 @@ import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.user.repository.UserRepository;
 import com.acorn.baemin.user.repository.UserRepositoryI;
+import com.acorn.baemin.user.service.MailSendService;
 
 @Controller
 public class UserController {
@@ -28,11 +32,23 @@ public class UserController {
 
 	@Autowired
 	UserRepository userrep;
+	
+	@Autowired
+	MailSendService mailService;
 
-//	@Autowired
-//	UserService userService;
-
-
+	//이메일 인증
+	@ResponseBody
+	@RequestMapping(value="/mailCheck/{email}" , method=RequestMethod.GET)		
+	public String mailCheck(@PathVariable String email) {
+		System.out.println("이메일 인증 요청이 들어옴!");
+		System.out.println("이메일 인증 이메일 : " + email);
+		return mailService.joinEmail(email);
+	}
+	
+	
+	
+	
+	
 	// 손님 아이디 중복 확인
 	@ResponseBody
 	@PostMapping("/checkDuplicate")
@@ -75,9 +91,37 @@ public class UserController {
 		return userrep.checkForDuplicates(nickname, phone, email);
 	}
 
+	@GetMapping("/userinfo")
+    public ResponseEntity<String> getUserInfo(@RequestParam String userId) {
+        // 여기서 userId를 통해 사용자 정보를 가져와서 필요한 정보를 반환하도록 구현
+        return ResponseEntity.ok("User Info for " + userId);
+    }
+
+    @PostMapping("/userinfo/update")
+    public ResponseEntity<String> updateUserInformation(@RequestParam String userId, @RequestParam String newPassword) {
+        // 여기서는 새로운 비밀번호를 받아 사용자 정보를 업데이트하도록 구현
+        return ResponseEntity.ok("User Info Updated for " + userId);
+    }
+
+    @PostMapping("/userinfo/checkPassword")
+    public ResponseEntity<String> checkPassword(@RequestParam String userId, @RequestParam String password) {
+        String storedPassword = userrep.getPasswordByUserId(userId);
+
+        if (storedPassword != null && storedPassword.equals(encryptPassword(password))) {
+            return ResponseEntity.ok("Password Matched");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Password Mismatch");
+        }
+    }
+
+    // 해시 함수를 사용하여 비밀번호를 암호화하는 메서드 (SHA-256 등)
+    private String encryptPassword(String password) {
+        // 비밀번호를 해싱하는 로직 구현 (예: SHA-256)
+        // return hashedPassword;
+        return password; // 실제 해싱 로직은 여기에 구현되어야 합니다.
+    }
 
 	// 내 정보 수정 시, 기존 정보 가져오기 손님
-
 	@RequestMapping("/selectUserInfo2")
 	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
 		try {
@@ -134,30 +178,7 @@ public class UserController {
 		}
 	}
 
-//	@RequestMapping("/selectUserInfo2")
-//	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
-//		try {
-//			Integer userType = (Integer) session.getAttribute("userCode");
-//			System.out.println(userType + "2");
-//
-//			if (userCode != null) {
-//				Object userInfo = rep.selectUserInfo(userCode, 1);
-//
-//				System.out.println("aaaaaa=" + userInfo);
-//				model.addAttribute("userInfo", userInfo);
-//				return "user/customer_modify";
-//			} else {
-//				Object userInfo = rep.selectUserInfo(userCode, 2);
-//				System.out.println("bbbbbbb=" + userInfo);
-//				model.addAttribute("userInfo", userInfo);
-//				return "user/seller_modify";
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("message", "사용자 정보를 불러오는 중 오류가 발생했습니다.");
-//			return "error";
-//		}
-//	}
+
 
 	// 가입 유형 보내기
 	@GetMapping("/select_signup")
@@ -225,27 +246,4 @@ public class UserController {
 	}
 	}
 
-//	// 손님 정보 수정
-//	@ResponseBody
-//	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
-//	public String updateUserInfo(@RequestBody UserDTO updatecustomer, HttpSession session) {
-//		
-//		try {
-//			Integer userCode = updatecustomer.getUserCode();
-//			System.out.println("success1");
-//			System.out.println("dkdkdkdkdkdkdkdk" + updatecustomer);
-//		
-//			if(userCode != null) {
-//				
-//				userrep.updateCustomer(updatecustomer);
-//				System.out.println("success890");
-//				return "수정성공.";
-//			}else {
-//				return "수정실패 : 사용자 정보가 없습니다.";
-//			}				
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//			return "수정실패 : " + e.getMessage();
-//		}
-//	}
 
