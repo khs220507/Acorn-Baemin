@@ -494,7 +494,7 @@ button {
 					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
-		<!-- 리뷰 리스트 나오는 탭 -->
+		<!-- 리뷰 리스트 나오는 탭, 리뷰 정보 받는데 실패ㅠㅜ -->
 		<div class="store-review-tab">
 			<c:forEach items="${review}" var="readReview">
 				<div class="review-answer">

@@ -275,6 +275,7 @@ function updatecustomer() {
 		    let userPostCode = $('#userPostCode').val();
 		    let userAddress = $('#userAddress').val();
 		    let userAddressDetail = $('#userAddressdetail').val();
+
 		    
 		 // 빈칸으로 수정되는경우 방지. 유효성 검사
 			if (userPw === "" || confirmPassword === ""
@@ -325,31 +326,21 @@ function updatecustomer() {
 
 
 // 닉네임, 연락처, 이메일 중복 확인
-// function checkForDuplicates() {
-//     return new Promise(function (resolve, reject) {
-//         let userNickname = $('#userNickname').val();
-//         let userPhone = $('#userPhone').val();
-//         let userEmail = $('#userEmail').val();
 
-//         $.ajax({
-//             type: 'POST',
-//             url: '/baemin/checkForDuplicates',
-//             data: {
-//                 nickname: userNickname,
-//                 phone: userPhone,
-//                 email: userEmail
-//             },
-//             success: function (data) {
-//                 resolve(data);
-//             },
-//             error: function () {
-//                 console.log('중복 확인 중 오류가 발생했습니다.');
-//                 reject();
-//             }
-//         });
-//     });
-// }
 
+
+
+	// Enter 키 누를 시 로그인 button click과 같은 효과
+	document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("modify_button");
+
+	form.addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+    event.preventDefault(); 
+    login(); 
+}
+});
+});
 
 
 </script>
@@ -433,7 +424,7 @@ function updatecustomer() {
 					<td>비밀번호</td>
 					<td><span><input type="password" id="userPw" name="m_password"
 								placeholder="영문, 숫자, 특수문자 조합 8~16자" class="vertical-center"
-								maxlength="16"></span></td>
+								maxlength="16" value="${userInfo.userPw }"></span></td>
 				</table>
 				<table>
 					<td>비밀번호 확인</td>
@@ -458,14 +449,15 @@ function updatecustomer() {
 				<span class="input-container-address">
 					<table>
 						<td>주소</td>
-						<td><span><input type="text" id="postCode"
-								name="postCode" placeholder="우편번호" class="vertical-center"></span>
+						<td><span><input type="text" id="postCode" name="postCode" placeholder="우편번호" class="vertical-center"></span>
 							<button value="우편번호 찾기" class="vertical-center" id="searchpc" onclick="sample6_execDaumPostcode()"
+
 								style="width: 100px;">우편번호 찾기</button></td>
 					</table>
 				</span> <input type="text" id="userAddress" placeholder="주소"
-					class="vertical-center"> <span> <input type="text"
-					id="userAddressdetail" placeholder="상세주소" class="vertical-center">
+					class="vertical-center" value="${userInfo.userAddress }"> 
+					<span> <input type="text"
+					id="userAddressdetail" placeholder="상세주소" class="vertical-center" value="${userInfo.userAddressDetail }">
 				</span>
 
 				<button onclick="updatecustomer()" value="수정완료" id="modify_button">수정완료</button>

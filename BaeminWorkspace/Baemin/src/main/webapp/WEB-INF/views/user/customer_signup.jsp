@@ -25,8 +25,6 @@ a {
 	text-decoration: none;
 }
 
-
-
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
@@ -68,8 +66,6 @@ button#checkDuplicate, #searchpc, #signin_button {
 h1 {
 	color: #333;
 }
-
-
 
 .signup-div {
 	background-color: #fff;
@@ -119,7 +115,7 @@ button[id="checkDuplicate"] {
 }
 
 #checkDuplicate {
-    font-size: 16px;
+	font-size: 16px;
 }
 
 button[id="searchpc"] {
@@ -254,7 +250,8 @@ a {
 	margin-top: 20px;
 	text-align: center;
 }
-section{
+
+section {
 	width: 1280px;
 	padding-top: 140px;
 	margin-bottom: 50px;
@@ -279,7 +276,7 @@ td {
 		let userName = $("#userName").val();
 		let userNickname = $("#userNickname").val();
 		let userPhone = $("#userPhone").val();
-		let userEmail = $("#userEmail").val();
+		let userEmail = $("#userEmail1").val();
 		let userBirth = $("#userBirth").val();
 		let userGender = $('input[name=option]:checked').val();
 		let userPostCode = $("#postCode").val();
@@ -289,7 +286,7 @@ td {
 		// 빈칸으로 가입되는경우 방지. 유효성 검사
 		if (userId === "" || userPw === "" || confirmPassword === ""
 				|| userName === "" || userNickname === "" || userPhone === ""
-				|| userEmail === "" || userBirth === ""
+				|| userEmail1 === "" || userBirth === ""
 				|| userGender === undefined || userPostCode === ""
 				|| userAddress === "" || userAddressDetail === "") {
 			alert("모든 항목을 입력하세요.");
@@ -302,7 +299,7 @@ td {
 				userName : userName,
 				userNickname : userNickname,
 				userPhone : userPhone,
-				userEmail : userEmail,
+				userEmail : userEmail1,
 				userBirth : userBirth,
 				userGender : userGender,
 				userPostCode : userPostCode,
@@ -312,24 +309,27 @@ td {
 
 			let infos = JSON.stringify(info);
 
-			$.ajax({
-				type : "POST",
-				url : "/baemin/customer_signup",
-				data : infos,
-				contentType : "application/json", // 필수
-				success : function(data) {
-					alert("가입축하 q(≧▽≦q)");
-					window.location.href = "http://localhost:8080/baemin/login";
-				},
-				error : function() {
-					alert("입력한 정보를 확인해주세요.");
-				}
-			});
+			$
+					.ajax({
+						type : "POST",
+						url : "/baemin/customer_signup",
+						data : infos,
+						contentType : "application/json", // 필수
+						success : function(data) {
+							alert("가입축하 q(≧▽≦q)");
+							window.location.href = "http://localhost:8080/baemin/login";
+						},
+						error : function() {
+							alert("입력한 정보를 확인해주세요.");
+						}
+					});
 		}
 	}
 
 	//// 중요/////
-	$(document).ready(function() {
+	$(document)
+			.ready(
+					function() {
 						let userIdValid = false;
 						let userPwValid = false;
 						let confirmPasswordValid = false;
@@ -352,40 +352,55 @@ td {
 						});
 
 						// 아이디 중복 확인
-						$("#checkDuplicate").click(
-								function() {
+						$("#checkDuplicate")
+								.click(
+										function() {
 
-									//alert("중복탄다");
-									if ($("#userId").val() == "") {
-										alert("아이디를 입력해주세요.");
-									} else {
-										//alert($("#userId").val());
-										$.ajax({
-											url : "/baemin/checkDuplicate",
-											type : "POST",
-											data : { userId: $("#userId").val() },
-											//contentType : "application/json", 
-											success : function(data) {
-												
-												if (data === "yes") {													
-													  $("#userId").css("border-color", "red");  // 테두리 색상 변경
-													  alert("중복된 아이디 입니다.");
-									                    id_check = false;
-													$("#userId").val("");
-												} else {
-													$("#userId").css("border-color", "");  // 기본 테두리 색상으로 변경
-													alert("사용가능한 아이디 입니다.");
-								                   
-								                    id_check = true;
-												}
-											},
-											error : function() {
-												alert("에러발생");
+											//alert("중복탄다");
+											if ($("#userId").val() == "") {
+												alert("아이디를 입력해주세요.");
+											} else {
+												//alert($("#userId").val());
+												$
+														.ajax({
+															url : "/baemin/checkDuplicate",
+															type : "POST",
+															data : {
+																userId : $(
+																		"#userId")
+																		.val()
+															},
+															//contentType : "application/json", 
+															success : function(
+																	data) {
+
+																if (data === "yes") {
+																	$("#userId")
+																			.css(
+																					"border-color",
+																					"red"); // 테두리 색상 변경
+																	alert("중복된 아이디 입니다.");
+																	id_check = false;
+																	$("#userId")
+																			.val(
+																					"");
+																} else {
+																	$("#userId")
+																			.css(
+																					"border-color",
+																					""); // 기본 테두리 색상으로 변경
+																	alert("사용가능한 아이디 입니다.");
+
+																	id_check = true;
+																}
+															},
+															error : function() {
+																alert("에러발생");
+															}
+														});
 											}
+											toggleIdConfirmButton();
 										});
-									}
-									toggleIdConfirmButton();
-								});
 
 						// 아이디 확인 버튼 토글
 						function toggleIdConfirmButton() {
@@ -397,7 +412,10 @@ td {
 						}
 
 						// 비밀번호 유효성 검사
-						$("#userPw").on("input",function() {
+						$("#userPw")
+								.on(
+										"input",
+										function() {
 											let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
 											if ($(this).val() === ""
@@ -413,7 +431,9 @@ td {
 										});
 
 						// 비밀번호 확인
-						$("#confirmPassword").on("input",function() {
+						$("#confirmPassword").on(
+								"input",
+								function() {
 									if ($(this).val() === ""
 											|| !userPwValid
 											|| $("#userPw").val() !== $(this)
@@ -427,19 +447,24 @@ td {
 								});
 
 						// 손님 이름
-						$("#userName").blur(function() {
-						    let userName = $(this).val();
+						$("#userName")
+								.blur(
+										function() {
+											let userName = $(this).val();
 
-						    let namePattern = /^[가-힣]{1,10}$|^[a-zA-Z]{1,16}$/;
+											let namePattern = /^[가-힣]{1,10}$|^[a-zA-Z]{1,16}$/;
 
-						    if (userName === "" || !namePattern.test(userName)) {
-						        $(this).css("border-color", "red");
-						        userNameValid = false;
-						    } else {
-						        $(this).css("border-color", "");
-						        userNameValid = true;
-						    }
-						});
+											if (userName === ""
+													|| !namePattern
+															.test(userName)) {
+												$(this).css("border-color",
+														"red");
+												userNameValid = false;
+											} else {
+												$(this).css("border-color", "");
+												userNameValid = true;
+											}
+										});
 
 						// 닉네임 유효성 검사
 						$("#userNickname")
@@ -459,46 +484,58 @@ td {
 												userNicknameValid = true;
 											}
 										});
-						
+
 						// 연락처 유효성 검사
-						$("#userPhone").on("input", function () {
-						    let phoneCheck = /^[0-9]{11}$/;
+						$("#userPhone")
+								.on(
+										"input",
+										function() {
+											let phoneCheck = /^[0-9]{11}$/;
 
-						    if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
-						        $(this).css("border-color", "red");
-						        userPhoneValid = false;
-						    } else {
-						        $(this).css("border-color", "");
-						        userPhoneValid = true;
-						    }
-						});
-						
+											if ($(this).val() === ""
+													|| !phoneCheck.test($(this)
+															.val())) {
+												$(this).css("border-color",
+														"red");
+												userPhoneValid = false;
+											} else {
+												$(this).css("border-color", "");
+												userPhoneValid = true;
+											}
+										});
+
 						// 이메일 유효성 검사
-						$("#userEmail").on("input", function () {
-						    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+						$("#userEmail").on("input",function() {
+											let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
-						    if ($(this).val() === "" || !emailCheck.test($(this).val())) {
-						        $(this).css("border-color", "red");
-						        userEmailValid = false;
-						    } else {
-						        $(this).css("border-color", "");
-						        userEmailValid = true;
-						    }
-						});
-						
+											if ($(this).val() === ""
+													|| !emailCheck.test($(this).val())) {
+												$(this).css("border-color","red");
+												userEmailValid = false;
+											} else {
+												$(this).css("border-color", "");
+												userEmailValid = true;
+											}
+										});
+
 						// 생년월일 유효성 검사
-						$("#userBirthdate").on("input", function () {
-						    let birthdateCheck = /^(19\d\d|20[0-2]\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+						$("#userBirthdate")
+								.on(
+										"input",
+										function() {
+											let birthdateCheck = /^(19\d\d|20[0-2]\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
 
-						    if ($(this).val() === "" || !birthdateCheck.test($(this).val())) {
-						        $(this).css("border-color", "red");
-						        userBirthdateValid = false;
-						    } else {
-						        $(this).css("border-color", "");
-						        userBirthdateValid = true;
-						    }
-						});
-						
+											if ($(this).val() === ""
+													|| !birthdateCheck.test($(
+															this).val())) {
+												$(this).css("border-color",
+														"red");
+												userBirthdateValid = false;
+											} else {
+												$(this).css("border-color", "");
+												userBirthdateValid = true;
+											}
+										});
 
 						// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
 						$("#signin_button").click(
@@ -513,7 +550,69 @@ td {
 									}
 								});
 
+						$('#mail-Check-Btn').click(
+								function() {
+									const email = $('#userEmail1').val()
+											+ $('#userEmail2').val(); // 이메일 주소값 얻어오기!
+									console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+									const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+									$.ajax({
+										type : 'GET',
+										url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+										success : function(data) {
+											console.log("data : " + data);
+											checkInput.attr('disabled', false);
+											code = data;
+											alert('인증번호가 전송되었습니다.')
+										}
+									}); // end ajax
+								}); // end send email
+
+						// 인증번호 비교 
+						// blur -> focus가 벗어나는 경우 발생
+						$('.mail-check-input')
+								.blur(
+										function() {
+											const inputCode = $(this).val();
+											const $resultMsg = $('#mail-check-warn');
+
+											if (inputCode === code) {
+												$resultMsg.html('인증번호가 일치합니다.');
+												$resultMsg
+														.css('color', 'green');
+												$('#mail-Check-Btn').attr(
+														'disabled', true);
+												$('#userEmail1').attr(
+														'readonly', true);
+												$('#userEmail2').attr(
+														'readonly', true);
+												$('#userEmail2')
+														.attr('onFocus',
+																'this.initialSelect = this.selectedIndex');
+												$('#userEmail2')
+														.attr('onChange',
+																'this.selectedIndex = this.initialSelect');
+											} else {
+												$resultMsg
+														.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+												$resultMsg.css('color', 'red');
+											}
+										});
+
 					});
+	
+	// Enter 키 누를 시 로그인 button click과 같은 효과
+	document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("signin_button");
+
+	form.addEventListener("keypress", function(event) {
+	if (event.key === "Enter") {
+    event.preventDefault(); 
+    login(); 
+}
+});
+});
 </script>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -622,10 +721,33 @@ td {
 							pattern="[0-9]{11}" title="숫자 11개를 입력하세요"></span></td>
 				</table>
 				<table>
-					<td>이메일</td>
-					<td><span> <input type="email" id="userEmail"
-							placeholder="이메일" class="vertical-center">
-					</span></td>
+					<div class="form-group email-form">
+						<label for="email">이메일</label>
+						<div class="input-group">
+							<input type="text" class="form-control" name="userEmail1" id="userEmail1" placeholder="이메일">
+							<!-- <input type="text" class="form-control" name="userEmail2" id="userEmail2"> -->
+
+							<select class="form-control" name="userEmail2" id="userEmail2">
+								<option value="@gmail.com.com">@<div class="mail">gmail.com</div></option>
+								<option value="@naver.com.com">@<div class="mail">naver.com</div></option>
+								<option value="@daum.net.net">@<div class="mail">daum.net</div></option>
+								<option value="@lycos.com.com">@<div class="mail">lycos.com</div></option>
+								
+							</select>
+
+
+
+						</div>
+						<div class="input-group-addon">
+							<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button>
+						</div>
+						<div class="mail-check-box">
+							<input class="form-control mail-check-input"
+								placeholder="인증번호 6자리를 입력해주세요!" disabled="disabled"
+								maxlength="6">
+						</div>
+						<span id="mail-check-warn"></span>
+					</div>
 				</table>
 				<table>
 					<td>생년월일</td>
@@ -665,7 +787,7 @@ td {
 
 			</div>
 
-			
+
 		</div>
 
 	</section>

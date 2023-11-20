@@ -188,7 +188,25 @@ border: none!important;
     font-size: 15px;
     border-radius: 10px;
 }
+/* 반응형 */
 
+/* 중간화면 */
+@media (max-width:1280px) {
+	.option-list-wrap{
+		width: 75vw;
+	}
+	.option-list select{
+	}
+}
+/* 작은 */
+@media (max-width:767px) {
+	.option-list-wrap{
+	width: 100vw;
+	}
+	.option-list select {
+	margin-right: 20%;
+	}
+}
 </style>
 <script>
 
@@ -387,6 +405,8 @@ border: none!important;
 			document.write(0);
 	}
 	}
+	
+	
 </script>
 <title>Insert title here</title>
 </head>
@@ -394,7 +414,7 @@ border: none!important;
 <jsp:include page="../base/sellerHeader.jsp"/>
 	
 	<section id="content">
-		<div>
+		
 			<div>
 				<div class="menu-img"><img alt="" src=""></div>
 				<div class="menu-name">메뉴선택에서 불러와야함</div>
@@ -469,7 +489,7 @@ border: none!important;
 					<button onclick="insertOptionCategory()">추가하기</button>
 				</div>
 			</div>
-		</div>
+	
 
 	</section>
 <jsp:include page="../base/footer.jsp"/>

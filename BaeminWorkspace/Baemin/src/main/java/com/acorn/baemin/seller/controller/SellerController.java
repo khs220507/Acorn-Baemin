@@ -98,7 +98,7 @@ public class SellerController {
 				String menuImage = menuName + fileName;
 				
 				System.out.println(menuImage);
-				
+
 				System.out.println("storeCode" + storeCode);
 				System.out.println("menuName" + menuName);
 				System.out.println("menuPrice" + menuPrice);
@@ -107,8 +107,7 @@ public class SellerController {
 				System.out.println("menuStatus" + menuStatus);
 				
 				MenuDTO menu = new MenuDTO(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus);
-				
-				
+
 				System.out.println(menu);
 				sc.insertMenu(menu);
 				System.out.println(menuCode);

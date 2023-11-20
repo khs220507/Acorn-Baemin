@@ -33,6 +33,10 @@ public class UserRepository implements UserRepositoryI {
 			throw new IllegalArgumentException("Invalid userType");
 		}
 	}
+	@Override
+	public String getPasswordByUserId(String userId) {
+		return session.selectOne(namespace + "getPasswordByUserId", userId);
+	}
 
 	// 손님 일부 조회
 	@Override
@@ -95,5 +99,7 @@ public class UserRepository implements UserRepositoryI {
 
 		return session.selectOne(namespace + "checkForDuplicates", params);
 	}
+
+	
 
 }
