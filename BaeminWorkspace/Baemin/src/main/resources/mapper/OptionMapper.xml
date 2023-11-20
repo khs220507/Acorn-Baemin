@@ -6,7 +6,11 @@
 <mapper namespace="com.acorn.OptionMapper">
 	
 	
-
+	<select id="userSelectOption" resultType="OptionDTO" parameterType="String">
+		SELECT *
+		FROM option_tbl
+		where menuCode  = #{menuCode} and optionStatus = 0
+	</select>
 
 	<select id="selectOption" resultType="OptionDTO" parameterType="String">
 		SELECT *

@@ -190,13 +190,43 @@ display: flex;
 margin: 0 auto;
 }
 
+/* 반응형 */
 
-.section-wrap, .store-img-wrap, .store-img, .store-info-wrap,
-	.store-info, .store-info2, .store-but-wrap, .store-but, .store-plus,
-	.store-plus-img {
-	
+/* 중간화면 */
+@media (max-width:1280px) {
+	section, .section-wrap, .section-line{
+		width: 100vw;
+		padding: 0 20px;
+	}
 }
-/* 풋터 */
+/* 작은 */
+@media (max-width:767px) {
+	
+	.store-list{
+		display: block;
+	}
+	.store-info2{
+		display: none;
+	}
+	.store-img-wrap{
+	display: block;
+	height: 150px;
+    width: 150px;
+    margin: 0 auto;
+	}
+	.store-img-wrap img {
+	height: 150px;
+    width: 150px;
+
+	}
+	.store-info{
+	padding: 20px;
+	}
+	.store-info div{
+	text-align: center;   
+	}
+}
+
 </style>
 <script>
 
@@ -243,9 +273,9 @@ margin: 0 auto;
 	    	if(confirm("정말 매장을 삭제 하시겠습니까?")){
 			let storeCode = Code;
 		    let storeStatus = 2;
-	   	let info = {storeCode : storeCode,
+	  	 	let info = {storeCode : storeCode,
 	   			storeStatus : storeStatus}
-	   	let infos = JSON.stringify(info);
+	   		let infos = JSON.stringify(info);
 	       	
 	   		$.ajax({
 	   			type : "PUT",
@@ -268,7 +298,7 @@ margin: 0 auto;
 		       window.location.reload();
 		   });
 		   
-		   function updateStore(element) {
+		   function updateStore(element) {              
 			   let formData = new FormData(element.closest('#updateForm'));
 			   console.log(formData);
 			   		$.ajax({
@@ -281,6 +311,7 @@ margin: 0 auto;
 			   			success : function(data) {
 			   				alert("매장정보가 수정되었습니다.");
 			   				window.location.reload();
+			   				//window.location.href="/baemin/sellerHome?sellerHome=20001";
 			   			},
 			   			error : function() {
 			   				alert("매장정보 수정에 실패하였습니다.");
@@ -289,8 +320,25 @@ margin: 0 auto;
 			   
 		}
 		   
+		   
+		   function b(){
+			   $.ajax({
+		   			type : "get",		   		 
+		   			url : "/baemin/sellerHome",		   		 
+		   			success : function(data) {
+		   				alert("매장정보가 수정되었습니다.");		   				 
+		   			},
+		   			error : function() {
+		   				alert("매장정보 수정에 실패하였습니다.");
+		   			}
+		   		})
+		   }
+		   
 	    <% String sellerCode = (String)session.getAttribute("seller"); %>
        
+	    
+	    
+	    //수정버튼  ajax 점정보가져오기
 		function updateSellerStore(storeCode , but){
 			
 			//  originalData = $(but).closest(".store-list").html(); 
@@ -300,6 +348,8 @@ margin: 0 auto;
 				 		url: "/baemin/sellerHome/"+storeCode ,
 				 		success : function( data ){
 				 			console.log(data);
+				 			
+				 			//해당영역의 내용 데이터 변경
 				 			let result  = updataStoreHTML(data, storeCode);
 				 			$(but).closest(".store-list").html(result);
 				 		},
@@ -330,7 +380,7 @@ margin: 0 auto;
 		    result += '<div class="store-plus-info"><span>배달지역</span><input name="updeliveryArea" type="text" value="' + d.deliveryArea + '"></div>';
 		    result += '<div class="store-plus-info"><span>매장 상태 관리</span><select name="upstoreStatus">';
 		    result += '<option value="' + d.storeStatus + '">' + funstoreStatus(d.storeStatus) + '</option><option value="' + renofunstoreStatus(d.storeStatus) + '">' + refunstoreStatus(d.storeStatus) + '</option></select></div>';
-		    result += '<div class="store-plus-but-wrap"><button class="store-plus-but" onclick="updateStore( this)">수정하기</button></div>';
+		    result += '<div class="store-plus-but-wrap"><button type="button" class="store-plus-but" onclick="updateStore( this)">수정하기</button></div>';
 		    result += '<input type="hidden" name="sellerCode" value="' + <%= sellerCode%> + '"><input type="hidden" name="sstoreCode" value="' + s + '"><input name="backupStoreImage" type="hidden" value="' + d.storeImage + '"></form>';
 		    return result;
 		}
@@ -386,9 +436,11 @@ margin: 0 auto;
 					
 					<div class="store-info-wrap">
 						<div class="store-info">
-							<div><a href="${path}/sellerMenu?storeCode=${item.storeCode}">${item.storeName }</a> <span><script >storeStatus(${item.storeStatus});</script></span></div>
+						<a href="${path}/sellerMenu?storeCode=${item.storeCode}">
+							<div>${item.storeName } <span><script >storeStatus(${item.storeStatus});</script></span></div>
 							<div>⭐ ${item.storeRating}(${item.reviewCount})</div>
 							<div>최소주문: ${item.minOrderPrice }</div>
+						</a>
 						</div>
 						<div class="store-info2">
 							<div>${item.storeDescription}</div>
@@ -446,7 +498,7 @@ margin: 0 auto;
 						<span>배달지역</span> <input name="deliveryArea" type="text" >
 					</div>
 					<div class="store-plus-but-wrap">
-					<button class="store-plus-but" onclick="plusclick2()">저장하기</button>
+					<button type="button" class="store-plus-but" onclick="plusclick2()">저장하기</button>
 					<input class="sstoreCode" type="hidden" name="sellerCode" value="<%= sellerCode%>">
 					</div>
 				

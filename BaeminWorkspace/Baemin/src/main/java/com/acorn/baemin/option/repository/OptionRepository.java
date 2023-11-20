@@ -13,7 +13,11 @@ public class OptionRepository  {
 		private SqlSession session;
 
 	    private static String namespaceStore = "com.acorn.OptionMapper.";
-	
+	   
+	    public List<OptionDTO> userSelectOption(String menuCode) {
+	    	return session.selectList(namespaceStore+"userSelectOption",menuCode);
+	    }
+	    
 	    public List<OptionDTO> selectOption(String menuCode) {
 	    	return session.selectList(namespaceStore+"selectOption",menuCode);
 	    }
