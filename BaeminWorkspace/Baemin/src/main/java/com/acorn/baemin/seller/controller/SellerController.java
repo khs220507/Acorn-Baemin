@@ -44,35 +44,43 @@ public class SellerController {
 	private SellerService sc;
 
 	String fileDir = "c:\\test\\upload\\";
-	
-	// 사장님의 메뉴 탭 화면
-	@GetMapping("/sellerMenu")
-	public String readMenu(Integer storeCode, Model model) {
-
-		System.out.println("storeCode @service: " + storeCode);
-		StoreDTO readStore = sc.selectStore(storeCode);
-		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
-		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
-		System.out.println(readMenuInfo);
-		
-		model.addAttribute("readStore", readStore);
-		model.addAttribute("readSeller", readSeller);
-		model.addAttribute("readMenuInfo", readMenuInfo);
-		model.addAttribute("CList", CList);
-
-		return "seller/store_manage";
-	}
-	// 이미지 업로드와 관련
+	// 이미지 조회
 	@ResponseBody
 	@GetMapping("/images/{menuImage:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
 		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
 	}
+	
+	// 사장님의 메뉴 탭 화면
+	@GetMapping("/sellerMenu")
+	public String readMenu(Integer storeCode, Model model, HttpSession session) {
+		
+		System.out.println("storeCode @service: " + storeCode);
+		session.setAttribute("storeCode", storeCode);
+		if(storeCode != null) {
+			StoreDTO readStore = sc.selectStore(storeCode);
+			SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
+			List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+			List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+			System.out.println(readMenuInfo);
+			int reviewCount = sc.reviewCount(storeCode);
+			
+			model.addAttribute("readStore", readStore);
+			model.addAttribute("readSeller", readSeller);
+			model.addAttribute("readMenuInfo", readMenuInfo);
+			model.addAttribute("CList", CList);
+			model.addAttribute("RCount", reviewCount);
+
+			return "seller/store_manage";
+			} else {
+				return "redirect:/home";
+			}
+	}
+	
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
 	public String createtMenu(Integer storeCode, Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus)
+			String menuContent, String menuClassification, Integer menuStatus, HttpSession session)
 					throws IllegalStateException, IOException {
 		
 		System.out.println("menuName" + menuName);
@@ -84,7 +92,7 @@ public class SellerController {
 		
 		try {
 			if (!menuImageFile.isEmpty()) {
-				// 이미지 업로드 파트
+				// 이미지 업로드
 				String fileName = menuImageFile.getOriginalFilename();
 				String menuRealImage = fileDir + menuName + fileName; // c:\\test\\upload\\고양이.jpg
 				menuImageFile.transferTo(new File(menuRealImage));
@@ -99,6 +107,8 @@ public class SellerController {
 				
 				System.out.println(menu);
 				sc.insertMenu(menu);
+				session.setAttribute("menuCode", menuCode);
+				
 			}
 			
 		} catch (Exception e) {
@@ -107,16 +117,24 @@ public class SellerController {
 		}
 		return "seller/store_manage";
 	}
+	// 메뉴 분류 수정
+	@ResponseBody
+	@PutMapping("/updateSellerClassification")
+	public void updateSellerClassification(@RequestBody MenuDTO menu) {
+		sc.modifingMenuClassification(menu);
+	}
+	
 	// 메뉴 수정
 	@ResponseBody
-	@PutMapping("/sellerMenu")
+	@PutMapping("/updateSellerMenu")
 	public void updateMenuInfo(@RequestBody MenuDTO menu) {
 		sc.modifingMenu(menu);
 	}
 	// 메뉴 삭제
 	@ResponseBody
-	@PutMapping("/sellerMenu/{menuCode}")
-	public void deleteMenu(@PathVariable Integer menuCode) {
+	@PutMapping("/sellerMenu")
+	public void deleteMenu(HttpSession session) {
+		Integer menuCode = (Integer) session.getAttribute("menuCode");
 		System.out.println(menuCode);
 		sc.deleteMenu(menuCode);
 	}
@@ -126,9 +144,9 @@ public class SellerController {
 	// 정보 조회
 	@GetMapping("/infoManage")
 	@ResponseBody
-	public HashMap<String, Object> readInfo(@RequestParam Integer storeCode) {
+	public HashMap<String, Object> readInfo(HttpSession session) {
 	    HashMap<String, Object> infoMap = new HashMap<>();
-	    
+	    int storeCode = (int) session.getAttribute("storeCode");
 	    System.out.println("storeCode @service: " + storeCode);
 	    StoreDTO readStore = sc.selectStore(storeCode);
 	    SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
@@ -152,11 +170,14 @@ public class SellerController {
 	
 	// 사장님의 리뷰 탭 화면
 	// 리뷰 조회
-	/*@GetMapping("/registerAnswer")
-	public HashMap<String, Object> readRnA(@RequestParam Integer storeCode) {
+
+	
+	@ResponseBody
+	@GetMapping("/rNaList")
+	public HashMap<String, Object> readRnA(HttpSession session) {
 	    HashMap<String, Object> raMap = new HashMap<>();
-	    ReviewDTO reviewcode = new ReviewDTO();
-	    int reviewCode = reviewcode.getReviewCode();
+	    int storeCode = (int) session.getAttribute("storeCode");
+	    int reviewCode = (int) session.getAttribute("reviewCode");
 	    System.out.println("storeCode @service: " + storeCode);
 	    List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
 	    List<AnswerDTO> readAnswer = sc.selectAllAnswer(reviewCode);
@@ -168,7 +189,7 @@ public class SellerController {
 	}
 	
 	
-	@GetMapping("/registerAnswer")
+	//@GetMapping("/registerAnswer")
 	public String readReview(Integer storeCode, Model model, HttpSession session) {
 		
 		int userCode = (int) session.getAttribute("userCode");
@@ -189,20 +210,22 @@ public class SellerController {
 	
 	
 	// 리뷰 삭제
-	*/
-	
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
-	public String storeMain(@RequestParam("storeCode") int storeCode,
-			Model model) {
+	public String storeMain(@RequestParam("storeCode") int storeCode, Model model) {
+		// 고정 정보 내용
+		// 리뷰 평점
+		
+		// 리뷰 갯수 카운트
+		int reviewCount = sc.reviewCount(storeCode);
 		// 메뉴 탭
-		// 메뉴정보
-		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
+		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보
 		List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
+		// 메뉴정보
+		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		System.out.println(readMenuInfo);
-		System.out.println("storeCode @service: " + storeCode);
 		
 		// 가게 정보 탭
 		StoreDTO readStore = sc.selectStore(storeCode);
@@ -220,7 +243,8 @@ public class SellerController {
 		model.addAttribute("CList", CList);
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
-
+		model.addAttribute("RCount", reviewCount);
+		
 		return "store/store";
 	}
 	

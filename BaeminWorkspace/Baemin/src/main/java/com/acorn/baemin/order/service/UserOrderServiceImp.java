@@ -27,6 +27,12 @@ public class UserOrderServiceImp implements UserOrderServiceI{
 	public void insertOrder(OrderDTO orderDTO) {
 		userOrderRepository.insertOrder(orderDTO);
 	}
+
+	@Override
+	public OrderDTO getLastOrder() {
+		OrderDTO lastOrderDTO = userOrderRepository.getLastOrder();
+		return lastOrderDTO;
+	}
 	
 	
 	

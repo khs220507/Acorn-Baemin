@@ -11,4 +11,5 @@ public interface UserOrderRepositoryI {
 
 	public void insertOrder(OrderDTO orderDTO); 
 	
+	public OrderDTO getLastOrder();
 }

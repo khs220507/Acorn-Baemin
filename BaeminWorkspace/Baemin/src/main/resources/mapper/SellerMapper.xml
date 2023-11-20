@@ -17,7 +17,7 @@
 	<update id="updateMenuClassification" parameterType="MenuDTO">
 		UPDATE menu_tbl
 		SET menuClassification = #{menuClassification}
-		WHERE menuCode = #{menuCode}
+		WHERE menuCode = #{menuCode} and menuClassification = #{menuClassification}
 	</update>
 	
 	<!-- 메뉴 등록 -->
