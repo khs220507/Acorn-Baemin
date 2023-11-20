@@ -8,6 +8,13 @@
 		SELECT * FROM review_tbl where storeCode = #{storeCode}
 	</select>
 	
+	<!-- 가게 평점 평균 -->
+	<select id="storeAvgRating" resultType="double" parameterType="int">
+        SELECT AVG(storeRating) AS storeAvgRating
+        FROM store_tbl
+        WHERE storeCode = #{storeCode}
+    </select>
+	
 	<!-- 해당 가게의 리뷰 갯수 카운트 -->
 	<select id="reviewCount" resultType="int" parameterType="int">
         SELECT COUNT(*) FROM review_tbl WHERE storeCode = #{storeCode}
