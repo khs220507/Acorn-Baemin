@@ -194,14 +194,13 @@ a {
 				} else if (selectedLogintype === "seller") {
 					form.action = "${path}/login2";
 				}
-
 				form.submit();
+				
 			} else {
-				alert("로그인 유형을 선택해 주세요. (손님 또는 사장님).");
-			}
-
-			
+				alert("로그인에 실패했습니다. 로그인 유형을 확인해주세요.");
+			}			
 		}
+		
 		
 		
 			// Enter 키 누를 시 로그인 button click과 같은 효과
@@ -269,7 +268,7 @@ a {
 				<span></span>
 				<!-- 아이디 찾기와 비밀번호 찾기 링크 -->
 				<div class="remember-links right-links">
-					<a href="/baemin/findIdForm">아이디 찾기</a> | <a href="/">비밀번호 찾기</a>
+					<a href="/baemin/findIdForm">아이디 찾기</a> | <a href="/baemin/findPwForm">비밀번호 찾기</a>
 				</div>
 				<span></span><span></span>
 				<p class="signup-link">

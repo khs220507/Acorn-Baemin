@@ -18,6 +18,9 @@ public interface UserRepositoryI {
 
 	// 사장님 가입
 	public void insertSeller(SellerDTO insertseller);
+	
+	// 내정보수정시, 손님 비번 재확인
+	String getPasswordByUserId(String userId);
 
 	// 손님 정보수정
 	public void updateCustomer(UserDTO updatecustomer);

@@ -291,7 +291,7 @@
                             contentType: "application/json",
                             success: function (data) {
                                 alert("수정 성공 q(≧▽≦q)");
-                                window.location.href = "http://localhost:8080/baemin/seller_home";
+                                window.location.href = "http://localhost:8080/baemin/home";
                             },
                             error: function () {
                                 alert("수정 정보를 확인해주세요 q(≧▽≦q)");
@@ -305,9 +305,7 @@
                     }
                 };
                 ////중요/////
-                $(document)
-                    .ready(
-                        function () {
+                $(document).ready(function () {
                             let sellerIdValid = false;
                             let sellerPwValid = false;
                             let confirmPasswordValid = false;
@@ -315,10 +313,7 @@
                             let sellerRegCodeValid = false;
 
                             // 비밀번호 유효성 검사
-                            $("#sellerPw")
-                                .on(
-                                    "input",
-                                    function () {
+                            $("#sellerPw").on("input",function () {
                                         let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
                                         if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
@@ -348,9 +343,9 @@
                             // 사장님 이름
                             $("#sellerName").blur(function () {
                                 if ($("#sellerName").val == "") {
-                                    sellerName = false;
+                                    sellerNameValid = false;
                                 } else {
-                                    sellerName = true;
+                                    sellerNameValid = true;
                                 }
                             });
 
@@ -380,7 +375,7 @@
                                 }
                             });
 
-                            // 이메일 유효성 검사
+                         // 이메일 유효성 검사
                             $("#sellerEmail").on("input", function () {
                                 let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -393,17 +388,16 @@
                                 }
                             });
 
-                            // 수정완료 버튼 클릭 시 유효성 검사 및 서버 전송
-                            $("#modify_button").click(
-                                function () {
-                                    if (sellerIdValid && sellerPwValid
-                                        && confirmPasswordValid) {
-                                        // 서버로 전송할 로직 추가
-                                        alert("수정이 완료되었습니다.");
-                                    } else {
-                                        alert("입력 정보를 확인해주세요.");
-                                    }
-                                });
+                         // 수정완료 버튼 클릭 시 유효성 검사 및 서버 전송
+                            $("#modify_button").click(function () {
+                                let isValid = sellerNameValid && sellerRegCodeValid && sellerPhoneValid && sellerEmailValid;
+
+                                if (isValid) {
+                                    updateseller(); // 유효성 검사가 모두 통과되면 함수 호출
+                                } else {
+                                    alert("입력 정보를 확인해주세요.");
+                                }
+                            });
 
                         });
 
@@ -414,7 +408,7 @@
 
         <body>
 
-            <jsp:include page="../base/header.jsp" />
+            <jsp:include page="../base/sellerHeader.jsp" />
 
             <section id="content">
 
