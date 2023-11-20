@@ -15,29 +15,20 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
-	<!-- mail library -->
-	 <dependency>
-        <groupId>javax.mail</groupId>
-        <artifactId>mail</artifactId>
-        <version>1.4.7</version>
-    </dependency>
-	
-	<!-- mail 서포트 -->
-	<dependency>
-		<groupId>org.springframework</groupId>
-		<artifactId>spring-context-support</artifactId>
-		<version>${org.springframework-version}</version>
-	
-	</dependency>
-	
-	
-	
-	 <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-mail</artifactId>
-        <version>3.0.5</version>
-    </dependency>
-	
+  <!-- 이메일 인증 dependency -->
+      <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context-support</artifactId>
+         <version>${org.springframework-version}</version>
+      </dependency>
+
+   <dependency>
+    <groupId>com.sun.mail</groupId>
+    <artifactId>javax.mail</artifactId>
+    <version>1.6.2</version> <!-- 최신 버전에 맞게 업데이트해 주세요 -->
+</dependency>
+		
+
 		<!-- 파일업로드하는 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -51,11 +42,11 @@
 		</dependency>
 
 		<!-- Spring -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.springframework</groupId> -->
-<!-- 			<artifactId>spring-context-support</artifactId> -->
-<!-- 			<version>5.0.7</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-context-support</artifactId>
+		<version>${org.springframework-version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>

@@ -7,6 +7,10 @@
 
 
 
+
+
+
+
 	<!-- 손님 아이디 찾기 -->
 	<select id="findCustomerId" resultType="UserDTO"
 		parameterType="map">
@@ -20,8 +24,51 @@
 		parameterType="map">
 		select sellerId
 		from seller_tbl
-		where sellerEmail =	#{sellerEmail}
+		where sellerEmail =
+		#{sellerEmail}
 	</select>
+
+	<!-- 손님 비밀번호 찾기 -->
+	<select id="finduserPw" resultType="UserDTO">
+		select userPw
+		from user_tbl
+		where userId = #{userId}
+		and userEmail = #{userEmail}
+	</select>
+
+	<!-- 사장님 비밀번호 찾기 -->
+	<select id="findsellerPw" resultType="SellerDTO">
+		select sellerPw
+		from
+		seller_tbl
+		where sellerId = #{sellerId}
+		and sellerEmail = #{sellerEmail}
+	</select>
+
+
+
+	<!-- 손님 비밀번호 초기화 -->
+	<update id="resetCustomerPassword" parameterType="map">
+		UPDATE user_tbl
+		SET userPw = #{newPassword}
+		WHERE userId = (
+		SELECT userId
+		FROM user_tbl
+		WHERE userEmail = #{userEmail}
+		)
+	</update>
+
+	<!-- 사장님 비밀번호 초기화 -->
+	<update id="resetSellerPassword" parameterType="map">
+		UPDATE seller_tbl
+		SET sellerPw = #{newPassword}
+		WHERE sellerId = (
+		SELECT sellerId
+		FROM
+		seller_tbl
+		WHERE sellerEmail = #{sellerEmail}
+		)
+	</update>
 
 
 
@@ -52,13 +99,21 @@
 	<!-- 손님 로그인 -->
 	<select id="selectUserById" resultType="UserDTO"
 		parameterType="UserDTO">
-		select * from user_tbl where userId = #{userId} and	userPw = #{userPw}
+		select * from user_tbl where userId = #{userId} and
+		userPw = #{userPw}
 	</select>
 
 	<!-- 사장님 로그인 -->
 	<select id="selectSellerById" resultType="SellerDTO"
 		parameterType="SellerDTO">
-		select * from seller_tbl where sellerId = #{sellerId} and sellerPw = #{sellerPw}
+		select * from seller_tbl where sellerId = #{sellerId}
+		and sellerPw = #{sellerPw}
+	</select>
+
+	<select id="getPasswordByUserId" resultType="String">
+		select userPw
+		from user_tbl
+		where userId = #{userId}
 	</select>
 
 	<!-- 손님 정보 수정 -->
@@ -67,7 +122,8 @@
 		set
 		userNickname = #{userNickname},
 		userPw = #{userPw},
-		userPhone =	#{userPhone}, 
+		userPhone =
+		#{userPhone},
 		userEmail = #{userEmail}
 		where userCode = #{userCode}
 	</update>
@@ -75,10 +131,10 @@
 	<!-- 손님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectCustomerInfo" resultType="UserDTO"
 		parameterType="Integer">
-		select userNickname, userPhone, userEmail, userPostCode,
-		userAddress, userAddressDetail
-		from user_tbl where userCode =
-		#{userCode}
+		select userNickname, userPw, userPhone, userEmail,
+		userPostCode, userAddress, userAddressDetail
+		from user_tbl where
+		userCode = #{userCode}
 	</select>
 
 	<!-- 손님 정보 수정시 닉네임, 연락처, 이메일 중복 확인 -->
@@ -99,9 +155,11 @@
 		set
 		sellerName = #{sellerName},
 		sellerPw = #{sellerPw},
-		sellerPhone = #{sellerPhone},
+		sellerPhone =
+		#{sellerPhone},
 		sellerEmail = #{sellerEmail},
-		sellerRegCode =	#{sellerRegCode}
+		sellerRegCode =
+		#{sellerRegCode}
 		where sellerCode = #{sellerCode}
 	</update>
 
