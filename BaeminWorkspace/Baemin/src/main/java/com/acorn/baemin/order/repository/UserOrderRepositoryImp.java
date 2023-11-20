@@ -27,4 +27,10 @@ public class UserOrderRepositoryImp implements UserOrderRepositoryI {
 	public void insertOrder(OrderDTO orderDTO) {
 		session.insert(namespace + "insertOrder", orderDTO);
 	}
+
+	@Override
+	public OrderDTO getLastOrder() {
+		return session.selectOne(namespace+"getLastOrder");
+		
+	}
 }

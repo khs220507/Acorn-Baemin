@@ -134,7 +134,7 @@ public class HomeController {
 	////////////////////////////////////////////////////////////////////////
 
 	// 주문 상세내역 조회
-	//@PostMapping("/orderDetail")
+	@GetMapping("/orderDetail")
 	public String orderDetailSelect(@RequestParam int orderNumber, Model model) {
 
 		List<OrderDTO> result = detailDAO.orderDetailSelect(orderNumber);

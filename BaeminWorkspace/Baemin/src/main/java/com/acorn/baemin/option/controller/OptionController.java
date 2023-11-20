@@ -26,7 +26,9 @@ public class OptionController {
 	//user
 	@GetMapping("/option")
 	public String selectOption(@RequestParam String menuCode, Model model) {
+
 		List<OptionDTO> result  = rep.userSelectOption(menuCode);
+
 		List<String> OptionCategoryList = new ArrayList<>(result.size());
 		for(OptionDTO list : result) {
 			String OptionCategory =list.getOptionCategory();
@@ -36,6 +38,9 @@ public class OptionController {
 		model.addAttribute("Categorylist", result2);
 		model.addAttribute("list", result);
 		model.addAttribute("menuCode", menuCode);
+		
+		
+		
 		return "store/option";
 		}
 	

@@ -77,7 +77,7 @@ CREATE TABLE store_tbl (
 
 INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
 VALUES
-(20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 1),
+(20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 0),
 (20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 1),
 (20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 1),
 (20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 1),
@@ -191,14 +191,13 @@ CREATE TABLE order_tbl (
 	orderStoreName varchar(100),
 	orderStoreImage varchar(100),
     orderDate DATE,
-    payType TINYINT(1) UNSIGNED,
-    orderType TINYINT(1) UNSIGNED,
+    payType TINYINT(1) UNSIGNED, -- 0 : 카카오결제 1 : 현장결제
+    orderType TINYINT(1) UNSIGNED, -- 0 : 배달 1 : 포장
     reqToSeller VARCHAR(300),
     reqToRider VARCHAR(300),
-    orderStatus VARCHAR(20),
+    orderStatus VARCHAR(200), -- 주문접수, 배달중, 배달완료
     -- 추가
-    optionCategory varchar(255),
-    optionName varchar(255),
+    optionsInfo varchar(300),
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
@@ -206,13 +205,6 @@ CREATE TABLE order_tbl (
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT = 70001;
 
-INSERT INTO order_tbl (userCode, storeCode, orderMenuName, orderMenuNumber, orderMenuPrice, orderStoreName, orderStoreImage, orderDate, payType, orderType, reqToSeller, reqToRider, orderStatus, optionCategory, optionName, deliveryFee, deliveryAddress, userPhone)
-VALUES
-(10001, 30001, '김치찌개', 2, 18000, '맛있는 음식점1', 'store1.jpg', '2023-11-10', 0, 0, '특별한 요청 없음', '빨리 배달 부탁드립니다', '주문접수', '소스', '간장 소스', 3000, '서울시 강남구 강남대로 123 아파트 101호', '010-1234-5678'),
-(10002, 30002, '페퍼로니 피자', 1, 18000, 'Pizza Heaven', 'store2.jpg', '2023-11-11', 1, 0, '얇게 구워주세요', '종이 포장 부탁드립니다', '주문접수', '치즈', '모짜렐라 치즈', 2500, '서울시 강서구 강서로 456 오피스텔 202호', '010-2345-6789'),
-(10003, 30003, '연어 초밥', 3, 60000, 'Sushi Master', 'store3.jpg', '2023-11-12', 0, 1, '무엇이든 맛있게 부탁드려요', '빨리 배달 해주세요', '배달중', '맛 추가', '매운맛 추가', 3500, '서울시 송파구 올림픽로 789 단독주택', '010-3456-7890'),
-(10004, 30004, '스테이크', 1, 25000, 'BBQ Grill', 'store4.jpg', '2023-11-13', 1, 1, '매우 덜익혀주세요', '양파는 빼주세요', '배달완료', '토핑', '계란 토핑', 2000, '서울시 서초구 강남대로 1010 맨션 303호', '010-4567-8901'),
-(10005, 30005, '짜장면', 2, 16000, 'Noodle House', 'store5.jpg', '2023-11-14', 0, 0, '맵게 해주세요', '양파는 빼주세요', '주문접수', '스프', '미소 스프', 2800, '서울시 강북구 북촌로 111 단독주택', '010-5678-9012');
 
 select * from order_tbl;
 

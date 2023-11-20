@@ -88,6 +88,12 @@ public class SellerService implements SellerServiceI{
 		System.out.println("selectAllReview @service");
 		return rep.selectAllReview(storeCode);
 	}
+	// 리뷰 갯수 카운트
+	@Override
+	public int reviewCount(Integer storeCode) {
+		System.out.println("reviewCount @service");
+		return rep.reviewCount(storeCode);
+	}
 	// 답글 전체 조회
 	@Override
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {

@@ -154,10 +154,10 @@ section{
 				<c:forEach items="${searchList}" var="searchList">
 					<div class="wrap-include-hr">
 						<div class="searchList-wrap">
-							<a href=""><img class="store-img" src=""></a>
+							<a href="${path}/store?storeCode=${searchList.storeCode}"><img class="store-img" src=""></a>
 
 							<div class="store-info-wrap">
-								<a href="">${searchList.storeName } <span class="store-code">
+								<a href="${path}/store?storeCode=${searchList.storeCode}">${searchList.storeName } <span class="store-code">
 										${searchList.storeCode }</span></a>
 								<div class="scope-wrap">
 									<img class="scope-star-img"

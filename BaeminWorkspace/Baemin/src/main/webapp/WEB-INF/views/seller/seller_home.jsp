@@ -298,7 +298,9 @@ margin: 0 auto;
 		       window.location.reload();
 		   });
 		   
+
 		   function updateStore(element) {              
+
 			   let formData = new FormData(element.closest('#updateForm'));
 			   console.log(formData);
 			   		$.ajax({
@@ -310,6 +312,7 @@ margin: 0 auto;
 			   			data : formData,
 			   			success : function(data) {
 			   				alert("매장정보가 수정되었습니다.");
+			   				console.log( data);
 			   				window.location.reload();
 			   				//window.location.href="/baemin/sellerHome?sellerHome=20001";
 			   			},
@@ -319,6 +322,7 @@ margin: 0 auto;
 			   		})
 			   
 		}
+
 		   
 		   
 		   function b(){

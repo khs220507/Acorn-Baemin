@@ -53,27 +53,26 @@ public class CartController {
 	}
 
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int totalPrice , HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
+	public String placeOrder(@RequestParam int orderMenuPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
 		
 		
-		session.setAttribute("totalPrice", totalPrice);
+		session.setAttribute("orderMenuPrice", orderMenuPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
 		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
 		List<MenuDTO> menuInfo = (List<MenuDTO>) session.getAttribute("menuInfo");
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
 		orderDTO.setOrderStoreName(storeInfo.get(0).getStoreName());
-		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage());
+		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage()); 
 		orderDTO.setOrderMenuName(menuInfo.get(0).getMenuName());
 		orderDTO.setStoreCode(storeInfo.get(0).getStoreCode());
-		orderDTO.setOrderType(userCode);
-		
-		model.addAttribute("totalPrice", totalPrice);
+		orderDTO.setOrderMenuPrice(orderMenuPrice);
 		model.addAttribute("userInfo", userInfo);
-		
-		
+		CartInfoDTO cartInfo = (CartInfoDTO) session.getAttribute("cartInfo");
+		String optionsInfo = cartInfo.getOptions();
+		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
 		session.setAttribute("orderDTO", orderDTO);
-		System.out.println("카트테스트 : " + orderDTO);
+		
 		
 		
 		

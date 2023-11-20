@@ -11,13 +11,13 @@
 	
 	<!-- 답글 조회 -->
 	<select id="selectAllAnswer" resultType="AnswerDTO" parameterType="int">
-		SELECT * FROM answer_tbl where storeCode = #{storeCode}
+		SELECT * FROM answer_tbl where reviewCode = #{reviewCode}
 	</select>
 	
 	<!-- 답글 등록 -->
 	<insert id="insertAnswer" parameterType="AnswerDTO">
-		INSERT INTO answer_tbl (answerContent, reviewCode)
-		VALUES (#{answerContent}, #{reviewCode})
+		INSERT INTO answer_tbl (answerContent)
+		VALUES (#{answerContent})
 	</insert>
 	
 	<!-- 답글 수정 -->
@@ -29,9 +29,9 @@
 	
 	<!-- 답글 삭제(상태만 변경) -->
 	<update id="deleteAnswer" parameterType="int">
-		UPDATE review_tbl
-		SET reviewStatus = #{reviewStatus}
-		FROM reviewCode = #{reviewCode}
+		UPDATE answer_tbl
+		SET AnswerStatus = #{AnswerStatus}
+		FROM AnswerCode = #{AnswerCode}
 	</update>
 
 </mapper>

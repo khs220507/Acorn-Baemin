@@ -41,8 +41,8 @@ hr {
 	border: 0px;
 }
 /* 섹션  ////////////////////////////////////////////////////*/
-.wrap-all{
-	width:75%;
+.wrap-all {
+	width: 75%;
 	margin: 0 auto;
 }
 
@@ -69,7 +69,8 @@ hr {
 .date-wrap {
 	display: flex;
 }
-.date-wrap p{
+
+.date-wrap p {
 	font-size: 14px;
 }
 
@@ -102,16 +103,18 @@ hr {
 .store-name {
 	cursor: pointer;
 	font-size: 17px;
-	color:black;
+	color: black;
 }
 
 .menu-info {
 	display: flex;
 	margin-top: 5px;
 }
-.menu-info p{
+
+.menu-info p {
 	font-size: 15px;
 }
+
 .menu-text {
 	margin-right: 10px;
 }
@@ -143,29 +146,27 @@ hr {
 
 /* 반응형 /////////////////////////////////////////////////////////////////*/
 /* 중간화면 */
-	@media (max-width:1280px) {
-
-	section{
+@media ( max-width :1280px) {
+	section {
 		width: 100vw;
 	}
-	.wrap-all{
+	.wrap-all {
 		width: 75vw;
-	
 	}
 }
 
 /* 작은화면 */
-@media (max-width:767px) {
-	section{
+@media ( max-width :767px) {
+	section {
 		width: 100vw;
 	}
-	.wrap-all{
+	.wrap-all {
 		width: 90vw;
 	}
-	.wrap-center{
+	.wrap-center {
 		flex-direction: column;
 	}
-	.store-menu-wrap{
+	.store-menu-wrap {
 		margin-left: 0;
 		display: flex;
 		flex-direction: column;
@@ -205,9 +206,7 @@ hr {
 							src="${path}/storeImages/${orderList.orderStoreImage }"></a>
 						<div class="store-menu-wrap">
 							<a href="${path}/store?storeCode=${orderList.storeCode}">
-								<p class="store-name">
-									${orderList.orderStoreName}
-								</p>
+								<p class="store-name">${orderList.orderStoreName}</p>
 							</a>
 							<div class="menu-info">
 								<p class="menu-text">${orderList.orderMenuName}</p>
@@ -221,9 +220,7 @@ hr {
 							<button class="gray-radius-btn">리뷰쓰기</button>
 						</div>
 					</div>
-					<button class="add-menu-btn">
-						같은 메뉴 담기
-					</button>
+					<button class="add-menu-btn">같은 메뉴 담기</button>
 					<hr>
 				</div>
 
