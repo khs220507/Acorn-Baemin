@@ -145,7 +145,7 @@
 	}
 
 	input[id="sellerId"],
-	input[id="postCode"] {
+	input[id="userPostCode"] {
 		width: 97%;
 		height: 25px;
 		padding: 10px;
@@ -384,7 +384,7 @@ function updatecustomer() {
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('postCode').value = data.zonecode;
+                document.getElementById('userPostCode').value = data.zonecode;
                 document.getElementById("userAddress").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("userAddressdetail").focus();
@@ -449,10 +449,10 @@ function updatecustomer() {
 				<span class="input-container-address">
 					<table>
 						<td>주소</td>
-						<td><span><input type="text" id="postCode" name="postCode" placeholder="우편번호" class="vertical-center"></span>
+						<td><span><input type="text" id="userPostCode" name="userPostCode" placeholder="우편번호" class="vertical-center" value="${userInfo.userPostCode}"></span>
 							<button value="우편번호 찾기" class="vertical-center" id="searchpc" onclick="sample6_execDaumPostcode()"
 
-								style="width: 100px;">우편번호 찾기</button></td>
+								style="width: 100px;" >우편번호 찾기</button></td>
 					</table>
 				</span> <input type="text" id="userAddress" placeholder="주소"
 					class="vertical-center" value="${userInfo.userAddress }"> 
