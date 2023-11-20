@@ -72,6 +72,8 @@ public class CartController {
 		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
 		session.setAttribute("orderDTO", orderDTO);
+		System.out.println("테스트!!!!!!!!!");
+		System.out.println(session.getAttribute("orderDTO"));
 		
 		
 		

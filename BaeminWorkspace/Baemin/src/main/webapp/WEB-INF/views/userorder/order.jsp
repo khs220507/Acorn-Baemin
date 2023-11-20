@@ -187,32 +187,36 @@ body {
 	$(document)
 			.ready(
 					function() {
+						
+						
 
 						function updateTotalPaymentAmount() {
-			                var selectedOrderType = $("input[name='orderType']:checked").val();
-			                var deliveryFee = parseInt("${storeInfo[0].deliveryFee}"); // Assuming delivery fee is a numeric value
-			                var orderMenuPrice = parseInt("${orderMenuPrice}");
+							var selectedOrderType = $(
+									"input[name='orderType']:checked").val();
+							var deliveryFee = parseInt("${storeInfo[0].deliveryFee}"); // Assuming delivery fee is a numeric value
+							var orderMenuPrice = parseInt("${orderMenuPrice}");
 
-			                // Check if the selected order type is 'pickup'
-			                if (selectedOrderType === '1') {
-			                    // If 'pickup', set delivery fee to 0
-			                    deliveryFee = 0;
-			                }
+							// Check if the selected order type is 'pickup'
+							if (selectedOrderType === '1') {
+								// If 'pickup', set delivery fee to 0
+								deliveryFee = 0;
+							}
 
-			                // Update the total amount and display
-			                var totalAmount = orderMenuPrice + deliveryFee;
-			                $(".section-order-orderMenuPrice").text(totalAmount + "원");
-			                $(".section-order-price-detail-amount-delivery").text(deliveryFee + "원");
-			            }
+							// Update the total amount and display
+							var totalAmount = orderMenuPrice + deliveryFee;
+							$(".section-order-orderMenuPrice").text(
+									totalAmount + "원");
+							$(".section-order-price-detail-amount-delivery")
+									.text(deliveryFee + "원");
+						}
 
-			            // Initial call to set the total payment amount based on the default selected order type
-			            updateTotalPaymentAmount();
+						// Initial call to set the total payment amount based on the default selected order type
+						updateTotalPaymentAmount();
 
-			            // Handle radio button change event
-			            $("input[name='orderType']").change(function () {
-			                updateTotalPaymentAmount(); // Update total payment amount when the order type changes
-			            });
-
+						// Handle radio button change event
+						$("input[name='orderType']").change(function() {
+							updateTotalPaymentAmount(); // Update total payment amount when the order type changes
+						});
 
 						function toggleAddressWrapVisibility() {
 							var selectedOrderType = $(
@@ -233,61 +237,30 @@ body {
 						$("input[name='orderType']").change(function() {
 							toggleAddressWrapVisibility(); // Toggle visibility when the order type changes
 						});
+						
+						function updateDeliveryFee() {
+					        var selectedOrderType = $("input[name='orderType']:checked").val();
+					        var deliveryFeeInput = $("#deliveryFee");
 
-						function loadPaymentImage(selectedPaytype) {
-							if (selectedPaytype === 'card') {
-								// AJAX 요청을 보내서 이미지를 가져옴
-								$
-										.ajax({
-											url : '/baemin/order?selectedPaytype=card',
-											type : 'GET',
-											success : function(data) {
-												// 'data'에 이미지 URL이 있을 것으로 가정
-												var imageUrl = 'resources/images/addcard.png';
-												$('#paymentImageElement').attr(
-														'src', imageUrl);
-												$('#payment-image').show(); // 이미지 컨테이너 표시
-											},
-											error : function() {
-												// AJAX 요청 중 발생한 오류를 처리
-											}
-										});
-							} else if (selectedPaytype === 'cash') {
-								// 현장 결제가 선택되어 있으면 이미지를 숨김
-								$('#paymentImageElement').attr('src', ''); // 이미지 소스 지우기
-								$('#payment-image').hide(); // 이미지 컨테이너 숨김
-							}
-						}
+					        // Check if the selected order type is 'pickup'
+					        if (selectedOrderType === '1') {
+					            // If 'pickup', set delivery fee to 0
+					            deliveryFeeInput.val('0');
+					        } else {
+					            // If not 'pickup', use the original value from the server
+					            deliveryFeeInput.val('${storeInfo[0].deliveryFee}');
+					        }
+					    }
 
-						// 첫 페이지 로드 시, 선택한 결제 방법을 확인
-						var selectedPaytype = $("input[name='payType']:checked")
-								.attr('id');
-						loadPaymentImage(selectedPaytype);
+					    // Initial call to set the delivery fee based on the default selected order type
+					    updateDeliveryFee();
 
-						// 라디오 버튼의 변경 이벤트를 감지하여 AJAX 요청 및 이미지 업데이트
-						$("input[name='payType']").change(
-								function() {
-									var selectedPaytype = $(
-											"input[name='payType']:checked")
-											.attr('id');
-									loadPaymentImage(selectedPaytype);
-								});
+					    // Handle radio button change event
+					    $("input[name='orderType']").change(function() {
+					        updateDeliveryFee(); // Update delivery fee when the order type changes
+					    });
+						
 
-						// "카카오페이로 결제하기" 버튼 클릭 시 처리
-						$("#order-button").click(
-								function() {
-									// Assuming this is the button for KakaoPay
-									var selectedPaytype = $(
-											"input[name='payType']:checked")
-											.attr('id');
-									if (selectedPaytype === 'card') {
-										// Show the payment image
-										$('#paymentImageElement').show();
-									} else {
-										// Hide the payment image
-										$('#paymentImageElement').hide();
-									}
-								});
 					});
 </script>
 
@@ -333,122 +306,95 @@ body {
 		});
 	});
 
-	$(document).ready(function() {
-		// ...
+	$(document)
+			.ready(
+					function() {
 
-		// Function to update the hidden deliveryAddress field
-		function updateDeliveryAddress() {
-			var deliveryAddress = "${userInfo[0].userAddress}"; // Get the user's address
-			var detailedAddress = $("#base-structure-input").val(); // Get the detailed address
+						// Handle radio button change event for payment method
+						$("input[name='payType']")
+								.change(
+										function() {
+											var selectedPayType = $(
+													"input[name='payType']:checked")
+													.attr("id");
+											var formAction = selectedPayType === 'card' ? 'kakaoPay'
+													: 'orderDetail';
+											
 
-			// Concatenate user's address and detailed address
-			if (detailedAddress.trim() !== "") {
-				deliveryAddress += " " + detailedAddress;
-			}
+											// Update the form action
+											$("#order-form").attr("action",
+													formAction);
+										});
 
-			// Update the hidden deliveryAddress field value
-			$("#deliveryAddress").val(deliveryAddress);
-		}
+						// Function to update the hidden deliveryAddress field
+						function updateDeliveryAddress() {
+							var deliveryAddress = "${userInfo[0].userAddress}"; // Get the user's address
+							var detailedAddress = $("#base-structure-input")
+									.val(); // Get the detailed address
 
-		// Initial call to set the delivery address based on the default value
-		updateDeliveryAddress();
+							// Concatenate user's address and detailed address
+							if (detailedAddress.trim() !== "") {
+								deliveryAddress += " " + detailedAddress;
+							}
 
-		// Handle detailed address input change event
-		$("#base-structure-input").on("input", function() {
-			updateDeliveryAddress(); // Update delivery address when the detailed address changes
-		});
+							// Update the hidden deliveryAddress field value
+							$("#deliveryAddress").val(deliveryAddress);
+						}
 
-		
-		 function updateRequestValues() {
-		        var reqToSellerStoreValue = $("input[name='reqToSeller']").val();
-		        var reqToRiderValue = $("input[name='reqToRider']").val();
+						// Initial call to set the delivery address based on the default value
+						updateDeliveryAddress();
 
-		        // Set values in hidden fields
-		        $("#reqToSeller").val(reqToSellerStoreValue);
-		        $("#reqToRider").val(reqToRiderValue);
-		    }
-
-		    // Initial call to set the request values based on default values
-		    updateRequestValues();
-
-		    // Handle input change event
-		    $("input[name='reqToSeller'], input[name='reqToRider']").on("input", function() {
-		        updateRequestValues(); // Update request values when input changes
-		    });
-
-		    // Additional logic to hide/show the rider's request section based on orderType
-		    function toggleRiderRequestVisibility() {
-		        var selectedOrderType = $("input[name='orderType']:checked").val();
-
-		        // Check if the selected order type is 'pickup'
-		        if (selectedOrderType === '1') {
-		            // If 'pickup', hide the rider's request section
-		            $('#rider-request-section').hide();
-		        } else {
-		            // If not 'pickup', show the rider's request section
-		            $('#rider-request-section').show();
-		        }
-		    }
-
-		    // Initial call to set visibility based on the default selected order type
-		    toggleRiderRequestVisibility();
-
-		    // Handle radio button change event
-		    $("input[name='orderType']").change(function() {
-		        toggleRiderRequestVisibility(); // Toggle visibility when the order type changes
-		    });
-		
-	});
-</script>
-
-<script>
-	$(document).ready(
-			function() {
-				// Function to update hidden fields with request values
-				function updateRequestValues() {
-					var reqToSellerStoreValue = $("input[name='reqToSeller']")
-							.val();
-					var reqToRiderValue = $("input[name='reqToRider']").val();
-
-					// Set values in hidden fields
-					$("#reqToSeller").val(reqToSellerStoreValue);
-					$("#reqToRider").val(reqToRiderValue);
-				}
-
-				// Initial call to set the request values based on default values
-				updateRequestValues();
-
-				// Handle input change event
-				$("input[name='reqToSeller'], input[name='reqToRider']").on(
-						"input", function() {
-							updateRequestValues(); // Update request values when input changes
+						// Handle detailed address input change event
+						$("#base-structure-input").on("input", function() {
+							updateDeliveryAddress(); // Update delivery address when the detailed address changes
 						});
-			});
 
-	$("#order-button").click(function() {
-		// Assuming this is the button for KakaoPay
-		var selectedPaytype = $("input[name='payType']:checked").attr('id');
-		if (selectedPaytype === 'card') {
-			// Show the payment image
-			$('#paymentImageElement').show();
-		} else {
-			// Hide the payment image
-			$('#paymentImageElement').hide();
-		}
+						function updateRequestValues() {
+							var reqToSellerStoreValue = $(
+									"input[name='reqToSeller']").val();
+							var reqToRiderValue = $("input[name='reqToRider']")
+									.val();
 
-		// After KakaoPay payment is successful, redirect to the specified URL
-		// You might want to replace 'baemin/kakaopay' with the actual URL you want to redirect to
-		var redirectUrl = 'baemin/kakaopay';
+							// Set values in hidden fields
+							$("#reqToSeller").val(reqToSellerStoreValue);
+							$("#reqToRider").val(reqToRiderValue);
+						}
 
-		// Assuming the payment is successful, you can replace this with your actual logic
-		var paymentSuccessful = true;
+						// Initial call to set the request values based on default values
+						updateRequestValues();
 
-		if (paymentSuccessful) {
-			// Redirect to the specified URL
-			window.location.href = redirectUrl;
-		}
-	});
+						// Handle input change event
+						$("input[name='reqToSeller'], input[name='reqToRider']")
+								.on("input", function() {
+									updateRequestValues(); // Update request values when input changes
+								});
+
+						// Additional logic to hide/show the rider's request section based on orderType
+						function toggleRiderRequestVisibility() {
+							var selectedOrderType = $(
+									"input[name='orderType']:checked").val();
+
+							// Check if the selected order type is 'pickup'
+							if (selectedOrderType === '1') {
+								// If 'pickup', hide the rider's request section
+								$('#rider-request-section').hide();
+							} else {
+								// If not 'pickup', show the rider's request section
+								$('#rider-request-section').show();
+							}
+						}
+
+						// Initial call to set visibility based on the default selected order type
+						toggleRiderRequestVisibility();
+
+						// Handle radio button change event
+						$("input[name='orderType']").change(function() {
+							toggleRiderRequestVisibility(); // Toggle visibility when the order type changes
+						});
+
+					});
 </script>
+
 
 
 <body>
@@ -468,8 +414,8 @@ body {
 		<form id="order-form" method="post" action="orderDetail">
 			<div class="section-order-select">
 				<div class="section-select-ordertype">
-					<input id="select-ordertype-delivery" type="radio"
-						name="orderType" value=0 checked="checked"> 배달
+					<input id="select-ordertype-delivery" type="radio" name="orderType"
+						value=0 checked="checked"> 배달
 				</div>
 				<div class="section-select-ordertype">
 					<input id="select-ordertype-pickup" type="radio" name="orderType"
@@ -503,25 +449,27 @@ body {
 					<div class="section-order-request-seller">가게 사장님께</div>
 					<input type="text" name="reqToSeller" placeholder="예)덜 맵게 해주세요">
 					<div id="rider-request-section">
-					<div class="section-order-request-rider">라이더님께</div>
-					<input type="text" name="reqToRider"
-						placeholder="예)문 앞에 두고 벨 눌러주세요">
-				</div></div>
+						<div class="section-order-request-rider">라이더님께</div>
+						<input type="text" name="reqToRider"
+							placeholder="예)문 앞에 두고 벨 눌러주세요">
+					</div>
+				</div>
 			</div>
 
 			<div class="section-order-paytype-wrap">
 				<div class="section-order-paytype-title" id="base-structure">결제수단</div>
+				
+				<div class="section-order-paytype-cash">
+					<input type="radio" id="cash" name="payType" value="1" checked="checked">
+					<div id="base-structure">현장결제</div>
+				</div>
+				
 				<div class="section-order-paytype-card">
 					<div class="section-order-paytype-card-wrap">
-						<input type="radio" id="card" name="payType" value="0"
-							checked="checked">
+						<input type="radio" id="card" name="payType" value="0">
 						<div id="base-structure">카카오페이 결제</div>
 					</div>
 
-				</div>
-				<div class="section-order-paytype-cash">
-					<input type="radio" id="cash" name="payType" value="1">
-					<div id="base-structure">현장결제</div>
 				</div>
 			</div>
 
@@ -549,10 +497,12 @@ body {
 
 
 				<input type="hidden" name="deliveryAddress" id="deliveryAddress"
-					value="${userInfo[0].userAddress}"> <input type="hidden"
-					name="deliveryFee" id="deliveryFee"
-					value="${storeInfo[0].deliveryFee}"> <input type="hidden"
-					name="userPhone" id="userPhone" value="${userInfo[0].userPhone}"><input
+					value="${userInfo[0].userAddress}"> 
+					<input type="hidden"
+					name="deliveryFee" id="deliveryFee"	value="${storeInfo[0].deliveryFee}"> <input type="hidden"
+					name="userPhone" id="userPhone" value="${userInfo[0].userPhone}">
+					
+					<input
 					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
 					value="${orderMenuPrice}">
 

@@ -17,4 +17,5 @@ public class KakaoPayApprovalVO {
     private Date created_at, approved_at;
     
     
+    
 }
