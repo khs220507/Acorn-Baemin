@@ -102,9 +102,21 @@ public class SellerController {
 				
 				System.out.println(menuImage);
 				
+<<<<<<< Updated upstream
 				MenuDTO menu = new MenuDTO(menuCode, storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification,
 						menuStatus);
 				
+=======
+				System.out.println("storeCode" + storeCode);
+				System.out.println("menuName" + menuName);
+				System.out.println("menuPrice" + menuPrice);
+				System.out.println("menuContent" + menuContent);
+				System.out.println("menuClassification" + menuClassification);
+				System.out.println("menuStatus" + menuStatus);
+
+				MenuDTO menu = new MenuDTO(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus);
+
+>>>>>>> Stashed changes
 				System.out.println(menu);
 				sc.insertMenu(menu);
 				session.setAttribute("menuCode", menuCode);
