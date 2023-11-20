@@ -65,7 +65,6 @@ public class CartController {
 		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage()); 
 		orderDTO.setOrderMenuName(menuInfo.get(0).getMenuName());
 		orderDTO.setStoreCode(storeInfo.get(0).getStoreCode());
-		
 		orderDTO.setOrderMenuPrice(orderMenuPrice);
 		model.addAttribute("userInfo", userInfo);
 		CartInfoDTO cartInfo = (CartInfoDTO) session.getAttribute("cartInfo");
@@ -73,7 +72,7 @@ public class CartController {
 		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
 		session.setAttribute("orderDTO", orderDTO);
-		System.out.println("카트테스트2 : " + orderDTO);
+		
 		
 		
 		

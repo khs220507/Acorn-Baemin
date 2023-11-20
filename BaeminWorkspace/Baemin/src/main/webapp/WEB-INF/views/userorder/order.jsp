@@ -194,7 +194,7 @@ body {
 			                var orderMenuPrice = parseInt("${orderMenuPrice}");
 
 			                // Check if the selected order type is 'pickup'
-			                if (selectedOrderType === 'pickup') {
+			                if (selectedOrderType === '1') {
 			                    // If 'pickup', set delivery fee to 0
 			                    deliveryFee = 0;
 			                }
@@ -219,7 +219,7 @@ body {
 									"input[name='orderType']:checked").val();
 
 							// Check if the selected order type is 'pickup'
-							if (selectedOrderType === 'pickup') {
+							if (selectedOrderType === '1') {
 								$('#address-wrap').hide(); // Hide the address wrap
 							} else {
 								$('#address-wrap').show(); // Show the address wrap for other order types
@@ -358,7 +358,46 @@ body {
 			updateDeliveryAddress(); // Update delivery address when the detailed address changes
 		});
 
-		// ...
+		
+		 function updateRequestValues() {
+		        var reqToSellerStoreValue = $("input[name='reqToSeller']").val();
+		        var reqToRiderValue = $("input[name='reqToRider']").val();
+
+		        // Set values in hidden fields
+		        $("#reqToSeller").val(reqToSellerStoreValue);
+		        $("#reqToRider").val(reqToRiderValue);
+		    }
+
+		    // Initial call to set the request values based on default values
+		    updateRequestValues();
+
+		    // Handle input change event
+		    $("input[name='reqToSeller'], input[name='reqToRider']").on("input", function() {
+		        updateRequestValues(); // Update request values when input changes
+		    });
+
+		    // Additional logic to hide/show the rider's request section based on orderType
+		    function toggleRiderRequestVisibility() {
+		        var selectedOrderType = $("input[name='orderType']:checked").val();
+
+		        // Check if the selected order type is 'pickup'
+		        if (selectedOrderType === '1') {
+		            // If 'pickup', hide the rider's request section
+		            $('#rider-request-section').hide();
+		        } else {
+		            // If not 'pickup', show the rider's request section
+		            $('#rider-request-section').show();
+		        }
+		    }
+
+		    // Initial call to set visibility based on the default selected order type
+		    toggleRiderRequestVisibility();
+
+		    // Handle radio button change event
+		    $("input[name='orderType']").change(function() {
+		        toggleRiderRequestVisibility(); // Toggle visibility when the order type changes
+		    });
+		
 	});
 </script>
 
@@ -463,10 +502,11 @@ body {
 					<div class="section-order-request-title" id="base-structure">요청사항</div>
 					<div class="section-order-request-seller">가게 사장님께</div>
 					<input type="text" name="reqToSeller" placeholder="예)덜 맵게 해주세요">
+					<div id="rider-request-section">
 					<div class="section-order-request-rider">라이더님께</div>
 					<input type="text" name="reqToRider"
 						placeholder="예)문 앞에 두고 벨 눌러주세요">
-				</div>
+				</div></div>
 			</div>
 
 			<div class="section-order-paytype-wrap">
