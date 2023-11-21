@@ -35,6 +35,8 @@ import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
+import com.acorn.baemin.domain.ZzimDTO;
+import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.seller.service.SellerService;
 
 @Controller
@@ -42,6 +44,9 @@ public class SellerController {
 
 	@Autowired
 	private SellerService sc;
+	
+	@Autowired
+	ZzimRepositoryImp zr;
 
 	String fileDir = "c:\\test\\upload\\";
 	// 이미지 조회
@@ -214,7 +219,10 @@ public class SellerController {
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
 	public String storeMain(@RequestParam("storeCode") int storeCode, Model model) {
+		//찜
+		ZzimDTO zzimCheck = zr.zzimCheck(new ZzimDTO(10001, storeCode));
 		// 고정 정보 내용
+		
 		// 리뷰 평점
 		
 		// 리뷰 갯수 카운트
@@ -244,6 +252,8 @@ public class SellerController {
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
 		model.addAttribute("RCount", reviewCount);
+		model.addAttribute("ZCheck", zzimCheck);
+
 		
 		return "store/store";
 	}

@@ -88,6 +88,47 @@
         color: gray;
         }
        
+       /* 반응형 */
+
+		/* 중간화면 */
+		@media (max-width:1280px) {
+			.option-list-wrap, .nav-var{
+				width: 75vw;
+			}
+			
+		}
+		@media (max-width:767px) {
+		.nav-var{
+		padding: 210px 0px 10px 0px;
+		}
+		.store-list{
+			display: block;
+		}
+		.store-img-wrap{
+		display: block;
+		height: 150px;
+	    width: 150px;
+	    margin: 0 auto;
+		}
+		.store-img-wrap img {
+		height: 150px;
+	    width: 150px;
+	
+		}
+		.store-info {
+		padding: 20px;
+		}
+		.store-info2{
+		padding: 0 0 20px 0;
+		}
+		.store-info div, .store-info2 div{
+		text-align: center;   
+		}
+		.store-info-wrap{
+		display: block;
+		}
+		}
+		
         
        	
        	</style>

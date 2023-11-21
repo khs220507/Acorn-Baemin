@@ -13,13 +13,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acorn.baemin.domain.OptionDTO;
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
+import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
 import com.acorn.baemin.home.repository.OrderDetailRepositoryImp;
 import com.acorn.baemin.home.repository.OrderRepositoryImp;
@@ -45,7 +48,7 @@ public class HomeController {
 	@GetMapping("/home")
 	public String home(Model model) {
 
-		String[] foodCategories = {"치킨", "피자", "햄버거", "족발,보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
+		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
         model.addAttribute("categories", foodCategories);
         
 		return "home/home";
@@ -99,6 +102,18 @@ public class HomeController {
 		return result;
 
 	}
+	
+	// 찜 추가
+	@ResponseBody
+	@RequestMapping( value="/zzimInsert" , method=RequestMethod.POST)
+	public void zzimInsert(@RequestBody ZzimDTO Zzim) {
+		zzimDAO.zzimInsert(Zzim);
+	}
+	
+	// 찜 유무
+	
+	
+	
 	
 	//////////////////////////////////////////////////////////////////////////
 
