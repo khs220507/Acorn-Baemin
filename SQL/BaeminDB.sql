@@ -137,9 +137,9 @@ UPDATE option_tbl SET optionStatus = 0 where optionCode = 50001 ;
 
 INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
 VALUES
-(40001, '소스', 0, '간장 소스', 1000, 1),
-(40001, '소스', 0, '마요네즈 소스', 1000, 1),
-(40001, '소스', 0, '고추장 소스', 1000, 1),
+(40001, '소스', 0, '간장 소스', 1000, 0),
+(40001, '소스', 0, '마요네즈 소스', 1000, 0),
+(40001, '소스', 0, '고추장 소스', 1000, 0),
 (40002, '치즈', 1, '모짜렐라 치즈', 2000, 1),
 (40002, '치즈', 1, '체다 치즈', 2000, 1),
 (40003, '맛 추가', 2, '매운맛 추가', 500, 1),
@@ -166,19 +166,6 @@ create table cart_tbl (
     foreign key  (optionCode) references option_tbl(optionCode)
 )auto_increment = 60001;
 
-INSERT INTO cart_tbl (userId, storeCode, menuCode, optionCode, menuCount, cartPrice, optionStatus)
-VALUES
-('user001', 30001, 40001, 50001, 2, 21000, 1),
-('user002', 30002, 40002, 50002, 1, 20000, 1),
-('user003', 30003, 40003, 50003, 3, 24000, 1),
-('user004', 30004, 40004, 50004, 2, 54000, 1),
-('user005', 30005, 40005, 50005, 1, 9000, 1);
-
-INSERT INTO cart_tbl (userId, storeCode, menuCode, optionCode, menuCount, cartPrice, optionStatus)
-VALUES
-('user001', 30001, 40001, 50001, 2, 21000, 1),
-('user001', 30001, 40001, 50002, 1, 20000, 1),
-('user001', 30001, 40001, 50005, 1, 9000, 1);
 
 
 SELECT DISTINCT userId, optionCode,menuCount from cart_tbl where userId = 'user001';
@@ -233,25 +220,18 @@ select * from zzim_tbl;
 -- 09
 CREATE TABLE review_tbl (
     reviewCode INT AUTO_INCREMENT PRIMARY KEY,
-    menuCode int,
+    orderMenuName VARCHAR(100),
     userCode int,
     storeCode int,
     reviewImage VARCHAR(300),
     reviewDate DATE,
     reviewRating INT,
     reviewContent VARCHAR(300),
-   FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
+    reviewImageName VARCHAR(300),
    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
 
-INSERT INTO review_tbl (menuCode, userCode, storeCode, reviewImage, reviewDate, reviewRating, reviewContent)
-VALUES
-(40001, 10001, 30001, 'review1.jpg', '2023-11-10', 5, '맛있게 잘 먹었습니다!'),
-(40002, 10002, 30002, 'review2.jpg', '2023-11-11', 4, '치즈가 풍부해서 좋았어요.'),
-(40003, 10003, 30003, 'review3.jpg', '2023-11-12', 4, '연어가 신선하고 맛있어요.'),
-(40004, 10004, 30004, 'review4.jpg', '2023-11-13', 5, '고기의 질이 아주 좋았습니다.'),
-(40005, 10005, 30005, 'review5.jpg', '2023-11-14', 4, '짜장면이 진짜 맛있어요!');
 
 select * from review_tbl;
 
@@ -267,13 +247,6 @@ CREATE TABLE answer_tbl (
     FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
 ) AUTO_INCREMENT=100001;
 
-INSERT INTO answer_tbl (sellerCode, storeCode, reviewCode, answerDate, answerContent)
-VALUES
-(20001, 30001, 90001, '2023-11-10', '감사합니다! 더 좋은 서비스로 보답하겠습니다.'),
-(20002, 30001, 90002, '2023-11-11', '앞으로도 더 노력하겠습니다. 감사합니다!'),
-(20003, 30001, 90003, '2023-11-12', '맛있게 드셨다니 기쁘네요. 감사합니다!'),
-(20004, 30001, 90004, '2023-11-13', '다음에도 기대해주세요! 감사합니다!'),
-(20005, 30001, 90005, '2023-11-14', '맛있게 드셨다니 다행입니다. 감사합니다!');
 
 select * from answer_tbl;
 

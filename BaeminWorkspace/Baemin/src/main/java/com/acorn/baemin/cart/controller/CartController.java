@@ -75,10 +75,6 @@ public class CartController {
 		System.out.println("테스트!!!!!!!!!");
 		System.out.println(session.getAttribute("orderDTO"));
 		
-		
-		
-		
-		
 	    return "userorder/order";
 	}
 	
