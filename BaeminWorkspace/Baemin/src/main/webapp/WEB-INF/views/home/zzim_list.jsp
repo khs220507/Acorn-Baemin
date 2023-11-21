@@ -75,7 +75,7 @@ hr {
 }
 
 .store-info-wrap {
-	flex: 2;
+	flex: 3;
 	margin-left: 30px;
 }
 .store-info-wrap a{
@@ -101,7 +101,7 @@ hr {
 }
 
 .store-msg {
-	flex: 6;
+	flex: 5;
 	font-size: 15px;
 }
 
@@ -151,7 +151,6 @@ section{
 			<hr>
 
 			<c:forEach items="${zzimList }" var="zzimList">
-
 				<div class="wrap-include-hr">
 					<div class="zzimList-wrap">
 						<img class="delete-icon"
@@ -163,6 +162,13 @@ section{
 						<div class="store-info-wrap">
 							<a href="${path}/store?storeCode=${zzimList.storeCode}">${zzimList.storeName }
 								<span class="store-code"> ${zzimList.storeCode }</span>
+								
+								<c:choose>
+									<c:when test="${zzimList.storeStatus == 1 }">
+										<span>(준비중입니다...)</span>
+									</c:when>
+								</c:choose>
+								
 							</a>
 							<div class="scope-wrap">
 								<img class="scope-star-img"
@@ -198,12 +204,13 @@ section{
 					deleteList(storeCode);
 				});
 
+		
 		function deleteList(storeCode) {
 			if (confirm("찜을 해제하시겠습니까?")) {
 				$.ajax({
 					type : "get",
 					url : "${path}/zzimDelete",
-					data : "storeCode=" + storeCode + "&userCode=" + 10001,
+					data : "storeCode=" + storeCode + "&userCode=" + <%= userCodeInfo%>,
 					dataType : "text",
 					success : function(data) {
 						alert("찜이 해제되었습니다");

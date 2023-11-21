@@ -99,6 +99,10 @@ public class UserRepository implements UserRepositoryI {
 
 		return session.selectOne(namespace + "checkForDuplicates", params);
 	}
+	@Override
+	public int checkDuplicateNickname(String userNickname) {
+		return session.selectOne(namespace + "nickCheck", userNickname);
+	}
 
 	
 

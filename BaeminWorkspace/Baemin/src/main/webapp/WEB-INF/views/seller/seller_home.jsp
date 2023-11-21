@@ -441,7 +441,7 @@ margin: 0 auto;
 					<div class="store-info-wrap">
 						<div class="store-info">
 						<a href="${path}/sellerMenu?storeCode=${item.storeCode}">
-							<div>${item.storeName } <span><script >storeStatus(${item.storeStatus});</script></span></div>
+							<div>${item.storeName} <span><script >storeStatus(${item.storeStatus});</script></span></div>
 							<div>⭐ ${item.storeRating}(${item.reviewCount})</div>
 							<div>최소주문: ${item.minOrderPrice }</div>
 						</a>

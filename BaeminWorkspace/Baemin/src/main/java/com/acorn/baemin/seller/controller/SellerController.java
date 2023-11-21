@@ -49,9 +49,10 @@ public class SellerController {
 	ZzimRepositoryImp zr;
 
 	String fileDir = "c:\\test\\upload\\";
-	// 이미지 조회
+	
+	// 이미지 주소 리턴
 	@ResponseBody
-	@GetMapping("/images/{menuImage:.*}")
+	@GetMapping("/images/{menuImageFile:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
 		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
 	}
@@ -68,12 +69,14 @@ public class SellerController {
 			List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 			List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 			System.out.println(readMenuInfo);
+			double storeAvgRating = sc.storeAvgRating(storeCode);
 			int reviewCount = sc.reviewCount(storeCode);
 			
 			model.addAttribute("readStore", readStore);
 			model.addAttribute("readSeller", readSeller);
 			model.addAttribute("readMenuInfo", readMenuInfo);
 			model.addAttribute("CList", CList);
+			model.addAttribute("avgRating", storeAvgRating);
 			model.addAttribute("RCount", reviewCount);
 
 			return "seller/store_manage";
@@ -84,16 +87,10 @@ public class SellerController {
 	
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
-	public String createtMenu(Integer storeCode, Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus, HttpSession session)
+	public String createtMenu(Integer storeCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
+			String menuContent, String menuClassification, Integer menuStatus, Integer menuCode)
 					throws IllegalStateException, IOException {
-		
-		System.out.println("menuName" + menuName);
-		System.out.println("menuPrice" + menuPrice);
-		System.out.println("menuContent" + menuContent);
-		System.out.println("menuClassification" + menuClassification);
-		System.out.println("menuStatus" + menuStatus);
-		System.out.println("storeCode" + storeCode);
+
 		
 		try {
 			if (!menuImageFile.isEmpty()) {
@@ -106,13 +103,20 @@ public class SellerController {
 				String menuImage = menuName + fileName;
 				
 				System.out.println(menuImage);
+
+				System.out.println("storeCode" + storeCode);
+				System.out.println("menuName" + menuName);
+				System.out.println("menuPrice" + menuPrice);
+				System.out.println("menuContent" + menuContent);
+				System.out.println("menuClassification" + menuClassification);
+				System.out.println("menuStatus" + menuStatus);
 				
-				MenuDTO menu = new MenuDTO(menuCode, storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification,
-						menuStatus);
-				
+				MenuDTO menu = new MenuDTO(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus);
+
 				System.out.println(menu);
 				sc.insertMenu(menu);
-				session.setAttribute("menuCode", menuCode);
+				System.out.println(menuCode);
+				//session.setAttribute("menuCode", menuCode);
 				
 			}
 			
@@ -150,12 +154,16 @@ public class SellerController {
 	@GetMapping("/infoManage")
 	@ResponseBody
 	public HashMap<String, Object> readInfo(HttpSession session) {
+		
 	    HashMap<String, Object> infoMap = new HashMap<>();
+	    
 	    int storeCode = (int) session.getAttribute("storeCode");
 	    System.out.println("storeCode @service: " + storeCode);
+	    
 	    StoreDTO readStore = sc.selectStore(storeCode);
 	    SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
-	    System.out.println("sellerCode @service : " + readSeller);
+	    System.out.println("readStore @service : " + readStore);
+	    System.out.println("readSeller @service : " + readSeller);
 
 	    infoMap.put("readStore", readStore);
 	    infoMap.put("readSeller", readSeller);
@@ -174,59 +182,54 @@ public class SellerController {
 	
 	
 	// 사장님의 리뷰 탭 화면
-	// 리뷰 조회
-
-	
+	// 리뷰, 답글 조회
 	@ResponseBody
-	@GetMapping("/rNaList")
+	@GetMapping("/reviewAnswer")
 	public HashMap<String, Object> readRnA(HttpSession session) {
-	    HashMap<String, Object> raMap = new HashMap<>();
+		
+	    HashMap<String, Object> reviewAnswer = new HashMap<>();
+	    
 	    int storeCode = (int) session.getAttribute("storeCode");
 	    int reviewCode = (int) session.getAttribute("reviewCode");
+	    
 	    System.out.println("storeCode @service: " + storeCode);
 	    List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
 	    List<AnswerDTO> readAnswer = sc.selectAllAnswer(reviewCode);
 	    
-	    raMap.put("readReview", readReview);
-	    raMap.put("readAnswer", readAnswer);
-	    System.out.println("infoMap : " + raMap);
-	    return raMap;
+	    reviewAnswer.put("readReview", readReview);
+	    reviewAnswer.put("readAnswer", readAnswer);
+	    
+	    System.out.println("reviewAnswer : " + reviewAnswer);
+	    return reviewAnswer;
 	}
 	
 	
-	//@GetMapping("/registerAnswer")
-	public String readReview(Integer storeCode, Model model, HttpSession session) {
+	// 답글 수정
+	@PutMapping("/reviewAnswer")
+	public void updateAnswer(AnswerDTO answerContent) {
 		
-		int userCode = (int) session.getAttribute("userCode");
-	    ReviewDTO reviewcode = new ReviewDTO();
-	    int reviewCode = reviewcode.getReviewCode();
-		System.out.println("storeCode @service: " + storeCode);
-		List<ReviewDTO> review = sc.selectAllReview(storeCode);
-		List<AnswerDTO> answer = sc.selectAllAnswer(reviewCode);
-		
-		model.addAttribute("review", review);
-		model.addAttribute("answer", answer);
-
-		return "seller/store_manage";
 	}
 	
-	
-	// 리뷰 수정
-	
-	
-	// 리뷰 삭제
+	// 답글 삭제
+	@PutMapping("/deleteAnswer")
+	public void deleteAnswer(AnswerDTO answerCode) {
+		
+	}
 	
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
-	public String storeMain(@RequestParam("storeCode") int storeCode, Model model) {
-		//찜
-		ZzimDTO zzimCheck = zr.zzimCheck(new ZzimDTO(10001, storeCode));
+	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
+
 		// 고정 정보 내용
 		
 		// 리뷰 평점
 		
 		// 리뷰 갯수 카운트
 		int reviewCount = sc.reviewCount(storeCode);
+		
+		// 찜
+		int userCodoe = (int) session.getAttribute("userCode");
+		ZzimDTO zzimCheck = zr.zzimCheck(new ZzimDTO(10001, storeCode));
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보

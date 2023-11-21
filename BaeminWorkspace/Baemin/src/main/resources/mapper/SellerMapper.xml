@@ -16,8 +16,8 @@
 	<!-- 메뉴 분류 수정 -->
 	<update id="updateMenuClassification" parameterType="MenuDTO">
 		UPDATE menu_tbl
-		SET menuClassification = #{menuClassification}
-		WHERE menuCode = #{menuCode} and menuClassification = #{menuClassification}
+		SET menuClassification = #{newMenuClassification}
+		WHERE menuClassification = #{menuClassification} and storeCode = #{storeCode};
 	</update>
 	
 	<!-- 메뉴 등록 -->
@@ -25,7 +25,7 @@
 		INSERT INTO menu_tbl
 		(storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
 		VALUES
-		(#{storeCode}, #{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification}, #{menuStatus});
+		(#{storeCode},#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification},#{menuStatus});
 	</insert>
 	
 	<!-- 메뉴 수정 -->

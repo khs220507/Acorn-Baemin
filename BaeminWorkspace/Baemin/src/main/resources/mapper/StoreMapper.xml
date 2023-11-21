@@ -11,8 +11,8 @@
 		SELECT *
 		FROM store_tbl
 		where storeCategory = #{storeCategory} and storeStatus = 0
-	</select>
-
+	</select>	
+	
 	<select id="sellerStore" resultType="StoreDTO"
 		parameterType="String">
 		SELECT *

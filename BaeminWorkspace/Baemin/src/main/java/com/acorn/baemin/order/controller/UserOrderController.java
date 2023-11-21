@@ -40,14 +40,15 @@ public class UserOrderController {
 		OrderDTO orderDTO = (OrderDTO) session.getAttribute("orderDTO");
 		orderDTO.setDeliveryAddress(deliveryAddress);
 		orderDTO.setDeliveryFee(deliveryFee);
+		System.out.println(deliveryFee);
 		orderDTO.setReqToRider(reqToRider);
 	    orderDTO.setReqToSeller(reqToSeller);
 	    orderDTO.setOrderStatus("주문접수");
 		orderDTO.setUserPhone(userPhone);
 		orderDTO.setPayType(payType);
 		orderDTO.setOrderType(orderType);
-		
 		userOrderService.insertOrder(orderDTO);
+		System.out.println(orderDTO);
 		
 		OrderDTO lastOrderDTO = userOrderService.getLastOrder();
 		System.out.println(lastOrderDTO.getOrderNumber());

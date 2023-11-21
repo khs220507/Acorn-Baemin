@@ -8,16 +8,16 @@
 	<!-- 검색 -->
 	<select id="searchStoresAndMenus" resultType="StoreDTO"
 		parameterType="String">
-
-		SELECT store_tbl.storeCode, store_tbl.storeName,
-		GROUP_CONCAT(menu_tbl.menuName) AS menuNames
+		
+		SELECT store_tbl.*, GROUP_CONCAT(menu_tbl.menuName) AS menuNames
 		FROM store_tbl
 		JOIN menu_tbl ON store_tbl.storeCode = menu_tbl.storeCode
 		WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%',
-		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%') OR
-		REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',
 		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
-		GROUP BY store_tbl.storeCode, store_tbl.storeName;
+		OR REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',
+		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
+		GROUP BY store_tbl.storeCode, store_tbl.storeName, store_tbl.storeStatus
+		ORDER BY store_tbl.storeStatus; 
 
 	</select>
 
@@ -26,13 +26,13 @@
 	<!-- 찜 조회 -->
 	<select id="zzimSelectAll" resultType="ZzimStoreDTO"
 		parameterType="int">
-		SELECT *
+		SELECT z.*, s.*
 		FROM zzim_tbl z
-		JOIN store_tbl s
-		ON z.storeCode =
-		s.storeCode
+		JOIN store_tbl s ON z.storeCode = s.storeCode
 		WHERE userCode = #{userCode}
+		ORDER BY s.storeStatus ASC;
 	</select>
+
 
 	<!-- 찜 삭제 -->
 	<delete id="zzimDelete" parameterType="int">

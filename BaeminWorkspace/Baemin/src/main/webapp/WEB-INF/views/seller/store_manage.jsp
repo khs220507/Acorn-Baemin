@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -54,10 +55,6 @@ section {
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 
-section::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
-}
-
 button {
 	outline: none;
 	cursor: pointer; /* 손가락모양 */
@@ -68,15 +65,48 @@ button {
 }
 
 .store-image {
-	width: 15.6%;
-	height: 28%;
+	width: 200px;
+	height: 200px;
+}
+
+.menu-sub-tab {
+	width: 60%;
+}
+@media (max-width:767px) {
+	.menu-sub-tab {
+	width: 54%;
+	}
+	.modify-delete {
+	width: 10%;
+	}
+	.menu-modify-btn-without-c, .menu-delete-btn {
+	width: 50%;
+	}
+}
+
+.classification {
+	font-size: 30px;
+	height: 40px;
+}
+
+.menu-image-link {
+	width: 19.5%;
+	height: 100%;
+}
+
+.menu-image {
+	
 }
 
 .rating-review-minprice {
 	display: flex;
 }
 
-.menu-classification-list {
+.old-menu-classification {
+	display: inline-block;
+}
+
+.new-menu-classification {
 	display: inline-block;
 }
 
@@ -86,10 +116,36 @@ button {
 
 .menu-info-with-btn {
 	display: flex;
+	justify-content: space-between;
+	height: 150px;
+}
+
+.input-menu-image {
+	width: 30%;
+	height: 50%;
+	margin: auto;
+}
+
+.input-menu-content {
+	width: 22%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.menuName, .menuContent, .menuPrice {
+	width: 100%;
 }
 
 .modify-delete {
 	display: flex;
+	width: 20%;
+}
+
+
+.menu-modify-btn-without-c, .menu-delete-btn {
+	width: 50%;
 }
 
 .info-sub-tab-with-btn {
@@ -123,6 +179,8 @@ button {
 .store-info-tab, .store-review-tab {
 	display: none;
 }
+
+ 
 </style>
 <script>
 	$(document).ready(function() {
@@ -133,8 +191,6 @@ button {
 		        $(this).hide();
 		    }
 		});
-		
-		
 		
 });
 
@@ -167,7 +223,7 @@ button {
 			data : formData,
 			processData : false, // 데이터 처리를 비활
 			contentType : false, // 컨텐츠 타입을 비활
-			success : function(data) {
+			success : function() {
 				alert("등록되었습니다!");
 				window.location.reload();
 			},
@@ -185,12 +241,18 @@ button {
 	});
 	// 메뉴 분류 수정
 	function modifyMenuClassification(Code, element){
-		let menuCode = Code;
-		let menuClassification = $(element).closest(this).find('.menu-classification-list').val();
+		let storeCode = Code;
+		let menuClassification = $(element).closest('.classification').find('.old-menu-classification').text();
+		let newMenuClassification = $(element).closest('.classification').find('.new-menu-classification').val();
+	    
+	    console.log(storeCode);
+	    console.log(menuClassification);
+	    console.log(newMenuClassification);
 		
 		let info = {
-				menuCode : menuCode,
-				menuClassification : menuClassification
+				storeCode : storeCode,
+				menuClassification : menuClassification,
+				newMenuClassification : newMenuClassification
 		}
 		
 		let infos = JSON.stringify(info);
@@ -199,12 +261,17 @@ button {
 			type : "PUT",
 			url : "${path}/updateSellerClassification",
 			data : infos,
+   			contentType : "application/json", // 필수
 			success : function(){
 				alert("수정완료");
+   				window.location.reload();
 			},
-			error : function(){
-				alert("실패")
-			}
+			error: function (xhr, status, error) {
+		        console.error(xhr.responseText);
+		        console.error(status);
+		        console.error(error);
+		        alert("서버 오류 발생");
+		    }
 		});
 	}
 	// 메뉴 수정
@@ -337,8 +404,10 @@ button {
 		
 		$.ajax({
 			type : "GET",
-   			url : "${path}/registerAnswer",
-   			success : function(  res) {
+   			url : "${path}/reviewAnswer",
+   			success : function(response) {
+   				let reviewList = response.readReview;
+   				let answerList = response.readAnswer;
    				console.log(res);
    				alert("조회완료");
    			},
@@ -355,7 +424,7 @@ button {
 <body>
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
-	<c:set var="storeImage" value="파일 이름을 어떻게 가져올까" />
+	<c:set var="storeImage" value="${readStore.storeImage}" />
 		<div class="store-image">
 			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
 		</div>
@@ -363,9 +432,9 @@ button {
 		<div>-------------------------------------------------------------------</div>
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-review-minprice">
-			<div>⭐: ${readStore.storeRating}</div>
+			<div>⭐: ${avgRating}</div>
 			<div>리뷰수: ${RCount}</div>
-			<div>최소주문금액: ${readStore.minOrderPrice}</div>
+			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
@@ -375,16 +444,19 @@ button {
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
 			<div>
-				<!-- 메뉴 카테고리 -->
+				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 				<c:forEach items="${CList}" var="classificationList">
-					<span>${classificationList.menuClassification}</span>
+					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 				</c:forEach>
 			</div>
 			<div>
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
-					<input type="text" class="menu-classification-list" value="${classificationList.menuClassification}">
-						<button class="CModify" onclick="modifyMenuClassification(${classificationList.menuClassification}, this)">수정</button>
+				<div class="classification">
+					<a class="old-menu-classification" id="${classificationList.menuClassification}${st.index}">${classificationList.menuClassification}</a>
+					<input type="text" class="new-menu-classification" placeholder="메뉴분류 입력">
+					<button class="CModify" onclick="modifyMenuClassification(${readStore.storeCode}, this)">수정</button>
+				</div>
 					<c:forEach items="${readMenuInfo}" var="menuList">
 						<c:if
 							test="${menuList.menuClassification eq classificationList.menuClassification}">
@@ -392,28 +464,26 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-										<input type="file" name="menuImageFile">
-										<div>
-											<input type="text" class="menuName"
-												value="${menuList.menuName}"> <input type="text"
-												class="menuContent" value="${menuList.menuContent}">
-											<input type="text" class="menuPrice"
-												value="${menuList.menuPrice}"> <span>상태 : <c:choose>
+										<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
+										<input type="file" class="input-menu-image" name="menuImageFile">
+										<div class="input-menu-content">
+											<div><input type="text" class="menuName" value="${menuList.menuName}"></div>
+											<div><input type="text" class="menuContent" value="${menuList.menuContent}"></div>
+											<div><input type="text" class="menuPrice" value="${menuList.menuPrice}"></div>
+											<div>상태 : <c:choose>
 													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 													<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 												</c:choose>
-											</span> <select class="menuStatus">
-												<option value="0">판매중</option>
-												<option value="1">매진</option>
-											</select>
+												<select class="menuStatus">
+													<option value="0">판매중</option>
+													<option value="1">매진</option>
+												</select>
+											</div>
 										</div>
 										<div class="modify-delete">
-											<button class="menu-modify-btn-without-c"
-												onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
-											<button class="menu-delete-btn"
-												onclick="deleteMenu()">삭제</button>
+											<button class="menu-modify-btn-without-c" onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
+											<button class="menu-delete-btn" onclick="deleteMenu()">삭제</button>
 										</div>
 									</div>
 								</c:when>
@@ -425,20 +495,15 @@ button {
 			<!-- 메뉴 등록 폼 -->
 			<form class="menu-form" style="display: none;">
 				<div class="menu-classification">
-					<select name="menuClassification">
-						<c:forEach items="${CList}" var="clist">
-							<option value="${clist.menuClassification}">${clist.menuClassification}</option>
-						</c:forEach>
-					</select>
+					<input type="text" name="menuClassification" placeholder="메뉴분류">
 				</div>
 				<div class="menu-info-with-btn">
-					<input type="file" name="menuImageFile">
+					<input type="file" name="menuImageFile" accept="image/*" required> <!-- 이미지 등록 input, 이미지파일만 필수로 제한 -->
 					<div>
 						<input type="hidden" name="storeCode" value="${readStore.storeCode}"><br />
 						<input type="text" name="menuName" placeholder="메뉴명"><br />
 						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
-						<input type="number" name="menuPrice" placeholder="메뉴가격">
-						<div></div>
+						<input type="number" name="menuPrice" placeholder="메뉴가격"><br />
 						<select name="menuStatus">
 							<option value="0">판매중</option>
 							<option value="1">솔드아웃</option>
@@ -486,12 +551,24 @@ button {
 					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
-		<!-- 리뷰 리스트 나오는 탭 -->
+		<!-- 리뷰 리스트 나오는 탭, 리뷰 정보 받는데 실패ㅠㅜ -->
 		<div class="store-review-tab">
 			<c:forEach items="${review}" var="readReview">
 				<div class="review-answer">
 					<div>(닉네임)</div>
-					<div>${readReview.reviewRating}</div>
+					<div>
+					<c:set var="reviewRating" value="${reviewList.reviewRating}" />
+
+						<p>평점: ${reviewRating} (별 ${fn:substringBefore(reviewRating, '.')}개)</p>
+						
+						<c:forEach var="star" begin="1" end="${fn:substringBefore(reviewRating, '.')}">
+						    ★
+						</c:forEach>
+						
+						<c:forEach var="star" begin="${fn:substringBefore(reviewRating, '.') + 1}" end="5">
+						    ☆
+						</c:forEach>
+					</div>
 					<div>주문메뉴 : (메뉴명)</div>
 					<div>
 						${readReview.reviewContent}

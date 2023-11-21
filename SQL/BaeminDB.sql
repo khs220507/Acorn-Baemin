@@ -84,7 +84,9 @@ VALUES
 (20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 1);
 
 select * from store_tbl;
-
+SELECT AVG(storeRating) AS storeAvgRating
+        FROM store_tbl
+        WHERE storeCode = 30001;
 UPDATE store_tbl SET storeStatus = 0 where storeCode = 30006;
 
 -- 04. 태민 menu_tbl 
@@ -96,7 +98,7 @@ CREATE TABLE menu_tbl (
   menuPrice INT default 0,                     	-- 메뉴가격
   menuImage VARCHAR(50),      			-- 메뉴사진
   menuContent TEXT NOT NULL,           		-- 메뉴설명
-  menuClassification VARCHAR(50) NOT NULL, 	-- 메뉴분류
+  menuClassification VARCHAR(50) default '없음', 	-- 메뉴분류
   menuStatus TINYINT NOT NULL,           	-- 메뉴상태(0:open, 1:sold out)
   foreign key (storeCode) references store_tbl(storeCode)
 ) auto_increment = 40001;
@@ -117,6 +119,8 @@ VALUES
 
 select * from menu_tbl;
 select DISTINCT menuClassification from menu_tbl;
+        
+        
 -- 05. 옵션 option_tbl
 create table option_tbl (
     optionCode int auto_increment primary key,

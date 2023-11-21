@@ -18,11 +18,7 @@ public interface LoginRepositoryI {
 	String findSellerId(Map<String, Object> params);
 
 	
-	 // 손님 비밀번호 초기화
-    int resetCustomerPassword(Map<String, Object> params);
 
-    // 사장님 비밀번호 초기화
-    int resetSellerPassword(Map<String, Object> params);
 
     // 손님 비밀번호 찾기
     String findCustomerPassword(Map<String, Object> params);

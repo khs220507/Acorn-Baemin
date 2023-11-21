@@ -42,7 +42,7 @@ public class SellerService implements SellerServiceI{
 	// 메뉴 등록
 	@Override
 	public void insertMenu(MenuDTO menu) {
-		System.out.println("isnertMenu @service");
+		System.out.println("isnertMenu @service : " + menu);
 		rep.insertMenu(menu);
 	}
 	// 메뉴 수정
@@ -88,6 +88,12 @@ public class SellerService implements SellerServiceI{
 		System.out.println("selectAllReview @service");
 		return rep.selectAllReview(storeCode);
 	}
+	// 가게 평점 평균
+	@Override
+	public double storeAvgRating(Integer storeCode) {
+		System.out.println("storeAvgRating @service");
+		return rep.storeAvgRating(storeCode);
+	}
 	// 리뷰 갯수 카운트
 	@Override
 	public int reviewCount(Integer storeCode) {
@@ -118,6 +124,7 @@ public class SellerService implements SellerServiceI{
 		System.out.println("deleteAnswer @service");
 		rep.deleteAnswer(answer);
 	}
+	
 	
 	
 

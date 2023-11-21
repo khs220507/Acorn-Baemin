@@ -2,33 +2,44 @@ package com.acorn.baemin.order.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
- 
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.order.domain.KakaoPayApprovalVO;
 import com.acorn.baemin.order.domain.KakaoPayReadyVO;
+import com.acorn.baemin.order.service.UserOrderServiceImp;
 
 import lombok.extern.java.Log;
  
 @Service
 @Log
 public class KakaoPay {
+	
+	@Autowired
+	UserOrderServiceImp userOrderService;
  
     private static final String HOST = "https://kapi.kakao.com";
     
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-    public String kakaoPayReady() {
- 
+    public String kakaoPayReady(OrderDTO orderDTO) {
+    	
+    	
+    	
+    	
         RestTemplate restTemplate = new RestTemplate();
  
         // 서버로 요청할 Header
@@ -37,15 +48,23 @@ public class KakaoPay {
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         
+        String quantity = String.valueOf(orderDTO.getOrderMenuNumber());
+        String total_amount = String.valueOf(orderDTO.getOrderMenuPrice());
+        
+        
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "user1");
         params.add("partner_user_id", "gorany");
-        params.add("item_name", "갤럭시S9");
-        params.add("quantity", "1");
-        params.add("total_amount", "2100");
+        params.add("item_name", orderDTO.getOrderMenuName()+ " " + quantity + "개");
+        params.add("quantity",  quantity);
+        params.add("total_amount", total_amount);
         params.add("tax_free_amount", "0");
+        
+        
+        
+        
         params.add("approval_url", "http://localhost:8080/baemin/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8080/baemin/kakaoPayCancel");
         params.add("fail_url", "http://localhost:8080/baemin/kakaoPaySuccessFail");
@@ -71,8 +90,9 @@ public class KakaoPay {
         return "/pay";
         
     }
-    
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+
+
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
  
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");

@@ -35,26 +35,18 @@ public class LoginRepository implements LoginRepositoryI {
 		return (seller != null) ? seller.getSellerId() : null;
 	}
 	
-	 @Override
-	    public int resetCustomerPassword(Map<String, Object> params) {
-	        return session.update("resetCustomerPassword", params);
-	    }
-
-	    @Override
-	    public int resetSellerPassword(Map<String, Object> params) {
-	        return session.update("resetSellerPassword", params);
-	    }
+	
 
 	    // 손님 비밀번호 찾기
 	    @Override
 	    public String findCustomerPassword(Map<String, Object> params) {
-	        return session.selectOne("findCustomerPassword", params);
+	        return session.selectOne(namespace + "finduserPw", params);
 	    }
 
 	    // 사장님 비밀번호 찾기
 	    @Override
 	    public String findSellerPassword(Map<String, Object> params) {
-	        return session.selectOne("findSellerPassword", params);
+	        return session.selectOne(namespace + "findsellerPw", params);
 	    }
 	
 	
