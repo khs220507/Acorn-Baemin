@@ -5,36 +5,29 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.acorn.baemin.domain.AnswerDTO;
-import com.acorn.baemin.domain.InfoDTO;
 import com.acorn.baemin.domain.MenuDTO;
-import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
+import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.seller.service.SellerService;
@@ -61,7 +54,7 @@ public class SellerController {
 	@GetMapping("/sellerMenu")
 	public String readMenu(Integer storeCode, Model model, HttpSession session) {
 		
-		System.out.println("storeCode @service: " + storeCode);
+		System.out.println("storeCode @controller: " + storeCode);
 		session.setAttribute("storeCode", storeCode);
 		if(storeCode != null) {
 			StoreDTO readStore = sc.selectStore(storeCode);
@@ -88,7 +81,7 @@ public class SellerController {
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
 	public String createtMenu(Integer storeCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus, Integer menuCode)
+			String menuContent, String menuClassification, Integer menuStatus, HttpSession session, Integer menuCode)
 					throws IllegalStateException, IOException {
 
 		
@@ -115,9 +108,10 @@ public class SellerController {
 
 				System.out.println(menu);
 				sc.insertMenu(menu);
-				System.out.println(menuCode);
-				//session.setAttribute("menuCode", menuCode);
-				
+				menuCode = menu.getMenuCode();
+				session.setAttribute("menuCode", menuCode);
+				Integer codeTest = (Integer) session.getAttribute("menuCode");
+				System.out.println("coTe : " + codeTest);
 			}
 			
 		} catch (Exception e) {
@@ -243,6 +237,7 @@ public class SellerController {
 		}else {
 			session.setAttribute("ZCheck", 1);
 		}
+
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보

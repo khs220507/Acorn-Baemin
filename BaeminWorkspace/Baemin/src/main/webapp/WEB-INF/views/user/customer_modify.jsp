@@ -280,7 +280,7 @@ function updatecustomer() {
 		 // 빈칸으로 수정되는경우 방지. 유효성 검사
 			if (userPw === "" || confirmPassword === ""
 					|| userNickname === "" || userPhone === ""
-					|| userEmail === "" ) {
+					|| userEmail === "" || userPostCode === "" || userAddress === "" || userAddressDetail === "" ) {
 				alert("모든 항목을 입력하세요.");
 				return
 			}
@@ -323,24 +323,196 @@ function updatecustomer() {
 		    }
 		}
  
-
-
-// 닉네임, 연락처, 이메일 중복 확인
-
-
-
-
-	// Enter 키 누를 시 로그인 button click과 같은 효과
-	document.addEventListener("DOMContentLoaded", function() {
-	const form = document.getElementById("modify_button");
-
-	form.addEventListener("keypress", function(event) {
-	if (event.key === "Enter") {
-    event.preventDefault(); 
-    login(); 
-}
-});
-});
+		////중요/////
+		$(document).ready(function() {
+							let userNicknameValid = false;
+							let userPwValid = false;
+							let confirmPasswordValid = false;
+							let userPhoneValid = false;
+							let userEmailValid = false;
+							let userPostCodeValid = false;
+							let userAddressValid = false;
+							let userAddressDetailValid = false;
+							
+							let timeoutId;
+		
+							// 닉네임 유효성 검사
+							$("#userNickname").on("input", function() {
+							    let userNickname = $(this).val();
+							    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{3,20}$/;
+							
+							    if (/^.{3,20}$/.test(userNickname)) {
+							        $(this).css("border-color", ""); // 초기화
+							        clearTimeout(timeoutId);
+							        timeoutId = setTimeout(function() {
+							            checkNicknameDuplicate(userNickname);
+							        }, 500);
+							    } else {
+							        $(this).css("border-color", "red");
+							    }
+							});
+		
+							// 중복 확인하는 함수
+							function checkNicknameDuplicate(userNickname) {
+							    $.ajax({
+							        url: "/baemin/checkDuplicateNick",
+							        type: "POST",
+							        data: {
+							            userNickname: userNickname
+							        },
+							        success: function(data) {
+							            if (data.toLowerCase() === "yes") {
+							                $("#userNickname").css("border-color", "red");
+							                alert("중복된 닉네임 입니다.");
+							                $("#userNickname").val("");
+							            } else {
+							                $("#userNickname").css("border-color", "");
+							            }
+							        },
+							        error: function() {
+							            alert("에러발생");
+							        }
+							    });
+							}
+												
+							// 비밀번호 유효성 검사
+							$("#userPw").on("input",function() {
+								let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+								if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
+									$(this).css("border-color","red");
+									userPwValid = false;
+								} else {
+									$(this).css("border-color", "");
+									userPwValid = true;
+								}
+							});
+		
+							// 비밀번호 확인
+							$("#confirmPassword").on("input",function() {
+								if ($(this).val() === "" || !userPwValid || $("#userPw").val() !== $(this).val()) {
+									$(this).css("border-color", "red");
+									confirmPasswordValid = false;
+								} else {
+									$(this).css("border-color", "");
+									confirmPasswordValid = true;
+								}
+							});					
+		
+							// 연락처 유효성 검사
+							$("#userPhone").on("input", function() {
+							    let phoneCheck = /^[0-9]{11}$/;
+							
+							    if (!/^[0-9]*$/.test($(this).val())) {
+							        $(this).val('');
+							    }						
+							    if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
+							        $(this).css("border-color", "red");
+							        userPhoneValid = false;
+							    } else {
+							        $(this).css("border-color", "");
+							        userPhoneValid = true;
+							    }
+							});
+							
+							// 연락처 중복 확인
+							$("#userPhone").on('focusout', function() {
+							    var userInput = $(this).val();
+							    if (userInput == "") {
+							    } else {
+							        $.ajax({
+							            url: "/baemin/checkDuplicatePhone",
+							            type: "POST",
+							            data: {
+							            	userPhone: $("#userPhone").val()
+							            },
+							            success: function(data) {
+							                if (data === "yes") {
+							                 
+							                    $("#userPhone").css("border-color", "red");
+							                    alert("중복된 연락처 입니다.");
+							                    phone_check = false;
+							                    $("#userPhone").val("");						                    
+							                } else {
+							                    $("#userPhone").css("border-color", "");
+							                    phone_check = true;
+							                }
+							            },
+							            error: function() {
+							                alert("에러발생");
+							            }
+							        });
+							    }
+							});
+							
+							// 이메일 유효성 검사
+							$("#userEmail").on("input",function() {
+								let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+								if ($(this).val() === "" || !emailCheck.test($(this).val())) {
+									$(this).css("border-color","red");
+									userEmailValid = false;
+								} else {
+									$(this).css("border-color", "");
+									userEmailValid = true;
+								}
+							});
+							
+							// 이메일 중복 확인
+							$("#userEmail").on('focusout', function() {
+							    var userInput = $(this).val();
+							    if (userInput == "") {
+							    } else {
+							        $.ajax({
+							            url: "/baemin/checkDuplicateEmail",
+							            type: "POST",
+							            data: {
+							            	userEmail: $("#userEmail").val()
+							            },
+							            success: function(data) {
+							                if (data === "yes") {
+							                 
+							                    $("#userEmail").css("border-color", "red");
+							                    alert("중복된 이메일 입니다.");
+							                    email_check = false;
+							                    $("#userEmail").val("");						                    
+							                } else {
+							                    $("#userEmail").css("border-color", "");
+							                  
+							                    email_check = true;
+							                }
+							            },
+							            error: function() {
+							                alert("에러발생");
+							            }
+							        });
+							    }
+							});
+		
+							
+							// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+							$("#signin_button").click(function() {
+								if (userIdValid && userPwValid
+										&& confirmPasswordValid
+										&& userNicknameValid) {						
+									alert("회원가입이 완료되었습니다.");
+								} else {
+									alert("입력 정보를 확인해주세요.");
+								}
+							});
+		
+		
+		
+		
+			// Enter 키 누를 시 로그인 button click과 같은 효과
+			document.addEventListener("DOMContentLoaded", function() {
+			const form = document.getElementById("modify_button");
+		
+			form.addEventListener("keypress", function(event) {
+			if (event.key === "Enter") {
+		    event.preventDefault(); 
+		    login(); 
+		}
+		});
+		});
 
 
 </script>
@@ -379,8 +551,6 @@ function updatecustomer() {
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    
-                
                 }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
@@ -415,8 +585,8 @@ function updatecustomer() {
 
 					<table>
 						<td>닉네임</td>
-						<td><span><input type="text" id="userNickname" placeholder="닉네임" class="vertical-center"
-									value="${userInfo.userNickname}"> </span></td>
+						<td><span><input type="text" id="userNickname"
+							placeholder="한글, 영문(소문자), 숫자 2~6자 가능" class="vertical-center" value="${userInfo.userNickname}"> </span></td>
 					</table>
 				</span>
 

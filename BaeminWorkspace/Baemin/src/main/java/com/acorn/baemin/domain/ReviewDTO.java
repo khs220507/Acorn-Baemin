@@ -18,12 +18,12 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ReviewDTO {
     private int reviewCode;
-    private int menuCode;
+    private String orderMenuName;
     private int userCode;
     private int storeCode;
     private MultipartFile reviewImage;
     private String reviewDate;
     private int reviewRating;
     private String reviewContent;
-    private Integer reviewStatus;
+    private String reviewImageName;
 }

@@ -112,7 +112,8 @@
 
 	<select id="getPasswordByUserId" resultType="String">
 		select userPw
-		from user_tbl
+		from
+		user_tbl
 		where userId = #{userId}
 	</select>
 
@@ -122,7 +123,8 @@
 		set
 		userNickname = #{userNickname},
 		userPw = #{userPw},
-		userPhone =	#{userPhone},
+		userPhone =
+		#{userPhone},
 		userEmail = #{userEmail},
 		userPostCode = #{userPostCode},
 		userAddress = #{userAddress},
@@ -147,7 +149,8 @@
 		where
 		userNickname = #{nickname}
 		or userPhone = #{phone}
-		or userEmail = #{email}
+		or userEmail =
+		#{email}
 	</select>
 
 
@@ -173,16 +176,27 @@
 		from seller_tbl
 		where sellerCode = #{userCode}
 	</select>
+	
+	<!-- 손님 연락처 중복 확인 -->
+	<select id="userPhoneCheck" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM user_tbl WHERE userPhone = #{userPhone}
+	</select>
 
+	<!-- 손님 이메일 중복 확인 -->
+	<select id="emailCheck" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM user_tbl WHERE userEmail = #{userEmail}
+	</select>
+	
+	<!-- 사장님 이메일 중복 확인 -->
+	<select id="emailCheck2" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM seller_tbl WHERE sellerEmail = #{sellerEmail}
+	</select>
 
 	<!-- 닉네임 중복 확인 -->
 	<select id="nickCheck" resultType="int" parameterType="String">
 		select
 		count(*) from user_tbl where userNickname = #{userNickname}
 	</select>
-
-
-
 
 	<!-- 손님 아이디 중복 확인 -->
 	<select id="idCheck" resultType="int" parameterType="String">

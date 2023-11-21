@@ -217,7 +217,7 @@ hr {
 						<div class="btn-wrap">
 							<button class="gray-radius-btn" id="order-detail-btn">주문상세</button>
 							<br>
-							<button class="gray-radius-btn">리뷰쓰기</button>
+							<button class="gray-radius-btn" id="review-write-btn">리뷰쓰기</button>
 						</div>
 					</div>
 					<button class="add-menu-btn">같은 메뉴 담기</button>
@@ -275,6 +275,16 @@ hr {
 					window.location.href = "${path}/orderDetail?orderNumber="
 							+ orderNumber;
 				});
+		
+		// 리뷰쓰기 버튼 클릭
+	    $(document).on('click', '#review-write-btn', function() {
+	        let orderNumber = $(this).closest('.orderList-wrap').find('.order-num').text().trim();
+
+	        // Navigate to the review page with the corresponding orderNumber
+	        window.location.href = "${path}/writeReview?orderNumber=" + orderNumber;
+	    });
+
+		
 	</script>
 
 </body>

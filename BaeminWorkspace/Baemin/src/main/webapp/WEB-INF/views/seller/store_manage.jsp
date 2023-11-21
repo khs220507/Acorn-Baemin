@@ -11,53 +11,21 @@
 <title>Insert title here</title>
 <style type="text/css">
 /* 태그 파트 */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-a {
-	text-decoration: none;
-}
 
 body {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 	height: 100vh;
-}
-
-ul {
-	list-style: none;
 }
 
 input {
 	display: block;
 }
 
-div {
-	border: 1px solid black;
-}
-
-span {
-	border: 1px solid black;
-}
-
 section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	flex: 7.8;
-	width: 1280px;
 	border: 1px solid black;
-	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
-}
-
-button {
-	outline: none;
-	cursor: pointer; /* 손가락모양 */
 }
 
 .menu-info-review-tab {
@@ -65,8 +33,30 @@ button {
 }
 
 .store-image {
-	width: 200px;
-	height: 200px;
+	width: 250px;
+	height: 250px;
+}
+
+.menu-info-review-tab {
+	display: flex;
+	width: 60%;
+    justify-content: space-around;
+    font-size: 22px;
+    margin-top: 30px;
+}
+
+.menu-info-review-tab li{
+	width: 33.333333333333333333333333333%;
+    text-align: center;
+	padding: 5px 0;
+}
+
+.menu-tab{
+	border-top: 2px solid black;
+}
+
+.info-tab, .review-tab{
+	border-bottom: 2px solid black;
 }
 
 .menu-sub-tab {
@@ -76,30 +66,58 @@ button {
 	.menu-sub-tab {
 	width: 54%;
 	}
-	.modify-delete {
-	width: 10%;
+	.modify-delete, .insert-cancel {
+	width: 16%;
 	}
 	.menu-modify-btn-without-c, .menu-delete-btn {
 	width: 50%;
 	}
+	.menu-image {
+    width: 100px;
+    height: 100px;
+	}
+}
+
+.store-name {
+	font-size : 3rem;
+	margin-bottom: 1%;
 }
 
 .classification {
-	font-size: 30px;
-	height: 40px;
+	display: flex;
+	align-items: center;
+	font-size: 28px;
+	height: 45px;
 }
+
+.classification>a{
+	padding-left : 10px;
+	padding-right : 10px;
+	}
+	
+.classification>input{
+	margin-left : 10px;
+	margin-right : 10px;
+	font-size: 20px;
+	}
 
 .menu-image-link {
 	width: 19.5%;
 	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .menu-image {
-	
+    width: 120px;
+    height: 120px;
 }
 
-.rating-review-minprice {
+.rating-count-minprice {
 	display: flex;
+	width: 30%;
+	justify-content: space-between;
 }
 
 .old-menu-classification {
@@ -112,12 +130,23 @@ button {
 
 .menu-classification {
 	display: flex;
+	padding-left: 10px;
+}
+
+.menu-classification>input {
+	font-size: 15px;
+}
+
+.CModify {
+	width : 12%;
+	height : 70%;
 }
 
 .menu-info-with-btn {
 	display: flex;
 	justify-content: space-between;
 	height: 150px;
+	border-top: 2px solid #d9d9d9;
 }
 
 .input-menu-image {
@@ -134,30 +163,76 @@ button {
 	justify-content: space-around;
 }
 
-.menuName, .menuContent, .menuPrice {
+.menuName, .menuContent, .menuPrice, .menu-status {
 	width: 100%;
-}
-
-.modify-delete {
+	height: 25%;
 	display: flex;
-	width: 20%;
+	justify-content: center;
+	align-items: center;
 }
 
-
-.menu-modify-btn-without-c, .menu-delete-btn {
-	width: 50%;
+#menu-status-text {
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
+.modify-delete, .insert-cancel {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	width: 25%;
+}
+
+.menu-modify-btn-without-c, .menu-delete-btn, .insert-menu-btn, .cancel-btn {
+	width: 30%;
+	height: 50%;
+}
+.info-sub-tab {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	
+}
 .info-sub-tab-with-btn {
+	display: flex;
+	height: 100%;
+}
+
+.store-description, .operating-time {
 	display: flex;
 }
 
 .store-description {
-	display: flex;
+	height: 33%;
 }
 
 .operating-time {
-	display: flex;
+	height: 22%;
+}
+
+.store-description>div, .operating-time>div, #seller-info {
+	width: 22%;
+	height: 40%;
+	text-align: center;
+}
+
+.store-description>div {
+	margin-top: 4.5%;
+}
+
+.operating-time>div{
+	margin-top: 3%;
+}
+
+#seller-info {
+	margin-top: 5%;
+}
+
+.store-description>input, .operating-time>input {
+	width: 78%;
+
 }
 
 .seller-info {
@@ -168,6 +243,14 @@ button {
 	display: flex;
 }
 
+.seller-name>div, .store-address>div, .seller-regcode>div {
+	width: 36%;
+}
+
+.seller-name>input, .store-address>input, .seller-regcode>input {
+	width: 64%;
+}
+
 .store-address {
 	display: flex;
 }
@@ -176,11 +259,63 @@ button {
 	display: flex;
 }
 
-.store-info-tab, .store-review-tab {
-	display: none;
+.store-info-modify-btn {
+	width: 15%;
+	height: 45%;
+	margin-left: 3%;
+	margin-top: 10%;
 }
 
- 
+.store-info-tab, .store-review-tab {
+
+	display: flex;
+	display: none;
+	width: 40%;
+	height: 250px;
+	margin-top: 1%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.add-menu {
+	display: flex;
+	justify-content: center;
+}
+
+.input-menu-classification {
+	height: 20%;
+}
+
+.menu-form {
+	height: 200px;
+	border-top: 1px solid #d9d9d9;
+}
+
+.menu-input-with-btn {
+	display: flex;
+	justify-content: space-between;
+}
+
+.input-menu-form {
+	width: 38%;
+}
+
+.input-menu-form>input {
+	width: 100%;
+}
+
+.seller-info-sub{
+	width: 78%;
+}
+
+hr{
+	width: 80%;
+	border: 0px;
+	height: 2px;
+	background-color: #d9d9d9;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -190,6 +325,14 @@ button {
 		    if (statusText.includes("삭제")) {
 		        $(this).hide();
 		    }
+		});
+		
+
+		// 취소 버튼을 클릭시 전영역에 걸쳐서 활성/비활성화
+		$(".cancel-btn").click(function() {
+			$(".menu-form, .reply-form").hide();	// 입력 form 비활
+			$(".active-reply-form-btn").show();	// 답글 달기 활성화
+			$(this).hide();
 		});
 		
 });
@@ -202,6 +345,10 @@ button {
 		
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
+		
+		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black");
 		
 	}
 	// + 버튼을 클릭하면 메뉴정보 입력 폼 활성화
@@ -233,12 +380,6 @@ button {
 		});
 	}
 	
-	// 취소 버튼을 클릭시 전영역에 걸쳐서 활성/비활성화
-	$(".cancel-btn").click(function() {
-		$(".menu-form, .reply-form").hide();	// 입력 form 비활
-		$(".active-reply-form-btn").show();	// 답글 달기 활성화
-		$(this).hide();
-	});
 	// 메뉴 분류 수정
 	function modifyMenuClassification(Code, element){
 		let storeCode = Code;
@@ -335,6 +476,10 @@ button {
 		$(".menu-sub-tab, .store-review-tab").hide();
 		$(".store-info-tab").show();
 		
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		
 		$.ajax({
 			type : "GET",
 			url : "${path}/infoManage",
@@ -402,6 +547,10 @@ button {
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
 		
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none");
+		
 		$.ajax({
 			type : "GET",
    			url : "${path}/reviewAnswer",
@@ -425,16 +574,16 @@ button {
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
 	<c:set var="storeImage" value="${readStore.storeImage}" />
-		<div class="store-image">
-			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
+		<div>
+			<img alt="가게 로고" class="store-image" src="${path}/storeImages/${readStore.storeImage}">
 		</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
-		<div>-------------------------------------------------------------------</div>
+		<hr>
 		<div class="store-name">${readStore.storeName}</div>
-		<div class="rating-review-minprice">
-			<div>⭐: ${avgRating}</div>
-			<div>리뷰수: ${RCount}</div>
-			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
+		<div class="rating-count-minprice">
+			<div class="rating">⭐: ${avgRating}</div>
+			<div class="count">리뷰수: ${RCount}</div>
+			<div class="minprice">최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
 		<ul class="menu-info-review-tab">
 			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
@@ -443,7 +592,7 @@ button {
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
-			<div>
+			<div class="classification">
 				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 				<c:forEach items="${CList}" var="classificationList">
 					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
@@ -464,17 +613,20 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
+										<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}">
+											<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
+										<input type="hidden" class="old-menu-image" name="oldMenuImageFile" value="${menuList.menuImage}">
 										<input type="file" class="input-menu-image" name="menuImageFile">
 										<div class="input-menu-content">
-											<div><input type="text" class="menuName" value="${menuList.menuName}"></div>
-											<div><input type="text" class="menuContent" value="${menuList.menuContent}"></div>
-											<div><input type="text" class="menuPrice" value="${menuList.menuPrice}"></div>
-											<div>상태 : <c:choose>
+											<input type="text" class="menuName" value="${menuList.menuName}">
+											<input type="text" class="menuContent" value="${menuList.menuContent}">
+											<input type="text" class="menuPrice" value="${menuList.menuPrice}">
+											<div class="menu-status"><span id="menu-status-text">상태 : <c:choose>
 													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 													<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 												</c:choose>
+												</span>
 												<select class="menuStatus">
 													<option value="0">판매중</option>
 													<option value="1">매진</option>
@@ -494,12 +646,12 @@ button {
 			</div>
 			<!-- 메뉴 등록 폼 -->
 			<form class="menu-form" style="display: none;">
-				<div class="menu-classification">
+				<div class="input-menu-classification">
 					<input type="text" name="menuClassification" placeholder="메뉴분류">
 				</div>
-				<div class="menu-info-with-btn">
+				<div class="menu-input-with-btn">
 					<input type="file" name="menuImageFile" accept="image/*" required> <!-- 이미지 등록 input, 이미지파일만 필수로 제한 -->
-					<div>
+					<div class="input-menu-form">
 						<input type="hidden" name="storeCode" value="${readStore.storeCode}"><br />
 						<input type="text" name="menuName" placeholder="메뉴명"><br />
 						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
@@ -509,12 +661,15 @@ button {
 							<option value="1">솔드아웃</option>
 						</select>
 					</div>
+					<div class="insert-cancel">
+						<button type="button" class="insert-menu-btn" onclick="addMenu()">등록하기</button>
+						<button type="button" class="cancel-btn">취소하기</button>
+					</div>
 				</div>
-				<button type="button" class="insert-menu-btn" onclick="addMenu()">등록하기</button>
-				<button type="button" class="cancel-btn">취소하기</button>
+				
 			</form>
 			<!-- 얘를 클릭하면 등록 폼이 활성화 -->
-			<div class="add-menu" onclick="addMenuBtn()">+</div>
+			<div class="add-menu" onclick="addMenuBtn()"><img src="${path}/resources/icons/addoption.png"></div>
 		</div>
 		<!-- 가게 정보 탭 -->
 		<div class="store-info-tab">
@@ -530,7 +685,7 @@ button {
 						<input type="text" id="operating-time" value="">
 					</div>
 					<div class="seller-info">
-						<div>사업자정보</div>
+						<div id="seller-info">사업자정보</div>
 						<div class="seller-info-sub">
 							<div class="seller-name">
 								<div>대표자명</div>
