@@ -44,14 +44,14 @@
 
 	<!-- 찜 추가 -->
 	<insert id="zzimInsert" parameterType="ZzimDTO">
-		INSERT INTO store_tbl (userCode, storeCode) VALUES 
+		INSERT INTO zzim_tbl (userCode, storeCode) VALUES 
 		(#{userCode}, #{storeCode})
 	</insert>
 	
 	<!-- 찜 유무 -->
-	<select id="zzimCheck" resultType="ZzimDTO"
+	<select id="zzimCheck" resultType="int"
 		parameterType="ZzimDTO">
-		SELECT * FROM zzim_tbl
+		SELECT COUNT(*) FROM zzim_tbl
 		WHERE userCode = #{userCode} and storeCode = #{storeCode}
 	</select>
 	

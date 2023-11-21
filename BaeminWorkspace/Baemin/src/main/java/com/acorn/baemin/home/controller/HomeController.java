@@ -97,12 +97,10 @@ public class HomeController {
 
 	// 찜 삭제
 	@ResponseBody
-	@GetMapping("/zzimDelete")
-	public int zzimDelete(int storeCode,  HttpSession session) throws Exception {
-		int userCode = (int)session.getAttribute("userCode");
-		int result = zzimDAO.zzimDelete(userCode, storeCode);
+	@RequestMapping( value="/zzimDelete" , method=RequestMethod.DELETE)
+	public void zzimDelete(@RequestBody ZzimDTO Zzim){
+	 zzimDAO.zzimDelete(Zzim);
 
-		return result;
 
 	}
 	
@@ -112,8 +110,6 @@ public class HomeController {
 	public void zzimInsert(@RequestBody ZzimDTO Zzim) {
 		zzimDAO.zzimInsert(Zzim);
 	}
-	
-	// 찜 유무
 	
 	
 	

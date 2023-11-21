@@ -222,7 +222,21 @@ public class SellerController {
 		int reviewCount = sc.reviewCount(storeCode);
 		
 		// 찜
-		//int userCodoe = (int) session.getAttribute("userCode");
+		Integer userCode = (Integer) session.getAttribute("userCode");
+		System.out.println("userCode="+userCode);
+		int zzimCheck = 0;	
+		if(userCode != null) {
+			System.out.println("zr1="+zzimCheck);
+			zzimCheck = zr.zzimCheck(new ZzimDTO(userCode, storeCode));
+			System.out.println("zr2="+zzimCheck);
+			if(zzimCheck == 0) {
+				session.setAttribute("ZCheck", 1);
+			}else {
+				session.setAttribute("ZCheck", 0);				
+			}
+		}else {
+			session.setAttribute("ZCheck", 1);
+		}
 
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);

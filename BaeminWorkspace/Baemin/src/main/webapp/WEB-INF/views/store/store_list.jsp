@@ -55,6 +55,7 @@
         }
         .store-img img{
 		width: 100px;
+		height: 100px;
 		}
         .store-info-wrap{
             flex: 4;

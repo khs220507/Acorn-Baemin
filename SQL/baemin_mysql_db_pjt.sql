@@ -15,7 +15,11 @@ CREATE TABLE user_tbl (
     userAddress VARCHAR(150) NOT NULL,
     userAddressDetail VARCHAR(150) NOT NULL,
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
+    
 ) AUTO_INCREMENT = 10001;
+
+alter table user_tbl add mail_auth int default 0;
+alter table user_tbl add mail_key varchar(50);
 
 INSERT INTO user_tbl (userId, userPw, userName, userNickname, userPhone, userEmail, userBirth, userGender, userPostCode, userAddress, userAddressDetail, userStatus)
 VALUES
@@ -232,7 +236,7 @@ VALUES
 (10004, 30004),
 (10005, 30005);
 
-select * from zzim_tbl;
+select COUNT * from zzim_tbl where userCode = 10001 and storeCode = 30001;
 
 -- 09
 CREATE TABLE review_tbl (

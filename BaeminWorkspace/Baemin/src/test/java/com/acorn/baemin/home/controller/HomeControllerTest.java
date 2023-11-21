@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.home.repository.OrderRepositoryImp;
 import com.acorn.baemin.home.repository.SearchRepositoryImp;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
@@ -39,14 +40,19 @@ public class HomeControllerTest {
 		zzimDAO.zzimSelectAll(10001).forEach(m -> log.info(m));
 	}
 
-	// @Test
-	public void zzimDeleteTest() throws Exception {
-		log.info(zzimDAO.zzimDelete(10001, 30002));
-	}
 
-	 @Test
+
+	 //@Test
 	public void searchListTest() throws Exception {
 		log.info(searchDAO.searchStoresAndMenus("Pizza"));
+	}
+	
+ 	@Test
+	public void zzimCheck() throws Exception {
+		ZzimDTO zz = new ZzimDTO(10002, 30002);
+		System.out.println(zz);
+		int zzz= zzimDAO.zzimCheck(zz);
+		System.out.println(zzz);
 	}
 
 }

@@ -2,6 +2,8 @@ package com.acorn.baemin.home.repository;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestBody;
+
 import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
 
@@ -11,9 +13,9 @@ public interface ZzimRepositoryI {
 
 	public List<ZzimStoreDTO> zzimSelectAll(int userCode) throws Exception;
 	
-	public int zzimDelete(int storeCode, int userCode) throws Exception;
+	public void zzimDelete(@RequestBody ZzimDTO Zzim);
 	
 	public void zzimInsert (ZzimDTO Zzim);
-	 
-	 public ZzimDTO zzimCheck(ZzimDTO Zzim); 
+	
+	 public int zzimCheck(ZzimDTO Zzim);
 }

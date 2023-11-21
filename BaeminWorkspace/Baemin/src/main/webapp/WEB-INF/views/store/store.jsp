@@ -57,6 +57,7 @@ button {
 	justify-content: center;
 	align-items: center;
 	width: 75%;
+	position: relative;
 }
 .line{
 	background-color: #d9d9d9;
@@ -107,8 +108,9 @@ button {
 	font-size: 20px;
 }
 .store-image {
-	width: 200px;
-	height: 200px;
+	width: 250px;
+	height: 250px;
+	margin: 10px;
 }
 .store-name{
 	font-size: 27px;
@@ -193,6 +195,17 @@ button {
 .store-info-tab, .store-review-tab {
 	display: none;
 }
+.zzim{
+border: none;
+background-color: white;
+display: flex;
+position: absolute;
+right: 60px;
+top: 0px;
+}
+.zzim img{
+width: 20px;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -261,7 +274,51 @@ button {
 		});
 		
 	}
-
+	//찜 취소
+	function zzimDelete(zzimSCode,zzimUCode) {
+		let storeCode = zzimSCode;
+	    let userCode = zzimUCode;
+  	 	let info = {storeCode : storeCode,
+  	 			userCode : userCode}
+   		let infos = JSON.stringify(info);
+	    $.ajax({
+   			type : "DELETE",
+   			url : "/baemin/zzimDelete",
+   			data : infos,
+   			contentType : "application/json", // 필수
+   			success : function(data) {
+   				window.location.reload();
+   			},
+   			error : function() {
+   				alert("잠시후 다시 시도해 주세요.");
+   			}
+   		})	
+	}
+	
+	//찜 하기
+ 	function zzimInsert( zzimSCode , zzimUCode) {
+ 		if(zzimSCode != null){
+ 			let storeCode = zzimSCode;
+ 		    let userCode = zzimUCode;
+ 	  	 	let info = {storeCode : storeCode,
+ 	  	 			userCode : userCode}
+ 	   		let infos = JSON.stringify(info);
+   		$.ajax({
+   			type : "POST",
+   			url : "/baemin/zzimInsert",
+   			data : infos,
+   			contentType : "application/json", // 필수
+   			success : function(data) {
+   				window.location.reload();
+   			},
+   			error : function() {
+   				alert("잠시후 다시 시도해 주세요.");
+   			}
+   		})
+ 		}else{
+			alert("로그인 후 가능합니다.");
+		}
+	}; 
 </script>
 </head>
 <body>
@@ -272,6 +329,14 @@ button {
 		<div class="store-image">
 			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
 		</div>
+		<c:set value="${readStore.storeCode}" var="zzimSCode"/>
+		<%Integer zzimUCode = (Integer) session.getAttribute("userCode");
+		int ZCheck = (int) session.getAttribute("ZCheck");
+		if (ZCheck == 0) {%>
+			<button class="zzim" onclick="zzimDelete(${zzimSCode},<%=zzimUCode%>)"><img src="${path}/resources/icons/Heart0.png"></button>
+		<%}else{ %>
+			<button class="zzim" onclick="zzimInsert(${zzimSCode},<%=zzimUCode%>)"><img src="${path}/resources/icons/Heart1.png"></button>
+		<%} %>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 		<hr class="line">
 		<div class="store-name">${readStore.storeName}</div>
