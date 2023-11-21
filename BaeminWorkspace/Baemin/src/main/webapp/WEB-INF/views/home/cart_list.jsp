@@ -17,21 +17,36 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
+.wrap-all{
+	width: 75%;
+	height: 650px;
+	margin: 30px auto;
+	position: relative;
+}
 .cart-title {
-	border-bottom: 1px #d9d9d9 solid;
+	border-bottom: 3px #d9d9d9 solid;
+	font-size: 22px;
+	padding: 5px;
+}
+.cart-inside-wrap{
+	padding: 20px 30px;
 }
 
 .cart-store-wrap {
 	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
 }
 
 .store-img {
-	width: 100px;
-	height: 100px;
+	width: 50px;
+	height: 50px;
+	margin-right: 13px;
 }
 
 .menu-title-wrap {
 	display: flex;
+	font-size: 20px;
 }
 
 .xbutton {
@@ -39,38 +54,82 @@
 }
 
 .menu-img {
-	width: 200px;
+	width: 80px;
+	height: 80px;
+	margin-right: 10px;
+}
+.menu-option p{
+	font-size: 16px;
 }
 
 .menu-detail-wrap {
 	display: flex;
+	align-items: center;
+	margin-top: 8px;
 }
 
 .quantity-wrap {
-	text-align: right;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
 }
 
 .minus {
 	width: 25px;
 	height: 25px;
+	border: none;
+	background-color: white;
+	font-size: 25px;
 }
 
 .plus {
 	width: 25px;
 	height: 25px;
+	border: none;
+	background-color: white;
+	font-size: 25px;
 }
 
 .quantity-input {
 	width: 25px;
 	height: 25px;
 	text-align: center;
+	margin: 0 3px;
+	padding-bottom: 3px;
 }
-
+.thin-line{
+	background-color: #d9d9d9;
+	height: 2px;
+	border: 0px;
+}
 .total-price-wrap {
 	display: flex;
-	border-bottom: 1px solid #d9d9d9;
-	border-top: 1px solid #d9d9d9;
+	border-bottom: 3px solid #d9d9d9;
+	border-top: 3px solid #d9d9d9;
 	justify-content: space-between;
+	padding: 15px;
+	font-size: 22px;
+
+	position: absolute;
+	bottom: 60px;
+	left: 0;
+	right: 0;
+}
+.order-btn{
+	width: 250px;
+	height: 40px;
+	font-size: 20px;
+	border: none;
+	border-radius: 10px;
+	background-color: #48D1CC;
+	color: white;
+
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	
 }
 </style>
 
@@ -106,7 +165,7 @@ $(document).ready(function() {
 
  
         var totalOptionsPrice = 0;
-        $(".menu-option p").each(function() {
+        $(".option-total-price").each(function() {
             var optionValues = $(this).text().split(":");
             var optionPrice = parseInt(optionValues[2].trim());
             totalOptionsPrice += optionPrice;
@@ -139,8 +198,10 @@ $(document).ready(function() {
 <body>
 	<jsp:include page="../base/header.jsp" />
 	<section id="content">
+	<div class="wrap-all">
 		<div class="cart-title">장바구니</div>
 
+	<div class="cart-inside-wrap">
 		<div class="cart-store-wrap">
 			<img class="store-img"
 				src="${path}/storeImages/${storeInfo[0].storeImage}">
@@ -155,9 +216,10 @@ $(document).ready(function() {
 			<img class="menu-img"
 				src="${path}/menuImages/${menuInfo[0].menuImage}">
 			<div class="menu-option">
+				<p>가격: ${menuInfo[0].menuPrice}원</p>
 				<c:forEach var="cartItem" items="${cartInfo.options}">
 					<c:set var="splitValues" value="${fn:split(cartItem, '/')}" />
-					<p>${splitValues[3]}:${splitValues[1]}:${splitValues[2]}:</p>
+					<p class="option-total-price">${splitValues[3]}:${splitValues[1]}:${splitValues[2]}원</p>
 				</c:forEach>
 			</div>
 		</div>
@@ -170,18 +232,19 @@ $(document).ready(function() {
 			<button class="plus" type="button">+</button>
 		</div>
 		
-	
+	</div>
 
+	<hr class="thin-line">
 		
 			<input type="hidden" id="totalPriceInput" name="orderMenuPrice" value="0">
 			<div class="total-price-wrap">
 				<div class="total-price-title">총 주문금액</div>
 				<div class="total-price" id="total-price"></div>
 			</div>
-			<button type="submit">주문하기</button>
+			<button type="submit" class="order-btn">주문하기</button>
 		</form>
 
-
+	</div>
 	</section>
 
 

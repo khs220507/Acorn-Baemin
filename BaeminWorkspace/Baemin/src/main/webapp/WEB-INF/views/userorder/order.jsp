@@ -25,94 +25,75 @@ a {
 	text-decoration: none;
 }
 
-section {
-	flex: 7.8;
-}
-
-}
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	height: 100vh;
 }
-
-.section-order-title {
-	width: 1280px;
-	border-bottom: 1px solid black;
+.wrap-all{
+	width: 75%;
 	margin: 0 auto;
-	margin-left: 100px;
-	margin-right: 100px;
 }
-
+.section-order-title-inner{
+	padding: 10px;
+}
+.line{
+	border: 0px;
+	height: 3px;
+	background-color: #d9d9d9;
+}
+.input-tag{
+	width: 250px;
+}
 .section-cart-box {
 	width: 1200px;
 	height: 800px;
 }
 
-.section-cart-box {
-	overflow-y: auto; /*섹션의 내용이 넘치는 경우 스크롤이 가능*/
-	-ms-overflow-style: none; /* 스크롤바 없애기 */
-}
-
-.section-cart-box::-webkit-scrollbar { /* 스크롤바 없애기 */
-	display: none;
-}
-
 .section-order-select {
 	display: flex;
-	margin-left: 100px;
-	margin-right: 100px;
-	border-bottom: 1px solid #d9d9d9
+	border-bottom: 1px solid #d9d9d9;
+	padding: 10px;
 }
 
 .section-select-ordertype {
 	margin-right: 50px;
-	margin-top: 25px;
-	margin-bottom: 25px;
 	font-size: 20px;
-	margin-top: 25px
 }
 
 .section-order-address-wrap {
 	border-bottom: 1px solid #d9d9d9;
-	margin-left: 100px;
-	margin-right: 100px;
+	padding: 13px;
 }
-
-#base-structure {
-	margin-top: 10px;
-	margin-bottom: 10px;
+.section-order-address-citygu {
+    margin: 5px 0;
 }
-
-#base-structure-input {
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
 .current-location-img {
 	width: 20px;
 }
-
+.section-order-address-detail{
+	width: 250px;
+}
 .section-order-phone-wrap {
-	margin-left: 100px;
-	margin-right: 100px;
-	border-bottom: 1px solid #d9d9d9;
+	border-bottom: 3px solid #d9d9d9;
+	padding: 13px;
 }
 
 .section-order-request-wrap {
-	margin-left: 100px;
-	margin-right: 100px;
-	border-bottom: 1px solid #d9d9d9;
+	border-bottom: 3px solid #d9d9d9;
+	padding: 13px;
 }
-
+.section-order-request-seller {
+    line-height: 25px;
+}
 .section-order-request-title {
 	font-size: 20px;
 }
 
 .section-order-paytype-wrap {
-	margin-left: 100px;
-	margin-right: 100px;
+	padding: 13px;
+	line-height: 28px;
 }
 
 .section-order-paytype-title {
@@ -139,10 +120,10 @@ body {
 }
 
 .section-order-price-wrap {
-	margin-left: 100px;
-	margin-right: 100px;
-	border-top: 1px #d9d9d9 solid;
+	border-top: 3px #d9d9d9 solid;
 	border-bottom: 1px #d9d9d9 solid;
+	padding: 13px;
+	line-height: 25px;
 }
 
 .section-order-price-detail-wrap {
@@ -155,18 +136,15 @@ body {
 	justify-content: space-between;
 }
 
-.section-order-price-detail-amount-delivery {
-	margin-bottom: 10px;
-}
-
 .section-order-orderMenuPrice-wrap {
 	display: flex;
 	justify-content: space-between;
-	margin-left: 100px;
-	margin-right: 100px;
-	border-bottom: 1px #d9d9d9 solid;
+	border-bottom: 3px #d9d9d9 solid;
+	padding: 13px;
 }
-
+.secion-order-totalPrice-title{
+	font-size: 20px;
+}
 .section-order-orderMenuPrice {
 	font-size: 20px;
 }
@@ -174,12 +152,17 @@ body {
 .section-order-button-wrap {
 	display: flex;
 	justify-content: center;
+	margin-top: 30px;
 }
 
 #order-button {
-	margin: 20px;
-	padding: 20px 100px 20px 100px;
+	margin: 5px;
+	padding: 15px 30px;
 	border-radius: 5px;
+	font-size: 20px;
+	background-color: #48D1CC;
+	color: white;
+	border: none;
 }
 </style>
 
@@ -393,6 +376,8 @@ body {
 						});
 
 					});
+
+	
 </script>
 
 
@@ -405,12 +390,14 @@ body {
 
 	<jsp:include page="../base/header.jsp" />
 
-	<section>
+	<section id="content">
+		<div class="wrap-all">
 		<div class="section-order-title">
 			<div class="section-order-title-inner">
 				<h1>주문하기</h1>
 			</div>
 		</div>
+		<hr class="line">
 		<form id="order-form" method="post" action="orderDetail">
 			<div class="section-order-select">
 				<div class="section-select-ordertype">
@@ -447,10 +434,10 @@ body {
 				<div class="section-order-request-seller">
 					<div class="section-order-request-title" id="base-structure">요청사항</div>
 					<div class="section-order-request-seller">가게 사장님께</div>
-					<input type="text" name="reqToSeller" placeholder="예)덜 맵게 해주세요">
+					<input class="input-tag" type="text" name="reqToSeller" placeholder="예)덜 맵게 해주세요">
 					<div id="rider-request-section">
 						<div class="section-order-request-rider">라이더님께</div>
-						<input type="text" name="reqToRider"
+						<input class="input-tag" type="text" name="reqToRider"
 							placeholder="예)문 앞에 두고 벨 눌러주세요">
 					</div>
 				</div>
@@ -489,7 +476,7 @@ body {
 				value="${orderMenuPrice + storeInfo[0].deliveryFee}" />
 
 			<div class="section-order-orderMenuPrice-wrap">
-				<div class="section-order-orderMenuPrice">총 결제금액</div>
+				<div class="secion-order-totalPrice-title">총 결제금액</div>
 				<div class="section-order-orderMenuPrice">${totalAmount}원</div>
 			</div>
 
@@ -510,7 +497,7 @@ body {
 				<button type="submit" id="order-button">결제하기</button>
 			</div>
 		</form>
-
+	</div>
 	</section>
 
 
