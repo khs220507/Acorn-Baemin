@@ -22,7 +22,7 @@
 	</select>
 
 	<!-- 찜관련 -->
-
+	
 	<!-- 찜 조회 -->
 	<select id="zzimSelectAll" resultType="ZzimStoreDTO"
 		parameterType="int">
@@ -42,8 +42,22 @@
 		userCode = #{userCode} AND storeCode = #{storeCode}
 	</delete>
 
-
+	<!-- 찜 추가 -->
+	<insert id="zzimInsert" parameterType="ZzimDTO">
+		INSERT INTO store_tbl (userCode, storeCode) VALUES 
+		(#{userCode}, #{storeCode})
+	</insert>
+	
+	<!-- 찜 유무 -->
+	<select id="zzimCheck" resultType="ZzimDTO"
+		parameterType="ZzimDTO">
+		SELECT * FROM zzim_tbl
+		WHERE userCode = #{userCode} and storeCode = #{storeCode}
+	</select>
+	
+	
 	<!-- 주문내역 관련 -->
+	
 	<!-- 주문내역 조회 -->
 	<select id="orderSelectAll" resultType="OrderDTO"
 		parameterType="int">
