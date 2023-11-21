@@ -238,7 +238,10 @@ public class UserController {
 		int index = email.lastIndexOf('.');
 		if(index != -1) {
 			email = email.substring(0, index);
-		}		
+			//System.out.println( "dfdfdfd" + email);
+		}				
+		user.setUserEmail(email);
+		//System.out.println( "  u   =" + user);
 		userrep.insertCustomer(user);
 	}
 

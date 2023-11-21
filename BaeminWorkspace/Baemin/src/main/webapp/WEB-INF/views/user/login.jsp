@@ -65,13 +65,10 @@ h1 {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
-	/* 폼의 최대 너비 설정 */
 	width: 100%;
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
-	position: absolute;
-    top: 250px;
 }
 
 .login-form span {
@@ -173,29 +170,32 @@ a {
 <body>
 	<script>
 		// 로그인 클릭 시 radio 조건 체크
-		function login() {
-			const logintypes = document.getElementsByName("logintype");
-			let selectedLogintype = null;
-			for (let i = 0; i < logintypes.length; i++) {
-				let item = logintypes[i];
-				if (item.checked) {
-					selectedLogintype = item.value;
-					break;
-				}
-			}
+	function login() {
+    const logintypes = document.getElementsByName("logintype");
+    let selectedLogintype = null;
+    for (let i = 0; i < logintypes.length; i++) {
+        let item = logintypes[i];
+        if (item.checked) {
+            selectedLogintype = item.value;
+            break;
+        }
+    }
 
-			if (selectedLogintype) {
-				const form = document.getElementById("loginForm");
-				if (selectedLogintype === "customer") {
-					form.action = "${path}/login";
-				} else if (selectedLogintype === "seller") {
-					form.action = "${path}/login2";
-				}
-				form.submit();				
-			} else {
-				alert("로그인에 실패했습니다. 로그인 유형을 확인해주세요.");
-			}			
-		}		
+    if (selectedLogintype) {
+        const form = document.getElementById("loginForm");
+        if (selectedLogintype === "customer") {
+            form.action = "${path}/login";
+        } else if (selectedLogintype === "seller") {
+            form.action = "${path}/login2";
+        }
+        form.submit();				
+    } else if(result == null){ 
+    	alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
+		}else {
+        // 로그인 실패 알림
+        alert("로그인 유형을 선택해주세요.");
+    }			
+}	
 		
 			// Enter 키 누를 시 로그인 button click과 같은 효과
 			document.addEventListener("DOMContentLoaded", function() {
@@ -233,8 +233,7 @@ a {
 				</c:choose>
 			</div>
 			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login" method="post"
-				id="loginForm">
+			<form class="login-form" action="${path}/login" method="post" id="loginForm">
 
 			
 				<div class="login-title">

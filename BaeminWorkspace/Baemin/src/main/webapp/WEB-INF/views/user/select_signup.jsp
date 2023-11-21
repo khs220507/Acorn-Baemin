@@ -61,13 +61,10 @@ body {
 	background-color: #fff;
 	padding: 20px;
 	max-width: 350px;
-	/* 폼의 최대 너비 설정 */
 	width: 100%;
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
-	position: absolute;
-    top: 250px;
     font-size: 18px;
 }
 

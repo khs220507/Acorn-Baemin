@@ -339,16 +339,13 @@ function updatecustomer() {
 							// 닉네임 유효성 검사
 							$("#userNickname").on("input", function() {
 							    let userNickname = $(this).val();
-							    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{3,20}$/;
+							    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{2,6}$/;
 							
-							    if (/^.{3,20}$/.test(userNickname)) {
-							        $(this).css("border-color", ""); // 초기화
-							        clearTimeout(timeoutId);
-							        timeoutId = setTimeout(function() {
-							            checkNicknameDuplicate(userNickname);
-							        }, 500);
-							    } else {
+							    if (!nicknameCheck.test(userNickname)) {
 							        $(this).css("border-color", "red");
+							    } else {
+							        $(this).css("border-color", ""); // 초기화
+							        // 여기에 중복 체크를 실행할 수 있도록 코드 추가
 							    }
 							});
 		
@@ -445,15 +442,13 @@ function updatecustomer() {
 							});
 							
 							// 이메일 유효성 검사
-							$("#userEmail").on("input",function() {
-								let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-								if ($(this).val() === "" || !emailCheck.test($(this).val())) {
-									$(this).css("border-color","red");
-									userEmailValid = false;
-								} else {
-									$(this).css("border-color", "");
-									userEmailValid = true;
-								}
+							$("#userEmail").on("input", function() {
+							    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+							    if (!emailCheck.test($(this).val())) {
+							        $(this).css("border-color", "red");
+							    } else {
+							        $(this).css("border-color", ""); // 초기화
+							    }
 							});
 							
 							// 이메일 중복 확인
@@ -498,7 +493,7 @@ function updatecustomer() {
 									alert("입력 정보를 확인해주세요.");
 								}
 							});
-		
+		}
 		
 		
 		
@@ -605,9 +600,9 @@ function updatecustomer() {
 
 				<table>
 					<td>연락처</td>
-					<td><span> <input type="tel" id="userPhone" placeholder="연락처('-' 없이 11자리)"
-								class="vertical-center" pattern="[0-9]{11}" title="숫자 11개를 입력하세요"
-								value="${userInfo.userPhone}"></span></td>
+					<td><span> <input type="tel" id="userPhone"
+							placeholder="연락처('-' 없이 숫자 11자리)" class="vertical-center"
+							pattern="[0-9]{11}" title="숫자 11개를 입력하세요" value="${userInfo.userPhone}"></span></td>
 				</table>
 				<table>
 					<td>이메일</td>
