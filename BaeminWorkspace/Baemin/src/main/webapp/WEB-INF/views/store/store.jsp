@@ -283,7 +283,7 @@ width: 20px;
    		let infos = JSON.stringify(info);
 	    $.ajax({
    			type : "DELETE",
-   			url : "/baemin/zzimDelete",
+   			url : "/baemin/zzimClear",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {

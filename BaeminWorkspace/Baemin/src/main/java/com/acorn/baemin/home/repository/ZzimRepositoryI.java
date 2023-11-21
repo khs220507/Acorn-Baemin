@@ -13,9 +13,11 @@ public interface ZzimRepositoryI {
 
 	public List<ZzimStoreDTO> zzimSelectAll(int userCode) throws Exception;
 	
-	public void zzimDelete(@RequestBody ZzimDTO Zzim);
+	public void zzimClear(@RequestBody ZzimDTO Zzim);
 	
 	public void zzimInsert (ZzimDTO Zzim);
 	
 	 public int zzimCheck(ZzimDTO Zzim);
+
+	 public int zzimDelete(int userCode, int storeCode) throws Exception;
 }
