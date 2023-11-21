@@ -342,8 +342,7 @@ td {
 			};
 
 			let infos = JSON.stringify(info);
-			alert( "dfdfd=" + infos);
-
+			//alert( "dfdfd=" + infos);
 			$.ajax({
 						type : "POST",
 						url : "/baemin/customer_signup",
@@ -459,8 +458,8 @@ td {
 						// 닉네임 유효성 검사
 						$("#userNickname").on("input", function() {
 						    let userNickname = $(this).val();
-						    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{3,20}$/;
-
+						    let nicknameCheck = /^[a-zA-Z0-9\u3131-\uD79D]{3,20}$/; // 특수문자 제거
+						
 						    if (nicknameCheck.test(userNickname)) {
 						        $(this).css("border-color", "");
 						        clearTimeout(timeoutId);
@@ -471,6 +470,7 @@ td {
 						        $(this).css("border-color", "red");
 						    }
 						});
+
 
 						// 중복 확인하는 함수
 						function checkNicknameDuplicate(userNickname) {
@@ -805,7 +805,7 @@ td {
 				<table>
 					<td>연락처</td>
 					<td><span> <input type="tel" id="userPhone"
-							placeholder="연락처('-' 없이 11자리)" class="vertical-center"
+							placeholder="연락처('-' 없이 숫자 11자리)" class="vertical-center"
 							pattern="[0-9]{11}" title="숫자 11개를 입력하세요"></span></td>
 				</table>
 				<table>
