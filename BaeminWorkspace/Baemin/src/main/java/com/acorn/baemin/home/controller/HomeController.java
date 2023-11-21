@@ -94,15 +94,24 @@ public class HomeController {
 		return "home/zzim_list";
 		
 	}
-
-	// 찜 삭제
+	
+	// 찜 리스트 삭제
 	@ResponseBody
-	@RequestMapping( value="/zzimDelete" , method=RequestMethod.DELETE)
-	public void zzimDelete(@RequestBody ZzimDTO Zzim){
-	 zzimDAO.zzimDelete(Zzim);
+	@GetMapping("/zzimDelete")
+	public int zzimDelete(int storeCode,  HttpSession session) throws Exception {
+		int userCode = (int)session.getAttribute("userCode");
+		int result = zzimDAO.zzimDelete(userCode, storeCode);
 
+		return result;
 
 	}
+	// 찜 삭제 
+	@ResponseBody
+	@RequestMapping( value="/zzimClear" , method=RequestMethod.DELETE)
+	public void zzimClear(@RequestBody ZzimDTO Zzim){
+	 zzimDAO.zzimClear(Zzim);
+	}
+	
 	
 	// 찜 추가
 	@ResponseBody
