@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
 
 
@@ -17,6 +18,7 @@ public class ZzimRepositoryImp implements ZzimRepositoryI{
     private SqlSession session;
  	
     private static String namespace = "com.acorn.HomeMapper.";
+    
     
     // 찜 조회
     public List<ZzimStoreDTO> zzimSelectAll(int userCode) throws Exception {
@@ -33,5 +35,15 @@ public class ZzimRepositoryImp implements ZzimRepositoryI{
 		return session.delete(namespace+"zzimDelete",dto); 
 	}
 	
+	// 찜 추가
+    public void zzimInsert (ZzimDTO Zzim) {
+    	session.insert(namespace+"zzimInsert", Zzim);
+    }
+    
+    // 찜 유무
+    
+    public ZzimDTO zzimCheck(ZzimDTO Zzim) {
+        return session.selectOne(namespace+"zzimCheck",Zzim);
+    }
 	
 }

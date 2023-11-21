@@ -27,10 +27,9 @@ import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
-<<<<<<< Updated upstream
-=======
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
->>>>>>> Stashed changes
+import com.acorn.baemin.domain.ZzimDTO;
+import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.seller.service.SellerService;
 
 @Controller
@@ -38,6 +37,9 @@ public class SellerController {
 
 	@Autowired
 	private SellerService sc;
+	
+	@Autowired
+	ZzimRepositoryImp zr;
 
 	String fileDir = "c:\\test\\upload\\";
 	
@@ -211,6 +213,7 @@ public class SellerController {
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
 	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
+
 		// 고정 정보 내용
 		
 		// 리뷰 평점
@@ -219,8 +222,8 @@ public class SellerController {
 		int reviewCount = sc.reviewCount(storeCode);
 		
 		// 찜
-		int userCodoe = (int) session.getAttribute("userCode");
-		
+		//int userCodoe = (int) session.getAttribute("userCode");
+
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보
@@ -246,6 +249,7 @@ public class SellerController {
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
 		model.addAttribute("RCount", reviewCount);
+
 		
 		return "store/store";
 	}

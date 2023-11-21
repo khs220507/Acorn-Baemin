@@ -68,22 +68,45 @@ body {
 
 .review-input-box-wrap {
 	display: flex;
+	align-items: center;
 	justify-content: center;
+	flex-direction: column;
+}
+
+.review-content-wrap {
+	margin-top: 20px;
+	border: 2px solid #48D1CC;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	font-size: 17px;
+	border: 2px solid #48D1CC;
 }
 
 .review-input-box {
-	margin: 20px 0px 20px 0px;
-	width: 400px;
+	width: 500px;
 	height: 200px;
+	border: none;
+}
+
+.test {
+	display: flex;
+	align-items: center;
+}
+
+.review-file {
+	width: 100%;
+	border: 2px solid #d9d9d9;
+	border-radius: 5px;
+	margin-bottom: 20px;
 }
 
 .review-rating-wrap {
 	display: flex;
 	flex-direction: column;
+	text-align: center;
 }
 
 .review-rating-wrap {
-	display: flex;
 	align-items: center;
 }
 
@@ -126,11 +149,22 @@ body {
 	background-size: 100%;
 	box-sizing: border-box;
 }
+
+.review-rating-title {
+	margin-bottom: 20px;
+}
+
+.review-register-btn-wrap {
+	margin-top: 20px;
+}
+
+.review-register-btn {
+	
+}
 </style>
 
 <script>
-
-
+	
 </script>
 
 <body>
@@ -138,6 +172,7 @@ body {
 
 
 	<jsp:include page="../base/header.jsp" />
+
 
 	<section>
 
@@ -148,8 +183,8 @@ body {
 		</div>
 
 		<div class="order-date-state">
-			<div class="order-date">10.19(목)</div>
-			<div class="order-state">픽업완료</div>
+			<div class="order-date">${orderDate}</div>
+			<div class="order-state">${orderStatus}</div>
 		</div>
 
 		<div class="order-info-wrap">
@@ -158,18 +193,24 @@ body {
 			</div>
 			<div class="order-detail-wrap">
 				<div class="order-store-name">BBQ 홍대점</div>
-				<div class="order-info-detail">황올 반+양념 반 외 2개 35,900원</div>
+				<div class="order-info-detail"> ${orderMenuName} ${orderMenuPrice}원 </div>
 			</div>
 		</div>
 
-		<div class="review-input-box-wrap">
-			<form enctype="multipart/form-data" method="POST" action="/baemin/submitReview">
-				<textarea name="reviewContent" class="review-input-box"
-					placeholder="리뷰를 입력하세요"></textarea>
-				 
-                <input type="file" name="reviewImage">
+		<div class="review-input-file-wrap">
+			<form enctype="multipart/form-data" method="POST"
+				action="/baemin/submitReview">
+				<div class="review-input-box-wrap">
+					<div class="review-content-wrap">
+						<input type="text" name="reviewContent" class="review-input-box"
+							placeholder="리뷰를 입력하세요"></input>
+					</div>
+					<div class="test">
+						<input type="file" name="reviewImage" class="review-file">
+					</div>
+				</div>
 				<div class="review-rating-wrap">
-				
+
 					<div class="review-rating-title">음식은 어떠셨어요?</div>
 
 					<div class="star_rating">
@@ -179,7 +220,12 @@ body {
 							data-value="5"> </span>
 					</div>
 					<input type="hidden" name="reviewRating" id="rating" value="0">
-					<button type="submit" class="review-register-btn" onclick="writeReview()">리뷰 등록</button>
+					<input type="hidden" name="reviewDate" id="reviewDate" value="0">
+					<div class="review-register-btn-wrap">
+						<button type="submit" class="review-register-btn"
+							onclick="writeReview()">리뷰 등록</button>
+
+					</div>
 				</div>
 			</form>
 		</div>
@@ -190,15 +236,15 @@ body {
 
 
 	<script>
-    $(document).ready(function() {
-        $('.star_rating > .star').click(function() {
-        	var rating = $(this).data('value');
-            $('#rating').val(rating);
-            $(this).parent().children('span').removeClass('on');
-            $(this).addClass('on').prevAll('span').addClass('on');
-        });
-    });
-</script>
+		$(document).ready(function() {
+			$('.star_rating > .star').click(function() {
+				var rating = $(this).data('value');
+				$('#rating').val(rating);
+				$(this).parent().children('span').removeClass('on');
+				$(this).addClass('on').prevAll('span').addClass('on');
+			});
+		});
+	</script>
 
 </body>
 </html>

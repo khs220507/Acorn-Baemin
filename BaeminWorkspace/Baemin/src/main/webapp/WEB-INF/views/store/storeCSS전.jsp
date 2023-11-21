@@ -36,94 +36,47 @@ input {
 	display: block;
 }
 
+div {
+	border: 1px solid black;
+}
+
+span {
+	border: 1px solid black;
+}
 section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	flex: 7.8;
 	width: 1280px;
+	border: 1px solid black;
 	padding-top: 5%;
 	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+}
+
+section::-webkit-scrollbar { /* 스크롤바 없애기 */
+	display: none;
 }
 
 button {
 	outline: none;
 	cursor: pointer; /* 손가락모양 */
 }
-.wrap-all{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 75%;
-}
-.line{
-	background-color: #d9d9d9;
-	height: 2px;
-	border: 0px;
-	width: 100%;
-}
-.thin-line{
-	background-color: #d9d9d9;
-	height: 1px;
-	border: 0px;
-	width: 100%;
-}
+
 .menu-info-review-tab {
 	display: flex;
-	width: 80%;
-    justify-content: space-around;
-    font-size: 22px;
-    margin-top: 30px;
-	padding: 5px 0;
 }
-.menu-info-review-tab li{
-	width: 33.333333333333333333333333333%;
-    text-align: center;
-	padding: 5px 0;
-}
-.menu-tab{
-	border-top: 1px solid black;
-}
-.info-tab{
-	border-bottom: 1px solid black;
-}
-.review-tab{
-	border-bottom: 1px solid black;
-}
-.menu-sub-tab{
-	width: 80%;
-}
-.click-category{
-	display: flex;
-	justify-content: space-around;
-	padding: 5px 0;
-}
-.classification{
-	padding: 5px 10px;
-}
-.old-menu-classification{
-	font-size: 20px;
-}
+
 .store-image {
-	width: 200px;
-	height: 200px;
+	width: 15.6%;
+	height: 28%;
 }
-.store-name{
-	font-size: 27px;
-	margin: 15px;
-}
+
 .rating-review-minprice {
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	width: 33%;
 }
-.menu-img{
-	width: 100px;
-	height: 100px;
-}
+
 .menu-classification-list {
 	display: inline-block;
 }
@@ -134,52 +87,26 @@ button {
 
 .menu-info-with-btn {
 	display: flex;
-	align-items: center;
-	padding: 10px;
+}
 
-}
-.menuName-wrap{
-	margin-left: 20px;
-	line-height: 23px;
-}
-.menuName-bigger{
-	font-size: 20px;
-}
 .info-sub-tab-with-btn {
 	display: flex;
 }
-.info-sub-tab{
-	margin-top: 50px;
-}
+
 .store-description {
 	display: flex;
-	flex-direction: column;
-	line-height: 20px;
-}
-.introduce-title{
-	font-size: 19px;
 }
 
 .operating-time {
 	display: flex;
-	flex-direction: column;
-	margin:20px 0;
-	line-height: 20px;
 }
 
 .seller-info {
 	display: flex;
-	flex-direction: column;
-}
-.seller-info-sub{
-	line-height: 20px;
 }
 
 .seller-name {
 	display: flex;
-}
-.introduce-small-title{
-	width: 140px;
 }
 
 .store-address {
@@ -214,11 +141,6 @@ button {
 		
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
-
-		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-
 		
 	}
 	
@@ -228,10 +150,7 @@ button {
 		
 		$(".menu-sub-tab, .store-review-tab").hide();
 		$(".store-info-tab").show();
-
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		
 	}
 	
 	// 리뷰 탭 영역
@@ -240,10 +159,6 @@ button {
 		// 리뷰 탭을 클릭하면 리뷰 리스트 조회, 메뉴와 정보 탭 비활
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
-		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "1px solid black").css("border-bottom", "none");
 		
 		$.ajax({
 			type : "GET",
@@ -268,15 +183,15 @@ button {
 	<jsp:include page="../base/header.jsp" />
 	<section id="content">
 	<c:set var="storeImage" value="${readStore.storeImage}" />
-	<div class="wrap-all">
 		<div class="store-image">
 			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
 		</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
-		<hr class="line">
+		<div>-------------------------------------------------------------------</div>
+		<hr>
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-review-minprice">
-			<div>⭐: ${avgRating}점</div>
+			<div>⭐: ${avgRating}</div>
 			<div>리뷰수: ${RCount}</div>
 			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
@@ -287,20 +202,18 @@ button {
 		</ul>
 		<!-- 메뉴 리스트 나오는 탭 -->
 		<div class="menu-sub-tab">
-			<div class="click-category">
+			<div>
 				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 				<c:forEach items="${CList}" var="classificationList">
 					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 				</c:forEach>
 			</div>
-			<hr class="thin-line">
 			<div>
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
 				<div class="classification">
 					<a class="old-menu-classification" name="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 				</div>
-				<hr class="thin-line">
 					<c:forEach items="${readMenuInfo}" var="menuList">
 						<c:if
 							test="${menuList.menuClassification eq classificationList.menuClassification}">
@@ -308,18 +221,18 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a class="menu-img" href="${path}/option?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-										<div class="menuName-wrap">
-											<div class="menuName menuName-bigger">${menuList.menuName}</div>
+										<a href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+										<div>
+											<div class="menuName">${menuList.menuName}</div>
 											<div class="menuName">${menuList.menuContent}</div>
 											<div class="menuName">${menuList.menuPrice}</div>
-											<c:choose>
-													<c:when test="${menuList.menuStatus eq 1}">(준비중)</c:when>
+											<span>상태 : <c:choose>
+													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
+													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 												</c:choose>
 											</span>
 										</div>
 									</div>
-									<hr class="thin-line">
 								</c:when>
 							</c:choose>
 						</c:if>
@@ -332,31 +245,29 @@ button {
 			<div class="info-sub-tab-with-btn">
 				<div class="info-sub-tab">
 					<div class="store-description">
-						<div class="introduce-title">가게소개</div>
+						<div>가게소개</div>
 						<div id="store-description">${readStore.storeDescription}</div>
 					</div>
 					<div class="operating-time">
-						<div class="introduce-title">운영시간</div>
+						<div>운영시간</div>
 						<div id="operating-time">${readStore.operatingTime}</div>
 					</div>
 					<div class="seller-info">
-						<div class="introduce-title">사업자정보</div>
-					
-						<table class="seller-info-sub">
-							<tr class="seller-name">
-								<td class="introduce-small-title">대표자명</td>
-								<td>${readSeller.sellerName}</td>
-							</tr>
-							<tr class="store-address">
-								<td class="introduce-small-title">매장주소</td>
-								<td>${readStore.storeAddress}</td>
-							</tr>
-							<tr class="seller-regcode">
-								<td class="introduce-small-title">사업자등록번호</td>
-								<td>${readSeller.sellerRegCode}</td>
-							</tr>
-						</table>
-
+						<div>사업자정보</div>
+						<div class="seller-info-sub">
+							<div class="seller-name">
+								<div>대표자명</div>
+								<div id="seller-name">${readSeller.sellerName}</div>
+							</div>
+							<div class="store-address">
+								<div>매장주소</div>
+								<div id="store-address">${readStore.storeAddress}</div>
+							</div>
+							<div class="seller-regcode">
+								<div>사업자등록번호</div>
+								<div id="seller-regcode">${readSeller.sellerRegCode}</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -393,7 +304,6 @@ button {
 				</div>
 			</c:forEach>
 		</div>
-	</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>

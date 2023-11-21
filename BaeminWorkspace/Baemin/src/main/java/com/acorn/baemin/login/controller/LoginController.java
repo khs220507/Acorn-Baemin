@@ -37,95 +37,7 @@ public class LoginController {
 
 		
 	
-	
-	// 손님 비밀번호 초기화
-    @PostMapping("/reset/customer")
-    public ResponseEntity<String> resetCustomerPassword(@RequestParam String userEmail) {
-        int rowsAffected = lr.resetCustomerPassword(Collections.singletonMap("userEmail", userEmail));
-
-        if (rowsAffected > 0) {
-            return ResponseEntity.ok("Password reset successfully for customer.");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to reset password for customer.");
-        }
-    }
-
-    // 사장님 비밀번호 초기화
-    @PostMapping("/reset/seller")
-    public ResponseEntity<String> resetSellerPassword(@RequestParam String sellerEmail) {
-        int rowsAffected = lr.resetSellerPassword(Collections.singletonMap("sellerEmail", sellerEmail));
-
-        if (rowsAffected > 0) {
-            return ResponseEntity.ok("Password reset successfully for seller.");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to reset password for seller.");
-        }
-    }
     
-    	// 유저 비밀번호 찾기 보내기
- 		@GetMapping("/findPwForm")
- 		public String findPwForm() {
- 			return "user/findPwForm";
- 		}
- 		
- 		// 유저 비밀번호 찾기 받기
- 		@PostMapping("/findPw")
- 		public String findPw(@RequestParam String Id, String email, Model model) {
- 			Map<String, Object> params = new HashMap<>();
- 			params.put("userId", Id);
- 			params.put("userEmail", email);
- 			params.put("sellerId", Id);
- 			params.put("sellerEmail", email);
-
- 			String customerPw = rep.findCustomerPassword(params);
- 			String sellerPw = rep.findSellerPassword(params);
-
- 			model.addAttribute("customerPw", customerPw);
- 			model.addAttribute("sellerPw", sellerPw);
-
- 			return "user/findPwResult";
- 		}
-
- // 손님 비밀번호 찾기
-//    @PostMapping("/findPw")
-//    public ResponseEntity<String> retrieveUserPassword(@RequestParam String userId, @RequestParam String userEmail) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("userId", userId);
-//        params.put("userEmail", userEmail);
-//
-//        String userPassword = lr.findCustomerPassword(params);
-//
-//        if (userPassword != null) {
-//            return ResponseEntity.ok("손님 비밀번호 : " + userPassword);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Password not found for user.");
-//        }
-//    }
-//
-//    // 사장님 비밀번호 찾기
-//    @PostMapping("/retrieve/seller")
-//    public ResponseEntity<String> retrieveSellerPassword(@RequestParam String sellerId, @RequestParam String sellerEmail) {
-//        Map<String, Object> params = new HashMap<>();
-//        params.put("sellerId", sellerId);
-//        params.put("sellerEmail", sellerEmail);
-//
-//        String sellerPassword = lr.findSellerPassword(params);
-//
-//        if (sellerPassword != null) {
-//            return ResponseEntity.ok("사장님 비밀번호 : " + sellerPassword);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Password not found for seller.");
-//        }
-//    }
-
-	
-	
-	
-	
-	
-	
-	
-	
 	// 유저 아이디 찾기 보내기
 	@GetMapping("/findIdForm")
 	public String findIdForm() {
@@ -147,6 +59,35 @@ public class LoginController {
 
 		return "user/findIdResult";
 	}
+    
+    
+    	// 유저 비밀번호 찾기 보내기
+ 		@GetMapping("/findPwForm")
+ 		public String findPwForm() {
+ 			return "user/findPwForm";
+ 		}
+ 		
+ 		// 유저 비밀번호 찾기 받기
+ 		@PostMapping("/findPw")
+ 		public String findPw(@RequestParam String Id, String email, Model model) {
+ 			System.out.println("findPwResult");
+ 			Map<String, Object> params = new HashMap<>();
+ 			params.put("userId", Id);
+ 			params.put("userEmail", email);
+ 			params.put("sellerId", Id);
+ 			params.put("sellerEmail", email);
+
+ 			String customerPw = rep.findCustomerPassword(params);
+ 			String sellerPw = rep.findSellerPassword(params);
+
+ 			model.addAttribute("customerPw", customerPw);
+ 			model.addAttribute("sellerPw", sellerPw);
+
+ 			return "user/findPwResult";
+ 		}
+
+	
+
 	
 	
 

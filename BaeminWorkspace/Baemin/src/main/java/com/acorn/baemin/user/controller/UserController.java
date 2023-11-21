@@ -45,8 +45,55 @@ public class UserController {
 		return mailService.joinEmail(email);
 	}
 	
+//  손님 연락처 중복 확인
+		@ResponseBody
+		@PostMapping("/checkDuplicatePhone")
+		public String checkDuplicateuserphone(@RequestParam("userPhone") String userPhone) {
+			System.out.println("중복확인");
+			String result;
+			System.out.println("user" + userPhone);
+			int count = userrep.checkDuplicateUserphone(userPhone);
+			System.out.println(count + userPhone);
+			if (count != 0) {
+				result = "yes";
+			} else {
+				result = "no";
+			}
+			return result;
+		}
+//  손님 이메일 중복 확인
+		@ResponseBody
+		@PostMapping("/checkDuplicateEmail")
+		public String checkDuplicateUseremail(@RequestParam("userEmail") String userEmail) {
+			System.out.println("중복확인");
+			String result;
+			System.out.println("user" + userEmail);
+			int count = userrep.checkDuplicateNickname(userEmail);
+			System.out.println(count + userEmail);
+			if (count != 0) {
+				result = "yes";
+			} else {
+				result = "no";
+			}
+			return result;
+		}
 	
-	
+	//  닉네임 중복 확인
+		@ResponseBody
+		@PostMapping("/checkDuplicateNick")
+		public String checkDuplicateNick(@RequestParam("userNickname") String userNickname) {
+			System.out.println("중복확인");
+			String result;
+			System.out.println("user" + userNickname);
+			int count = userrep.checkDuplicateNickname(userNickname);
+			System.out.println(count + userNickname);
+			if (count != 0) {
+				result = "yes";
+			} else {
+				result = "no";
+			}
+			return result;
+		}
 	
 	
 	// 손님 아이디 중복 확인
@@ -91,17 +138,7 @@ public class UserController {
 		return userrep.checkForDuplicates(nickname, phone, email);
 	}
 
-	@GetMapping("/userinfo")
-    public ResponseEntity<String> getUserInfo(@RequestParam String userId) {
-        // 여기서 userId를 통해 사용자 정보를 가져와서 필요한 정보를 반환하도록 구현
-        return ResponseEntity.ok("User Info for " + userId);
-    }
-
-    @PostMapping("/userinfo/update")
-    public ResponseEntity<String> updateUserInformation(@RequestParam String userId, @RequestParam String newPassword) {
-        // 여기서는 새로운 비밀번호를 받아 사용자 정보를 업데이트하도록 구현
-        return ResponseEntity.ok("User Info Updated for " + userId);
-    }
+	
 
     @PostMapping("/userinfo/checkPassword")
     public ResponseEntity<String> checkPassword(@RequestParam String userId, @RequestParam String password) {
@@ -134,12 +171,10 @@ public class UserController {
 
 				System.out.println("aaaaaa=" + userInfo);
 				model.addAttribute("userInfo", userInfo);
-				return "user/customer_modify"; // 여기서 customer_modify 페이지로 이동
+				return "user/customer_modify"; 
 			} else {
-
 				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
 				return "error";
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -151,23 +186,16 @@ public class UserController {
 	// 내 정보 수정 시, 기존 정보 가져오기 사장님
 	@RequestMapping("/selectUserInfo3")
 	public String modifyInfo3(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
-		System.out.println(" selectUserInfo3" + userCode);
-		
-		try {
-			
-			Integer userType = (Integer) session.getAttribute("user");
-			
-			
+		System.out.println(" selectUserInfo3" + userCode);		
+		try {			
+			Integer userType = (Integer) session.getAttribute("user");			
 			System.out.println(userType + "2");
-
 			if (userCode != null) {
 				Object userInfo = rep.selectUserInfo(userCode, 2);
-
 				System.out.println("bbbbbb=" + userInfo);
 				model.addAttribute("userInfo", userInfo);
 				return "user/seller_modify";
 			} else {
-
 				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
 				return "error";
 			}
@@ -177,7 +205,6 @@ public class UserController {
 			return "error";
 		}
 	}
-
 
 
 	// 가입 유형 보내기
@@ -203,6 +230,15 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/customer_signup", method = RequestMethod.POST)
 	public void insertUserSignup(@RequestBody UserDTO user) {
+		
+		System.out.println( "dfdfd" + user);
+		
+		String email = user.getUserEmail();   //   .com.com
+		
+		int index = email.lastIndexOf('.');
+		if(index != -1) {
+			email = email.substring(0, index);
+		}		
 		userrep.insertCustomer(user);
 	}
 
@@ -218,10 +254,8 @@ public class UserController {
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
 	public String updateUserInfo(@RequestBody UserDTO updatecustomer, HttpSession session) {
 		System.out.println("success1");
-
 		Integer userCode = (Integer) session.getAttribute("userCode");
 		updatecustomer.setUserCode(userCode);
-
 		System.out.println("dkfkfkfkffkfk" + updatecustomer);
 		try {
 			System.out.println("success899");

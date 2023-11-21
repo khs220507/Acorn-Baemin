@@ -195,8 +195,9 @@ border: none!important;
 	.option-list-wrap{
 		width: 75vw;
 	}
-	.option-list select{
-	}
+	
+
+	
 }
 /* 작은 */
 @media (max-width:767px) {

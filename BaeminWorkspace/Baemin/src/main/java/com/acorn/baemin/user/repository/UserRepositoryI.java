@@ -27,6 +27,15 @@ public interface UserRepositoryI {
 
 	// 사장님 정보수정
 	public void updateSeller(SellerDTO updateseller);
+	
+	// 손님 연락처 중복 확인
+	public int checkDuplicateUserphone(String userPhone);
+	
+	// 손님 이메일 중복 확인
+	public int checkDuplicateUseremail(String userEmail);
+	
+	// 닉네임 중복 확인
+	public int checkDuplicateNickname(String userNickname);
 
 	// 손님 아이디 중복 확인
 	public int checkDuplicateUserId(String userId);

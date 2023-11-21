@@ -22,8 +22,8 @@
     
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="ReviewDTO">
-		INSERT INTO review_tbl (reviewRating, reviewContent, reviewDate)
-		VALUES (#{reviewRating}, #{reviewContent}, NOW())
+		INSERT INTO review_tbl (orderMenuName, userCode, storeCode, reviewRating, reviewContent, reviewDate, reviewImageName)
+		VALUES (#{orderMenuName}, #{userCode}, #{storeCode},  #{reviewRating}, #{reviewContent}, NOW(), #{reviewImageName})
 	</insert>
 	
 	<!-- 리뷰 삭제(상태만 변경) -->
