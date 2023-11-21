@@ -228,8 +228,8 @@ public class SellerController {
 		int reviewCount = sc.reviewCount(storeCode);
 		
 		// 찜
-		int userCodoe = (int) session.getAttribute("userCode");
-		ZzimDTO zzimCheck = zr.zzimCheck(new ZzimDTO(10001, storeCode));
+		//int userCodoe = (int) session.getAttribute("userCode");
+
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보
@@ -255,7 +255,6 @@ public class SellerController {
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
 		model.addAttribute("RCount", reviewCount);
-		model.addAttribute("ZCheck", zzimCheck);
 
 		
 		return "store/store";

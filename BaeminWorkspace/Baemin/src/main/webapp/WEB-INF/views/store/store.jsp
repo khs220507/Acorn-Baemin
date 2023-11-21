@@ -308,7 +308,7 @@ button {
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<div class="menu-info-with-btn">
-										<a class="menu-img" href="${path}/sellerOption?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+										<a class="menu-img" href="${path}/option?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
 										<div class="menuName-wrap">
 											<div class="menuName menuName-bigger">${menuList.menuName}</div>
 											<div class="menuName">${menuList.menuContent}</div>
