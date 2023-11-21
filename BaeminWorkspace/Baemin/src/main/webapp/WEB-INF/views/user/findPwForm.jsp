@@ -43,7 +43,7 @@
 		</div>
 
 
-		<form action="/user/findPw" method="post">
+		<form>
 			아이디: <input type="Id" name="Id" required><br>
 			이메일: <input type="email" name="email" required>
 			<input type="submit" id="findPwForm" value="비밀번호 찾기">
