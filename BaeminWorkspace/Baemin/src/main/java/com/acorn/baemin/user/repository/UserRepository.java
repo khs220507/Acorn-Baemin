@@ -99,9 +99,21 @@ public class UserRepository implements UserRepositoryI {
 
 		return session.selectOne(namespace + "checkForDuplicates", params);
 	}
+	// 닉네임 중복 확인
 	@Override
 	public int checkDuplicateNickname(String userNickname) {
 		return session.selectOne(namespace + "nickCheck", userNickname);
+	}
+	
+	// 손님 연락처 중복 확인
+	@Override
+	public int checkDuplicateUserphone(String userPhone) {
+		return session.selectOne(namespace + "userPhoneCheck", userPhone);
+	}
+	// 손님 이메일 중복 확인
+	@Override
+	public int checkDuplicateUseremail(String userEmail) {
+		return session.selectOne(namespace + "emailCheck", userEmail);
 	}
 
 	
