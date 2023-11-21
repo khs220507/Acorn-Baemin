@@ -175,9 +175,7 @@ a {
 		// 로그인 클릭 시 radio 조건 체크
 		function login() {
 			const logintypes = document.getElementsByName("logintype");
-
 			let selectedLogintype = null;
-
 			for (let i = 0; i < logintypes.length; i++) {
 				let item = logintypes[i];
 				if (item.checked) {
@@ -188,20 +186,16 @@ a {
 
 			if (selectedLogintype) {
 				const form = document.getElementById("loginForm");
-
 				if (selectedLogintype === "customer") {
 					form.action = "${path}/login";
 				} else if (selectedLogintype === "seller") {
 					form.action = "${path}/login2";
 				}
-				form.submit();
-				
+				form.submit();				
 			} else {
 				alert("로그인에 실패했습니다. 로그인 유형을 확인해주세요.");
 			}			
-		}
-		
-		
+		}		
 		
 			// Enter 키 누를 시 로그인 button click과 같은 효과
 			document.addEventListener("DOMContentLoaded", function() {

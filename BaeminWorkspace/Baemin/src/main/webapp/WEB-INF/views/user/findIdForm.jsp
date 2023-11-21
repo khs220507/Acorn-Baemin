@@ -42,7 +42,7 @@
 			<br>
 		</div>
 
-		<form action="/baemin/findId" method="post">
+		<form>
 			이메일: <input type="email" name="email" required> 
 			<input type="submit" id="findId" value="아이디찾기">
 		</form>
