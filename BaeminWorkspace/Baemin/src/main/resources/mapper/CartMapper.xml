@@ -16,7 +16,7 @@
 		#{menuCode}
 
 	</select>
-	
+
 	<select id="selectMenuInfo" resultType="MenuDTO"
 		parameterType="int">
 		SELECT *
@@ -25,6 +25,12 @@
 		#{menuCode}
 	</select>
 
+	<select id="selectOrderInfo" resultType="OrderDTO">
+		SELECT * FROM order_tbl
+		WHERE orderNumber = #{orderNumber}
+	</select>
+
+	
 
 
 </mapper>

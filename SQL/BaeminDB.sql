@@ -174,6 +174,7 @@ select * from cart_tbl;
 -- 07
 CREATE TABLE order_tbl (
     orderNumber INT AUTO_INCREMENT PRIMARY KEY,
+    menuCode int,
     userCode int,
     storeCode int,
     orderMenuName varchar(100),
@@ -192,6 +193,7 @@ CREATE TABLE order_tbl (
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
+    FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT = 70001;
