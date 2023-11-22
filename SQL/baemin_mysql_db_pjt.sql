@@ -236,7 +236,6 @@ VALUES
 (10004, 30004),
 (10005, 30005);
 
-select COUNT * from zzim_tbl where userCode = 10001 and storeCode = 30001;
 
 -- 09
 CREATE TABLE review_tbl (

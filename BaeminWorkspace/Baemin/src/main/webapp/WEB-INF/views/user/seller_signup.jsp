@@ -354,59 +354,52 @@ td {
 							let sellerEmailValid = false;
 														
 							// 아이디 유효성 검사
-							$("#sellerId").on("input", function(event) {
-    let inputValue = $(this).val();
-    let filteredValue = inputValue.replace(/[^\w]/gi, ''); // 특수문자와 한글 제거
-
-    if (inputValue !== filteredValue) {
-        $(this).val(filteredValue);
-    }
-
-    let idCheck = /^[a-zA-Z0-9]{6,8}$/;
-    let sellerId = $(this).val();
-
-    if (sellerId === "" || !idCheck.test(sellerId)) {
-        $(this).css("border-color", "red");
-        sellerIdValid = false;
-    } else {
-        $(this).css("border-color", "");
-        sellerIdValid = true;
-    }
-});
-
+							$("#sellerId").on("focusout", function() {
+							    let idCheck = /^[a-z0-9]{6,8}$/; // 영어 소문자와 숫자만 허용
+							
+							    let sellerId = $(this).val();
+							
+							    if (sellerId === "" || !idCheck.test(sellerId)) {
+							        $(this).css("border-color", "red");
+							        sellerIdValid = false;
+							        alert("아이디는 영어 소문자와 숫자의 조합으로 6~8자여야 합니다.");
+							    } else {
+							        $(this).css("border-color", "");
+							        sellerIdValid = true;
+							    }
+							});
 
 							// 아이디 중복 확인
 							$("#checkDuplicate2").click(function() {
-
-								if ($("#sellerId").val() == "") {
-									alert("아이디를 입력해주세요.");
-								} else {
-									$.ajax({
-												url : "/baemin/checkDuplicate2",
-												type : "POST",
-												data : {
-													sellerId : $("#sellerId").val()
-												},
-												//contentType : "application/json", // 필수
-												success : function(data) {
-													
-													if (data === "yes") {
-														$("#sellerId").css("color","red");
-														alert("중복된 아이디 입니다.");
-														id_check = false;
-														$("#sellerId").val("");
-													} else {
-														$("#sellerId").css("border-color","");
-														alert("사용가능한 아이디 입니다.");
-														id_check = true;
-													}
-												},
-												error : function() {
-													alert("에러발생");
-												}
-											});
-								}
-								toggleIdConfirmButton();
+							    let sellerId = $("#sellerId").val();
+							
+							    if (sellerId === "") {
+							        alert("아이디를 입력해주세요.");
+							    } else {
+							        $.ajax({
+							            url: "/baemin/checkDuplicate2",
+							            type: "POST",
+							            data: {
+							                sellerId: sellerId
+							            },
+							            success: function(data) {
+							                if (data === "yes") {
+							                    $("#sellerId").css("color", "red");
+							                    alert("중복된 아이디 입니다.");
+							                    id_check = false;
+							                    $("#sellerId").val("");
+							                } else {
+							                    $("#sellerId").css("border-color", "");
+							                    alert("사용 가능한 아이디 입니다.");
+							                    id_check = true;
+							                }
+							            },
+							            error: function() {
+							                alert("에러 발생");
+							            }
+							        });
+							    }
+							    toggleIdConfirmButton();
 							});
 
 							

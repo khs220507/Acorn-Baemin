@@ -26,10 +26,19 @@ public class ZzimRepositoryImp implements ZzimRepositoryI{
     	System.out.println("zzimList show");
         return session.selectList(namespace+"zzimSelectAll",userCode);
     }
-
+    
+    // 찜 리스트 삭제
+	@Override
+	public int zzimDelete(int userCode, int storeCode) throws Exception {
+		ZzimStoreDTO dto = new ZzimStoreDTO();
+		dto.setUserCode(userCode);
+		dto.setStoreCode(storeCode);
+		return session.delete(namespace+"zzimDelete",dto); 
+	}
+	
     // 찜 삭제
 	@Override
-	public void zzimDelete(@RequestBody ZzimDTO Zzim) {
+	public void zzimClear(@RequestBody ZzimDTO Zzim) {
 		session.delete(namespace+"zzimDelete",Zzim); 
 	}
 	

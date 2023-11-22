@@ -69,7 +69,6 @@ width: 100px;
 .menu-img {
 	width: 200px;
 	height: 200px;
-	background-color: purple;
 	margin: 20px auto;
 	padding: 10px;
 }
@@ -417,8 +416,8 @@ border: none!important;
 	<section id="content">
 		
 			<div>
-				<div class="menu-img"><img alt="" src=""></div>
-				<div class="menu-name">메뉴선택에서 불러와야함</div>
+				<div class="menu-img"><img alt="메뉴 사진" src="${path}/images/${MenuInfo.menuImage}"></div>
+				<div class="menu-name">${MenuInfo.menuName}</div>
 			</div>
 			<div class="option-list-wrap">
 				<c:forEach items="${get}" var="item">

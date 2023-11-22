@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,6 @@ hr {
 .menu-img {
 	width: 200px;
 	height: 200px;
-	background-color: purple;
 	margin: 20px auto;
 	padding: 10px;
 }
@@ -126,11 +126,10 @@ function sendOptionJson() {
 	<section id="content">
 
 		<div>
-			<form name="frm" method="post"
-				action="/baemin/cartList?menuCode=${menuCode}">
+			<form name="frm" method="post" action="/baemin/cartList?menuCode=${menuCode}">
 				<div>
-					<div class="menu-img"></div>
-					<div class="menu-name">메뉴선택에서 불러와야함</div>
+					<div class="menu-img"><img alt="메뉴 사진" src="${path}/images/${MenuInfo.menuImage}"></div>
+					<div class="menu-name">${MenuInfo.menuName}</div>
 				</div>
 				<div class="option-list-wrap">
 					<c:forEach items="${Categorylist}" var="item">
