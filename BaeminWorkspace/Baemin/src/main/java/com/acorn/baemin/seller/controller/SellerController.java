@@ -82,7 +82,6 @@ public class SellerController {
 	public String createtMenu(Integer storeCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
 			String menuContent, String menuClassification, Integer menuStatus)
 					throws IllegalStateException, IOException {
-
 		
 		try {
 			if (!menuImageFile.isEmpty()) {
@@ -126,17 +125,45 @@ public class SellerController {
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/updateSellerMenu")
-	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile, String menuContent, String menuClassification, Integer menuStatus) {
+	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
+			String menuContent, Integer menuStatus) throws IllegalStateException, IOException {
 		
-		if(menuImageFile.isEmpty()) {
-			
-			MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuClassification, menuStatus);
-			
-			System.out.println(menu);
-			
-			sc.modifingMenu(menu);
-		} else {
-			// 이미지파일이 있을 때의 코드
+		System.out.println("menuImageFile : " + menuImageFile);
+		System.out.println("menuCode : " + menuCode);
+		System.out.println("menuName : " + menuName);
+		System.out.println("menuPrice : " + menuPrice);
+		System.out.println("menuContent : " + menuContent);
+		System.out.println("menuStatus : " + menuStatus);
+		
+		try {
+			if(menuImageFile != null) {
+				
+				// 이미지파일이 있을 때의 코드
+				
+				String fileName = menuImageFile.getOriginalFilename();
+				String menuRealImage = fileDir + menuName + fileName; // c:\\test\\upload\\고양이.jpg
+				
+				menuImageFile.transferTo(new File(menuRealImage));
+				
+				// db에 넣기
+				String menuImage = menuName + fileName;
+				
+				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuStatus);
+	
+				System.out.println("이미지포함" + menu);
+				
+				sc.modifingMenuIncludeImg(menu);
+			} else {
+				// 이미지파일 없을 때의 코드
+				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuStatus);
+
+				System.out.println("이미지미포함" + menu);
+				
+				sc.modifingMenu(menu);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("errer @updateMenuInfo");
 		}
 	}
 	

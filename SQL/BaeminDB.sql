@@ -120,6 +120,12 @@ VALUES
 select * from menu_tbl;
 select DISTINCT menuClassification from menu_tbl;
         
+UPDATE menu_tbl
+		SET menuName = '비지찌개',
+		menuPrice = 10000,
+		menuContent = '볶음김치가 들어가 살짝 매콤',
+		menuStatus = 1
+		WHERE menuCode = 40001;
         
 -- 05. 옵션 option_tbl
 create table option_tbl (
