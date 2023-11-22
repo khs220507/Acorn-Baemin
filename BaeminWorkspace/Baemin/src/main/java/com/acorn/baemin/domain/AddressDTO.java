@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressDTO {
-
 	int addressCode;
+	int userCode;
 	String deliveryAddress;
+	String detailDeliveryAddress;
 }

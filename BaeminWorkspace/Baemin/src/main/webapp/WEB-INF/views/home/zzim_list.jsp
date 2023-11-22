@@ -192,38 +192,34 @@ section{
 	<%@ include file="../base/footer.jsp"%>
 
 	<script>
-		// 찜 삭제
-		$(document).on(
-				'click',
-				'.delete-icon',
-				function() {
-					$(this).closest('.wrap-include-hr').remove();
-					let storeCode = $(this).closest('.zzimList-wrap').find(
-							'.store-code').text().trim();
+	$(document).on('click', '.delete-icon', function() {
+	    let deleteConfirmation = confirm("찜을 해제하시겠습니까?");
+	    
+	    if (deleteConfirmation) {
+	        $(this).closest('.wrap-include-hr').remove();
+	        let storeCode = $(this).closest('.zzimList-wrap').find('.store-code').text().trim();
 
-					deleteList(storeCode);
-				});
+	        deleteList(storeCode);
+	    }
+	});
 
-		
-		function deleteList(storeCode) {
-			if (confirm("찜을 해제하시겠습니까?")) {
-				$.ajax({
-					type : "get",
-					url : "${path}/zzimDelete",
-					data : "storeCode=" + storeCode + "&userCode=" + <%= userCodeInfo%>,
-					dataType : "text",
-					success : function(data) {
-						alert("찜이 해제되었습니다");
-						window.location.reload();
+	function deleteList(storeCode) {
+	    $.ajax({
+	        type : "get",
+	        url : "${path}/zzimDelete",
+	        data : "storeCode=" + storeCode + "&userCode=" + <%= userCodeInfo%>,
+	        dataType : "text",
+	        success : function(data) {
+	            alert("찜이 해제되었습니다");
+	            window.location.reload();
+	        },
+	        error : function(err) {
+	            alert("삭제 요청에 실패했습니다.");
+	            // 여기에 다른 처리 로직 추가
+	        }
+	    });
+	}
 
-					},
-					error : function(err) {
-						alert("삭제 요청에 실패했습니다.");
-						alert(storeCode);
-					}
-				});
-			}
-		}
 	</script>
 
 </body>
