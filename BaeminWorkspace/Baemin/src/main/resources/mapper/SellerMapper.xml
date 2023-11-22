@@ -12,7 +12,12 @@
 	<select id="selectAllMenuInfo" resultType="MenuDTO" parameterType="int">
 		SELECT * FROM menu_tbl where storeCode = #{storeCode}
 	</select>
-
+	
+	<!-- 메뉴 조회 -->
+	<select id="selectMenuInfo" resultType="MenuDTO" parameterType="String">
+		SELECT * FROM menu_tbl where menuCode = #{menuCode}
+	</select>
+	
 	<!-- 메뉴 분류 수정 -->
 	<update id="updateMenuClassification" parameterType="MenuDTO">
 		UPDATE menu_tbl

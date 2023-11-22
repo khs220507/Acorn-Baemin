@@ -29,7 +29,6 @@ import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.domain.ZzimDTO;
-import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.seller.service.SellerService;
 
 @Controller
@@ -108,10 +107,6 @@ public class SellerController {
 
 				System.out.println(menu);
 				sc.insertMenu(menu);
-				menuCode = menu.getMenuCode();
-				session.setAttribute("menuCode", menuCode);
-				Integer codeTest = (Integer) session.getAttribute("menuCode");
-				System.out.println("coTe : " + codeTest);
 
 			}
 			
@@ -131,18 +126,17 @@ public class SellerController {
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/updateSellerMenu")
-	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, String menuImage, String oldMenuImage, 
-			String menuContent, String menuClassification, Integer menuStatus) {
+	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile, String menuContent, String menuClassification, Integer menuStatus) {
 		
-		if(menuImage.isEmpty()) {
+		if(menuImageFile.isEmpty()) {
 			
-			menuImage = oldMenuImage;
-			
-			MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus);
+			MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuClassification, menuStatus);
 			
 			System.out.println(menu);
 			
 			sc.modifingMenu(menu);
+		} else {
+			// 이미지파일이 있을 때의 코드
 		}
 	}
 	
