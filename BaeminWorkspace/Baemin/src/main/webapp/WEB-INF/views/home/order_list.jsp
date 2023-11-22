@@ -232,36 +232,36 @@ hr {
 	<jsp:include page="../base/footer.jsp" />
 
 	<script>
-		// 주문내역 삭제
-		$(document).on(
-				'click',
-				'.delete-icon',
-				function() {
-					$(this).closest('.orderList-wrap').remove();
-					let orderNumber = $(this).closest('.orderList-wrap').find(
-							'.order-num').text().trim();
-
-					deleteList(orderNumber);
-				});
+		// 주문내역 삭제		
+		$(document).on('click', '.delete-icon', function() {
+		    let deleteConfirmation = confirm("주문 내역을 삭제하시겠습니까?");
+		    
+		    if (deleteConfirmation) {
+		        $(this).closest('.orderList-wrap').remove();
+		        let orderNumber = $(this).closest('.orderList-wrap').find('.order-num').text().trim();
+		        
+		        deleteList(orderNumber);
+		    }
+		});
 
 		function deleteList(orderNumber) {
-			if (confirm("주문 내역을 삭제하시겠습니까?")) {
-				$.ajax({
-					type : "get",
-					url : "${path}/orderListDelete",
-					data : "orderNumber=" + orderNumber,
-					dataType : "text",
-					success : function(data) {
-						alert("주문 내역이 삭제되었습니다");
-						window.location.reload();
-					},
-					error : function(err) {
-						alert("삭제 요청에 실패했습니다.");
-						alert(orderNumber);
-					}
-				});
-			}
+		    // AJAX 요청
+		    $.ajax({
+		        type: "get",
+		        url: "${path}/orderListDelete",
+		        data: "orderNumber=" + orderNumber,
+		        dataType: "text",
+		        success: function(data) {
+		            alert("주문 내역이 삭제되었습니다");
+		            window.location.reload();
+		        },
+		        error: function(err) {
+		            alert("삭제 요청에 실패했습니다.");
+		            alert(orderNumber);
+		        }
+		    });
 		}
+
 
 		// 주문상세 버튼 클릭
 		$(document).on(

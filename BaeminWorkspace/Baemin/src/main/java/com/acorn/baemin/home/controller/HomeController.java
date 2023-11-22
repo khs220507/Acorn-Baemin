@@ -50,7 +50,6 @@ public class HomeController {
 
 		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
         model.addAttribute("categories", foodCategories);
-        
 		return "home/home";
 	}
 		

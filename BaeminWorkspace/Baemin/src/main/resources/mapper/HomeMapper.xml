@@ -4,6 +4,11 @@
 
 <mapper namespace="com.acorn.HomeMapper">
 
+	<!-- 주소관련 -->
+	<insert id="insertAddress" parameterType="">
+	
+	</insert>
+
 	<!-- 검색 관련 -->
 	<!-- 검색 -->
 	<select id="searchStoresAndMenus" resultType="StoreDTO"
