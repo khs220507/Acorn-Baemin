@@ -145,7 +145,7 @@ section {
 .menu-info-with-btn {
 	display: flex;
 	justify-content: space-between;
-	height: 150px;
+	height: 160px;
 	border-top: 2px solid #d9d9d9;
 }
 
@@ -156,21 +156,42 @@ section {
 }
 
 .input-menu-content {
-	width: 22%;
+	width: 30%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
-.menuName, .menuContent, .menuPrice, .menu-status {
+#menu-status-text {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.now-menu-status {
+	display: flex;
+	height: 30px;
+}
+
+.now-menu-status {
+	display: flex;
+	height: 30px;
+}
+
+.menu-name, .menu-content, .menu-price {
 	width: 100%;
-	height: 25%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+.menu-status {
+	width: 50%;
+}
 
+#menu-status-text {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 #menu-status-text {
 	padding-left: 5px;
 	padding-right: 5px;
@@ -180,7 +201,7 @@ section {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 25%;
+	width: 15%;
 }
 
 .menu-modify-btn-without-c, .menu-delete-btn, .insert-menu-btn, .cancel-btn {
@@ -419,15 +440,17 @@ hr{
 	function menuModifyBtnWithoutC(Code, element){
 
 		let menuCode = Code;
-		let menuName = $(element).closest('.menu-info-with-btn').find('.menuName').val();
-		let menuImage = $(element).closest('.menu-info-with-btn').find('.menuImage').val();
-	    let menuContent = $(element).closest('.menu-info-with-btn').find('.menuContent').val();
-	    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menuPrice').val();
-	    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menuStatus').val();
+		let menuName = $(element).closest('.menu-info-with-btn').find('.menu-name').val();
+		let menuImage = $(element).closest('.menu-info-with-btn').find('.menu-image').val();
+		let oldMenuImage = $(element).closest('.menu-info-with-btn').find('.old-menu-image').val();
+	    let menuContent = $(element).closest('.menu-info-with-btn').find('.menu-content').val();
+	    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menu-price').val();
+	    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menu-status').val();
 	    
 	    let info = {
 		    	menuCode : menuCode,
 		    	menuName : menuName,
+		    	oldMenuImage : oldMenuImage,
 		    	menuImage : menuImage,
 		    	menuContent : menuContent,
 		    	menuPrice : menuPrice,
@@ -618,16 +641,16 @@ hr{
 										<input type="hidden" class="old-menu-image" name="oldMenuImageFile" value="${menuList.menuImage}">
 										<input type="file" class="input-menu-image" name="menuImageFile">
 										<div class="input-menu-content">
-											<input type="text" class="menuName" value="${menuList.menuName}">
-											<input type="text" class="menuContent" value="${menuList.menuContent}">
-											<input type="text" class="menuPrice" value="${menuList.menuPrice}">
-											<div class="menu-status"><span id="menu-status-text">상태 : <c:choose>
+											<input type="text" class="menu-name" value="${menuList.menuName}">
+											<input type="text" class="menu-content" value="${menuList.menuContent}">
+											<input type="text" class="menu-price" value="${menuList.menuPrice}">
+											<div class="now-menu-status"><span id="menu-status-text">상태 : <c:choose>
 													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 													<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 												</c:choose>
 												</span>
-												<select class="menuStatus">
+												<select class="menu-status">
 													<option value="0">판매중</option>
 													<option value="1">매진</option>
 												</select>
