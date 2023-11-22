@@ -22,8 +22,6 @@
 		color: #007bff;
 	}
 
-
-
 	body {
 		font-family: Arial, sans-serif;
 		background-color: #f4f4f4;
@@ -84,8 +82,6 @@
 		box-shadow: 0px 0px 5px #ccc;
 		border-radius: 10px;
 	}
-
-	
 
 	.input-container-id {
 		display: flex;
@@ -256,8 +252,6 @@
 		margin-bottom: 50px;
 	}
 
-	footer {}
-
 	td {
 		display: flex;
 	}
@@ -325,189 +319,198 @@ function updatecustomer() {
  
 		////중요/////
 		$(document).ready(function() {
-							let userNicknameValid = false;
-							let userPwValid = false;
-							let confirmPasswordValid = false;
-							let userPhoneValid = false;
-							let userEmailValid = false;
-							let userPostCodeValid = false;
-							let userAddressValid = false;
-							let userAddressDetailValid = false;
-							
-							let timeoutId;
+			let userNicknameValid = false;
+			let userPwValid = false;
+			let confirmPasswordValid = false;
+			let userPhoneValid = false;
+			let userEmailValid = false;
+			let userPostCodeValid = false;
+			let userAddressValid = false;
+			let userAddressDetailValid = false;
+			
+			let timeoutId;
+
+			// 닉네임 유효성 검사
+			$("#userNickname").on("input", function() {
+			    let userNickname = $(this).val();
+			    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{2,6}$/;
+
+			    if (!nicknameCheck.test(userNickname)) {
+			        $(this).css("border-color", "red");
+			    } else {
+			        $(this).css("border-color", ""); // 초기화
+			        clearTimeout(timeoutId);
+			        timeoutId = setTimeout(function() {
+			            checkNicknameDuplicate(userNickname);
+			        }, 500); // 입력이 멈춘 후 0.5초 후에 중복 확인 실행
+			    }
+			});
+
+			// 닉네임 중복검사
+			function checkNicknameDuplicate(userNickname) {
+			    $.ajax({
+			        url: "/baemin/checkDuplicateNick",
+			        type: "POST",
+			        data: {
+			            userNickname: userNickname
+			        },
+			        success: function(data) {
+			            if (data.toLowerCase() === "yes") {
+			                $("#userNickname").css("border-color", "red");
+			                alert("중복된 닉네임 입니다.");
+			                $("#userNickname").val("");
+			            } else {
+			                $("#userNickname").css("border-color", "");
+			            }
+			        },
+			        error: function() {
+			            alert("에러발생");
+			        }
+			    });
+			}
+
+			
+			// 비밀번호 유효성 검사
+			$("#userPw").on("input",function() {
+				let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+				if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
+					$(this).css("border-color","red");
+					userPwValid = false;
+				} else {
+					$(this).css("border-color", "");
+					userPwValid = true;
+				}
+			});
+			
+			// 비밀번호 확인
+			$("#confirmPassword").on("input",function() {
+				if ($(this).val() === "" || !userPwValid || $("#userPw").val() !== $(this).val()) {
+					$(this).css("border-color", "red");
+					confirmPasswordValid = false;
+				} else {
+					$(this).css("border-color", "");
+					confirmPasswordValid = true;
+				}
+			});					
+
+			// 연락처 유효성 검사
+			const previousPhoneNumber = ""; 
+			
+			// 연락처 중복 확인
+			$("#userPhone").on("input", function() {
+			    let phoneCheck = /^[0-9]{11}$/;
+			
+			    if (!/^[0-9]*$/.test($(this).val())) {
+			        $(this).val('');
+			    } else if ($(this).val() === previousPhoneNumber) { 
+			        $(this).css("border-color", ""); 
+			        phone_check = true; 
+			    } else if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
+			        $(this).css("border-color", "red");
+			        phone_check = false;
+			    } else {
+			        $(this).css("border-color", "");
+			        phone_check = true;
+			    }
+			});
+			
+			// 연락처 중복 확인
+			$("#userPhone").on('focusout', function() {
+			    var userInput = $(this).val();
+			    if (userInput == "" || userInput === previousPhoneNumber) {
+			        return;
+			    } else {
+			        $.ajax({
+			            url: "/baemin/checkDuplicatePhone",
+			            type: "POST",
+			            data: {
+			                userPhone: userInput
+			            },
+			            success: function(data) {
+			                if (data === "yes") {
+			                    $("#userPhone").css("border-color", "red");
+			                    alert("중복된 연락처 입니다.");
+			                    phone_check = false;
+			                    $("#userPhone").val("");
+			                } else {
+			                    $("#userPhone").css("border-color", "");
+			                    phone_check = true;
+			                }
+			            },
+			            error: function() {
+			                alert("에러발생");
+			            }
+			        });
+			    }
+			});
+
+				
+				// 이메일 유효성 검사
+				$("#userEmail").on("input", function() {
+				    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+				    if (!emailCheck.test($(this).val())) {
+				        $(this).css("border-color", "red");
+				    } else {
+				        $(this).css("border-color", ""); // 초기화
+				    }
+				});
+				
+				// 이메일 중복 확인
+				$("#userEmail").on('focusout', function() {
+				    var userInput = $(this).val();
+				    if (userInput == "") {
+				    } else {
+				        $.ajax({
+				            url: "/baemin/checkDuplicateEmail",
+				            type: "POST",
+				            data: {
+				            	userEmail: $("#userEmail").val()
+				            },
+				            success: function(data) {
+				                if (data === "yes") {
+				                 
+				                    $("#userEmail").css("border-color", "red");
+				                    alert("중복된 이메일 입니다.");
+				                    email_check = false;
+				                    $("#userEmail").val("");						                    
+				                } else {
+				                    $("#userEmail").css("border-color", "");
+				                  
+				                    email_check = true;
+				                }
+				            },
+				            error: function() {
+				                alert("에러발생");
+				            }
+				        });
+				    }
+				});
+				
+				// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+				$("#signin_button").click(function() {
+					if (userIdValid && userPwValid 	&& confirmPasswordValid  && userNicknameValid) {						
+						alert("회원가입이 완료되었습니다.");
+					} else {
+						alert("입력 정보를 확인해주세요.");
+					}
+				});
+			/// ready
+		});
 		
-							// 닉네임 유효성 검사
-							$("#userNickname").on("input", function() {
-							    let userNickname = $(this).val();
-							    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{2,6}$/;
-							
-							    if (!nicknameCheck.test(userNickname)) {
-							        $(this).css("border-color", "red");
-							    } else {
-							        $(this).css("border-color", ""); // 초기화
-							        // 여기에 중복 체크를 실행할 수 있도록 코드 추가
-							    }
-							});
-		
-							// 중복 확인하는 함수
-							function checkNicknameDuplicate(userNickname) {
-							    $.ajax({
-							        url: "/baemin/checkDuplicateNick",
-							        type: "POST",
-							        data: {
-							            userNickname: userNickname
-							        },
-							        success: function(data) {
-							            if (data.toLowerCase() === "yes") {
-							                $("#userNickname").css("border-color", "red");
-							                alert("중복된 닉네임 입니다.");
-							                $("#userNickname").val("");
-							            } else {
-							                $("#userNickname").css("border-color", "");
-							            }
-							        },
-							        error: function() {
-							            alert("에러발생");
-							        }
-							    });
-							}
-												
-							// 비밀번호 유효성 검사
-							$("#userPw").on("input",function() {
-								let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-								if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
-									$(this).css("border-color","red");
-									userPwValid = false;
-								} else {
-									$(this).css("border-color", "");
-									userPwValid = true;
-								}
-							});
-		
-							// 비밀번호 확인
-							$("#confirmPassword").on("input",function() {
-								if ($(this).val() === "" || !userPwValid || $("#userPw").val() !== $(this).val()) {
-									$(this).css("border-color", "red");
-									confirmPasswordValid = false;
-								} else {
-									$(this).css("border-color", "");
-									confirmPasswordValid = true;
-								}
-							});					
-		
-							// 연락처 유효성 검사
-							$("#userPhone").on("input", function() {
-							    let phoneCheck = /^[0-9]{11}$/;
-							
-							    if (!/^[0-9]*$/.test($(this).val())) {
-							        $(this).val('');
-							    }						
-							    if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
-							        $(this).css("border-color", "red");
-							        userPhoneValid = false;
-							    } else {
-							        $(this).css("border-color", "");
-							        userPhoneValid = true;
-							    }
-							});
-							
-							// 연락처 중복 확인
-							$("#userPhone").on('focusout', function() {
-							    var userInput = $(this).val();
-							    if (userInput == "") {
-							    } else {
-							        $.ajax({
-							            url: "/baemin/checkDuplicatePhone",
-							            type: "POST",
-							            data: {
-							            	userPhone: $("#userPhone").val()
-							            },
-							            success: function(data) {
-							                if (data === "yes") {
-							                 
-							                    $("#userPhone").css("border-color", "red");
-							                    alert("중복된 연락처 입니다.");
-							                    phone_check = false;
-							                    $("#userPhone").val("");						                    
-							                } else {
-							                    $("#userPhone").css("border-color", "");
-							                    phone_check = true;
-							                }
-							            },
-							            error: function() {
-							                alert("에러발생");
-							            }
-							        });
-							    }
-							});
-							
-							// 이메일 유효성 검사
-							$("#userEmail").on("input", function() {
-							    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-							    if (!emailCheck.test($(this).val())) {
-							        $(this).css("border-color", "red");
-							    } else {
-							        $(this).css("border-color", ""); // 초기화
-							    }
-							});
-							
-							// 이메일 중복 확인
-							$("#userEmail").on('focusout', function() {
-							    var userInput = $(this).val();
-							    if (userInput == "") {
-							    } else {
-							        $.ajax({
-							            url: "/baemin/checkDuplicateEmail",
-							            type: "POST",
-							            data: {
-							            	userEmail: $("#userEmail").val()
-							            },
-							            success: function(data) {
-							                if (data === "yes") {
-							                 
-							                    $("#userEmail").css("border-color", "red");
-							                    alert("중복된 이메일 입니다.");
-							                    email_check = false;
-							                    $("#userEmail").val("");						                    
-							                } else {
-							                    $("#userEmail").css("border-color", "");
-							                  
-							                    email_check = true;
-							                }
-							            },
-							            error: function() {
-							                alert("에러발생");
-							            }
-							        });
-							    }
-							});
-		
-							
-							// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
-							$("#signin_button").click(function() {
-								if (userIdValid && userPwValid
-										&& confirmPasswordValid
-										&& userNicknameValid) {						
-									alert("회원가입이 완료되었습니다.");
-								} else {
-									alert("입력 정보를 확인해주세요.");
-								}
-							});
-		}
 		
 		
-		
-			// Enter 키 누를 시 로그인 button click과 같은 효과
-			document.addEventListener("DOMContentLoaded", function() {
+		// Enter 키 누를 시 로그인 button click과 같은 효과
+		document.addEventListener("DOMContentLoaded", function() {
 			const form = document.getElementById("modify_button");
 		
 			form.addEventListener("keypress", function(event) {
 			if (event.key === "Enter") {
-		    event.preventDefault(); 
-		    login(); 
-		}
+			    event.preventDefault(); 
+			    login(); 
+			}
+	  	 });			
 		});
-		});
+	 
 
 
 </script>
