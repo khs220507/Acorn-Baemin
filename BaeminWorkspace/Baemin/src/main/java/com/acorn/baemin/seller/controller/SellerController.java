@@ -47,7 +47,7 @@ public class SellerController {
 	@ResponseBody
 	@GetMapping("/images/{menuImageFile:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
-		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
+		return new UrlResource("file:" + fileDir + menuImageFile);
 	}
 	
 	// 사장님의 메뉴 탭 화면
@@ -81,7 +81,7 @@ public class SellerController {
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
 	public String createtMenu(Integer storeCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus, HttpSession session, Integer menuCode)
+			String menuContent, String menuClassification, Integer menuStatus)
 					throws IllegalStateException, IOException {
 
 		
@@ -112,6 +112,7 @@ public class SellerController {
 				session.setAttribute("menuCode", menuCode);
 				Integer codeTest = (Integer) session.getAttribute("menuCode");
 				System.out.println("coTe : " + codeTest);
+
 			}
 			
 		} catch (Exception e) {
@@ -130,9 +131,21 @@ public class SellerController {
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/updateSellerMenu")
-	public void updateMenuInfo(@RequestBody MenuDTO menu) {
-		sc.modifingMenu(menu);
+	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, String menuImage, String oldMenuImage, 
+			String menuContent, String menuClassification, Integer menuStatus) {
+		
+		if(menuImage.isEmpty()) {
+			
+			menuImage = oldMenuImage;
+			
+			MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus);
+			
+			System.out.println(menu);
+			
+			sc.modifingMenu(menu);
+		}
 	}
+	
 	// 메뉴 삭제
 	@ResponseBody
 	@PutMapping("/sellerMenu")
