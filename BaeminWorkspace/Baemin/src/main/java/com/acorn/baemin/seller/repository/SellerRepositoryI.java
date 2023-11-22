@@ -24,6 +24,8 @@ public interface SellerRepositoryI {
 	public int insertMenu(MenuDTO menu);
 	// 메뉴 수정
 	public int updateMenu(MenuDTO menu);
+	// 메뉴 수정
+	public int updateMenuIncludeImg(MenuDTO menu);
 	// 메뉴 삭제
 	public int deleteMenu(Integer menuCode);
 	

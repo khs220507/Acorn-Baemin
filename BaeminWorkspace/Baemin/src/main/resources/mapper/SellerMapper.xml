@@ -33,12 +33,22 @@
 		(#{storeCode},#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification},#{menuStatus});
 	</insert>
 	
-	<!-- 메뉴 수정 -->
-	<update id="updateMenu" parameterType="MenuDTO">
+	<!-- 이미지 있는 메뉴 수정 -->
+	<update id="updateMenuIncludeImg" parameterType="MenuDTO">
 		UPDATE menu_tbl
 		SET menuName = #{menuName},
 		menuPrice = #{menuPrice},
 		menuImage = #{menuImage},
+		menuContent = #{menuContent},
+		menuStatus = #{menuStatus}
+		WHERE menuCode = #{menuCode}
+	</update>
+	
+	<!-- 이미지 '없는' 메뉴 수정 -->
+	<update id="updateMenu" parameterType="MenuDTO">
+		UPDATE menu_tbl
+		SET menuName = #{menuName},
+		menuPrice = #{menuPrice},
 		menuContent = #{menuContent},
 		menuStatus = #{menuStatus}
 		WHERE menuCode = #{menuCode}
