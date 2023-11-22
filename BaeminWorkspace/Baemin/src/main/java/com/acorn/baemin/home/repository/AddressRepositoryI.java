@@ -18,6 +18,15 @@ public interface AddressRepositoryI {
 	// 주소코드 조회
 	public int selectAddressCode(int userCode);
 	
+	// 주소에 맞는 주소코드 조회 (카카오, 도로명)
+	public int getAddressCodeKakao(AddressDTO addressDTO);
+	
+	// 회원당 주소 개수 조회
+	public int selectAddressCount(int userCode);
+	
+	// 주소코드로 AddressDTO 반환
+	public AddressDTO returnAddressDTO(int addressCode);
+	
 	// 주소 삭제
 	public int deleteAddress(int addressCode);
 	

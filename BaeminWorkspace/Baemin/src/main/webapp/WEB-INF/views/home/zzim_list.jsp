@@ -215,7 +215,6 @@ section{
 	        },
 	        error : function(err) {
 	            alert("삭제 요청에 실패했습니다.");
-	            // 여기에 다른 처리 로직 추가
 	        }
 	    });
 	}

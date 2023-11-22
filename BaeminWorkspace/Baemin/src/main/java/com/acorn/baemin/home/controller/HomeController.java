@@ -57,13 +57,13 @@ public class HomeController {
 	// 주소 등록
 	@ResponseBody
 	@PostMapping("/addressAdd")
-	public String insertAddress(HttpSession session, String deliveryAddress, String detailDeliveryAddress) {
+	public String insertAddress(HttpSession session,@RequestParam("deliveryAddress") String deliveryAddress,@RequestParam("detailDeliveryAddress") String detailDeliveryAddress) {
 		int userCode = (int)session.getAttribute("userCode");
 		AddressDTO addressDTO = new AddressDTO(0,userCode, deliveryAddress, detailDeliveryAddress);
 		addressDAO.insertAddress(addressDTO);
 		
 		// 주소코드 가져와서 세션에 넣기
-		int addressCode = addressDAO.selectAddressCode(userCode);
+		int addressCode = addressDAO.getAddressCodeKakao(addressDTO);
 		session.setAttribute("addressCode", addressCode);
 		
 		return "address-upload-ok";
@@ -89,6 +89,7 @@ public class HomeController {
 		List<AddressDTO> address = addressDAO.selectAddress(userCode);
 		return address;
 	}
+	
 	
 	// 주소 삭제
 	@ResponseBody

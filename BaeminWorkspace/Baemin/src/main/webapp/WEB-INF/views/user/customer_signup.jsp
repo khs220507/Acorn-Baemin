@@ -321,7 +321,7 @@ td {
 		let userPostCode = $("#userPostCode").val();
 		let userAddress = $("#userAddress").val();
 		let userAddressDetail = $("#userAddressdetail").val();
-
+		
 		// 빈칸으로 가입되는 경우 방지. 유효성 검사
 		if (userId === "" || userPw === "" || confirmPassword === ""
 				|| userName === "" || userNickname === "" || userPhone === ""
@@ -746,6 +746,7 @@ td {
 											alert("이메일 인증번호가 일치하지 않습니다.");
 										}
 										signup();
+										
 										alert("회원가입이 완료되었습니다.");
 									} else {
 										alert("입력 정보를 확인해주세요.");
@@ -886,6 +887,8 @@ td {
 		}).open();
 	}
 </script>
+
+
 </head>
 
 <body>

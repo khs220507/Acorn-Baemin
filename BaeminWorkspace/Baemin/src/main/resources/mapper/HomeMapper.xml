@@ -22,16 +22,32 @@
 			addressCode = #{addressCode}
 	</update>
 	
-	<!-- 조회 -->
+	<!-- 유저코드로 전체 조회 (홈) -->
 	<select id="selectAddress" resultType="AddressDTO" parameterType="int">
 		SELECT * FROM address_tbl
 		WHERE userCode= #{userCode}
 	</select>
 	
-	<!-- 주소코드 조회 -->
+	<!-- 주소코드 조회 (로그인) -->
 	<select id="selectAddressCode" resultType="int" parameterType="int">
 		SELECT addressCode FROM address_tbl
 		WHERE userCode= #{userCode}
+	</select>
+	
+	<!-- 주소에 맞는 주소코드 조회 (카카오, 도로명) -->
+	<select id="getAddressCodeKakao" resultType="int" parameterType="AddressDTO">
+		select addressCode from address_tbl where deliveryAddress = #{deliveryAddress} and detailDeliveryAddress = #{detailDeliveryAddress};
+	</select>
+	
+	<!-- 유저코드당 주소개수 조회 -->
+	<select id="selectAddressCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM address_tbl WHERE userCode = #{userCode}
+	</select>
+	
+	<!-- 주소코드로 AddressDTO 반환 -->
+	<select id="returnAddressDTO" resultType="AddressDTO" parameterType="int">
+		SELECT * FROM address_tbl
+		WHERE addressCode = #{addressCode}
 	</select>
 	
 	<!-- 삭제 -->
