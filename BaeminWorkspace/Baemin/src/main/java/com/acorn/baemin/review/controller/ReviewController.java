@@ -67,9 +67,7 @@ public class ReviewController {
 
 		ReviewDTO reviewDTO = new ReviewDTO();
 		int orderNumber = (int) session.getAttribute("orderNumber");
-		System.out.println("테스트중! : " + orderNumber);
 		List<OrderDTO> orderDTO = rep.orderDetailSelect(orderNumber);
-		System.out.println("테스트중! : " + orderDTO);
 
 		
 		reviewDTO.setReviewContent(reviewContent);

@@ -120,6 +120,12 @@ VALUES
 select * from menu_tbl;
 select DISTINCT menuClassification from menu_tbl;
         
+UPDATE menu_tbl
+		SET menuName = '비지찌개',
+		menuPrice = 10000,
+		menuContent = '볶음김치가 들어가 살짝 매콤',
+		menuStatus = 1
+		WHERE menuCode = 40001;
         
 -- 05. 옵션 option_tbl
 create table option_tbl (
@@ -174,6 +180,7 @@ select * from cart_tbl;
 -- 07
 CREATE TABLE order_tbl (
     orderNumber INT AUTO_INCREMENT PRIMARY KEY,
+    menuCode int,
     userCode int,
     storeCode int,
     orderMenuName varchar(100),
@@ -192,6 +199,7 @@ CREATE TABLE order_tbl (
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
+    FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT = 70001;

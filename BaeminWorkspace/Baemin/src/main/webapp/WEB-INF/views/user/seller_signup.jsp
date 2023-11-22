@@ -21,8 +21,6 @@ a {
 	text-decoration: none;
 }
 
-
-
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
@@ -47,7 +45,8 @@ button#checkDuplicate2, #searchpc, #signin_button {
 	cursor: pointer;
 	margin-left: 10px;
 }
-#checkDuplicate2{
+
+#checkDuplicate2 {
 	font-size: 16px;
 }
 
@@ -69,41 +68,42 @@ h1 {
 }
 
 .mail-check-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .mail-check-input {
-    flex: 1;
-    margin-right: 10px;
+	flex: 1;
+	margin-right: 10px;
 }
-button#mail-Check-Btn{
+
+button#mail-Check-Btn {
 	background-color: #82d9d0;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: -3px;
-    height: 22px;
-    width: 100px;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-left: -3px;
+	height: 22px;
+	width: 100px;
 }
-input#sellerEmail1{
+
+input#sellerEmail1 {
 	width: 65%;
-    height: 25px;
-    padding: 10px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-input#sellerEmail2{
+	height: 25px;
 	padding: 10px;
-    font-size: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
-
+input#sellerEmail2 {
+	padding: 10px;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
 
 .signup-div {
 	background-color: #fff;
@@ -290,6 +290,7 @@ td {
 }
 </style>
 <script>
+	let mailCheck = 0;
 	// 사장님 회원가입 부분 ajax. id 값을 가져옴.
 	function signup() {
 
@@ -306,268 +307,327 @@ td {
 
 		// 빈칸으로 가입되는경우 방지. 유효성 검사
 		if (sellerId === "" || sellerPw === "" || confirmPassword === ""
-				|| sellerName === "" || sellerRegCode === "" || sellerPhone === ""
-				|| sellerEmail === "" || sellerBirth === ""
-				|| sellerGender === undefined) {
+				|| sellerName === "" || sellerRegCode === ""
+				|| sellerPhone === "" || sellerEmail === ""
+				|| sellerBirth === "" || sellerGender === undefined) {
 			alert("모든 항목을 입력하세요.");
 			return;
 		}
+		if (mailCheck == 1) {
+			if (confirmPassword == sellerPw) {
 
-		if (confirmPassword == sellerPw) {
+				let info = {
+					sellerId : sellerId,
+					sellerPw : sellerPw,
+					sellerName : sellerName,
+					sellerRegCode : sellerRegCode,
+					sellerPhone : sellerPhone,
+					sellerEmail : sellerEmail + sellerEmail2,
+					sellerBirth : sellerBirth,
+					sellerGender : sellerGender
+				};
 
-			let info = {
-				sellerId : sellerId,
-				sellerPw : sellerPw,
-				sellerName : sellerName,
-				sellerRegCode : sellerRegCode,
-				sellerPhone : sellerPhone,
-				sellerEmail : sellerEmail + sellerEmail2,
-				sellerBirth : sellerBirth,
-				sellerGender : sellerGender
-			};
+				let infos = JSON.stringify(info);
 
-			let infos = JSON.stringify(info);
-
-			$.ajax({
-				type : "POST",
-				url : "/baemin/seller_signup",
-				data : infos,
-				contentType : "application/json", // 필수
-				success : function(data) {
-					alert("가입축하 q(≧▽≦q)");
-					window.location.href = "http://localhost:8080/baemin/login";
-				},
-				error : function() {
-					alert("입력한 정보를 확인해주세요.");
-				}
-			});
+				$
+						.ajax({
+							type : "POST",
+							url : "/baemin/seller_signup",
+							data : infos,
+							contentType : "application/json", // 필수
+							success : function(data) {
+								alert("가입축하 q(≧▽≦q)");
+								window.location.href = "http://localhost:8080/baemin/login";
+							},
+							error : function() {
+								alert("입력한 정보를 확인해주세요.");
+							}
+						});
+			}
 		}
 	}
-		////중요/////
-		$(document).ready(function() {
-							let sellerIdValid = false;
-							let sellerPwValid = false;
-							let confirmPasswordValid = false;
-							let sellerNameValid = false;
-							let sellerRegCodeValid = false;
-							let sellerPhoneValid = false;
-							let sellerEmailValid = false;
-														
-							// 아이디 유효성 검사
-							$("#sellerId").on("focusout", function() {
-							    let idCheck = /^[a-z0-9]{6,8}$/; // 영어 소문자와 숫자만 허용
-							
-							    let sellerId = $(this).val();
-							
-							    if (sellerId === "" || !idCheck.test(sellerId)) {
-							        $(this).css("border-color", "red");
-							        sellerIdValid = false;
-							        alert("아이디는 영어 소문자와 숫자의 조합으로 6~8자여야 합니다.");
-							    } else {
-							        $(this).css("border-color", "");
-							        sellerIdValid = true;
-							    }
-							});
+	////중요/////
+	$(document)
+			.ready(
+					function() {
+						let sellerIdValid = false;
+						let sellerPwValid = false;
+						let confirmPasswordValid = false;
+						let sellerNameValid = false;
+						let sellerRegCodeValid = false;
+						let sellerPhoneValid = false;
+						let sellerEmailValid = false;
 
-							// 아이디 중복 확인
-							$("#checkDuplicate2").click(function() {
-							    let sellerId = $("#sellerId").val();
-							
-							    if (sellerId === "") {
-							        alert("아이디를 입력해주세요.");
-							    } else {
-							        $.ajax({
-							            url: "/baemin/checkDuplicate2",
-							            type: "POST",
-							            data: {
-							                sellerId: sellerId
-							            },
-							            success: function(data) {
-							                if (data === "yes") {
-							                    $("#sellerId").css("color", "red");
-							                    alert("중복된 아이디 입니다.");
-							                    id_check = false;
-							                    $("#sellerId").val("");
-							                } else {
-							                    $("#sellerId").css("border-color", "");
-							                    alert("사용 가능한 아이디 입니다.");
-							                    id_check = true;
-							                }
-							            },
-							            error: function() {
-							                alert("에러 발생");
-							            }
-							        });
-							    }
-							    toggleIdConfirmButton();
-							});
-
-							
-
-							// 비밀번호 유효성 검사
-							$("#sellerPw").on("input",function() {
-												let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
-
-												if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
-													$(this).css("border-color","red");
-													sellerPwValid = false;
-												} else {
-													$(this).css("border-color","");
-													sellerPwValid = true;
-												}
-											});
-
-							// 비밀번호 확인
-							$("#confirmPassword").on("input",function() {
-										if ($(this).val() === "" || !sellerPwValid || $("#sellerPw").val() !== $(this).val()) {
-											$(this).css("border-color", "red");
-											confirmPasswordValid = false;
-										} else {
-											$(this).css("border-color", "");
-											confirmPasswordValid = true;
-										}
-									});
-
-							// 사장님 이름
-							$("#sellerName").on("blur", function() {
-    let sellerName = $(this).val();
-    let namePattern = /^[가-힣a-zA-Z]{1,16}$/; // 한글과 영어 대소문자만 허용, 최대 16자까지
-    if (sellerName === "" || !namePattern.test(sellerName)) {
-        $(this).css("border-color", "red");
-        sellerNameValid = false;
-    } else {
-        $(this).css("border-color", "");
-        sellerNameValid = true;
-    }
-});
-
-							// 사업자 등록번호
-							$("#sellerRegCode").on("input", function() {
-							    let regCodeCheck = /^\d{10}$/; 
-
-							    if ($(this).val() === "" || !regCodeCheck.test($(this).val())) {
-							        $("#regCodeError").text("사업자등록번호 형식에 맞지 않습니다.");
-							        $(this).css("border-color", "red");
-							        sellerRegCodeValid = false;
-							    } else {
-							        $("#regCodeError").text("");
-							        $(this).css("border-color", "");
-							        sellerRegCodeValid = true;
-							    }
-							});
-
-							// 연락처 유효성 검사
-							$("#sellerPhone").on("input",function() {
-										let phoneCheck = /^[0-9]{11}$/;
-									    if (!/^[0-9]*$/.test($(this).val())) {
-									        $(this).val('');
-									    }						
-									    if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
-									        $(this).css("border-color", "red");
-									        sellerPhoneValid = false;
-									    } else {
-									        $(this).css("border-color", "");
-									        sellerPhoneValid = true;
-									    }
-									});
-							// 이메일 인증
-							$('#mail-Check-Btn').click(function() {
-								const email = $('#sellerEmail1').val() + $('#sellerEmail2').val(); // 이메일 주소값 얻어오기!
-								console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
-								const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-
-								$.ajax({
-									type : 'GET',
-									url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-									success : function(data) {
-										console.log("data : " + data);
-										checkInput.attr('disabled', false);
-										code = data;
-										alert('인증번호가 전송되었습니다.')
-									}
-								}); // end ajax
-							}); // end send email
-							$('#sellerEmail2').change(function() {
-						        var selectedEmail = $(this).val();
-
-						        if (selectedEmail === 'custom') {
-						            $('#customEmail').css('display', 'block'); // 커스텀 이메일 입력 필드 표시
-						        } else {
-						            $('#customEmail').css('display', 'none'); // 커스텀 이메일 입력 필드 숨김
-						        }
-						    });
-							
-							
-
-					// 인증번호 비교 
-					// blur -> focus가 벗어나는 경우 발생
-					$('.mail-check-input').blur(function() {
-										const inputCode = $(this).val();
-										const $resultMsg = $('#mail-check-warn');
-
-										if (inputCode === code) {
-											$resultMsg.html('인증번호가 일치합니다.');
-											$resultMsg.css('color', 'green');
-											$('#mail-Check-Btn').attr('disabled', true);
-											$('#sellerEmail1').attr('readonly', true);
-											$('#sellerEmail2').attr('readonly', true);
-											$('#sellerEmail2').attr('onFocus','this.initialSelect = this.selectedIndex');
-											$('#sellerEmail2').attr('onChange','this.selectedIndex = this.initialSelect');
-										} else {
-											$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
-											$resultMsg.css('color', 'red');
-										}
-									});
-
-				});
-
-							// 이메일 유효성 검사
-// 							$("#sellerEmail").on("input",function() {
-// 												let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-// 												if ($(this).val() === "" || !emailCheck.test($(this).val())) {
-// 													$(this).css("border-color","red");
-// 													sellerEmailValid = false;
-// 												} else {
-// 													$(this).css("border-color",	"");
-// 													sellerEmailValid = true;
-// 												}
-// 											});
-							// 아이디 확인 버튼 토글
-							function toggleIdConfirmButton() {
-								if (sellerIdValid) {
-									$("#id_Confirm").show();
-								} else {
-									$("#id_Confirm").hide();
-								}
+						// 아이디 유효성 검사
+						$("#sellerId").on("focusout", function() {
+							let idCheck = /^[a-z0-9]{6,8}$/; // 영어 소문자와 숫자만 허용		
+							let sellerId = $(this).val();
+							if (sellerId === "" || !idCheck.test(sellerId)) {
+								$(this).css("border-color", "red");
+								sellerIdValid = false;
+								alert("아이디는 영어 소문자와 숫자의 조합으로 6~8자여야 합니다.");
+							} else {
+								$(this).css("border-color", "");
+								sellerIdValid = true;
 							}
+						});
 
-							// 생년월일 유효성 검사
-							$("#sellerBirthdate").on("input",function() {
-												let birthdateCheck = /^(19\d\d|20[0-2]\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+						// 아이디 중복 확인
+						$("#checkDuplicate2")
+								.click(
+										function() {
+											if ($("#sellerId").val() == "") {
+												alert("아이디를 입력해주세요.");
+											} else {
+												// 유효성검사
+												let idCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,8}$/;
+												let sellerId = $("#sellerId")
+														.val();
 
-												if ($(this).val() === "" || !birthdateCheck.test($(this).val())) {
-													$(this).css("border-color","red");
-													sellerBirthdateValid = false;
-												} else {
-													$(this).css("border-color","");
-													sellerBirthdateValid = true;
+												if (!idCheck.test(sellerId)) {
+													alert("아이디는 영문과 숫자 조합으로 6~8자여야 합니다.");
+													return;
 												}
-											});
 
-							// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
-							$("#signin_button").click(function() {
-										if (sellerIdValid && sellerPwValid
-												&& confirmPasswordValid) {
-											// 서버로 전송할 로직 추가
-											alert("회원가입이 완료되었습니다.");
-										} else {
-											alert("입력 정보를 확인해주세요.");
+												$
+														.ajax({
+															url : "/baemin/checkDuplicate2",
+															type : "POST",
+															data : {
+																sellerId : sellerId
+															},
+															success : function(
+																	data) {
+																if (data === "yes") {
+																	$(
+																			"#sellerId")
+																			.css(
+																					"color",
+																					"red");
+																	alert("중복된 아이디 입니다.");
+																	id_check = false;
+																	$(
+																			"#sellerId")
+																			.val(
+																					"");
+																} else {
+																	$(
+																			"#sellerId")
+																			.css(
+																					"border-color",
+																					"");
+																	alert("사용 가능한 아이디 입니다.");
+																	id_check = true;
+																}
+															},
+															error : function() {
+																alert("에러 발생");
+															}
+														});
+											}
+											toggleIdConfirmButton();
+										});
+
+						// 비밀번호 유효성 검사
+						$("#sellerPw")
+								.on(
+										"input",
+										function() {
+											let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+
+											if ($(this).val() === ""
+													|| !pwdCheck.test($(this)
+															.val())) {
+												$(this).css("border-color",
+														"red");
+												sellerPwValid = false;
+											} else {
+												$(this).css("border-color", "");
+												sellerPwValid = true;
+											}
+										});
+
+						// 비밀번호 확인
+						$("#confirmPassword").on(
+								"input",
+								function() {
+									if ($(this).val() === ""
+											|| !sellerPwValid
+											|| $("#sellerPw").val() !== $(this)
+													.val()) {
+										$(this).css("border-color", "red");
+										confirmPasswordValid = false;
+									} else {
+										$(this).css("border-color", "");
+										confirmPasswordValid = true;
+									}
+								});
+
+						// 사장님 이름
+						$("#sellerName").on(
+								"blur",
+								function() {
+									let sellerName = $(this).val();
+									let namePattern = /^[가-힣a-zA-Z]{1,16}$/; // 한글과 영어 대소문자만 허용, 최대 16자까지
+									if (sellerName === ""
+											|| !namePattern.test(sellerName)) {
+										$(this).css("border-color", "red");
+										sellerNameValid = false;
+									} else {
+										$(this).css("border-color", "");
+										sellerNameValid = true;
+									}
+								});
+
+						// 사업자 등록번호
+						$("#sellerRegCode").on(
+								"input",
+								function() {
+									let regCodeCheck = /^\d{10}$/;
+
+									if ($(this).val() === ""
+											|| !regCodeCheck
+													.test($(this).val())) {
+										$("#regCodeError").text(
+												"사업자등록번호 형식에 맞지 않습니다.");
+										$(this).css("border-color", "red");
+										sellerRegCodeValid = false;
+									} else {
+										$("#regCodeError").text("");
+										$(this).css("border-color", "");
+										sellerRegCodeValid = true;
+									}
+								});
+
+						// 연락처 유효성 검사
+						$("#sellerPhone")
+								.on(
+										"input",
+										function() {
+											let phoneCheck = /^[0-9]{11}$/;
+											if (!/^[0-9]*$/.test($(this).val())) {
+												$(this).val('');
+											}
+											if ($(this).val() === ""
+													|| !phoneCheck.test($(this)
+															.val())) {
+												$(this).css("border-color",
+														"red");
+												sellerPhoneValid = false;
+											} else {
+												$(this).css("border-color", "");
+												sellerPhoneValid = true;
+											}
+										});
+						// 이메일 인증
+						$('#mail-Check-Btn').click(
+								function() {
+									const email = $('#sellerEmail1').val()
+											+ $('#sellerEmail2').val(); // 이메일 주소값 얻어오기!
+									console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+									const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
+
+									$.ajax({
+										type : 'GET',
+										url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+										success : function(data) {
+											console.log("data : " + data);
+											checkInput.attr('disabled', false);
+											code = data;
+											alert('인증번호가 전송되었습니다.')
 										}
-									});
-						
+									}); // end ajax
+								}); // end send email
+						$('#sellerEmail2').change(function() {
+							var selectedEmail = $(this).val();
 
-	
+							if (selectedEmail === 'custom') {
+								$('#customEmail').css('display', 'block'); // 커스텀 이메일 입력 필드 표시
+							} else {
+								$('#customEmail').css('display', 'none'); // 커스텀 이메일 입력 필드 숨김
+							}
+						});
+
+						// 인증번호 비교 
+						// blur -> focus가 벗어나는 경우 발생
+						$('.mail-check-input')
+								.blur(
+										function() {
+											const inputCode = $(this).val();
+											const $resultMsg = $('#mail-check-warn');
+
+											if (inputCode === code) {
+												$resultMsg.html('인증번호가 일치합니다.');
+												$resultMsg
+														.css('color', 'green');
+												$('#mail-Check-Btn').attr(
+														'disabled', true);
+												$('#sellerEmail1').attr(
+														'readonly', true);
+												$('#sellerEmail2').attr(
+														'readonly', true);
+												$('#sellerEmail2')
+														.attr('onFocus',
+																'this.initialSelect = this.selectedIndex');
+												$('#sellerEmail2')
+														.attr('onChange',
+																'this.selectedIndex = this.initialSelect');
+											} else {
+												$resultMsg
+														.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+												$resultMsg.css('color', 'red');
+											}
+										});
+
+					});
+
+	// 이메일 유효성 검사
+	// 							$("#sellerEmail").on("input",function() {
+	// 												let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+	// 												if ($(this).val() === "" || !emailCheck.test($(this).val())) {
+	// 													$(this).css("border-color","red");
+	// 													sellerEmailValid = false;
+	// 												} else {
+	// 													$(this).css("border-color",	"");
+	// 													sellerEmailValid = true;
+	// 												}
+	// 											});
+	// 아이디 확인 버튼 토글
+	function toggleIdConfirmButton() {
+		if (sellerIdValid) {
+			$("#id_Confirm").show();
+		} else {
+			$("#id_Confirm").hide();
+		}
+	}
+
+	// 생년월일 유효성 검사
+	$("#sellerBirthdate")
+			.on(
+					"input",
+					function() {
+						let birthdateCheck = /^(19\d\d|20[0-2]\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+
+						if ($(this).val() === ""
+								|| !birthdateCheck.test($(this).val())) {
+							$(this).css("border-color", "red");
+							sellerBirthdateValid = false;
+						} else {
+							$(this).css("border-color", "");
+							sellerBirthdateValid = true;
+						}
+					});
+
+	// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+	$("#signin_button").click(function() {
+		if (sellerIdValid && sellerPwValid && confirmPasswordValid) {
+			// 서버로 전송할 로직 추가
+			alert("회원가입이 완료되었습니다.");
+		} else {
+			alert("입력 정보를 확인해주세요.");
+		}
+	});
 </script>
 
 </head>
@@ -611,66 +671,70 @@ td {
 				</table>
 				<table>
 					<td>이름</td>
-					<td>
-						<span>
-							<input type="text" id="sellerName" placeholder="이름" class="vertical-center"> 
-							<span id="nameError" style="color: red; font-size: 12px;"></span>	
-						</span></td>
+					<td><span> <input type="text" id="sellerName"
+							placeholder="이름" class="vertical-center"> <span
+							id="nameError" style="color: red; font-size: 12px;"></span>
+					</span></td>
 				</table>
 
-
-
 				<table>
-    <td>사업자등록번호</td>
-    <td>
-        <span>
-            <input type="text" id="sellerRegCode" placeholder="사업자등록번호" class="vertical-center">
-            <span id="regCodeError" style="color: red; font-size: 12px;"></span>
-        </span>
-    </td>
-</table>
+					<td>사업자등록번호</td>
+					<td><span> <input type="text" id="sellerRegCode"
+							placeholder="사업자등록번호" class="vertical-center"> <span
+							id="regCodeError" style="color: red; font-size: 12px;"></span>
+					</span></td>
+				</table>
 				<table>
 					<td>연락처</td>
 					<td><span> <input type="tel" id="sellerPhone"
 							placeholder="연락처('-' 없이 11자리)" class="vertical-center"
 							pattern="[0-9]{11}" title="숫자 11개를 입력하세요"></span></td>
 				</table>
-				
+
 				<table>
 					<div class="form-group email-form">
-						<label for="email">이메일</label>
-						<span></span>
+						<label for="email">이메일</label> <span></span>
 						<div class="input-group">
-							<input type="text" class="form-control" name="sellerEmail1" id="sellerEmail1" placeholder="이메일">
-						
-
-							<select class="form-control" name="sellerEmail2" id="sellerEmail2">
-								<option value="@gmail.com.com">@<div class="mail">gmail.com</div></option>
-								<option value="@naver.com.com">@<div class="mail">naver.com</div></option>
-								<option value="@daum.net.net">@<div class="mail">daum.net</div></option>
-								<option value="@lycos.com.com">@<div class="mail">lycos.com</div></option>
+							<input type="text" class="form-control" name="sellerEmail1"
+								id="sellerEmail1" placeholder="이메일"> <select
+								class="form-control" name="sellerEmail2" id="sellerEmail2">
+								<option value="@gmail.com.com">@
+									<div class="mail">gmail.com</div>
+								</option>
+								<option value="@naver.com.com">@
+									<div class="mail">naver.com</div>
+								</option>
+								<option value="@daum.net.net">@
+									<div class="mail">daum.net</div>
+								</option>
+								<option value="@lycos.com.com">@
+									<div class="mail">lycos.com</div>
+								</option>
 								<option value="custom">직접 입력</option>
-								
-							</select>
-							<input type="text" class="form-control" id="customEmail" name="customEmail" style="display: none;" placeholder="도메인을 포함한 이메일 주소를 입력하세요">
+
+							</select> <input type="text" class="form-control" id="customEmail"
+								name="customEmail" style="display: none;"
+								placeholder="도메인을 포함한 이메일 주소를 입력하세요">
 
 
 						</div>
 						<div class="mail-check-box">
-						    <input class="form-control mail-check-input" id="Certification-Number" placeholder="인증번호 6자리를 입력해주세요" disabled="disabled" maxlength="6">
-						    <button type="button" class="btn btn-primary" id="mail-Check-Btn">인증번호발송</button>
+							<input class="form-control mail-check-input"
+								id="Certification-Number" placeholder="인증번호 6자리를 입력해주세요"
+								disabled="disabled" maxlength="6">
+							<button type="button" class="btn btn-primary" id="mail-Check-Btn">인증번호발송</button>
 						</div>
 
 						<span id="mail-check-warn" style="font-size: 12px;"></span>
 					</div>
 				</table>
-				
-<!-- 				<table> -->
-<!-- 					<td>이메일</td> -->
-<!-- 					<td><span> <input type="email" id="sellerEmail" -->
-<!-- 							placeholder="이메일" class="vertical-center"> -->
-<!-- 					</span></td> -->
-<!-- 				</table> -->
+
+				<!-- 				<table> -->
+				<!-- 					<td>이메일</td> -->
+				<!-- 					<td><span> <input type="email" id="sellerEmail" -->
+				<!-- 							placeholder="이메일" class="vertical-center"> -->
+				<!-- 					</span></td> -->
+				<!-- 				</table> -->
 				<table>
 					<td>생년월일</td>
 					<td><span> <input type="date" id="sellerBirth"
@@ -695,7 +759,7 @@ td {
 			</div>
 
 
-			
+
 		</div>
 
 	</section>

@@ -22,6 +22,7 @@ public interface SellerServiceI {
 		public void insertMenu(MenuDTO menu);
 		// 메뉴 수정
 		public void modifingMenu(MenuDTO menu);
+		public void modifingMenuIncludeImg(MenuDTO menu);
 		// 메뉴 삭제
 		public void deleteMenu(Integer menuCode);
 		

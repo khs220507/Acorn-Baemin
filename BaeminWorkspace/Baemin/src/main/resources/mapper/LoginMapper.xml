@@ -179,7 +179,7 @@
 	
 	<!-- 손님 연락처 중복 확인 -->
 	<select id="userPhoneCheck" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM user_tbl WHERE userPhone = #{userPhone}
+		SELECT COUNT(*) FROM user_tbl WHERE userPhone = #{userPhone} 
 	</select>
 
 	<!-- 손님 이메일 중복 확인 -->

@@ -49,18 +49,37 @@ public class CartController {
 		session.setAttribute("cartInfo", cartInfoDTO);
 		session.setAttribute("menuInfo", menuInfo);
 		session.setAttribute("storeInfo", storeInfo);
+		
 	    return "home/cart_list";
 	}
+	
+	@GetMapping("/cartListRe")
+	public String receiveCartDataRe(Integer orderNumber, Model model, HttpSession session) {
+		System.out.println("테스트!");
+		System.out.println(orderNumber);
+		OrderDTO orderInfo = cartService.selectOrderInfo(orderNumber);
+		System.out.println(orderInfo);
+		CartInfoDTO cartInfoDTO = new CartInfoDTO();
+		cartInfoDTO.setOptions(orderInfo.getOptionsInfo());
+		List<StoreDTO> storeInfo = cartService.selectStoreInfo(orderInfo.getMenuCode());
+		List<MenuDTO> menuInfo = cartService.selectMenuInfo(orderInfo.getMenuCode());
+		session.setAttribute("cartInfo", cartInfoDTO);
+		session.setAttribute("menuInfo", menuInfo);
+		session.setAttribute("storeInfo", storeInfo);
+	    return "home/cart_list_re";
+	    }
+	
 
 	@PostMapping("/order")
 	public String placeOrder(@RequestParam int orderMenuPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
-		
 		
 		session.setAttribute("orderMenuPrice", orderMenuPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
 		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
 		List<MenuDTO> menuInfo = (List<MenuDTO>) session.getAttribute("menuInfo");
+		System.out.println(userCode);
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);
+		orderDTO.setMenuCode(menuInfo.get(0).getMenuCode());
 		orderDTO.setOrderStoreName(storeInfo.get(0).getStoreName());
 		orderDTO.setOrderStoreImage(storeInfo.get(0).getStoreImage()); 
 		orderDTO.setOrderMenuName(menuInfo.get(0).getMenuName());
@@ -71,10 +90,7 @@ public class CartController {
 		String optionsInfo = cartInfo.getOptions();
 		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
-		session.setAttribute("orderDTO", orderDTO);
-		System.out.println("테스트!!!!!!!!!");
-		System.out.println(session.getAttribute("orderDTO"));
-		
+		session.setAttribute("orderDTO", orderDTO);		
 	    return "userorder/order";
 	}
 	

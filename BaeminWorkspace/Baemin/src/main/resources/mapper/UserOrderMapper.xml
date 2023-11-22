@@ -11,11 +11,11 @@
 	</select>
 
 	<insert id="insertOrder" parameterType="OrderDTO">
-        INSERT INTO order_tbl (userCode, storeCode, orderMenuName, orderMenuNumber,
+        INSERT INTO order_tbl (userCode, storeCode, menuCode, orderMenuName, orderMenuNumber,
         orderMenuPrice, orderStoreName, orderStoreImage, orderDate, payType, orderType,
         reqToSeller, reqToRider, orderStatus, optionsInfo, deliveryFee,
         deliveryAddress, userPhone)
-        VALUES (#{userCode}, #{storeCode}, #{orderMenuName}, #{orderMenuNumber},
+        VALUES (#{userCode}, #{storeCode}, #{menuCode}, #{orderMenuName}, #{orderMenuNumber},
         #{orderMenuPrice}, #{orderStoreName}, #{orderStoreImage}, NOW(),
         #{payType}, #{orderType}, #{reqToSeller}, #{reqToRider}, #{orderStatus},
         #{optionsInfo}, #{deliveryFee}, #{deliveryAddress}, #{userPhone});
@@ -26,6 +26,8 @@
         ORDER BY orderNumber DESC
         LIMIT 1;
     </select>
+    
+   
     
     
     

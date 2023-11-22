@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.acorn.baemin.cart.repository.CartRepositoryImp;
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 
 @Service
@@ -27,4 +28,9 @@ public class CartServiceImp implements CartServiceI {
 		return menuInfo;
 	}
 
+	@Override
+	public OrderDTO selectOrderInfo(int orderNumber) {
+		OrderDTO orderInfo = rep.selectOrderInfo(orderNumber);
+		return orderInfo;
+	}
 }
