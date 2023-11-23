@@ -342,31 +342,33 @@ function updatecustomer() {
 			        clearTimeout(timeoutId);
 			        timeoutId = setTimeout(function() {
 			            checkNicknameDuplicate(userNickname);
-			        }, 500); // 입력이 멈춘 후 0.5초 후에 중복 확인 실행
+			        }, 500); 
 			    }
 			});
 
 			// 닉네임 중복검사
 			function checkNicknameDuplicate(userNickname) {
-			    $.ajax({
-			        url: "/baemin/checkDuplicateNick",
-			        type: "POST",
-			        data: {
-			            userNickname: userNickname
-			        },
-			        success: function(data) {
-			            if (data.toLowerCase() === "yes") {
-			                $("#userNickname").css("border-color", "red");
-			                alert("중복된 닉네임 입니다.");
-			                $("#userNickname").val("");
-			            } else {
-			                $("#userNickname").css("border-color", "");
-			            }
-			        },
-			        error: function() {
-			            alert("에러발생");
-			        }
-			    });
+				if(hiddenNickname != userNickname){				
+				    $.ajax({
+				        url: "/baemin/checkDuplicateNick",
+				        type: "POST",
+				        data: {
+				            userNickname: userNickname
+				        },
+				        success: function(data) {
+				            if (data.toLowerCase() === "yes") {
+				                $("#userNickname").css("border-color", "red");
+				                alert("중복된 닉네임 입니다.");
+				                $("#userNickname").val("");
+				            } else {
+				                $("#userNickname").css("border-color", "");
+				            }
+				        },
+				        error: function() {
+				            alert("에러발생");
+				        }
+				    });
+				}
 			}
 
 			
@@ -395,8 +397,6 @@ function updatecustomer() {
 
 			// 연락처 유효성 검사
 			const previousPhoneNumber = ""; 
-			
-			// 연락처 중복 확인
 			$("#userPhone").on("input", function() {
 			    let phoneCheck = /^[0-9]{11}$/;
 			
@@ -413,11 +413,12 @@ function updatecustomer() {
 			        phone_check = true;
 			    }
 			});
-			
+
 			// 연락처 중복 확인
 			$("#userPhone").on('focusout', function() {
 			    var userInput = $(this).val();
-			    if (userInput == "" || userInput === previousPhoneNumber) {
+			    var hiddenUserPhone = $("#hiddenUserPhone").val();
+			    if (userInput == "" || userInput === previousPhoneNumber || userInput === hiddenUserPhone) {
 			        return;
 			    } else {
 			        $.ajax({
@@ -445,55 +446,69 @@ function updatecustomer() {
 			});
 
 				
-				// 이메일 유효성 검사
-				$("#userEmail").on("input", function() {
-				    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-				    if (!emailCheck.test($(this).val())) {
-				        $(this).css("border-color", "red");
-				    } else {
-				        $(this).css("border-color", ""); // 초기화
-				    }
-				});
-				
-				// 이메일 중복 확인
-				$("#userEmail").on('focusout', function() {
-				    var userInput = $(this).val();
-				    if (userInput == "") {
-				    } else {
-				        $.ajax({
-				            url: "/baemin/checkDuplicateEmail",
-				            type: "POST",
-				            data: {
-				            	userEmail: $("#userEmail").val()
-				            },
-				            success: function(data) {
-				                if (data === "yes") {
-				                 
-				                    $("#userEmail").css("border-color", "red");
-				                    alert("중복된 이메일 입니다.");
-				                    email_check = false;
-				                    $("#userEmail").val("");						                    
-				                } else {
-				                    $("#userEmail").css("border-color", "");
-				                  
-				                    email_check = true;
-				                }
-				            },
-				            error: function() {
-				                alert("에러발생");
-				            }
-				        });
-				    }
-				});
-				
-				// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
-				$("#signin_button").click(function() {
-					if (userIdValid && userPwValid 	&& confirmPasswordValid  && userNicknameValid) {						
-						alert("회원가입이 완료되었습니다.");
-					} else {
-						alert("입력 정보를 확인해주세요.");
-					}
-				});
+			// 이메일 유효성 검사
+			const previousEmail = "";
+			$("#userEmail").on("input", function() {
+			    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+			    if (!emailCheck.test($(this).val())) {
+			        $(this).css("border-color", "red");
+			    } else {
+			        $(this).css("border-color", ""); // 초기화
+			    }
+			});
+			
+			// 이메일 중복 확인
+    			
+			$("#userEmail").on('focusout', function() {
+			    var userInput = $(this).val();
+			    var hiddenUserEmail = $("#hiddenUserEmail").val();
+			    
+			    
+			    alert("df=" +userInput);
+			    alert("bb="+ hiddenUserEmail);
+			    
+			    
+			    if ( userInput === hiddenUserEmail) {
+			    	alert("sdfsf1");
+			    	return ;
+			    } else {
+			    	alert("sdfsf2");
+			        $.ajax({
+			            url: "/baemin/checkDuplicateEmail",
+			            type: "POST",
+			            data: {
+			            	userEmail: userInput
+			            },
+			            success: function(data) {
+			                if (data === "yes") {			                	
+			                    $("#userEmail").css("border-color", "red");
+			                    alert("sdfsf3");
+			                    alert("중복된 이메일 입니다.");
+			                    email_check = false;
+			                    $("#userEmail").val("");						                    
+			                } else {
+			                	alert("sdfsf4");
+			                    $("#userEmail").css("border-color", "");
+			                    email_check = true;
+			                }
+			            },
+			            
+			            error: function() {
+			                alert("에러발생");
+			            }
+			        });
+			    }
+			});
+			
+			// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+			$("#signin_button").click(function() {
+				if (userIdValid && userPwValid 	&& confirmPasswordValid  && userNicknameValid && userEmailValid
+				&& userPostCodeValid && userAddressValid && userAddressDetailValid) {						
+					alert("회원가입이 완료되었습니다.");
+				} else {
+					alert("입력 정보를 확인해주세요.");
+				}
+			});
 			/// ready
 		});
 		
@@ -582,17 +597,22 @@ function updatecustomer() {
 				<span class="input-container-id">
 
 					<table>
-						<td>닉네임</td>
-						<td><span><input type="text" id="userNickname"
-							placeholder="한글, 영문(소문자), 숫자 2~6자 가능" class="vertical-center" value="${userInfo.userNickname}"> </span></td>
+					    <td>닉네임</td>
+					    <td>
+					        <span>
+					            <input type="text" id="userNickname" placeholder="한글, 영문(소문자), 숫자 2~6자 가능" class="vertical-center" value="${userInfo.userNickname}">
+					            <input type="hidden" id="hiddenNickname" value="${userInfo.userNickname}">
+					        </span>
+					    </td>
 					</table>
+
 				</span>
 
 				<table>
 					<td>비밀번호</td>
 					<td><span><input type="password" id="userPw" name="m_password"
 								placeholder="영문, 숫자, 특수문자 조합 8~16자" class="vertical-center"
-								maxlength="16" value="${userInfo.userPw }"></span></td>
+								maxlength="16" value="${userInfo.userPw}"></span></td>
 				</table>
 				<table>
 					<td>비밀번호 확인</td>
@@ -606,24 +626,25 @@ function updatecustomer() {
 					<td><span> <input type="tel" id="userPhone"
 							placeholder="연락처('-' 없이 숫자 11자리)" class="vertical-center"
 							pattern="[0-9]{11}" title="숫자 11개를 입력하세요" value="${userInfo.userPhone}"></span></td>
+							<input type="hidden" id="hiddenUserPhone" value="${userInfo.userPhone}">
 				</table>
 				<table>
 					<td>이메일</td>
 					<td><span> <input type="email" id="userEmail" placeholder="이메일" class="vertical-center"
-								value="${userInfo.userEmail}">
-						</span></td>
+								value="${userInfo.userEmail}"></span></td>
+								<input type="hidden" id="hiddenUserEmail" value="${userInfo.userEmail}">
 				</table>
 
 				<span class="input-container-address">
 					<table>
 						<td>주소</td>
-						<td><span><input type="text" id="userPostCode" name="userPostCode" placeholder="우편번호" class="vertical-center" value="${userInfo.userPostCode}"></span>
+						<td><span><input type="text" id="userPostCode" name="userPostCode" placeholder="우편번호" class="vertical-center" value="${userInfo.userPostCode}" readonly></span>
 							<button value="우편번호 찾기" class="vertical-center" id="searchpc" onclick="sample6_execDaumPostcode()"
 
 								style="width: 100px;" >우편번호 찾기</button></td>
 					</table>
 				</span> <input type="text" id="userAddress" placeholder="주소"
-					class="vertical-center" value="${userInfo.userAddress }"> 
+					class="vertical-center" value="${userInfo.userAddress }" readonly> 
 					<span> <input type="text"
 					id="userAddressdetail" placeholder="상세주소" class="vertical-center" value="${userInfo.userAddressDetail }">
 				</span>
