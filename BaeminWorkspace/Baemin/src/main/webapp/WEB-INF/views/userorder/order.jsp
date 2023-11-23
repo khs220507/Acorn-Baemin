@@ -325,12 +325,12 @@ body {
 						}
 
 						// Initial call to set the delivery address based on the default value
-						updateDeliveryAddress();
+						//updateDeliveryAddress();
 
 						// Handle detailed address input change event
-						$("#base-structure-input").on("input", function() {
+						/*$("#base-structure-input").on("input", function() {
 							updateDeliveryAddress(); // Update delivery address when the detailed address changes
-						});
+						});*/
 
 						function updateRequestValues() {
 							var reqToSellerStoreValue = $(
@@ -423,7 +423,7 @@ body {
 					<div class="section-order-address-citygu">현재주소 :
 						${deliveryAddress}</div>
 					<input class="section-order-address-detail" placeholder="상세주소"
-						id="base-structure-input" value="${detailDeliveryAddress}">
+						name="detailDeliveryAddress" id="base-structure-input" value="${detailDeliveryAddress}">
 				</div>
 			</div>
 
@@ -485,8 +485,7 @@ body {
 			<div class="section-order-button-wrap">
 
 
-				<input type="hidden" name="deliveryAddress" id="deliveryAddress"
-					value="${userInfo[0].userAddress}"> 
+				<input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${deliveryAddress}"> 
 					<input type="hidden"
 					name="deliveryFee" id="deliveryFee"	value="${storeInfo[0].deliveryFee}"> <input type="hidden"
 					name="userPhone" id="userPhone" value="${userInfo[0].userPhone}">
@@ -494,7 +493,6 @@ body {
 					<input
 					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
 					value="${orderMenuPrice}">
-
 
 				<button type="submit" id="order-button">결제하기</button>
 			</div>
@@ -504,13 +502,6 @@ body {
 
 
 	<jsp:include page="../base/footer.jsp" />
-
-
-
-
-
-
-
 
 </body>
 </html>

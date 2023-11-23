@@ -115,6 +115,13 @@ header {
 .map-icon {
 	margin-left: 10px;
 }
+.address-list{
+	border: 1px solid black;
+	width: 100%;
+	height: 300px;
+	position: absolute;
+	top: 28px;
+}
 
 .search-wrap {
 	width: 410px;
@@ -537,19 +544,46 @@ footer {
 
 			<div class="wrap-menu-address">
 				<div class="address-wrap">
-					<p id="address">회원 기본 설정 주소</p>
+				
+				<%
+					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
+					if (userCodeInfo != null) {
+					%>
+					<!-- 로그인 했을 때 -->
+					<p id="address">${deliveryAddress}</p>
 					<img class="down-arrow-icon"
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVR4nO3XPyvFURzH8RciUVJKGZTBcDeLxWKyeAAmT4AnwKp4AEx3tpksNoPJYjEowx0MyqDoppTkT9fyGwzy597z+6fvq854Ou/PeAghhBBCCP/aFp7QKfg8ZW/3rF1CfCc79ykGNEsc0EwxYBjnJcRfYEQis3goMP4RDYmtFDhgVU72CojflaNBnOYYf4YhOZvGXQ7xbcwoyBLeEsa/Y1nBdhIO2FaCfhwniD/BgJJM4qaH+FtMKdkCXrqIf8WiitjsYsCGCunD4R/ij7I7lTKOq1/EX2NCRc398Pl5xryKW/9mwJqa2P8i/kCNjOLyU3wLY2qmkYW38vichBBCCCEE9fcBzZeL0obnNdUAAAAASUVORK5CYII=">
 					<img class="map-icon"
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlUlEQVR4nO2YTUgVURTH/5op5WdRZErYpqSUonLTJ7V+lfa5qJ2rItr5fLQpSjOCIAyhhD72GURFm8zCImhnC8U+oLKEvqW0sojeixP/gdvjzcydefPuDOEPLgzv3PO/d94999w7B5ji/6cWQALAbQDDAL6yyXMvgFYAixFhGgD0AUhpNnnRVYgQ0wF0AUhygp8AnAewlatTzCbPjQAusE+KPmcAFIT9ErMA3OGkvgFoA1Cm4Sd92gF8V1anAiGuhBVKowwtrywH8JIa/QAKEQJdnMArAFVZ6Ijva2p1wjANjG8JpxUB6K1kmP3mszGskJI9ERTHqSkp2gi1SnZy2tib+cJyhkzwOebQvxzAGLUXwQAJDiZp1I52h/PDaRUvsU8cBujlYHIm2K2E2H8AaAEwny3O31IOK7ON9lswwBMOZnfNsM4VeYl0WmmTMHMK28cwwAQHK3GxV2awVdI2buNbQrto5BzrNJ5hYx+nXcIpnWravtj4Fiu3hJwzysFqXFJz3CFR2IXWQtrlgMw5/S4bNqZs9lae3FV8iZ8uvltovwsDdHIwSbF2tPlMvx3scxoG2MHBhlz6xRhCE5oHojBMbUnDOadMCZH6AHWXUVO0S2GImxz0aICax6h5AwbZzUGfAsgPQE80nlFzFwxSBOAtB5ZP2mxppNYbahvlEAe/H4DWA2olEAKy6T9zAquz0FmrnPYVCIlTnMTVLDSuU+MkQqSady/57F3jw3+dcrfKdDczivWJ+hBAns+9Iak3dEqZbWRC2z347aTPO81amBH2K+eKTvosYl/x2YcIUQBg0EOYWJfKQRPl0jwAz10K0RvTNm6Sd6U6B9169pG+m9LScNJhrBEfe/Av6zUq6un/6EVl40+zuYpYG1wK3RbS95HGeDInz5yjs2QlXWYDeE+/AxnsB2n7CGCOB90O+smcPFGolP6dwiQTe5WTeoHye43yPb/Ho2adUhT0VOhuouMA/HGF/vcYNvlKmeiaT80Bl3paRnocalM6zOX5IBqHARzh8wcA83xqtlDjsq6D1GAnWRmXK4hfrKrhL7ZsP2GrOadJztGVZpeSjZ+EIe1sAHp91GoOvLMLM1mkGOJztjTr/smel0+DJWxBUK4b9nG+sWz2qNKjk4is01XSb1RpcjsalrLDWBgFAA8U8mZgW1c7QWM3ok835ypXl3+QW+ULjUtb1NpIel1tQwQm5bfJ3KdA1PgDYpWe90NC9SoAAAAASUVORK5CYII=">
 				</div>
+				
+				<div class="address-list">
+
+				</div>
+				
+				
+				
+				
+				<%
+				} else {
+				%>
+				<!-- 로그인 안했을 때 -->
+				<p id="address">주소를 선택하려면 로그인이 필요합니다</p>
+				<img class="down-arrow-icon"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVR4nO3XPyvFURzH8RciUVJKGZTBcDeLxWKyeAAmT4AnwKp4AEx3tpksNoPJYjEowx0MyqDoppTkT9fyGwzy597z+6fvq854Ou/PeAghhBBCCP/aFp7QKfg8ZW/3rF1CfCc79ykGNEsc0EwxYBjnJcRfYEQis3goMP4RDYmtFDhgVU72CojflaNBnOYYf4YhOZvGXQ7xbcwoyBLeEsa/Y1nBdhIO2FaCfhwniD/BgJJM4qaH+FtMKdkCXrqIf8WiitjsYsCGCunD4R/ij7I7lTKOq1/EX2NCRc398Pl5xryKW/9mwJqa2P8i/kCNjOLyU3wLY2qmkYW38vichBBCCCEE9fcBzZeL0obnNdUAAAAASUVORK5CYII=">
+				<img class="map-icon"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlUlEQVR4nO2YTUgVURTH/5op5WdRZErYpqSUonLTJ7V+lfa5qJ2rItr5fLQpSjOCIAyhhD72GURFm8zCImhnC8U+oLKEvqW0sojeixP/gdvjzcydefPuDOEPLgzv3PO/d94999w7B5ji/6cWQALAbQDDAL6yyXMvgFYAixFhGgD0AUhpNnnRVYgQ0wF0AUhygp8AnAewlatTzCbPjQAusE+KPmcAFIT9ErMA3OGkvgFoA1Cm4Sd92gF8V1anAiGuhBVKowwtrywH8JIa/QAKEQJdnMArAFVZ6Ijva2p1wjANjG8JpxUB6K1kmP3mszGskJI9ERTHqSkp2gi1SnZy2tib+cJyhkzwOebQvxzAGLUXwQAJDiZp1I52h/PDaRUvsU8cBujlYHIm2K2E2H8AaAEwny3O31IOK7ON9lswwBMOZnfNsM4VeYl0WmmTMHMK28cwwAQHK3GxV2awVdI2buNbQrto5BzrNJ5hYx+nXcIpnWravtj4Fiu3hJwzysFqXFJz3CFR2IXWQtrlgMw5/S4bNqZs9lae3FV8iZ8uvltovwsDdHIwSbF2tPlMvx3scxoG2MHBhlz6xRhCE5oHojBMbUnDOadMCZH6AHWXUVO0S2GImxz0aICax6h5AwbZzUGfAsgPQE80nlFzFwxSBOAtB5ZP2mxppNYbahvlEAe/H4DWA2olEAKy6T9zAquz0FmrnPYVCIlTnMTVLDSuU+MkQqSady/57F3jw3+dcrfKdDczivWJ+hBAns+9Iak3dEqZbWRC2z347aTPO81amBH2K+eKTvosYl/x2YcIUQBg0EOYWJfKQRPl0jwAz10K0RvTNm6Sd6U6B9169pG+m9LScNJhrBEfe/Av6zUq6un/6EVl40+zuYpYG1wK3RbS95HGeDInz5yjs2QlXWYDeE+/AxnsB2n7CGCOB90O+smcPFGolP6dwiQTe5WTeoHye43yPb/Ho2adUhT0VOhuouMA/HGF/vcYNvlKmeiaT80Bl3paRnocalM6zOX5IBqHARzh8wcA83xqtlDjsq6D1GAnWRmXK4hfrKrhL7ZsP2GrOadJztGVZpeSjZ+EIe1sAHp91GoOvLMLM1mkGOJztjTr/smel0+DJWxBUK4b9nG+sWz2qNKjk4is01XSb1RpcjsalrLDWBgFAA8U8mZgW1c7QWM3ok835ypXl3+QW+ULjUtb1NpIel1tQwQm5bfJ3KdA1PgDYpWe90NC9SoAAAAASUVORK5CYII=">
+				</div>
+				<%
+				}
+				%>
+				
 
 				<!-- 로그인시 -->
 				<div id="loginStatus">
 
 
 					<%
-					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
 					if (userCodeInfo != null) {
 					%>
 					<!-- 로그인 했을 때 -->
@@ -724,34 +758,33 @@ footer {
 		// '이 위치로 주소 설정' 버튼 누르면 모달 닫기
 		$(".set-address-btn").click(function() {
 			$(".kakao-map-modal").fadeOut();
-
-			// 지도에서 선택한 주소로 헤더에 보여주기
-			$("#address").html(getAddress);
-
+			
 			// db에 주소값 등록
 			addAddress(getAddress);
 		});
 
 		// addAddress() 상세주소
 		function addAddress(deliveryAddress){
+
 			let detailDeliveryAddress = prompt("상세주소를 입력하세요");
-			
-			$.ajax({
-			type: "post",
-			url: "${path}/addressAdd",
-			data:  {
-				deliveryAddress: deliveryAddress,
-				detailDeliveryAddress: detailDeliveryAddress
-			},
-			dataType:"text",
-			success: function(data){
+			 
+			if (detailDeliveryAddress !== null) {
+				$.ajax({
+					type: "post",
+					url: "${path}/addressAdd",
+					data:  {
+						deliveryAddress: deliveryAddress,
+						detailDeliveryAddress: detailDeliveryAddress
+					},
+					dataType:"text",
+					success: function(data){
+						$("#address").html(deliveryAddress);
+					},
+					error: function(err){
 				
-			},
-			error: function(err){
-		
-			}
-		});
-			
+					}
+				});
+			} 
 		}
 
 		var container = document.querySelector('.kakao-map-wrap'); //지도를 담을 영역의 DOM 레퍼런스
