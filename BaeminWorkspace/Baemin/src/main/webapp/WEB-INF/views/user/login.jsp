@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Login Result</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
@@ -243,17 +243,12 @@ a {
 					<br>
 				</div>
 				<div class="options">
-					<label class="optlab1"> <input type="radio"
-						name="logintype" value="customer" checked>손님
-					</label> <label class="optlab2"> <input type="radio"
-						name="logintype" value="seller">사장님
-					</label>
+					<label class="optlab1"> <input type="radio" name="logintype" value="customer" checked>손님</label>
+					<label class="optlab2"> <input type="radio" name="logintype" value="seller">사장님</label>
 				</div>
 
-				<span></span> <input type="text" name="userId" placeholder="아이디"
-					class="vertical-center"> <br> <span></span> <input
-					type="password" name="userPw" placeholder="비밀번호"
-					class="vertical-center"> <br>
+				<span></span> <input type="text" name="userId" placeholder="아이디" class="vertical-center"> <br> 
+				<span></span> <input type="password" name="userPw" placeholder="비밀번호" class="vertical-center"> <br>
 
 				<!-- 아이디 저장 (Remember Me) 체크박스 -->
 				<!-- <label class="remember-me"> <input type="checkbox"
@@ -265,59 +260,22 @@ a {
 				<div class="remember-links right-links">
 					<a href="/baemin/findIdForm">아이디 찾기</a> | <a href="/baemin/findPwForm">비밀번호 찾기</a>
 				</div>
-				<span></span><span></span>
-				<p class="signup-link">
-					<a href="${path}/select_signup">회원가입</a>
-				</p>
+				<span></span>
+				<span></span>
+				<p class="signup-link"><a href="${path}/select_signup">회원가입</a></p>
 				<br>
 
 				<input type="button" id="loginForm" value="로그인" onclick="login()">
 
+				
 				<div class="kakao">
-					<label class="kakao_login"> <input type="radio"
-						name="option" value="kakao">카카오로 간편 로그인
-					</label>
+				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=e70ac5a45fa1cba7935fa44d0c23e6d6&redirect_uri=http://localhost:8080/baemin/kakaoLogin&response_type=code">
+				        카카오로 간편 로그인
+				    </a>
 				</div>
 			</form>
 
-    <a href="javascript:kakaoLogin();"><img src="./kakao_login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
 
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-        window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
-
-        function kakaoLogin() {
-            window.Kakao.Auth.login({
-                scope: 'profile_nickname, account_email, talk_message', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
-                success: function(response) {
-                    console.log(response) // 로그인 성공하면 받아오는 데이터
-                    window.Kakao.API.request({ // 사용자 정보 가져오기 
-                        url: '/v2/user/me',
-                        success: (res) => {
-                            const kakao_account = res.kakao_account;
-                            console.log(kakao_account)
-                        }
-                    });
-                     window.location.href='/baemin/home' //리다이렉트 되는 코드
-                },
-                fail: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-            window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
-        	function kakaoLogout() {
-            	if (!Kakao.Auth.getAccessToken()) {
-        		    console.log('Not logged in.');
-        		    return;
-        	    }
-        	    Kakao.Auth.logout(function(response) {
-            		alert(response +' logout');
-        		    window.location.href='/baemin/home'
-        	    });
-        };
-    </script>
-			
 		</div>
 	</section>
 <jsp:include page="../base/footer.jsp" />
