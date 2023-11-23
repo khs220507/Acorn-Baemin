@@ -47,8 +47,14 @@ public class HomeController {
 
 	// 홈화면
 	@GetMapping("/home")
-	public String home(Model model) {
+	public String home(HttpSession session,Model model) {
 
+		if(session.getAttribute("userCode") != null) {
+			int addressCode = (int)session.getAttribute("addressCode");
+			AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
+			model.addAttribute("deliveryAddress", addressDTO.getDeliveryAddress());
+		}
+		
 		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
         model.addAttribute("categories", foodCategories);
 		return "home/home";
