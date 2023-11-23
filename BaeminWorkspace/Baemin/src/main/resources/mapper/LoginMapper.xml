@@ -4,13 +4,6 @@
 
 <mapper namespace="com.acorn.LoginMapper">
 
-
-
-
-
-
-
-
 	<!-- 손님 아이디 찾기 -->
 	<select id="findCustomerId" resultType="UserDTO"
 		parameterType="map">
@@ -45,8 +38,6 @@
 		and sellerEmail = #{sellerEmail}
 	</select>
 
-
-
 	<!-- 손님 비밀번호 초기화 -->
 	<update id="resetCustomerPassword" parameterType="map">
 		UPDATE user_tbl
@@ -69,10 +60,6 @@
 		WHERE sellerEmail = #{sellerEmail}
 		)
 	</update>
-
-
-
-
 
 	<!-- 손님 회원 가입 -->
 	<insert id="customerSignup" parameterType="UserDTO">
@@ -110,6 +97,7 @@
 		and sellerPw = #{sellerPw}
 	</select>
 
+
 	<select id="getPasswordByUserId" resultType="String">
 		select userPw
 		from
@@ -141,19 +129,6 @@
 		userCode = #{userCode}
 	</select>
 
-	<!-- 손님 정보 수정시 닉네임, 연락처, 이메일 중복 확인 -->
-	<select id="checkForDuplicates" resultType="java.util.Map"
-		parameterType="java.util.Map">
-		select count(*) as nicknameCount
-		from user_tbl
-		where
-		userNickname = #{nickname}
-		or userPhone = #{phone}
-		or userEmail =
-		#{email}
-	</select>
-
-
 	<!-- 사장님 정보 수정 -->
 	<update id="updateInfoSeller" parameterType="SellerDTO">
 		update seller_tbl
@@ -167,6 +142,22 @@
 		#{sellerRegCode}
 		where sellerCode = #{sellerCode}
 	</update>
+	
+	<!-- 손님 회원 탈퇴 -->
+	<update id="signoutuser" parameterType="int">
+		update user_tbl
+		set
+		userStatus = 0
+		where userCode = #{userCode}
+	</update>
+
+	<!-- 사장님 회원 탈퇴 -->
+	<update id="signoutseller" parameterType="int">
+		update seller_tbl
+		set
+		sellerStatus = 0
+		where sellerCode = #{sellerCode}
+	</update>
 
 	<!-- 사장님 정보 수정시 기존 정보 불러오기 -->
 	<select id="selectSellerInfo" resultType="SellerDTO"
@@ -176,20 +167,31 @@
 		from seller_tbl
 		where sellerCode = #{userCode}
 	</select>
-	
+
 	<!-- 손님 연락처 중복 확인 -->
-	<select id="userPhoneCheck" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM user_tbl WHERE userPhone = #{userPhone} 
+	<select id="userPhoneCheck" resultType="int"
+		parameterType="String">
+		SELECT COUNT(*) FROM user_tbl WHERE userPhone =
+		#{userPhone}
+	</select>
+
+	<!-- 사장님 연락처 중복 확인 -->
+	<select id="sellerPhoneCheck" resultType="int"
+		parameterType="String">
+		SELECT COUNT(*) FROM seller_tbl WHERE sellerPhone =
+		#{sellerPhone}
 	</select>
 
 	<!-- 손님 이메일 중복 확인 -->
 	<select id="emailCheck" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM user_tbl WHERE userEmail = #{userEmail}
+		SELECT
+		COUNT(*) FROM user_tbl WHERE userEmail = #{userEmail}
 	</select>
-	
+
 	<!-- 사장님 이메일 중복 확인 -->
 	<select id="emailCheck2" resultType="int" parameterType="String">
-		SELECT COUNT(*) FROM seller_tbl WHERE sellerEmail = #{sellerEmail}
+		SELECT
+		COUNT(*) FROM seller_tbl WHERE sellerEmail = #{sellerEmail}
 	</select>
 
 	<!-- 닉네임 중복 확인 -->
@@ -210,6 +212,12 @@
 		count(*) from seller_tbl where sellerId = #{sellerId}
 	</select>
 
+	<!-- 사업자등록번호 중복 확인 -->
+	<select id="sellerRegCodeCheck" resultType="int"
+		parameterType="String">
+		SELECT COUNT(*) FROM seller_tbl WHERE sellerRegCode =
+		#{sellerRegCode}
+	</select>
 
 
 	<select id="getUserByUserId" resultType="UserDTO">
@@ -226,9 +234,7 @@
 
 	<update id="userInfoDelete">
 
-
 	</update>
-
 
 	<select id="findUserById" parameterType="java.lang.String"
 		resultType="UserDTO">

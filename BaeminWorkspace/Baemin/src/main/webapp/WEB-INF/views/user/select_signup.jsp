@@ -21,8 +21,7 @@ a {
 	text-decoration: none;
 }
 
-
-input[name="signupType"]{
+input[name="signupType"] {
 	outline: none;
 	cursor: pointer;
 }
@@ -55,8 +54,6 @@ body {
 	justify-content: center;
 }
 
-
-
 .signup-select-form {
 	background-color: #fff;
 	padding: 20px;
@@ -65,7 +62,7 @@ body {
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
 	border-radius: 10px;
-    font-size: 18px;
+	font-size: 18px;
 }
 
 input[type="submit"] {
@@ -99,8 +96,9 @@ input[type="button"] {
 	margin: 0 auto;
 	margin-bottom: 50px;
 }
-section{
-width: 1280px;
+
+section {
+	width: 1280px;
 	padding-top: 140px;
 	margin-bottom: 50px;
 }
@@ -114,27 +112,26 @@ width: 1280px;
 </head>
 
 <body>
-	<jsp:include page="../base/header_login.jsp"/>
+	<jsp:include page="../base/header_login.jsp" />
 	<section id="content">
 		<div class="container">
 			<!-- 회원가입 유형 선택 폼 -->
 			<form class="signup-select-form" method="post">
 				<div class="signup-select-form-title">
 					<h1>회원가입</h1>
-					<br>
-					<br>
+					<br> <br>
 				</div>
 
 				<input type="button" name="signupType" value="소비자 회원가입"
-					onclick="location.href='${path}/customer_signup'">
-				<input type="button" name="signupType" value="사장님 회원가입"
+					onclick="location.href='${path}/customer_signup'"> <input
+					type="button" name="signupType" value="사장님 회원가입"
 					onclick="location.href='${path}/seller_signup'">
 
 			</form>
-			
+
 		</div>
 	</section>
-	<jsp:include page="../base/footer.jsp"/>
+	<jsp:include page="../base/footer.jsp" />
 </body>
 
 </html>

@@ -56,7 +56,7 @@ input[type="button"] {
 		
     <p id="customerId" style="display: none;">손님 아이디 : ${customerId}</p>
     <p id="sellerId" style="display: none;">사장님 아이디: ${sellerId}</p>
-    <div><a href="/baemin/findPwForm">비밀번호 찾기</a></div>
+    <div><a href="${path}/findPwForm">비밀번호 찾기</a></div>
     
 </form>
     <script>

@@ -34,16 +34,13 @@ public class LoginController {
 
 	@Autowired
 	LoginRepository lr;
-	
+
 	@Autowired
 	AddressRepositoryImp addressDAO;
 
 	@Autowired
 	private LoginService loginService;
 
-		
-	
-    
 	// 유저 아이디 찾기 보내기
 	@GetMapping("/findIdForm")
 	public String findIdForm() {
@@ -65,37 +62,29 @@ public class LoginController {
 
 		return "user/findIdResult";
 	}
-    
-    
-    	// 유저 비밀번호 찾기 보내기
- 		@GetMapping("/findPwForm")
- 		public String findPwForm() {
- 			return "user/findPwForm";
- 		}
- 		
- 		// 유저 비밀번호 찾기 받기
- 		@PostMapping("/findPw")
- 		public String findPw(@RequestParam String Id, String email, Model model) {
- 			System.out.println("findPwResult");
- 			Map<String, Object> params = new HashMap<>();
- 			params.put("userId", Id);
- 			params.put("userEmail", email);
- 			params.put("sellerId", Id);
- 			params.put("sellerEmail", email);
 
- 			String customerPw = rep.findCustomerPassword(params);
- 			String sellerPw = rep.findSellerPassword(params);
+	// 유저 비밀번호 찾기 보내기
+	@GetMapping("/findPwForm")
+	public String findPwForm() {
+		return "user/findPwForm";
+	}
 
- 			model.addAttribute("customerPw", customerPw);
- 			model.addAttribute("sellerPw", sellerPw);
+	// 유저 비밀번호 찾기 받기
+	@PostMapping("/findPw")
+	public String findPw(@RequestParam String Id, String email, Model model) {
+		System.out.println("findPwResult1" + Id + email);
+		Map<String, Object> params = new HashMap<>();
+		params.put("userId", Id);
+		params.put("userEmail", email);
+		params.put("sellerId", Id);
+		params.put("sellerEmail", email);
 
- 			return "user/findPwResult";
- 		}
-
-	
-
-	
-	
+		String customerPw = rep.findCustomerPassword(params);
+		String sellerPw = rep.findSellerPassword(params);
+		model.addAttribute("customerPw", customerPw);
+		model.addAttribute("sellerPw", sellerPw);
+		return "user/findPwResult";
+	}
 
 	// 유저 로그인 보내기
 	@GetMapping("/login")
@@ -105,7 +94,7 @@ public class LoginController {
 		Integer userCode = (Integer) session.getAttribute("userCode");
 		System.out.println(user);
 		// 세션확인
-		if (user != null || userCode != null) { // 로그인상태
+		if (user != null || userCode != null) {
 			return "redirect:/home";
 		} else {
 			return result;
@@ -118,22 +107,23 @@ public class LoginController {
 		System.out.println(userId + userPw + logintype);
 		try {
 			UserDTO user = loginService.loginCustomer(userId, userPw);
-			
+			int status = user.getUserStatus();
+
 			///////////////// 주소
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
-			
-			if(addressCount == 0 ) {
-				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail()));
-			}else {
+			if (addressCount == 0) {
+				addressDAO.insertAddress(
+						new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail()));
+			} else {
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}
 			// 주소코드 가져와서 세션에 넣기
 			int addressCode = addressDAO.selectAddressCode(user.getUserCode());
 			session.setAttribute("addressCode", addressCode);
-			
+
 			///////////////////////////////////
-			
-			if (user != null) {
+
+			if (user != null && status == 1) {
 				session.setAttribute("userCode", user.getUserCode());
 				session.setAttribute("user", user.getUserId());
 				return "redirect:/home";
@@ -152,7 +142,12 @@ public class LoginController {
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
-		if (seller != null) {
+		
+	System.out.println("seller" + seller);
+		
+		
+		int status = seller.getSellerStatus();
+		if (seller != null && status == 1) {
 			int sellerCode = seller.getSellerCode();
 			session.setAttribute("user", sellerCode);
 			return "redirect:/sellerHome?sellerCode=" + sellerCode;

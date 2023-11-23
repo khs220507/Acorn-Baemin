@@ -566,31 +566,16 @@ td {
 											url : "/baemin/checkDuplicatePhone",
 											type : "POST",
 											data : {
-												userPhone : $(
-														"#userPhone")
-														.val()
+												userPhone : $("#userPhone").val()
 											},
-											success : function(
-													data) {
+											success : function(data) {
 												if (data === "yes") {
-
-													$(
-															"#userPhone")
-															.css(
-																	"border-color",
-																	"red");
+													$("#userPhone").css("border-color","red");
 													alert("중복된 연락처 입니다.");
 													phone_check = false;
-													$(
-															"#userPhone")
-															.val(
-																	"");
+													$("#userPhone").val("");
 												} else {
-													$(
-															"#userPhone")
-															.css(
-																	"border-color",
-																	"");
+													$("#userPhone").css("border-color","");
 													phone_check = true;
 												}
 											},

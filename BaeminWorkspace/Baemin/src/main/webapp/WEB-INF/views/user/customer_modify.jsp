@@ -300,18 +300,18 @@ function updatecustomer() {
 		                contentType: "application/json",
 		                success: function (data) {
 		                    console.log("Update success:", data);
-		                    alert("수정 성공");
+		                    alert("수정 성공.");
 		                    window.location.href = "http://localhost:8080/baemin/home";
 		                },
 		                error: function (xhr, status, error) {
 		                    console.log("Update error:", status, error);
-		                    alert("수정 정보를 확인해주세요");
-		                    $('#resultDiv').text('수정 실패');
+		                    alert("수정 정보를 확인해주세요.");
+		                    $('#resultDiv').text('수정 실패.');
 		                }
 		            });
 		        
 		    } else if (confirmPassword != userPw) {
-		        alert("비밀번호를 확인해주세요 ┑(￣Д ￣)┍");
+		        alert("비밀번호를 확인해주세요.");
 		        $("#userPw").val("");
 		        $("#confirmPassword").val("");
 		    }
@@ -336,7 +336,7 @@ function updatecustomer() {
 			    let nicknameCheck = /^[a-zA-Z0-9_\u3131-\uD79D]{2,6}$/;
 
 			    if (!nicknameCheck.test(userNickname)) {
-			        $(this).css("border-color", "red");
+			        $(this).css("border-color", "green");
 			    } else {
 			        $(this).css("border-color", ""); // 초기화
 			        clearTimeout(timeoutId);
@@ -386,7 +386,7 @@ function updatecustomer() {
 			
 			// 비밀번호 확인
 			$("#confirmPassword").on("input",function() {
-				if ($(this).val() === "" || !userPwValid || $("#userPw").val() !== $(this).val()) {
+				if ($(this).val() === "" || $("#userPw").val() !== $(this).val()) {	// !userPwValid || 
 					$(this).css("border-color", "red");
 					confirmPasswordValid = false;
 				} else {
@@ -439,7 +439,7 @@ function updatecustomer() {
 			                }
 			            },
 			            error: function() {
-			                alert("에러발생");
+			                alert("에러발생.");
 			            }
 			        });
 			    }
@@ -463,16 +463,9 @@ function updatecustomer() {
 			    var userInput = $(this).val();
 			    var hiddenUserEmail = $("#hiddenUserEmail").val();
 			    
-			    
-			    alert("df=" +userInput);
-			    alert("bb="+ hiddenUserEmail);
-			    
-			    
 			    if ( userInput === hiddenUserEmail) {
-			    	alert("sdfsf1");
 			    	return ;
 			    } else {
-			    	alert("sdfsf2");
 			        $.ajax({
 			            url: "/baemin/checkDuplicateEmail",
 			            type: "POST",
@@ -482,19 +475,16 @@ function updatecustomer() {
 			            success: function(data) {
 			                if (data === "yes") {			                	
 			                    $("#userEmail").css("border-color", "red");
-			                    alert("sdfsf3");
 			                    alert("중복된 이메일 입니다.");
 			                    email_check = false;
 			                    $("#userEmail").val("");						                    
 			                } else {
-			                	alert("sdfsf4");
 			                    $("#userEmail").css("border-color", "");
 			                    email_check = true;
 			                }
-			            },
-			            
+			            },			            
 			            error: function() {
-			                alert("에러발생");
+			                alert("에러발생.");
 			            }
 			        });
 			    }
@@ -504,14 +494,14 @@ function updatecustomer() {
 			$("#signin_button").click(function() {
 				if (userIdValid && userPwValid 	&& confirmPasswordValid  && userNicknameValid && userEmailValid
 				&& userPostCodeValid && userAddressValid && userAddressDetailValid) {						
-					alert("회원가입이 완료되었습니다.");
+					alert("정보수정이 완료되었습니다.");
 				} else {
 					alert("입력 정보를 확인해주세요.");
 				}
 			});
-			/// ready
+			
+			
 		});
-		
 		
 		
 		// Enter 키 누를 시 로그인 button click과 같은 효과
@@ -527,6 +517,16 @@ function updatecustomer() {
 		});
 	 
 
+		// 회원 탈퇴
+		   function signoucustomer() {
+			    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
+
+			    if (confirmResult) {
+			    	window.location.href='/baemin/customerSignoutStatus' 
+			    }
+			    alert("회원탈퇴 완료되었습니다.");
+			    
+			}
 
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -650,6 +650,7 @@ function updatecustomer() {
 				</span>
 
 				<button onclick="updatecustomer()" value="수정완료" id="modify_button">수정완료</button>
+				<button onclick="signoucustomer()" value="회원탈퇴" id="signout_button">회원탈퇴</button>
 
 			</div>
 

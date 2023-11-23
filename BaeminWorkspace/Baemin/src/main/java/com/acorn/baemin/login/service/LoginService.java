@@ -15,12 +15,8 @@ import com.acorn.baemin.login.repository.LoginRepositoryI;
 @Service
 public class LoginService {
 
-
 	@Autowired
 	private LoginRepository loginRepository;
-	
-	
-	
 
 	// 손님 로그인
 	public UserDTO loginCustomer(String userId, String userPw) {

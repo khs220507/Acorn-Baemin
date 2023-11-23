@@ -33,30 +33,16 @@
 <body>
 
 	<!-- 아이디찾기 폼 -->
-	<form class="findId-form" action="${path}/findPw" method="post"
-		id="findId-form">
+	<form class="findId-form" action="${path}/findPw" method="post" id="findId-form">
+    <div class="findId-title">
+        <h1>비밀번호 찾기</h1>
+        <br>
+    </div>
+    아이디: <input type="text" name="Id" required><br> <!-- 타입을 text로 수정 -->
+    이메일: <input type="email" name="email" required>
+    <input type="submit" id="findPwForm" value="비밀번호 찾기">
+</form>
 
-
-		<div class="findId-title">
-			<h1>비밀번호 찾기</h1>
-			<br>
-		</div>
-
-
-		<form>
-			아이디: <input type="Id" name="Id" required><br>
-			이메일: <input type="email" name="email" required>
-			<input type="submit" id="findPwForm" value="비밀번호 찾기">
-		</form>
-
-
-
-
-
-
-
-		</div>
-	</form>
 
 
 </body>

@@ -260,7 +260,8 @@
 </style>
 <script>
     function updateseller() {
-        let sellerCode = $('#userInfo').val();				//${'#modify.sellerCode'}.val();
+    	
+        let sellerCode = <%=session.getAttribute("user") %>				//${'#modify.sellerCode'}.val();
         let sellerName = $('#sellerName').val();
         let sellerPw = $("#sellerPw").val();
         let confirmPassword = $("#confirmPassword").val();
@@ -286,21 +287,22 @@
                 data: infos,
                 contentType: "application/json",
                 success: function (data) {
-                    alert("수정 성공 q(≧▽≦q)");
-                    window.location.href = "http://localhost:8080/baemin/home";
+                    alert("수정 성공.");
+                    window.location.href = "http://localhost:8080/baemin/sellerHome?sellerCode=" + sellerCode;
                 },
                 error: function () {
-                    alert("수정 정보를 확인해주세요 q(≧▽≦q)");
+                    alert("수정 정보를 확인해주세요.");
                     $('#resultDiv').text('수정 실패');
                 }
             });
         } else if (confirmPassword != sellerPw) {
-            alert("비밀번호를 확인해주세요 ┑(￣Д ￣)┍");
+            alert("비밀번호를 확인해주세요.");
             $("#sellerPw").val("");
             $("#confirmPassword").val("");
         }
     };
-    ////중요/////
+    
+////중요/////
     $(document).ready(function () {
                 let sellerIdValid = false;
                 let sellerPwValid = false;
@@ -310,37 +312,41 @@
 
                 // 비밀번호 유효성 검사
                 $("#sellerPw").on("input",function () {
-                            let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+                    let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
-                            if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
-                                $(this).css("border-color", "red");
-                                sellerPwValid = false;
-                            } else {
-                                $(this).css("border-color", "");
-                                sellerPwValid = true;
-                            }
-                        });
-
-                // 비밀번호 확인
-                $("#confirmPassword").on("input",
-                    function () {
-                        if ($(this).val() === "" || !sellerPwValid || $("#sellerPw").val() !== $(this).val()) {
-                            $(this).css("border-color", "red");
-                            confirmPasswordValid = false;
-                        } else {
-                            $(this).css("border-color", "");
-                            confirmPasswordValid = true;
-                        }
-                    });
-
-                // 사장님 이름
-                $("#sellerName").blur(function () {
-                    if ($("#sellerName").val == "") {
-                        sellerNameValid = false;
+                    if ($(this).val() === "" || !pwdCheck.test($(this).val())) {
+                        $(this).css("border-color", "red");
+                        sellerPwValid = false;
                     } else {
-                        sellerNameValid = true;
+                        $(this).css("border-color", "");
+                        sellerPwValid = true;
                     }
                 });
+
+                // 비밀번호 확인
+                $("#confirmPassword").on("input", function () {
+                    if ($(this).val() === "" || $("#sellerPw").val() !== $(this).val()) {	// !sellerPwValid ||
+                        $(this).css("border-color", "red");
+                        confirmPasswordValid = false;
+                    } else {
+                        $(this).css("border-color", "");
+                        confirmPasswordValid = true;
+                    }
+                });
+    
+                // 사장님 이름
+                $("#sellerName").on("blur",function() {
+					let sellerName = $(this).val();
+					let namePattern = /^[가-힣a-zA-Z]{1,16}$/; // 한글과 영어 대소문자만 허용, 최대 16자까지
+					if (sellerName === ""
+							|| !namePattern.test(sellerName)) {
+						$(this).css("border-color", "red");
+						sellerNameValid = false;
+					} else {
+						$(this).css("border-color", "");
+						sellerNameValid = true;
+					}
+				});
 
                 // 사업자등록번호 유효성 검사
                 $("#sellerRegCode").on("input", function () {
@@ -354,8 +360,9 @@
                         sellerRegCodeValid = true;
                     }
                 });
-
-                // 연락처 유효성 검사
+                
+                
+             	// 연락처 유효성 검사
                 $("#sellerPhone").on("input", function () {
                     let phoneCheck = /^[0-9]{11}$/;
 
@@ -368,7 +375,7 @@
                     }
                 });
 
-             // 이메일 유효성 검사
+             	// 이메일 유효성 검사
                 $("#sellerEmail").on("input", function () {
                     let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 
@@ -381,19 +388,36 @@
                     }
                 });
 
-             // 수정완료 버튼 클릭 시 유효성 검사 및 서버 전송
-                $("#modify_button").click(function () {
-                    let isValid = sellerNameValid && sellerRegCodeValid && sellerPhoneValid && sellerEmailValid;
+             // 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
+    			$("#signin_button").click(function() {
+    				if (sellerIdValid && sellerPwValid 	&& confirmPasswordValid  && sellerEmailValid
+    					&& sellerNameValid && sellerRegCodeValid) {						
+    					alert("정보수정이 완료되었습니다.");
+    				} else {
+    					alert("입력 정보를 확인해주세요.");
+    				}
+    			});
 
-                    if (isValid) {
-                        updateseller(); // 유효성 검사가 모두 통과되면 함수 호출
-                    } else {
-                        alert("입력 정보를 확인해주세요.");
-                    }
-                });
+            
+                
+                
+                
+                
+    });
+      
+   // 회원 탈퇴
+   function signoutseller() {
+	    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
 
-            });
+	    if (confirmResult) {
+	    	window.location.href='/baemin/sellerSignoutStatus' 
+	    }
+	    alert("회원탈퇴 완료되었습니다.");
+	    
+	}
 
+    	
+    
 
 </script>
 
@@ -457,7 +481,8 @@
 
 
                         <button onclick="updateseller()" value="수정완료" id="modify_button">수정완료</button>
-
+						<!-- <input type="hidden" value="${userInfo.sellerCode}" id="userInfo">-->
+						<button onclick="signoutseller()" value="회원탈퇴" id="signout_button">회원탈퇴</button>
                     </div>
                 </div>
 

@@ -15,7 +15,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
-
 /* CSS 스타일 정의 */
 * {
 	margin: 0;
@@ -27,15 +26,14 @@ a {
 	text-decoration: none;
 }
 
-
-
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f4f4f4;
 	margin: 0;
 	padding: 0;
 	display: flex;
-	flex-direction: column; align-items : center;
+	flex-direction: column;
+	align-items: center;
 	height: 100vh;
 	align-items: center;
 }
@@ -170,7 +168,7 @@ a {
 </head>
 
 <body>
-<script>
+	<script>
 	// 로그인 클릭 시 radio 조건 체크
 	function login() {
     const logintypes = document.getElementsByName("logintype");
@@ -222,7 +220,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		
 </script>
 	<jsp:include page="../base/header_login.jsp" />
-	
+
 	<c:forEach items="${list}" var="item">
 	${item}
 	</c:forEach>
@@ -242,9 +240,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				</c:choose>
 			</div>
 			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login" method="post" id="loginForm">
+			<form class="login-form" action="${path}/login" method="post"
+				id="loginForm">
 
-			
+
 				<div class="login-title">
 					<h1>로그인</h1>
 					<br>
@@ -266,25 +265,24 @@ document.addEventListener("DOMContentLoaded", function() {
 				<!-- <label class="remember-me"> <input type="checkbox"
 					name="rememberMe"> 아이디 저장
 				</label> -->
-				<span></span>
-				<span></span>
+				<span></span> <span></span>
 				<!-- 아이디 찾기와 비밀번호 찾기 링크 -->
 				<div class="remember-links right-links">
-					<a href="/baemin/findIdForm">아이디 찾기</a> | <a href="/baemin/findPwForm">비밀번호 찾기</a>
+					<a href="/baemin/findIdForm">아이디 찾기</a> | <a
+						href="/baemin/findPwForm">비밀번호 찾기</a>
 				</div>
 				<span></span><span></span>
 				<p class="signup-link">
 					<a href="${path}/select_signup">회원가입</a>
 				</p>
-				<br>
-
-				<input type="button" id="loginForm" value="로그인" onclick="login()">
+				<br> <input type="button" id="loginForm" value="로그인"
+					onclick="login()">
 				<div id="messageDiv">
-				    <c:if test="${not empty message}">
-				        <script>
+					<c:if test="${not empty message}">
+						<script>
 				            alert("${message}");
 				        </script>
-				    </c:if>
+					</c:if>
 				</div>
 
 				<div class="kakao">
@@ -294,10 +292,11 @@ document.addEventListener("DOMContentLoaded", function() {
 				</div>
 			</form>
 
-    <a href="javascript:kakaoLogin();"><img src="./kakao_login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
+			<a href="javascript:kakaoLogin();"><img src="./kakao_login.png"
+				alt="카카오계정 로그인" style="height: 100px;" /></a>
 
-    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
+			<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+			<script>
         window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
 
         function kakaoLogin() {
@@ -331,10 +330,10 @@ document.addEventListener("DOMContentLoaded", function() {
         	    });
         };
     </script>
-			
+
 		</div>
 	</section>
-<jsp:include page="../base/footer.jsp" />
+	<jsp:include page="../base/footer.jsp" />
 
 
 </body>
