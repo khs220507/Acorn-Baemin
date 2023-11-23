@@ -252,7 +252,7 @@ CREATE TABLE answer_tbl (
     answerDate DATE NOT NULL,
     answerContent VARCHAR(300) NOT NULL,
     FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
-    FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
+    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=100001;
 
 
