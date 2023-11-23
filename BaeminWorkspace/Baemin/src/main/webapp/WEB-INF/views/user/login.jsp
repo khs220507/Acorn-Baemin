@@ -65,7 +65,7 @@ h1 {
 .login-form {
 	background-color: #fff;
 	padding: 20px;
-	max-width: 350px;
+	max-width: 360px;
 	width: 100%;
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
@@ -170,8 +170,8 @@ a {
 </head>
 
 <body>
-	<script>
-		// 로그인 클릭 시 radio 조건 체크
+<script>
+	// 로그인 클릭 시 radio 조건 체크
 	function login() {
     const logintypes = document.getElementsByName("logintype");
     let selectedLogintype = null;
@@ -189,31 +189,38 @@ a {
             form.action = "${path}/login";
         } else if (selectedLogintype === "seller") {
             form.action = "${path}/login2";
-        }
-        form.submit();				
-    } else if(result == null){ 
-    	alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
-		}else {
-        // 로그인 실패 알림
-        alert("로그인 유형을 선택해주세요.");
-    }			
+        } 
+        form.submit();
+    } else {
+        alert("입력 정보를 확인해주세요.");
+    }		
 }	
 		
-			// Enter 키 누를 시 로그인 button click과 같은 효과
-			document.addEventListener("DOMContentLoaded", function() {
-    		const form = document.getElementById("loginForm");
+// Enter 키 누를 시 로그인 button click과 같은 효과
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("loginForm");
+	
+	form.addEventListener("submit", function(event) {
+        const userId = document.getElementsByName("userId")[0].value;
+        const userPw = document.getElementsByName("userPw")[0].value;
 
-    		form.addEventListener("keypress", function(event) {
-        	if (event.key === "Enter") {
-            event.preventDefault(); 
-            login(); 
+        if (userId === "" || userPw === "") {
+            event.preventDefault();
+            alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
+        }
+    });
+
+	form.addEventListener("keypress", function(event) {
+      	if (event.key === "Enter") {
+          event.preventDefault(); 
+          login(); 
         }
     });
 });
 			
 		
 		
-	</script>
+</script>
 	<jsp:include page="../base/header_login.jsp" />
 	
 	<c:forEach items="${list}" var="item">
@@ -272,6 +279,13 @@ a {
 				<br>
 
 				<input type="button" id="loginForm" value="로그인" onclick="login()">
+				<div id="messageDiv">
+				    <c:if test="${not empty message}">
+				        <script>
+				            alert("${message}");
+				        </script>
+				    </c:if>
+				</div>
 
 				<div class="kakao">
 					<label class="kakao_login"> <input type="radio"

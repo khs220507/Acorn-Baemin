@@ -417,11 +417,13 @@ body {
 						<img class="current-location-img"
 							src="resources/icons/current-location.png"> 기타
 					</div>
-
+					<c:set value="${addressDTO.deliveryAddress }" var="deliveryAddress"/>
+					<c:set value="${addressDTO.detailDeliveryAddress }" var="detailDeliveryAddress"/>
+					
 					<div class="section-order-address-citygu">현재주소 :
-						${userInfo[0].userAddress}</div>
+						${deliveryAddress}</div>
 					<input class="section-order-address-detail" placeholder="상세주소"
-						id="base-structure-input">
+						id="base-structure-input" value="${detailDeliveryAddress}">
 				</div>
 			</div>
 

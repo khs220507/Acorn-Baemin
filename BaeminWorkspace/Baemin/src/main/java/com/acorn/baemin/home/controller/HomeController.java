@@ -1,17 +1,13 @@
 package com.acorn.baemin.home.controller;
 
-import java.net.MalformedURLException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.acorn.baemin.domain.OptionDTO;
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.domain.ZzimStoreDTO;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.home.repository.OrderDetailRepositoryImp;
 import com.acorn.baemin.home.repository.OrderRepositoryImp;
 import com.acorn.baemin.home.repository.SearchRepositoryImp;
@@ -43,6 +40,9 @@ public class HomeController {
 
 	@Autowired
 	OrderDetailRepositoryImp detailDAO;
+	
+	@Autowired
+	AddressRepositoryImp addressDAO;
 
 	// 홈화면
 	@GetMapping("/home")
@@ -50,10 +50,56 @@ public class HomeController {
 
 		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
         model.addAttribute("categories", foodCategories);
-        
 		return "home/home";
 	}
+	////////////////////////////////////////////////////////////////////////
+	
+	// 주소 등록
+	@ResponseBody
+	@PostMapping("/addressAdd")
+	public String insertAddress(HttpSession session,@RequestParam("deliveryAddress") String deliveryAddress,@RequestParam("detailDeliveryAddress") String detailDeliveryAddress) {
+		int userCode = (int)session.getAttribute("userCode");
+		AddressDTO addressDTO = new AddressDTO(0,userCode, deliveryAddress, detailDeliveryAddress);
+		addressDAO.insertAddress(addressDTO);
 		
+		// 주소코드 가져와서 세션에 넣기
+		int addressCode = addressDAO.getAddressCodeKakao(addressDTO);
+		session.setAttribute("addressCode", addressCode);
+		
+		return "address-upload-ok";
+	}
+	
+	// 주소 변경
+	@ResponseBody
+	@PostMapping("/addressUpdate")
+	public String updateAddress(String deliveryAddress, String detailDeliveryAddress, HttpSession session) {
+		int userCode = (int)session.getAttribute("userCode");
+		int addressCode = (int)session.getAttribute("addressCode");
+		AddressDTO addressDTO = new AddressDTO(addressCode, userCode, deliveryAddress, detailDeliveryAddress);
+		addressDAO.updateAddress(addressDTO);
+		
+		return "address-update-ok";
+	}
+	
+	// 주소 조회
+	@ResponseBody
+	@GetMapping("/address")
+	public List<AddressDTO> selectAddress(HttpSession session, Model model) {
+		int userCode = (int)session.getAttribute("userCode");
+		List<AddressDTO> address = addressDAO.selectAddress(userCode);
+		return address;
+	}
+	
+	
+	// 주소 삭제
+	@ResponseBody
+	@GetMapping("/addressDelete")
+	public String deleteAddress(int addressCode) {
+		addressDAO.deleteAddress(addressCode);
+		
+		return "address-delete-ok";
+	}
+	
 	
 	////////////////////////////////////////////////////////////////////////
 
