@@ -1,26 +1,16 @@
 package com.acorn.baemin.order.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.OrderDTO;
-import com.acorn.baemin.domain.UserDTO;
-import com.acorn.baemin.order.repository.UserOrderRepositoryImp;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.order.service.UserOrderServiceImp;
 
 @Controller
@@ -28,9 +18,12 @@ public class UserOrderController {
 
 	@Autowired
 	UserOrderServiceImp userOrderService;
+	
+	@Autowired
+	AddressRepositoryImp addressDAO;
 
 	@PostMapping("/orderDetail")
-	public String submitOrder(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam String deliveryAddress, @RequestParam int deliveryFee, 
+	public String submitOrder(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam String deliveryAddress,  @RequestParam String detailDeliveryAddress, @RequestParam int deliveryFee, 
 			@RequestParam int payType,
 			@RequestParam int orderType,
 			@RequestParam String reqToSeller, 
@@ -53,6 +46,15 @@ public class UserOrderController {
 		OrderDTO lastOrderDTO = userOrderService.getLastOrder();
 		System.out.println(lastOrderDTO.getOrderNumber());
 		redirectAttributes.addAttribute("orderNumber", lastOrderDTO.getOrderNumber());
+		
+		////////////// 주소 업데이트 ////////////////////
+		System.out.println("업데이트돼라제발");
+		int userCode = (int)session.getAttribute("userCode");
+		int addressCode = (int)session.getAttribute("addressCode");
+		AddressDTO addressDTO = new AddressDTO(addressCode, userCode, deliveryAddress, detailDeliveryAddress, 1);
+		System.out.println("업데이트시 주소디티오!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1" + addressDTO);
+		addressDAO.updateAddress(addressDTO);
+		
 		return "redirect:orderDetail";
 	}
 

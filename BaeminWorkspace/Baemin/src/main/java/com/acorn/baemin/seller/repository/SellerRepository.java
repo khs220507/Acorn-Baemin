@@ -53,6 +53,11 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("updateMenu @repo");
 		return session.update(namespaceSeller + "updateMenu", menu);
 	}
+	@Override
+	public int updateMenuIncludeImg(MenuDTO menu) {
+		System.out.println("updateMenuIncludeImg @repo");
+		return session.update(namespaceSeller + "updateMenuIncludeImg", menu);
+	}
 	// 메뉴 삭제
 	@Override
 	public int deleteMenu(Integer menuCode) {
@@ -87,7 +92,7 @@ public class SellerRepository implements SellerRepositoryI {
 	@Override
 	public List<ReviewDTO> selectAllReview(Integer storeCode) {
 		System.out.println("selectAllReview @repo");
-		return session.selectList(namespaceReview + "selectAllReview");
+		return session.selectList(namespaceReview + "selectAllReview", storeCode);
 	}
 	// 가게 평점 평균
 	@Override
@@ -103,29 +108,12 @@ public class SellerRepository implements SellerRepositoryI {
 		int reviewCount = session.selectOne(namespaceReview + "reviewCount", storeCode);
         return reviewCount;
 	}
-	// 답변 전체 조회
-	@Override
-	public List<AnswerDTO> selectAllAnswer(Integer storeCode) {
-		System.out.println("selectAllAnswer @repo");
-		return session.selectList(namespaceAnswer + "selectAllAnswer");
-	}
+	
 	// 답변 등록
 	@Override
-	public int insertAnswer(AnswerDTO answer) {
+	public int insertAnswer(AnswerDTO answerDTO) {
 		System.out.println("insertAnswer @repo");
-		return session.insert(namespaceAnswer + "insertAnswer", answer);
-	}
-	// 답변 수정
-	@Override
-	public int updateAnswer(AnswerDTO answer) {
-		System.out.println("updateAnswer @repo");
-		return session.update(namespaceAnswer + "updateAnswer", answer);
-	}
-	// 답변 삭제
-	@Override
-	public int deleteAnswer(AnswerDTO answer) {
-		System.out.println("deleteAnswer @repo");
-		return session.update(namespaceAnswer + "deleteAnswer", answer);
+		return session.insert(namespaceAnswer + "insertAnswer", answerDTO);
 	}
 	
 	

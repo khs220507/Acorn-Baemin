@@ -51,6 +51,12 @@ public class SellerService implements SellerServiceI{
 		System.out.println("modifingMenu @service");
 		rep.updateMenu(menu);
 	}
+	@Override
+	public void modifingMenuIncludeImg(MenuDTO menu) {
+		System.out.println("modifingMenuImg @service");
+		rep.updateMenuIncludeImg(menu);
+		
+	}
 	// 메뉴 삭제
 	@Override
 	public void deleteMenu(Integer menuCode) {
@@ -100,31 +106,14 @@ public class SellerService implements SellerServiceI{
 		System.out.println("reviewCount @service");
 		return rep.reviewCount(storeCode);
 	}
-	// 답글 전체 조회
-	@Override
-	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {
-		System.out.println("selectAllAnswer @service");
-		return rep.selectAllAnswer(reviewCode);
-	}
+
 	// 답변 등록
 	@Override
-	public void insertAnswer(AnswerDTO answer) {
+	public void insertAnswer(AnswerDTO answerDTO) {
 		System.out.println("isnertReview @service");
-		rep.insertAnswer(answer);
+		rep.insertAnswer(answerDTO);
 	}
-	// 답변 수정
-	@Override
-	public void updateAnswer(AnswerDTO answer) {
-		System.out.println("updateReview @service");
-		rep.updateAnswer(answer);
-	}
-	// 답변 삭제
-	@Override
-	public void deleteAnswer(AnswerDTO answer) {
-		System.out.println("deleteAnswer @service");
-		rep.deleteAnswer(answer);
-	}
-	
+
 	
 	
 

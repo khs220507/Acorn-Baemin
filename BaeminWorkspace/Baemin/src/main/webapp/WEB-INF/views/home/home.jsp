@@ -115,6 +115,13 @@ header {
 .map-icon {
 	margin-left: 10px;
 }
+.address-list{
+	border: 1px solid black;
+	width: 100%;
+	height: 300px;
+	position: absolute;
+	top: 28px;
+}
 
 .search-wrap {
 	width: 410px;
@@ -537,19 +544,46 @@ footer {
 
 			<div class="wrap-menu-address">
 				<div class="address-wrap">
-					<p id="address">회원 기본 설정 주소</p>
+				
+				<%
+					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
+					if (userCodeInfo != null) {
+					%>
+					<!-- 로그인 했을 때 -->
+					<p id="address">${deliveryAddress}</p>
 					<img class="down-arrow-icon"
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVR4nO3XPyvFURzH8RciUVJKGZTBcDeLxWKyeAAmT4AnwKp4AEx3tpksNoPJYjEowx0MyqDoppTkT9fyGwzy597z+6fvq854Ou/PeAghhBBCCP/aFp7QKfg8ZW/3rF1CfCc79ykGNEsc0EwxYBjnJcRfYEQis3goMP4RDYmtFDhgVU72CojflaNBnOYYf4YhOZvGXQ7xbcwoyBLeEsa/Y1nBdhIO2FaCfhwniD/BgJJM4qaH+FtMKdkCXrqIf8WiitjsYsCGCunD4R/ij7I7lTKOq1/EX2NCRc398Pl5xryKW/9mwJqa2P8i/kCNjOLyU3wLY2qmkYW38vichBBCCCEE9fcBzZeL0obnNdUAAAAASUVORK5CYII=">
 					<img class="map-icon"
 						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlUlEQVR4nO2YTUgVURTH/5op5WdRZErYpqSUonLTJ7V+lfa5qJ2rItr5fLQpSjOCIAyhhD72GURFm8zCImhnC8U+oLKEvqW0sojeixP/gdvjzcydefPuDOEPLgzv3PO/d94999w7B5ji/6cWQALAbQDDAL6yyXMvgFYAixFhGgD0AUhpNnnRVYgQ0wF0AUhygp8AnAewlatTzCbPjQAusE+KPmcAFIT9ErMA3OGkvgFoA1Cm4Sd92gF8V1anAiGuhBVKowwtrywH8JIa/QAKEQJdnMArAFVZ6Ijva2p1wjANjG8JpxUB6K1kmP3mszGskJI9ERTHqSkp2gi1SnZy2tib+cJyhkzwOebQvxzAGLUXwQAJDiZp1I52h/PDaRUvsU8cBujlYHIm2K2E2H8AaAEwny3O31IOK7ON9lswwBMOZnfNsM4VeYl0WmmTMHMK28cwwAQHK3GxV2awVdI2buNbQrto5BzrNJ5hYx+nXcIpnWravtj4Fiu3hJwzysFqXFJz3CFR2IXWQtrlgMw5/S4bNqZs9lae3FV8iZ8uvltovwsDdHIwSbF2tPlMvx3scxoG2MHBhlz6xRhCE5oHojBMbUnDOadMCZH6AHWXUVO0S2GImxz0aICax6h5AwbZzUGfAsgPQE80nlFzFwxSBOAtB5ZP2mxppNYbahvlEAe/H4DWA2olEAKy6T9zAquz0FmrnPYVCIlTnMTVLDSuU+MkQqSady/57F3jw3+dcrfKdDczivWJ+hBAns+9Iak3dEqZbWRC2z347aTPO81amBH2K+eKTvosYl/x2YcIUQBg0EOYWJfKQRPl0jwAz10K0RvTNm6Sd6U6B9169pG+m9LScNJhrBEfe/Av6zUq6un/6EVl40+zuYpYG1wK3RbS95HGeDInz5yjs2QlXWYDeE+/AxnsB2n7CGCOB90O+smcPFGolP6dwiQTe5WTeoHye43yPb/Ho2adUhT0VOhuouMA/HGF/vcYNvlKmeiaT80Bl3paRnocalM6zOX5IBqHARzh8wcA83xqtlDjsq6D1GAnWRmXK4hfrKrhL7ZsP2GrOadJztGVZpeSjZ+EIe1sAHp91GoOvLMLM1mkGOJztjTr/smel0+DJWxBUK4b9nG+sWz2qNKjk4is01XSb1RpcjsalrLDWBgFAA8U8mZgW1c7QWM3ok835ypXl3+QW+ULjUtb1NpIel1tQwQm5bfJ3KdA1PgDYpWe90NC9SoAAAAASUVORK5CYII=">
 				</div>
+				
+				<div class="address-list">
+
+				</div>
+				
+				
+				
+				
+				<%
+				} else {
+				%>
+				<!-- 로그인 안했을 때 -->
+				<p id="address">주소를 선택하려면 로그인이 필요합니다</p>
+				<img class="down-arrow-icon"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAABB0lEQVR4nO3XPyvFURzH8RciUVJKGZTBcDeLxWKyeAAmT4AnwKp4AEx3tpksNoPJYjEowx0MyqDoppTkT9fyGwzy597z+6fvq854Ou/PeAghhBBCCP/aFp7QKfg8ZW/3rF1CfCc79ykGNEsc0EwxYBjnJcRfYEQis3goMP4RDYmtFDhgVU72CojflaNBnOYYf4YhOZvGXQ7xbcwoyBLeEsa/Y1nBdhIO2FaCfhwniD/BgJJM4qaH+FtMKdkCXrqIf8WiitjsYsCGCunD4R/ij7I7lTKOq1/EX2NCRc398Pl5xryKW/9mwJqa2P8i/kCNjOLyU3wLY2qmkYW38vichBBCCCEE9fcBzZeL0obnNdUAAAAASUVORK5CYII=">
+				<img class="map-icon"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAADlUlEQVR4nO2YTUgVURTH/5op5WdRZErYpqSUonLTJ7V+lfa5qJ2rItr5fLQpSjOCIAyhhD72GURFm8zCImhnC8U+oLKEvqW0sojeixP/gdvjzcydefPuDOEPLgzv3PO/d94999w7B5ji/6cWQALAbQDDAL6yyXMvgFYAixFhGgD0AUhpNnnRVYgQ0wF0AUhygp8AnAewlatTzCbPjQAusE+KPmcAFIT9ErMA3OGkvgFoA1Cm4Sd92gF8V1anAiGuhBVKowwtrywH8JIa/QAKEQJdnMArAFVZ6Ijva2p1wjANjG8JpxUB6K1kmP3mszGskJI9ERTHqSkp2gi1SnZy2tib+cJyhkzwOebQvxzAGLUXwQAJDiZp1I52h/PDaRUvsU8cBujlYHIm2K2E2H8AaAEwny3O31IOK7ON9lswwBMOZnfNsM4VeYl0WmmTMHMK28cwwAQHK3GxV2awVdI2buNbQrto5BzrNJ5hYx+nXcIpnWravtj4Fiu3hJwzysFqXFJz3CFR2IXWQtrlgMw5/S4bNqZs9lae3FV8iZ8uvltovwsDdHIwSbF2tPlMvx3scxoG2MHBhlz6xRhCE5oHojBMbUnDOadMCZH6AHWXUVO0S2GImxz0aICax6h5AwbZzUGfAsgPQE80nlFzFwxSBOAtB5ZP2mxppNYbahvlEAe/H4DWA2olEAKy6T9zAquz0FmrnPYVCIlTnMTVLDSuU+MkQqSady/57F3jw3+dcrfKdDczivWJ+hBAns+9Iak3dEqZbWRC2z347aTPO81amBH2K+eKTvosYl/x2YcIUQBg0EOYWJfKQRPl0jwAz10K0RvTNm6Sd6U6B9169pG+m9LScNJhrBEfe/Av6zUq6un/6EVl40+zuYpYG1wK3RbS95HGeDInz5yjs2QlXWYDeE+/AxnsB2n7CGCOB90O+smcPFGolP6dwiQTe5WTeoHye43yPb/Ho2adUhT0VOhuouMA/HGF/vcYNvlKmeiaT80Bl3paRnocalM6zOX5IBqHARzh8wcA83xqtlDjsq6D1GAnWRmXK4hfrKrhL7ZsP2GrOadJztGVZpeSjZ+EIe1sAHp91GoOvLMLM1mkGOJztjTr/smel0+DJWxBUK4b9nG+sWz2qNKjk4is01XSb1RpcjsalrLDWBgFAA8U8mZgW1c7QWM3ok835ypXl3+QW+ULjUtb1NpIel1tQwQm5bfJ3KdA1PgDYpWe90NC9SoAAAAASUVORK5CYII=">
+				</div>
+				<%
+				}
+				%>
+				
 
 				<!-- 로그인시 -->
 				<div id="loginStatus">
 
 
 					<%
-					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
 					if (userCodeInfo != null) {
 					%>
 					<!-- 로그인 했을 때 -->
@@ -722,10 +756,34 @@ footer {
 		// '이 위치로 주소 설정' 버튼 누르면 모달 닫기
 		$(".set-address-btn").click(function() {
 			$(".kakao-map-modal").fadeOut();
-
-			// 지도에서 선택한 주소로 헤더에 보여주기
-			$("#address").html(getAddress);
+			
+			// db에 주소값 등록
+			addAddress(getAddress);
 		});
+
+		// addAddress() 상세주소
+		function addAddress(deliveryAddress){
+
+			let detailDeliveryAddress = prompt("상세주소를 입력하세요");
+			 
+			if (detailDeliveryAddress !== null) {
+				$.ajax({
+					type: "post",
+					url: "${path}/addressAdd",
+					data:  {
+						deliveryAddress: deliveryAddress,
+						detailDeliveryAddress: detailDeliveryAddress
+					},
+					dataType:"text",
+					success: function(data){
+						$("#address").html(deliveryAddress);
+					},
+					error: function(err){
+				
+					}
+				});
+			} 
+		}
 
 		var container = document.querySelector('.kakao-map-wrap'); //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -946,40 +1004,56 @@ footer {
         .mouseleave(function(){
             autoSlide();
         })
-
-		//////////////////// 스크롤 ////////////////////////////
-		// 원하는 좌표로 스크롤 이동하는 함수
-		/*var isScrolled = false;
-		
-		function scrollToY(yPosition) {
-		    window.scrollTo({
-		        top: yPosition,
-		        behavior: 'smooth'
-		    });
-		}
-		
-		window.addEventListener('scroll', function() {
-		    var desiredScrollPosition = 400;
-		    var currentScrollPosition = window.scrollY || document.documentElement.scrollTop;
-		
-		    if (currentScrollPosition >= desiredScrollPosition && !isScrolled) {
-		        scrollToY(678);
-		        isScrolled = true;
-		    } else if (currentScrollPosition < desiredScrollPosition) {
-		        isScrolled = false;
-		    }
-		});*/
-
-
-
-		
-		/*window.addEventListener('scroll', function() {
-  const scrollPosition = window.scrollY;
-  console.log(scrollPosition); // 스크롤 위치를 실시간으로 출력
-  // 여기서 스크롤 위치에 따른 추가적인 로직을 수행할 수 있습니다.
-});*/
-
 	</script>
+
+	<!-- 도로명 -->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript">
+	$("#address").click(function() {
+		sample6_execDaumPostcode();
+	});
+	
+	function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                // document.getElementById("address").value = addr + extraAddr;
+
+				addAddress(addr);
+            }
+        }).open();
+    }
+	
+	</script>
+
+
 
 </body>
 </html>

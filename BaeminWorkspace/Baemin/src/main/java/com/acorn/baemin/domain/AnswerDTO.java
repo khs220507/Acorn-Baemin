@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnswerDTO {
 	Integer answerCode;
-	Integer sellerCode;
+	Integer storeCode;
 	Integer reviewCode;
 	String answerDate;
 	String answerContent;

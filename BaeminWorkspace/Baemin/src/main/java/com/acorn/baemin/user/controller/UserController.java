@@ -29,10 +29,7 @@ public class UserController {
 
 	@Autowired
 	UserRepositoryI rep;
-
-	@Autowired
-	UserRepository userrep;
-	
+ 
 	@Autowired
 	MailSendService mailService;
 
@@ -45,30 +42,30 @@ public class UserController {
 		return mailService.joinEmail(email);
 	}
 	
-//  손님 연락처 중복 확인
-		@ResponseBody
-		@PostMapping("/checkDuplicatePhone")
-		public String checkDuplicateuserphone(@RequestParam("userPhone") String userPhone) {
-			System.out.println("중복확인");
-			String result;
-			System.out.println("user" + userPhone);
-			int count = userrep.checkDuplicateUserphone(userPhone);
-			System.out.println(count + userPhone);
-			if (count != 0) {
-				result = "yes";
-			} else {
-				result = "no";
-			}
-			return result;
+	//  손님 연락처 중복 확인
+	@ResponseBody
+	@PostMapping("/checkDuplicatePhone")
+	public String checkDuplicateuserphone(@RequestParam("userPhone") String userPhone) {
+		System.out.println("중복확인");
+		String result;
+		System.out.println("user" + userPhone);
+		int count = rep.checkDuplicateUserphone(userPhone);
+		System.out.println(count + userPhone);
+		if (count != 0) {
+			result = "yes";
+		} else {
+			result = "no";
 		}
+		return result;
+	}
 //  손님 이메일 중복 확인
 		@ResponseBody
 		@PostMapping("/checkDuplicateEmail")
 		public String checkDuplicateUseremail(@RequestParam("userEmail") String userEmail) {
-			System.out.println("중복확인");
+			System.out.println("중복확인!!!!");
 			String result;
 			System.out.println("user" + userEmail);
-			int count = userrep.checkDuplicateNickname(userEmail);
+			int count = rep.checkDuplicateUseremail(userEmail);
 			System.out.println(count + userEmail);
 			if (count != 0) {
 				result = "yes";
@@ -85,7 +82,7 @@ public class UserController {
 			System.out.println("중복확인");
 			String result;
 			System.out.println("user" + userNickname);
-			int count = userrep.checkDuplicateNickname(userNickname);
+			int count = rep.checkDuplicateNickname(userNickname);
 			System.out.println(count + userNickname);
 			if (count != 0) {
 				result = "yes";
@@ -103,7 +100,7 @@ public class UserController {
 		System.out.println("중복확인");
 		String result;
 		System.out.println("user" + userId);
-		int count = userrep.checkDuplicateUserId(userId);
+		int count = rep.checkDuplicateUserId(userId);
 		System.out.println(count + userId);
 		if (count != 0) {
 			result = "yes";
@@ -120,7 +117,7 @@ public class UserController {
 		System.out.println("중복확인");
 		String result;
 		System.out.println("user" + sellerId);
-		int count = userrep.checkDuplicateUserId2(sellerId);
+		int count = rep.checkDuplicateUserId2(sellerId);
 		System.out.println(count + sellerId);
 		if (count != 0) {
 			result = "yes";
@@ -135,14 +132,14 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Long> checkForDuplicates(@RequestParam("nickname") String nickname,
 			@RequestParam("phone") String phone, @RequestParam("email") String email) {
-		return userrep.checkForDuplicates(nickname, phone, email);
+		return rep.checkForDuplicates(nickname, phone, email);
 	}
 
 	
 
     @PostMapping("/userinfo/checkPassword")
     public ResponseEntity<String> checkPassword(@RequestParam String userId, @RequestParam String password) {
-        String storedPassword = userrep.getPasswordByUserId(userId);
+        String storedPassword = rep.getPasswordByUserId(userId);
 
         if (storedPassword != null && storedPassword.equals(encryptPassword(password))) {
             return ResponseEntity.ok("Password Matched");
@@ -242,14 +239,14 @@ public class UserController {
 		}				
 		user.setUserEmail(email);
 		//System.out.println( "  u   =" + user);
-		userrep.insertCustomer(user);
+		rep.insertCustomer(user);
 	}
 
 	// 사장님 회원 가입
 	@ResponseBody
 	@RequestMapping(value = "/seller_signup", method = RequestMethod.POST)
 	public void insertSellerSignup(@RequestBody SellerDTO seller) {
-		userrep.insertSeller(seller);
+		rep.insertSeller(seller);
 	}
 
 	// 손님 정보 수정
@@ -262,7 +259,7 @@ public class UserController {
 		System.out.println("dkfkfkfkffkfk" + updatecustomer);
 		try {
 			System.out.println("success899");
-			userrep.updateCustomer(updatecustomer);
+			rep.updateCustomer(updatecustomer);
 			System.out.println("success890");
 			return "수정 성공";
 		} catch (Exception e) {
@@ -275,7 +272,7 @@ public class UserController {
 	@RequestMapping(value = "/updateSellerInfo", method = RequestMethod.POST)
 	public String updateSellerInfo(@RequestBody SellerDTO sellerinfoupdate) {
 		try {
-			userrep.updateSeller(sellerinfoupdate);
+			rep.updateSeller(sellerinfoupdate);
 			return "수정 성공";
 		} catch (Exception e) {
 			return "수정 실패: " + e.getMessage();

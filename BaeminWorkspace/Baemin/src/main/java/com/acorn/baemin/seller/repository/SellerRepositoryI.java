@@ -24,6 +24,8 @@ public interface SellerRepositoryI {
 	public int insertMenu(MenuDTO menu);
 	// 메뉴 수정
 	public int updateMenu(MenuDTO menu);
+	// 메뉴 수정
+	public int updateMenuIncludeImg(MenuDTO menu);
 	// 메뉴 삭제
 	public int deleteMenu(Integer menuCode);
 	
@@ -43,13 +45,8 @@ public interface SellerRepositoryI {
 	public double storeAvgRating(Integer storeCode);
 	// 리뷰 갯수 카운트
 	public int reviewCount(Integer storeCode);
-	// 답변 전체 조회
-	public List<AnswerDTO> selectAllAnswer(Integer reviewCode);
+	
 	// 답변 등록
-	public int insertAnswer(AnswerDTO answer);
-	// 답변 수정
-	public int updateAnswer(AnswerDTO answer);
-	// 답변 삭제
-	public int deleteAnswer(AnswerDTO answer);
+	public int insertAnswer(AnswerDTO answerDTO);
 	
 }

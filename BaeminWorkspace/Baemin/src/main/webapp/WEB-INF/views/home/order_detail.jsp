@@ -180,6 +180,9 @@ ul {
 	margin-top: 30px;
 	font-size: 23px;
 }
+#orderNumber{
+	display: none;
+}
 
 /* 반응형 /////////////////////////////////////////////////////////////////*/
 
@@ -209,6 +212,7 @@ ul {
 	<jsp:include page="../base/header.jsp" />
 
 	<section id="content">
+	
 
 		<div class="wrap-all">
 
@@ -227,6 +231,7 @@ ul {
 							</a>
 							<p class="normal-text">${detail.orderMenuName }</p>
 							<p class="small-text">주문일시: ${detail.orderDate }</p>
+							<span id="orderNumber">${detail.orderNumber}</span>
 							<p class="small-text">주문번호: ${detail.orderNumber }</p>
 						</div>
 						<hr class="bold-line">
@@ -328,7 +333,7 @@ ul {
 							<h2>1600-0987</h2>
 						</div>
 
-						<button class="add-cart-btn">같은 메뉴 담기</button>
+						<button class="add-cart-btn" id="add-same-cart-btn">같은 메뉴 담기</button>
 					</c:when>
 
 					<c:when test="${detail.orderType == 1}">
@@ -414,7 +419,7 @@ ul {
 							<p class="normal-text black-text">가게 사장님께</p>
 							<p class="gray-text">${detail.reqToSeller }</p>
 						</div>
-						
+
 						<hr class="bold-line">
 
 						<div class="delete-btn-wrap">
@@ -427,7 +432,7 @@ ul {
 							<h2>1600-0987</h2>
 						</div>
 
-						<button class="add-cart-btn">같은 메뉴 담기</button>
+						<button class="add-cart-btn" id="add-same-cart-btn">같은 메뉴 담기</button>
 
 					</c:when>
 				</c:choose>
@@ -459,6 +464,15 @@ ul {
 				});
 			}
 		}
+		
+		
+		$(document).on('click', '#add-same-cart-btn', function() {
+			let orderNumber = $(this).closest('.wrap-all').find('#orderNumber').text().trim();
+	        window.location.href = "${path}/cartListRe?orderNumber=" + orderNumber;
+	    });
+		
+		
+		
 	</script>
 
 </body>

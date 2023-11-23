@@ -65,7 +65,7 @@ h1 {
 .login-form {
 	background-color: #fff;
 	padding: 20px;
-	max-width: 350px;
+	max-width: 360px;
 	width: 100%;
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;
@@ -166,11 +166,12 @@ a {
 	text-align: center;
 }
 </style>
+
 </head>
 
 <body>
-	<script>
-		// 로그인 클릭 시 radio 조건 체크
+<script>
+	// 로그인 클릭 시 radio 조건 체크
 	function login() {
     const logintypes = document.getElementsByName("logintype");
     let selectedLogintype = null;
@@ -188,31 +189,38 @@ a {
             form.action = "${path}/login";
         } else if (selectedLogintype === "seller") {
             form.action = "${path}/login2";
-        }
-        form.submit();				
-    } else if(result == null){ 
-    	alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
-		}else {
-        // 로그인 실패 알림
-        alert("로그인 유형을 선택해주세요.");
-    }			
+        } 
+        form.submit();
+    } else {
+        alert("입력 정보를 확인해주세요.");
+    }		
 }	
 		
-			// Enter 키 누를 시 로그인 button click과 같은 효과
-			document.addEventListener("DOMContentLoaded", function() {
-    		const form = document.getElementById("loginForm");
+// Enter 키 누를 시 로그인 button click과 같은 효과
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("loginForm");
+	
+	form.addEventListener("submit", function(event) {
+        const userId = document.getElementsByName("userId")[0].value;
+        const userPw = document.getElementsByName("userPw")[0].value;
 
-    		form.addEventListener("keypress", function(event) {
-        	if (event.key === "Enter") {
-            event.preventDefault(); 
-            login(); 
+        if (userId === "" || userPw === "") {
+            event.preventDefault();
+            alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
+        }
+    });
+
+	form.addEventListener("keypress", function(event) {
+      	if (event.key === "Enter") {
+          event.preventDefault(); 
+          login(); 
         }
     });
 });
 			
 		
 		
-	</script>
+</script>
 	<jsp:include page="../base/header_login.jsp" />
 	
 	<c:forEach items="${list}" var="item">
@@ -271,6 +279,13 @@ a {
 				<br>
 
 				<input type="button" id="loginForm" value="로그인" onclick="login()">
+				<div id="messageDiv">
+				    <c:if test="${not empty message}">
+				        <script>
+				            alert("${message}");
+				        </script>
+				    </c:if>
+				</div>
 
 				<div class="kakao">
 					<label class="kakao_login"> <input type="radio"
@@ -279,60 +294,45 @@ a {
 				</div>
 			</form>
 
+    <a href="javascript:kakaoLogin();"><img src="./kakao_login.png" alt="카카오계정 로그인" style="height: 100px;"/></a>
+
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <script>
+        window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
+
+        function kakaoLogin() {
+            window.Kakao.Auth.login({
+                scope: 'profile_nickname, account_email, talk_message', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+                success: function(response) {
+                    console.log(response) // 로그인 성공하면 받아오는 데이터
+                    window.Kakao.API.request({ // 사용자 정보 가져오기 
+                        url: '/v2/user/me',
+                        success: (res) => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account)
+                        }
+                    });
+                     window.location.href='/baemin/home' //리다이렉트 되는 코드
+                },
+                fail: function(error) {
+                    console.log(error);
+                }
+            });
+        }
+            window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
+        	function kakaoLogout() {
+            	if (!Kakao.Auth.getAccessToken()) {
+        		    console.log('Not logged in.');
+        		    return;
+        	    }
+        	    Kakao.Auth.logout(function(response) {
+            		alert(response +' logout');
+        		    window.location.href='/baemin/home'
+        	    });
+        };
+    </script>
 			
 		</div>
-<ul>
-	<li onclick="kakaoLogin();">
-      <a href="javascript:void(0)">
-          <span>카카오 로그인</span>
-      </a>
-	</li>
-	<li onclick="kakaoLogout();">
-      <a href="javascript:void(0)">
-          <span>카카오 로그아웃</span>
-      </a>
-	</li>
-</ul>
-<!-- 카카오 스크립트 -->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<script>
-Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e'); //발급받은 키 중 javascript키를 사용해준다.
-console.log(Kakao.isInitialized()); // sdk초기화여부판단
-//카카오로그인
-function kakaoLogin() {
-    Kakao.Auth.login({
-      success: function (response) {
-        Kakao.API.request({
-          url: '/v2/user/me',
-          success: function (response) {
-        	  console.log(response)
-          },
-          fail: function (error) {
-            console.log(error)
-          },
-        })
-      },
-      fail: function (error) {
-        console.log(error)
-      },
-    })
-  }
-//카카오로그아웃  
-function kakaoLogout() {
-    if (Kakao.Auth.getAccessToken()) {
-      Kakao.API.request({
-        url: '/v1/user/unlink',
-        success: function (response) {
-        	console.log(response)
-        },
-        fail: function (error) {
-          console.log(error)
-        },
-      })
-      Kakao.Auth.setAccessToken(undefined)
-    }
-  }  
-</script>
 	</section>
 <jsp:include page="../base/footer.jsp" />
 

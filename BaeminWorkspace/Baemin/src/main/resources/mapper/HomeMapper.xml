@@ -4,33 +4,113 @@
 
 <mapper namespace="com.acorn.HomeMapper">
 
+	<!-- 주소관련 -->
+
+	<!-- 등록 -->
+	<insert id="insertAddress" parameterType="AddressDTO">
+		INSERT INTO address_tbl
+		(userCode, deliveryAddress, detailDeliveryAddress)
+		VALUES (#{userCode},
+		#{deliveryAddress}, #{detailDeliveryAddress})
+	</insert>
+
+	<!-- 변경 -->
+	<update id="updateAddress" parameterType="AddressDTO">
+		UPDATE address_tbl
+		SET
+		deliveryAddress = #{deliveryAddress},
+		detailDeliveryAddress = #{detailDeliveryAddress}
+		WHERE
+		addressCode = #{addressCode}
+	</update>
+
+	<!-- 1 => 0으로 변경 -->
+	<update id="addressStatusSwitch" parameterType="AddressDTO">
+		UPDATE address_tbl
+		SET
+		addressStatus = 0
+		WHERE
+		addressCode != #{addressCode} AND userCode = #{userCode}
+	</update>
+
+	<!-- 유저코드로 전체 조회 (홈) -->
+	<select id="selectAddress" resultType="AddressDTO"
+		parameterType="int">
+		SELECT * FROM address_tbl
+		WHERE userCode= #{userCode}
+	</select>
+
+	<!-- 최신주소 탐색 -->
+	<select id="lastOrderAddressCode" resultType="int"
+		parameterType="int">
+		SELECT addressCode FROM address_tbl
+		WHERE userCode=
+		#{userCode} AND addressStatus = 1
+	</select>
+
+	<!-- 주소에 맞는 주소코드 조회 (카카오, 도로명) -->
+	<select id="getAddressCodeKakao" resultType="int"
+		parameterType="AddressDTO">
+		select addressCode from address_tbl where
+		deliveryAddress = #{deliveryAddress} and detailDeliveryAddress =
+		#{detailDeliveryAddress};
+	</select>
+
+	<!-- 유저코드당 주소개수 조회 -->
+	<select id="selectAddressCount" resultType="int"
+		parameterType="int">
+		SELECT COUNT(*) FROM address_tbl WHERE userCode =
+		#{userCode}
+	</select>
+
+	<!-- 주소코드로 AddressDTO 반환 -->
+	<select id="returnAddressDTO" resultType="AddressDTO"
+		parameterType="int">
+		SELECT * FROM address_tbl
+		WHERE addressCode =
+		#{addressCode}
+	</select>
+
+	<!-- 삭제 -->
+	<delete id="deleteAddress" parameterType="int">
+		DELETE
+		FROM address_tbl
+		WHERE addressCode = #{addressCode}
+	</delete>
+
 	<!-- 검색 관련 -->
 	<!-- 검색 -->
 	<select id="searchStoresAndMenus" resultType="StoreDTO"
 		parameterType="String">
-		
+
 		SELECT store_tbl.*, GROUP_CONCAT(menu_tbl.menuName) AS menuNames
-		FROM store_tbl
+		FROM
+		store_tbl
 		JOIN menu_tbl ON store_tbl.storeCode = menu_tbl.storeCode
 		WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%',
 		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
-		OR REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',
+		OR
+		REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',
 		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
-		GROUP BY store_tbl.storeCode, store_tbl.storeName, store_tbl.storeStatus
-		ORDER BY store_tbl.storeStatus; 
+		GROUP BY
+		store_tbl.storeCode, store_tbl.storeName, store_tbl.storeStatus
+		ORDER
+		BY store_tbl.storeStatus
 
 	</select>
 
 	<!-- 찜관련 -->
-	
+
 	<!-- 찜 조회 -->
 	<select id="zzimSelectAll" resultType="ZzimStoreDTO"
 		parameterType="int">
 		SELECT z.*, s.*
 		FROM zzim_tbl z
-		JOIN store_tbl s ON z.storeCode = s.storeCode
+		JOIN store_tbl s ON
+		z.storeCode = s.storeCode
 		WHERE userCode = #{userCode}
-		ORDER BY s.storeStatus ASC;
+		ORDER BY
+		s.storeStatus ASC
 	</select>
 
 
@@ -44,20 +124,22 @@
 
 	<!-- 찜 추가 -->
 	<insert id="zzimInsert" parameterType="ZzimDTO">
-		INSERT INTO zzim_tbl (userCode, storeCode) VALUES 
+		INSERT INTO zzim_tbl
+		(userCode, storeCode) VALUES
 		(#{userCode}, #{storeCode})
 	</insert>
-	
+
 	<!-- 찜 유무 -->
-	<select id="zzimCheck" resultType="int"
-		parameterType="ZzimDTO">
-		SELECT COUNT(*) FROM zzim_tbl
-		WHERE userCode = #{userCode} and storeCode = #{storeCode}
+	<select id="zzimCheck" resultType="int" parameterType="ZzimDTO">
+		SELECT
+		COUNT(*) FROM zzim_tbl
+		WHERE userCode = #{userCode} and storeCode =
+		#{storeCode}
 	</select>
-	
-	
+
+
 	<!-- 주문내역 관련 -->
-	
+
 	<!-- 주문내역 조회 -->
 	<select id="orderSelectAll" resultType="OrderDTO"
 		parameterType="int">

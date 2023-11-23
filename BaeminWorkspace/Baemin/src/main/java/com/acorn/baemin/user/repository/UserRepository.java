@@ -113,6 +113,7 @@ public class UserRepository implements UserRepositoryI {
 	// 손님 이메일 중복 확인
 	@Override
 	public int checkDuplicateUseremail(String userEmail) {
+		System.out.println(  "userEmail===>" + userEmail);
 		return session.selectOne(namespace + "emailCheck", userEmail);
 	}
 

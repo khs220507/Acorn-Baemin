@@ -220,7 +220,7 @@ hr {
 							<button class="gray-radius-btn" id="review-write-btn">리뷰쓰기</button>
 						</div>
 					</div>
-					<button class="add-menu-btn">같은 메뉴 담기</button>
+					<button class="add-menu-btn" id="add-same-cart-btn">같은 메뉴 담기</button>
 					<hr>
 				</div>
 
@@ -232,36 +232,36 @@ hr {
 	<jsp:include page="../base/footer.jsp" />
 
 	<script>
-		// 주문내역 삭제
-		$(document).on(
-				'click',
-				'.delete-icon',
-				function() {
-					$(this).closest('.orderList-wrap').remove();
-					let orderNumber = $(this).closest('.orderList-wrap').find(
-							'.order-num').text().trim();
-
-					deleteList(orderNumber);
-				});
+		// 주문내역 삭제		
+		$(document).on('click', '.delete-icon', function() {
+		    let deleteConfirmation = confirm("주문 내역을 삭제하시겠습니까?");
+		    
+		    if (deleteConfirmation) {
+		        $(this).closest('.orderList-wrap').remove();
+		        let orderNumber = $(this).closest('.orderList-wrap').find('.order-num').text().trim();
+		        
+		        deleteList(orderNumber);
+		    }
+		});
 
 		function deleteList(orderNumber) {
-			if (confirm("주문 내역을 삭제하시겠습니까?")) {
-				$.ajax({
-					type : "get",
-					url : "${path}/orderListDelete",
-					data : "orderNumber=" + orderNumber,
-					dataType : "text",
-					success : function(data) {
-						alert("주문 내역이 삭제되었습니다");
-						window.location.reload();
-					},
-					error : function(err) {
-						alert("삭제 요청에 실패했습니다.");
-						alert(orderNumber);
-					}
-				});
-			}
+		    // AJAX 요청
+		    $.ajax({
+		        type: "get",
+		        url: "${path}/orderListDelete",
+		        data: "orderNumber=" + orderNumber,
+		        dataType: "text",
+		        success: function(data) {
+		            alert("주문 내역이 삭제되었습니다");
+		            window.location.reload();
+		        },
+		        error: function(err) {
+		            alert("삭제 요청에 실패했습니다.");
+		            alert(orderNumber);
+		        }
+		    });
 		}
+
 
 		// 주문상세 버튼 클릭
 		$(document).on(
@@ -279,9 +279,16 @@ hr {
 		// 리뷰쓰기 버튼 클릭
 	    $(document).on('click', '#review-write-btn', function() {
 	        let orderNumber = $(this).closest('.orderList-wrap').find('.order-num').text().trim();
-
+	     
 	        // Navigate to the review page with the corresponding orderNumber
 	        window.location.href = "${path}/writeReview?orderNumber=" + orderNumber;
+	    });
+		
+	    $(document).on('click', '#add-same-cart-btn', function() {
+	        let orderNumber = $(this).closest('.orderList-wrap').find('.order-num').text().trim();
+
+	        // Navigate to the review page with the corresponding orderNumber
+	        window.location.href = "${path}/cartListRe?orderNumber=" + orderNumber;
 	    });
 
 		
