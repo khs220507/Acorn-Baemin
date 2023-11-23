@@ -93,7 +93,4 @@ public class CartController {
 		session.setAttribute("orderDTO", orderDTO);		
 	    return "userorder/order";
 	}
-	
-	
-	
 }

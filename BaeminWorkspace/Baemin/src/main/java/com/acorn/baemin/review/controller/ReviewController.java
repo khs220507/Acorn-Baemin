@@ -17,6 +17,7 @@ import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.home.repository.OrderDetailRepositoryImp;
 import com.acorn.baemin.review.service.ReviewService;
+import com.acorn.baemin.seller.service.SellerService;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +32,9 @@ public class ReviewController {
 
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	private SellerService sellerService;
 
 	@Autowired
 	OrderDetailRepositoryImp rep;

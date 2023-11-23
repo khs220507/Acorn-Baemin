@@ -22,9 +22,19 @@
     
 	<!-- 리뷰 등록 -->
 	<insert id="insertReview" parameterType="ReviewDTO">
-		INSERT INTO review_tbl (orderMenuName, userCode, storeCode, reviewRating, reviewContent, reviewDate, reviewImageName)
-		VALUES (#{orderMenuName}, #{userCode}, #{storeCode},  #{reviewRating}, #{reviewContent}, NOW(), #{reviewImageName})
-	</insert>
+    INSERT INTO review_tbl (orderMenuName, userCode, storeCode, reviewRating, reviewContent, reviewDate, reviewImageName, userNickName)
+    SELECT 
+        #{orderMenuName},
+        #{userCode},
+        #{storeCode},
+        #{reviewRating},
+        #{reviewContent},
+        NOW(),
+        #{reviewImageName},
+        u.userNickName
+    FROM user_tbl u
+    WHERE u.userCode = #{userCode}
+</insert>
 	
 	<!-- 리뷰 삭제(상태만 변경) -->
 	<update id="deleteReview" parameterType="int">

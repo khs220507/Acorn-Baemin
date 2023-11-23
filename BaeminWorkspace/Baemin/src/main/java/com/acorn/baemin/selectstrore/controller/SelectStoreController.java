@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acorn.baemin.domain.StoreDTO;
-import com.acorn.baemin.selectstrore.repository.SelectStrollerRepository;
+import com.acorn.baemin.selectstrore.repository.SelectStoreRepository;
+import com.acorn.baemin.user.repository.UserRepository;
 @Controller
-public class SelectStrollerController {
+public class SelectStoreController {
 	@Autowired
-	SelectStrollerRepository rep;
+	SelectStoreRepository rep;
+	
 
 	@GetMapping("/storeList")
 	public String selectStore(@RequestParam String storeCategory, Model model) {

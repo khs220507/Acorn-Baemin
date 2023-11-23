@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,9 +29,11 @@ import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
+import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.seller.service.SellerService;
+import com.acorn.baemin.user.repository.UserRepository;
 
 @Controller
 public class SellerController {
@@ -39,6 +43,8 @@ public class SellerController {
 	
 	@Autowired
 	ZzimRepositoryImp zr;
+	
+
 
 	String fileDir = "c:\\test\\upload\\";
 	
@@ -243,10 +249,10 @@ public class SellerController {
 	public void deleteAnswer(AnswerDTO answerCode) {
 		
 	}
-	
+
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
-	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
+	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) throws Exception {
 
 		// 고정 정보 내용
 		
@@ -297,9 +303,20 @@ public class SellerController {
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("AList", answerList);
 		model.addAttribute("RCount", reviewCount);
+		
+		
+		
 
 		
 		return "store/store";
 	}
+	
+	@ResponseBody
+	 @RequestMapping(value="/reviewImages/{reviewImages:.*}" ,method = RequestMethod.GET)
+	 public Resource ReviewImg(@PathVariable String reviewImages) throws MalformedURLException {
+		 return new UrlResource("file:c:\\test\\upload\\"+reviewImages);
+	 }
+	
+	
 	
 }

@@ -236,6 +236,7 @@ CREATE TABLE review_tbl (
     reviewRating INT,
     reviewContent VARCHAR(300),
     reviewImageName VARCHAR(300),
+    userNickName VARCHAR(100),
    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;

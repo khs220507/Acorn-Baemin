@@ -468,8 +468,6 @@ ul {
 		
 		$(document).on('click', '#add-same-cart-btn', function() {
 			let orderNumber = $(this).closest('.wrap-all').find('#orderNumber').text().trim();
-			alert(orderNumber);
-	        // Navigate to the review page with the corresponding orderNumber
 	        window.location.href = "${path}/cartListRe?orderNumber=" + orderNumber;
 	    });
 		

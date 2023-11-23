@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.acorn.baemin.domain.StoreDTO;
 @Repository
-public class SelectStrollerRepository  {
+public class SelectStoreRepository  {
 		@Autowired
 		private SqlSession session;
 

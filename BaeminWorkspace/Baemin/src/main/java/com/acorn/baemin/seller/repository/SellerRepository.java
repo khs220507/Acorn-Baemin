@@ -92,7 +92,7 @@ public class SellerRepository implements SellerRepositoryI {
 	@Override
 	public List<ReviewDTO> selectAllReview(Integer storeCode) {
 		System.out.println("selectAllReview @repo");
-		return session.selectList(namespaceReview + "selectAllReview");
+		return session.selectList(namespaceReview + "selectAllReview", storeCode);
 	}
 	// 가게 평점 평균
 	@Override

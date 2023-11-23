@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -51,7 +51,8 @@ button {
 	outline: none;
 	cursor: pointer; /* 손가락모양 */
 }
-.wrap-all{
+
+.wrap-all {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -59,73 +60,89 @@ button {
 	width: 75%;
 	position: relative;
 }
-.line{
+
+.line {
 	background-color: #d9d9d9;
 	height: 2px;
 	border: 0px;
 	width: 100%;
 }
-.thin-line{
+
+.thin-line {
 	background-color: #d9d9d9;
 	height: 1px;
 	border: 0px;
 	width: 100%;
 }
+
 .menu-info-review-tab {
 	display: flex;
 	width: 80%;
-    justify-content: space-around;
-    font-size: 22px;
-    margin-top: 30px;
+	justify-content: space-around;
+	font-size: 22px;
+	margin-top: 30px;
 	padding: 5px 0;
 }
-.menu-info-review-tab li{
+
+.menu-info-review-tab li {
 	width: 33.333333333333333333333333333%;
-    text-align: center;
+	text-align: center;
 	padding: 5px 0;
 }
-.menu-tab{
+
+.menu-tab {
 	border-top: 1px solid black;
 }
-.info-tab{
+
+.info-tab {
 	border-bottom: 1px solid black;
 }
-.review-tab{
+
+.review-tab {
 	border-bottom: 1px solid black;
 }
-.menu-sub-tab{
+
+.menu-sub-tab {
 	width: 80%;
 }
-.click-category{
+
+.click-category {
 	display: flex;
 	justify-content: space-around;
 	padding: 5px 0;
 }
-.classification{
+
+.classification {
 	padding: 5px 10px;
 }
-.old-menu-classification{
+
+.old-menu-classification {
 	font-size: 20px;
 }
-.store-image img{
+
+.store-image img {
 	width: 250px;
 	height: 250px;
 	margin: 10px;
 }
-.store-name{
+
+.store-name {
 	font-size: 27px;
 	margin: 15px;
 }
+
 .rating-review-minprice {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	width: 33%;
 }
-.menu-img img{
+
+.menu-img img {
 	width: 100px;
 	height: 100px;
 }
+
 .menu-classification-list {
 	display: inline-block;
 }
@@ -138,34 +155,39 @@ button {
 	display: flex;
 	align-items: center;
 	padding: 10px;
-
 }
-.menuName-wrap{
+
+.menuName-wrap {
 	margin-left: 20px;
 	line-height: 23px;
 }
-.menuName-bigger{
+
+.menuName-bigger {
 	font-size: 20px;
 }
+
 .info-sub-tab-with-btn {
 	display: flex;
 }
-.info-sub-tab{
+
+.info-sub-tab {
 	margin-top: 50px;
 }
+
 .store-description {
 	display: flex;
 	flex-direction: column;
 	line-height: 20px;
 }
-.introduce-title{
+
+.introduce-title {
 	font-size: 19px;
 }
 
 .operating-time {
 	display: flex;
 	flex-direction: column;
-	margin:20px 0;
+	margin: 20px 0;
 	line-height: 20px;
 }
 
@@ -173,14 +195,16 @@ button {
 	display: flex;
 	flex-direction: column;
 }
-.seller-info-sub{
+
+.seller-info-sub {
 	line-height: 20px;
 }
 
 .seller-name {
 	display: flex;
 }
-.introduce-small-title{
+
+.introduce-small-title {
 	width: 140px;
 }
 
@@ -195,19 +219,52 @@ button {
 .store-info-tab, .store-review-tab {
 	display: none;
 }
-.zzim{
-border: none;
-background-color: white;
-display: flex;
-position: absolute;
-right: 60px;
-top: 0px;
+
+.zzim {
+	border: none;
+	background-color: white;
+	display: flex;
+	position: absolute;
+	right: 60px;
+	top: 0px;
 }
-.zzim img{
-width: 20px;
+
+.zzim img {
+	width: 20px;
+}
+
+.star-rating {
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.star-rating .star {
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+	display: inline-block;
+	background:
+		url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
+}
+
+.star-rating .star.on {
+	background:
+		url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
+}
+
+.user-star-wrap {
+	display: flex;
 }
 </style>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e1731c3f7c3d4a983be89d9de5add7e&libraries=services"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e1731c3f7c3d4a983be89d9de5add7e&libraries=services"></script>
 <script>
 	$(document).ready(function() {
 		// 삭제된 메뉴는 보이지 않게 처리
@@ -297,20 +354,8 @@ width: 20px;
 		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
 		$(".review-tab").css("border-top", "1px solid black").css("border-bottom", "none");
 		
-		$.ajax({
-			type : "GET",
-   			url : "${path}/reviewAnswer",
-   			success : function(response) {
-   				let reviewList = response.readReview;
-   				let answerList = response.readAnswer;
-   				console.log(res);
-   				alert("조회완료");
-   			},
-   			error : function(e) {
-   				console.log(e)
-   				alert("error");
-   			}
-		});
+		
+		
 		
 	}
 	//찜 취소
@@ -363,142 +408,154 @@ width: 20px;
 <body>
 	<jsp:include page="../base/header.jsp" />
 	<section id="content">
-	<c:set var="storeImage" value="${readStore.storeImage}" />
-	<div class="wrap-all">
-		<div class="store-image">
-			<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
-		</div>
-		<c:set value="${readStore.storeCode}" var="zzimSCode"/>
-		<%Integer zzimUCode = (Integer) session.getAttribute("userCode");
-		int ZCheck = (int) session.getAttribute("ZCheck");
-		if (ZCheck == 0) {%>
-			<button class="zzim" onclick="zzimDelete(${zzimSCode},<%=zzimUCode%>)"><img src="${path}/resources/icons/Heart0.png"></button>
-		<%}else{ %>
-			<button class="zzim" onclick="zzimInsert(${zzimSCode},<%=zzimUCode%>)"><img src="${path}/resources/icons/Heart1.png"></button>
-		<%} %>
-		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
-		<hr class="line">
-		<div class="store-name">${readStore.storeName}</div>
-		<div class="rating-review-minprice">
-			<div>⭐: ${avgRating}점</div>
-			<div>리뷰수: ${RCount}</div>
-			<div>최소주문금액: ${readStore.minOrderPrice}원</div>
-		</div>
-		<ul class="menu-info-review-tab">
-			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
-			<li class="info-tab" onclick="storeInfo()">정보</li>
-			<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
-		</ul>
-		<!-- 메뉴 리스트 나오는 탭 -->
-		<div class="menu-sub-tab">
-			<div class="click-category">
-				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
-				<c:forEach items="${CList}" var="classificationList">
-					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
-				</c:forEach>
+		<c:set var="storeImage" value="${readStore.storeImage}" />
+		<div class="wrap-all">
+			<div class="store-image">
+				<img alt="가게 로고" src="${path}/storeImages/${storeImage}">
 			</div>
-			<hr class="thin-line">
-			<div>
-				<!-- 메뉴 리스트 -->
-				<c:forEach items="${CList}" var="classificationList">
-				<div class="classification">
-					<a class="old-menu-classification" name="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+			<c:set value="${readStore.storeCode}" var="zzimSCode" />
+			<%
+			Integer zzimUCode = (Integer) session.getAttribute("userCode");
+			int ZCheck = (int) session.getAttribute("ZCheck");
+			if (ZCheck == 0) {
+			%>
+			<button class="zzim"
+				onclick="zzimDelete(${zzimSCode},<%=zzimUCode%>)">
+				<img src="${path}/resources/icons/Heart0.png">
+			</button>
+			<%
+			} else {
+			%>
+			<button class="zzim"
+				onclick="zzimInsert(${zzimSCode},<%=zzimUCode%>)">
+				<img src="${path}/resources/icons/Heart1.png">
+			</button>
+			<%
+			}
+			%>
+			<!-- 아래 div는 추후에 선으로 대체할 예정 -->
+			<hr class="line">
+			<div class="store-name">${readStore.storeName}</div>
+			<div class="rating-review-minprice">
+				<div>⭐: ${avgRating}점</div>
+				<div>리뷰수: ${RCount}</div>
+				<div>최소주문금액: ${readStore.minOrderPrice}원</div>
+			</div>
+			<ul class="menu-info-review-tab">
+				<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
+				<li class="info-tab" onclick="storeInfo()">정보</li>
+				<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
+			</ul>
+			<!-- 메뉴 리스트 나오는 탭 -->
+			<div class="menu-sub-tab">
+				<div class="click-category">
+					<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
+					<c:forEach items="${CList}" var="classificationList">
+						<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+					</c:forEach>
 				</div>
 				<hr class="thin-line">
-					<c:forEach items="${readMenuInfo}" var="menuList">
-						<c:if
-							test="${menuList.menuClassification eq classificationList.menuClassification}">
-							<c:choose>
-								<c:when
-									test="${menuList.menuClassification eq classificationList.menuClassification}">
-									<div class="menu-info-with-btn">
-										<a class="menu-img" href="${path}/option?menuCode=${menuList.menuCode}"><img alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-										<div class="menuName-wrap">
-											<div class="menuName menuName-bigger">${menuList.menuName}</div>
-											<div class="menuName">${menuList.menuContent}</div>
-											<div class="menuName">${menuList.menuPrice}</div>
-											<c:choose>
+				<div>
+					<!-- 메뉴 리스트 -->
+					<c:forEach items="${CList}" var="classificationList">
+						<div class="classification">
+							<a class="old-menu-classification"
+								name="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+						</div>
+						<hr class="thin-line">
+						<c:forEach items="${readMenuInfo}" var="menuList">
+							<c:if
+								test="${menuList.menuClassification eq classificationList.menuClassification}">
+								<c:choose>
+									<c:when
+										test="${menuList.menuClassification eq classificationList.menuClassification}">
+										<div class="menu-info-with-btn">
+											<a class="menu-img"
+												href="${path}/option?menuCode=${menuList.menuCode}"><img
+												alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+											<div class="menuName-wrap">
+												<div class="menuName menuName-bigger">${menuList.menuName}</div>
+												<div class="menuName">${menuList.menuContent}</div>
+												<div class="menuName">${menuList.menuPrice}</div>
+												<c:choose>
 													<c:when test="${menuList.menuStatus eq 1}">(준비중)</c:when>
 												</c:choose>
+											</div>
 										</div>
-									</div>
-									<hr class="thin-line">
-								</c:when>
-							</c:choose>
-						</c:if>
+										<hr class="thin-line">
+									</c:when>
+								</c:choose>
+							</c:if>
+						</c:forEach>
 					</c:forEach>
+				</div>
+			</div>
+			<!-- 가게 정보 탭 -->
+			<div class="store-info-tab">
+				<div class="info-sub-tab-with-btn">
+					<div class="info-sub-tab">
+						<div class="store-description">
+							<div class="introduce-title">가게소개</div>
+							<div id="store-description">${readStore.storeDescription}</div>
+						</div>
+						<div class="operating-time">
+							<div class="introduce-title">운영시간</div>
+							<div id="operating-time">${readStore.operatingTime}</div>
+						</div>
+						<div class="seller-info">
+							<div class="introduce-title">사업자정보</div>
+
+							<table class="seller-info-sub">
+								<tr class="seller-name">
+									<td class="introduce-small-title">대표자명</td>
+									<td>${readSeller.sellerName}</td>
+								</tr>
+								<tr class="store-address">
+									<td class="introduce-small-title">매장주소</td>
+									<td>${readStore.storeAddress}</td>
+								</tr>
+								<tr class="seller-regcode">
+									<td class="introduce-small-title">사업자등록번호</td>
+									<td>${readSeller.sellerRegCode}</td>
+								</tr>
+							</table>
+						</div>
+						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
+						<div id="map" style="width: 100%; height: 350px;"></div>
+
+					</div>
+				</div>
+			</div>
+			<!-- 리뷰 리스트 나오는 탭 -->
+			<div class="store-review-tab">
+
+				<c:forEach var="item" items="${RList}">
+					<div class="user-star-wrap">
+						<div>${item.userNickName}</div>
+						<!-- Display stars based on the rating -->
+						<div class="star-rating">
+							<c:forEach begin="1" end="${item.reviewRating}">
+								<span class="star on"></span>
+							</c:forEach>
+							<c:forEach begin="${item.reviewRating + 1}" end="5">
+								<span class="star"></span>
+							</c:forEach>
+						</div>
+					</div>
+					<div>주문메뉴 : ${item.orderMenuName}</div>
+					<div>${item.reviewContent}</div>
+
+					<c:if test="${not empty item.reviewImageName}">
+						<img class= src="${path}/reviewImages/${item.reviewImageName}"
+							alt="Review Image">
+					</c:if>
+
+
 				</c:forEach>
+
+
 			</div>
 		</div>
-		<!-- 가게 정보 탭 -->
-		<div class="store-info-tab">
-			<div class="info-sub-tab-with-btn">
-				<div class="info-sub-tab">
-					<div class="store-description">
-						<div class="introduce-title">가게소개</div>
-						<div id="store-description">${readStore.storeDescription}</div>
-					</div>
-					<div class="operating-time">
-						<div class="introduce-title">운영시간</div>
-						<div id="operating-time">${readStore.operatingTime}</div>
-					</div>
-					<div class="seller-info">
-						<div class="introduce-title">사업자정보</div>
-					
-						<table class="seller-info-sub">
-							<tr class="seller-name">
-								<td class="introduce-small-title">대표자명</td>
-								<td>${readSeller.sellerName}</td>
-							</tr>
-							<tr class="store-address">
-								<td class="introduce-small-title">매장주소</td>
-								<td>${readStore.storeAddress}</td>
-							</tr>
-							<tr class="seller-regcode">
-								<td class="introduce-small-title">사업자등록번호</td>
-								<td>${readSeller.sellerRegCode}</td>
-							</tr>
-						</table>
-					</div>
-					<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
-			<div id="map" style="width:100%;height:350px;"></div>
-			
-				</div>
-			</div>
-		</div>
-		<!-- 리뷰 리스트 나오는 탭 -->
-		<div class="store-review-tab">
-			<c:forEach items="${review}" var="readReview">
-				<div class="review-answer">
-					<div class="review">
-						<div>(닉네임)</div>
-						<div>
-						<c:set var="reviewRating" value="${reviewList.reviewRating}" />
-	
-							<p>평점: ${reviewRating} (별 ${fn:substringBefore(reviewRating, '.')}개)</p>
-							
-							<c:forEach var="star" begin="1" end="${fn:substringBefore(reviewRating, '.')}">
-							    ★
-							</c:forEach>
-							
-							<c:forEach var="star" begin="${fn:substringBefore(reviewRating, '.') + 1}" end="5">
-							    ☆
-							</c:forEach>
-						</div>
-						<div>주문메뉴 : (메뉴명)</div>
-					</div>
-					<div class="reviewImage">리뷰사진</div>
-					<!-- 답글 -->
-					<div>
-						<div class = answer>
-							<span>사장님</span><br />
-							<div>답글 내용</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>
