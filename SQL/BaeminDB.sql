@@ -236,6 +236,7 @@ CREATE TABLE review_tbl (
     reviewRating INT,
     reviewContent VARCHAR(300),
     reviewImageName VARCHAR(300),
+    userNickName VARCHAR(100),
    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
@@ -247,12 +248,11 @@ select * from review_tbl;
 CREATE TABLE answer_tbl (
     answerCode int AUTO_INCREMENT PRIMARY KEY,
     storeCode int,
-    sellerCode int,
     reviewCode int,
     answerDate DATE NOT NULL,
     answerContent VARCHAR(300) NOT NULL,
     FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
-    FOREIGN KEY (sellerCode) REFERENCES seller_tbl(sellerCode)
+    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=100001;
 
 
@@ -265,6 +265,7 @@ CREATE TABLE address_tbl (
   userCode INT,						-- 회원코드
   deliveryAddress VARCHAR(200) NOT NULL,
   detailDeliveryAddress varchar(300) NOT NULL,-- 배달주소
+  addressStatus tinyint(1) not null default 1, -- 가장최근:1 나머지:0
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 

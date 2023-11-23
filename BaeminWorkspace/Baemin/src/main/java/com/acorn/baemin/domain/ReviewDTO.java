@@ -26,4 +26,9 @@ public class ReviewDTO {
     private int reviewRating;
     private String reviewContent;
     private String reviewImageName;
+    
+    // add
+    private String userNickName;
+    
+    
 }

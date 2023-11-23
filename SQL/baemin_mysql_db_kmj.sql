@@ -333,6 +333,7 @@ CREATE TABLE address_tbl (
   userCode INT,						-- 회원코드
   deliveryAddress VARCHAR(200) NOT NULL,
   detailDeliveryAddress varchar(300) NOT NULL,-- 배달주소
+  addressStatus tinyint(1) not null default 1, -- 가장최근:1 나머지:0
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 

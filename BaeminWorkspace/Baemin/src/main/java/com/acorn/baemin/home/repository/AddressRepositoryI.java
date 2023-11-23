@@ -12,11 +12,17 @@ public interface AddressRepositoryI {
 	// 주소 변경
 	public int updateAddress(AddressDTO addressDTO);
 	
+	// 1 => 0으로 변경
+	public int addressStatusSwitch(AddressDTO addressDTO);
+	
+	// 0 => 1으로 변경 (선택된거 1로)
+	public int AddressToOne(int addressCode);
+	
 	// 주소 조회
 	public List<AddressDTO> selectAddress(int userCode);
 	
-	// 주소코드 조회
-	public int selectAddressCode(int userCode);
+	//  최신주소 탐색 
+	public int lastOrderAddressCode(int userCode);
 	
 	// 주소에 맞는 주소코드 조회 (카카오, 도로명)
 	public int getAddressCodeKakao(AddressDTO addressDTO);

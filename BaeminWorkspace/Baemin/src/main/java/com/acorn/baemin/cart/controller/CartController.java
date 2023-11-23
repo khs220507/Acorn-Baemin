@@ -95,7 +95,4 @@ public class CartController {
 		
 	    return "userorder/order";
 	}
-	
-	
-	
 }

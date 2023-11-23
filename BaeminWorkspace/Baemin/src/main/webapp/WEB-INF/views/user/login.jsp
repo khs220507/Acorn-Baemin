@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Login Result</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
@@ -249,17 +249,12 @@ document.addEventListener("DOMContentLoaded", function() {
 					<br>
 				</div>
 				<div class="options">
-					<label class="optlab1"> <input type="radio"
-						name="logintype" value="customer" checked>손님
-					</label> <label class="optlab2"> <input type="radio"
-						name="logintype" value="seller">사장님
-					</label>
+					<label class="optlab1"> <input type="radio" name="logintype" value="customer" checked>손님</label>
+					<label class="optlab2"> <input type="radio" name="logintype" value="seller">사장님</label>
 				</div>
 
-				<span></span> <input type="text" name="userId" placeholder="아이디"
-					class="vertical-center"> <br> <span></span> <input
-					type="password" name="userPw" placeholder="비밀번호"
-					class="vertical-center"> <br>
+				<span></span> <input type="text" name="userId" placeholder="아이디" class="vertical-center"> <br> 
+				<span></span> <input type="password" name="userPw" placeholder="비밀번호" class="vertical-center"> <br>
 
 				<!-- 아이디 저장 (Remember Me) 체크박스 -->
 				<!-- <label class="remember-me"> <input type="checkbox"
@@ -271,12 +266,13 @@ document.addEventListener("DOMContentLoaded", function() {
 					<a href="/baemin/findIdForm">아이디 찾기</a> | <a
 						href="/baemin/findPwForm">비밀번호 찾기</a>
 				</div>
+
 				<span></span><span></span>
 				<p class="signup-link">
 					<a href="${path}/select_signup">회원가입</a>
 				</p>
-				<br> <input type="button" id="loginForm" value="로그인"
-					onclick="login()">
+				<br> <input type="button" id="loginForm" value="로그인"onclick="login()">
+
 				<div id="messageDiv">
 					<c:if test="${not empty message}">
 						<script>
@@ -285,12 +281,14 @@ document.addEventListener("DOMContentLoaded", function() {
 					</c:if>
 				</div>
 
+				
 				<div class="kakao">
-					<label class="kakao_login"> <input type="radio"
-						name="option" value="kakao">카카오로 간편 로그인
-					</label>
+				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=e70ac5a45fa1cba7935fa44d0c23e6d6&redirect_uri=http://localhost:8080/baemin/kakaoLogin&response_type=code">
+				        카카오로 간편 로그인
+				    </a>
 				</div>
 			</form>
+
 
 			<a href="javascript:kakaoLogin();"><img src="./kakao_login.png"
 				alt="카카오계정 로그인" style="height: 100px;" /></a>
@@ -330,6 +328,7 @@ document.addEventListener("DOMContentLoaded", function() {
         	    });
         };
     </script>
+
 
 		</div>
 	</section>

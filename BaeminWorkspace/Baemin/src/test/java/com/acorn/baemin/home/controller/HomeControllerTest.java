@@ -58,7 +58,7 @@ public class HomeControllerTest {
 	
 	@Test
 	public void addressInsertTest() {
-		AddressDTO address = new AddressDTO(0,10001, "고양시 일산서구", "강선마을 17단지");
+		AddressDTO address = new AddressDTO(0,10001, "고양시 일산서구", "강선마을 17단지",0);
 		addressDAO.insertAddress(address);
 	}
 
