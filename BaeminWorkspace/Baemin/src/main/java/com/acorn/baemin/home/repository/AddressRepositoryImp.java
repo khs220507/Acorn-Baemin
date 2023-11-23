@@ -34,6 +34,12 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 		return session.update(namespace + "addressStatusSwitch", addressDTO);
 	}
 
+	// 0 => 1로 변경
+	@Override
+	public int AddressToOne(int addressCode) {
+		return session.update(namespace + "AddressToOne", addressCode);
+	}
+	
 	// 주소 조회
 	@Override
 	public List<AddressDTO> selectAddress(int userCode) {
@@ -69,6 +75,5 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 	public int deleteAddress(int addressCode) {
 		return session.delete(namespace + "deleteAddress" , addressCode);
 	}
-
 
 }
