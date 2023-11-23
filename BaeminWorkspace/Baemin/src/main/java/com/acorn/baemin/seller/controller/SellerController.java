@@ -29,7 +29,6 @@ import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.domain.ZzimDTO;
-import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.seller.service.SellerService;
 
 @Controller
@@ -47,7 +46,7 @@ public class SellerController {
 	@ResponseBody
 	@GetMapping("/images/{menuImageFile:.*}")
 	public Resource menuImage(@PathVariable String menuImageFile) throws MalformedURLException {
-		return new UrlResource("file:c:\\test\\upload\\" + menuImageFile);
+		return new UrlResource("file:" + fileDir + menuImageFile);
 	}
 	
 	// 사장님의 메뉴 탭 화면
@@ -81,9 +80,8 @@ public class SellerController {
 	// 메뉴 등록
 	@PostMapping("/sellerMenu")
 	public String createtMenu(Integer storeCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
-			String menuContent, String menuClassification, Integer menuStatus, HttpSession session, Integer menuCode)
+			String menuContent, String menuClassification, Integer menuStatus)
 					throws IllegalStateException, IOException {
-
 		
 		try {
 			if (!menuImageFile.isEmpty()) {
@@ -108,10 +106,7 @@ public class SellerController {
 
 				System.out.println(menu);
 				sc.insertMenu(menu);
-				menuCode = menu.getMenuCode();
-				session.setAttribute("menuCode", menuCode);
-				Integer codeTest = (Integer) session.getAttribute("menuCode");
-				System.out.println("coTe : " + codeTest);
+
 			}
 			
 		} catch (Exception e) {
@@ -130,9 +125,48 @@ public class SellerController {
 	// 메뉴 수정
 	@ResponseBody
 	@PutMapping("/updateSellerMenu")
-	public void updateMenuInfo(@RequestBody MenuDTO menu) {
-		sc.modifingMenu(menu);
+	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
+			String menuContent, Integer menuStatus) throws IllegalStateException, IOException {
+		
+		System.out.println("menuImageFile : " + menuImageFile);
+		System.out.println("menuCode : " + menuCode);
+		System.out.println("menuName : " + menuName);
+		System.out.println("menuPrice : " + menuPrice);
+		System.out.println("menuContent : " + menuContent);
+		System.out.println("menuStatus : " + menuStatus);
+		
+		try {
+			if(menuImageFile != null) {
+				
+				// 이미지파일이 있을 때의 코드
+				
+				String fileName = menuImageFile.getOriginalFilename();
+				String menuRealImage = fileDir + menuName + fileName; // c:\\test\\upload\\고양이.jpg
+				
+				menuImageFile.transferTo(new File(menuRealImage));
+				
+				// db에 넣기
+				String menuImage = menuName + fileName;
+				
+				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuStatus);
+	
+				System.out.println("이미지포함" + menu);
+				
+				sc.modifingMenuIncludeImg(menu);
+			} else {
+				// 이미지파일 없을 때의 코드
+				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuStatus);
+
+				System.out.println("이미지미포함" + menu);
+				
+				sc.modifingMenu(menu);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("errer @updateMenuInfo");
+		}
 	}
+	
 	// 메뉴 삭제
 	@ResponseBody
 	@PutMapping("/sellerMenu")

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.acorn.baemin.domain.MenuDTO;
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.StoreDTO;
 
 @Repository
@@ -30,4 +31,11 @@ public class CartRepositoryImp implements CartRepositoryI {
 		return session.selectList(namespace + "selectMenuInfo", menuCode);
 		
 	}
+
+	@Override
+	public OrderDTO selectOrderInfo(int orderNumber) {
+		return session.selectOne(namespace + "selectOrderInfo", orderNumber);
+	}
+
+
 }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderDTO {
 	int orderNumber;
+	int menuCode;
 	int userCode;
 	int storeCode;
 	String orderMenuName;

@@ -120,6 +120,12 @@ VALUES
 select * from menu_tbl;
 select DISTINCT menuClassification from menu_tbl;
         
+UPDATE menu_tbl
+		SET menuName = '비지찌개',
+		menuPrice = 10000,
+		menuContent = '볶음김치가 들어가 살짝 매콤',
+		menuStatus = 1
+		WHERE menuCode = 40001;
         
 -- 05. 옵션 option_tbl
 create table option_tbl (
@@ -174,6 +180,7 @@ select * from cart_tbl;
 -- 07
 CREATE TABLE order_tbl (
     orderNumber INT AUTO_INCREMENT PRIMARY KEY,
+    menuCode int,
     userCode int,
     storeCode int,
     orderMenuName varchar(100),
@@ -192,6 +199,7 @@ CREATE TABLE order_tbl (
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
+    FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT = 70001;
@@ -255,17 +263,18 @@ select * from answer_tbl;
 CREATE TABLE address_tbl (
   addressCode INT AUTO_INCREMENT PRIMARY KEY,			-- 주소코드
   userCode INT,						-- 회원코드
-  deliveryAddress VARCHAR(200) NOT NULL,				-- 배달주소
+  deliveryAddress VARCHAR(200) NOT NULL,
+  detailDeliveryAddress varchar(300) NOT NULL,-- 배달주소
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-INSERT INTO address_tbl (userCode, deliveryAddress)
+INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress)
 VALUES
-(10001, '서울시 강남구 강남대로 123 아파트 101호'),
-(10002, '서울시 강서구 강서로 456 오피스텔 202호'),
-(10003, '서울시 송파구 올림픽로 789 단독주택'),
-(10004, '서울시 서초구 강남대로 1010 맨션 303호'),
-(10005, '서울시 강북구 북촌로 111 단독주택');
+(10001, '서울시 강남구 강남대로 123 아파트', '101호'),
+(10002, '서울시 강서구 강서로 456 오피스텔', '202호'),
+(10003, '서울시 송파구 올림픽로 789', '단독주택'),
+(10004, '서울시 서초구 강남대로 1010 맨션','303호'),
+(10005, '서울시 강북구 북촌로 111','단독주택');
 
 select * from address_tbl;
 

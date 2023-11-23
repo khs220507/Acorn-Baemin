@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.OptionDTO;
 import com.acorn.baemin.option.repository.OptionRepository;
 @Controller
@@ -27,6 +30,7 @@ public class OptionController {
 	@GetMapping("/option")
 	public String selectOption(@RequestParam String menuCode, Model model) {
 
+		MenuDTO MenuInfo= rep.selectMenuInfo(menuCode);
 		List<OptionDTO> result  = rep.userSelectOption(menuCode);
 
 		List<String> OptionCategoryList = new ArrayList<>(result.size());
@@ -38,6 +42,7 @@ public class OptionController {
 		model.addAttribute("Categorylist", result2);
 		model.addAttribute("list", result);
 		model.addAttribute("menuCode", menuCode);
+		model.addAttribute("MenuInfo", MenuInfo);
 		
 		
 		
@@ -47,11 +52,13 @@ public class OptionController {
 	//seller
 	@GetMapping("/sellerOption")
 	public String sellerOption(@RequestParam String menuCode, Model model) {
+		MenuDTO MenuInfo= rep.selectMenuInfo(menuCode);
 		List<OptionDTO> result  = rep.selectOption(menuCode);
 		List<OptionDTO> result2 = rep.getCategoryAndSelectType(menuCode);
 		model.addAttribute("get", result2);
 		model.addAttribute("list", result);
 		model.addAttribute("menuCode", menuCode);
+		model.addAttribute("MenuInfo", MenuInfo);
 		return "seller/menu_option";
 		}
 	

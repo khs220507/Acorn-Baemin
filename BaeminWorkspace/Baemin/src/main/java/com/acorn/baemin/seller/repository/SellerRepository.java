@@ -53,6 +53,11 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("updateMenu @repo");
 		return session.update(namespaceSeller + "updateMenu", menu);
 	}
+	@Override
+	public int updateMenuIncludeImg(MenuDTO menu) {
+		System.out.println("updateMenuIncludeImg @repo");
+		return session.update(namespaceSeller + "updateMenuIncludeImg", menu);
+	}
 	// 메뉴 삭제
 	@Override
 	public int deleteMenu(Integer menuCode) {

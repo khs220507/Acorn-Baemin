@@ -321,7 +321,7 @@ td {
 		let userPostCode = $("#userPostCode").val();
 		let userAddress = $("#userAddress").val();
 		let userAddressDetail = $("#userAddressdetail").val();
-
+		
 		// 빈칸으로 가입되는 경우 방지. 유효성 검사
 		if (userId === "" || userPw === "" || confirmPassword === ""
 				|| userName === "" || userNickname === "" || userPhone === ""
@@ -683,19 +683,22 @@ td {
 
 						// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
 						$("#signin_button").click(
-						function() {
-							if (userIdValid && userPwValid
-									&& confirmPasswordValid
-									&& userNicknameValid) {
-								if (mailCheck === 1) {
-									alert("이메일 인증번호가 일치하지 않습니다.");
-								}
-								signup();
-								alert("회원가입이 완료되었습니다.");
-							} else {
-								alert("입력 정보를 확인해주세요.");
-							}
-						});
+
+								function() {
+									if (userIdValid && userPwValid
+											&& confirmPasswordValid
+											&& userNicknameValid) {
+										if (mailCheck === 1) {
+											alert("이메일 인증번호가 일치하지 않습니다.");
+										}
+										signup();
+										
+										alert("회원가입이 완료되었습니다.");
+									} else {
+										alert("입력 정보를 확인해주세요.");
+									}
+								});
+
 
 						// 이메일 인증 보내기
 						$('#mail-Check-Btn').click(function() {
@@ -819,6 +822,8 @@ td {
 		}).open();
 	}
 </script>
+
+
 </head>
 
 <body>

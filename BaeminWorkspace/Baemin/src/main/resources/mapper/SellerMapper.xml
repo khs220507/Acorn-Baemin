@@ -12,7 +12,12 @@
 	<select id="selectAllMenuInfo" resultType="MenuDTO" parameterType="int">
 		SELECT * FROM menu_tbl where storeCode = #{storeCode}
 	</select>
-
+	
+	<!-- 메뉴 조회 -->
+	<select id="selectMenuInfo" resultType="MenuDTO" parameterType="String">
+		SELECT * FROM menu_tbl where menuCode = #{menuCode}
+	</select>
+	
 	<!-- 메뉴 분류 수정 -->
 	<update id="updateMenuClassification" parameterType="MenuDTO">
 		UPDATE menu_tbl
@@ -28,12 +33,22 @@
 		(#{storeCode},#{menuName},#{menuPrice},#{menuImage},#{menuContent},#{menuClassification},#{menuStatus});
 	</insert>
 	
-	<!-- 메뉴 수정 -->
-	<update id="updateMenu" parameterType="MenuDTO">
+	<!-- 이미지 있는 메뉴 수정 -->
+	<update id="updateMenuIncludeImg" parameterType="MenuDTO">
 		UPDATE menu_tbl
 		SET menuName = #{menuName},
 		menuPrice = #{menuPrice},
 		menuImage = #{menuImage},
+		menuContent = #{menuContent},
+		menuStatus = #{menuStatus}
+		WHERE menuCode = #{menuCode}
+	</update>
+	
+	<!-- 이미지 '없는' 메뉴 수정 -->
+	<update id="updateMenu" parameterType="MenuDTO">
+		UPDATE menu_tbl
+		SET menuName = #{menuName},
+		menuPrice = #{menuPrice},
 		menuContent = #{menuContent},
 		menuStatus = #{menuStatus}
 		WHERE menuCode = #{menuCode}

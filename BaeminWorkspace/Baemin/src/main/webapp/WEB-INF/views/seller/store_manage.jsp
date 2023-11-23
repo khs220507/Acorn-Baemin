@@ -145,7 +145,7 @@ section {
 .menu-info-with-btn {
 	display: flex;
 	justify-content: space-between;
-	height: 150px;
+	height: 160px;
 	border-top: 2px solid #d9d9d9;
 }
 
@@ -156,21 +156,42 @@ section {
 }
 
 .input-menu-content {
-	width: 22%;
+	width: 30%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 }
 
-.menuName, .menuContent, .menuPrice, .menu-status {
+#menu-status-text {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.now-menu-status {
+	display: flex;
+	height: 30px;
+}
+
+.now-menu-status {
+	display: flex;
+	height: 30px;
+}
+
+.menu-name, .menu-content, .menu-price {
 	width: 100%;
-	height: 25%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+.menu-status {
+	width: 50%;
+}
 
+#menu-status-text {
+	padding-left: 5px;
+	padding-right: 5px;
+}
 #menu-status-text {
 	padding-left: 5px;
 	padding-right: 5px;
@@ -180,7 +201,7 @@ section {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	width: 25%;
+	width: 15%;
 }
 
 .menu-modify-btn-without-c, .menu-delete-btn, .insert-menu-btn, .cancel-btn {
@@ -416,33 +437,17 @@ hr{
 		});
 	}
 	// 메뉴 수정
-	function menuModifyBtnWithoutC(Code, element){
-
-		let menuCode = Code;
-		let menuName = $(element).closest('.menu-info-with-btn').find('.menuName').val();
-		let menuImage = $(element).closest('.menu-info-with-btn').find('.menuImage').val();
-	    let menuContent = $(element).closest('.menu-info-with-btn').find('.menuContent').val();
-	    let menuPrice = $(element).closest('.menu-info-with-btn').find('.menuPrice').val();
-	    let menuStatus = $(element).closest('.menu-info-with-btn').find('.menuStatus').val();
-	    
-	    let info = {
-		    	menuCode : menuCode,
-		    	menuName : menuName,
-		    	menuImage : menuImage,
-		    	menuContent : menuContent,
-		    	menuPrice : menuPrice,
-		    	menuStatus : menuStatus
-	    	}
-	    
-	    console.log(info);
-	    
-   		let infos = JSON.stringify(info);
-       	
+	function menuModifyBtnWithoutC(){
+		
+		let formData = new FormData(document.querySelector(".menu-info-with-btn"));
+   		
    		$.ajax({
    			type : "PUT",
    			url : "${path}/updateSellerMenu",
-   			data : infos,
-   			contentType : "application/json", // 필수
+			data : formData,
+   			enctype : 'multipart/form-data',
+   			processData : false, // 데이터 처리를 비활
+   			contentType : false, // 컨텐츠 타입을 비활
    			success : function() {
    				alert("변경되었습니다");
    				window.location.reload();
@@ -602,7 +607,7 @@ hr{
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
 				<div class="classification">
-					<a class="old-menu-classification" id="${classificationList.menuClassification}${st.index}">${classificationList.menuClassification}</a>
+					<a class="old-menu-classification" id="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 					<input type="text" class="new-menu-classification" placeholder="메뉴분류 입력">
 					<button class="CModify" onclick="modifyMenuClassification(${readStore.storeCode}, this)">수정</button>
 				</div>
@@ -612,32 +617,34 @@ hr{
 							<c:choose>
 								<c:when
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
-									<div class="menu-info-with-btn">
-										<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}">
-											<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
-										<input type="hidden" class="old-menu-image" name="oldMenuImageFile" value="${menuList.menuImage}">
-										<input type="file" class="input-menu-image" name="menuImageFile">
-										<div class="input-menu-content">
-											<input type="text" class="menuName" value="${menuList.menuName}">
-											<input type="text" class="menuContent" value="${menuList.menuContent}">
-											<input type="text" class="menuPrice" value="${menuList.menuPrice}">
-											<div class="menu-status"><span id="menu-status-text">상태 : <c:choose>
-													<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
-													<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
-													<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
-												</c:choose>
-												</span>
-												<select class="menuStatus">
-													<option value="0">판매중</option>
-													<option value="1">매진</option>
-												</select>
+									<form class="menu-info-with-btn">
+										<div class="modify-form" style="display: flex">
+											<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}">
+												<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
+											<input type="file" class="input-menu-image" name="menuImageFile">
+											<div class="input-menu-content">
+												<input type="text" class="menu-name" name="menuName" value="${menuList.menuName}">
+												<input type="text" class="menu-content" name="menuContent" value="${menuList.menuContent}">
+												<input type="text" class="menu-price" name="menuPrice" value="${menuList.menuPrice}">
+												<div class="now-menu-status"><span id="menu-status-text">상태 : <c:choose>
+														<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
+														<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
+														<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
+													</c:choose>
+													</span>
+													<select class="menu-status" name="menuStatus">
+														<option value="0">판매중</option>
+														<option value="1">매진</option>
+													</select>
+												<input type="hidden" class="menu-code" name="menuCode" value="${menuList.menuCode}">
+												</div>
 											</div>
 										</div>
 										<div class="modify-delete">
-											<button class="menu-modify-btn-without-c" onclick="menuModifyBtnWithoutC(${menuList.menuCode}, this)">수정</button>
-											<button class="menu-delete-btn" onclick="deleteMenu()">삭제</button>
+											<button type="button" class="menu-modify-btn-without-c" onclick="menuModifyBtnWithoutC()">수정</button>
+											<button type="button" class="menu-delete-btn" onclick="deleteMenu()">삭제</button>
 										</div>
-									</div>
+									</form>
 								</c:when>
 							</c:choose>
 						</c:if>

@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.login.repository.LoginRepository;
 import com.acorn.baemin.login.repository.LoginRepositoryI;
 import com.acorn.baemin.login.service.LoginService;
@@ -31,6 +34,9 @@ public class LoginController {
 
 	@Autowired
 	LoginRepository lr;
+	
+	@Autowired
+	AddressRepositoryImp addressDAO;
 
 	@Autowired
 	private LoginService loginService;
@@ -112,6 +118,21 @@ public class LoginController {
 		System.out.println(userId + userPw + logintype);
 		try {
 			UserDTO user = loginService.loginCustomer(userId, userPw);
+			
+			///////////////// 주소
+			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
+			
+			if(addressCount == 0 ) {
+				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail()));
+			}else {
+				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+			}
+			// 주소코드 가져와서 세션에 넣기
+			int addressCode = addressDAO.selectAddressCode(user.getUserCode());
+			session.setAttribute("addressCode", addressCode);
+			
+			///////////////////////////////////
+			
 			if (user != null) {
 				session.setAttribute("userCode", user.getUserCode());
 				session.setAttribute("user", user.getUserId());
@@ -161,7 +182,4 @@ public class LoginController {
 		}
 		return "user/login";
 	}
-
-
-
 }
