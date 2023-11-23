@@ -65,7 +65,7 @@ h1 {
 .login-form {
 	background-color: #fff;
 	padding: 20px;
-	max-width: 350px;
+	max-width: 360px;
 	width: 100%;
 	border: 3px solid #82d9d0;
 	box-shadow: 0px 0px 5px #ccc;

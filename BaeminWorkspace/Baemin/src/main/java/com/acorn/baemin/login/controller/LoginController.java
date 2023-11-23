@@ -143,7 +143,7 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("message", "로그인 중 오류가 발생했습니다.");
+			model.addAttribute("message", "로그인 실패. 로그인 유형과 계정 정보를 확인해주세요.");
 			return "user/login";
 		}
 	}
