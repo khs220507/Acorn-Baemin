@@ -123,12 +123,12 @@ public class LoginController {
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
 			
 			if(addressCount == 0 ) {
-				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail()));
+				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
 			}else {
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}
 			// 주소코드 가져와서 세션에 넣기
-			int addressCode = addressDAO.selectAddressCode(user.getUserCode());
+			int addressCode = addressDAO.lastOrderAddressCode(user.getUserCode());
 			session.setAttribute("addressCode", addressCode);
 			
 			///////////////////////////////////

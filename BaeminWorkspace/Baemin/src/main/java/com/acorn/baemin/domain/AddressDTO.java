@@ -12,4 +12,5 @@ public class AddressDTO {
 	int userCode;
 	String deliveryAddress;
 	String detailDeliveryAddress;
+	int addressStatus;
 }

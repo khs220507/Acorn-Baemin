@@ -28,16 +28,22 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 		return session.update(namespace + "updateAddress", addressDTO);
 	}
 
+	// 1 => 0으로 변경
+	@Override
+	public int addressStatusSwitch(AddressDTO addressDTO) {
+		return session.update(namespace + "addressStatusSwitch", addressDTO);
+	}
+
 	// 주소 조회
 	@Override
 	public List<AddressDTO> selectAddress(int userCode) {
 		return session.selectList(namespace + "selectAddress", userCode);
 	}
-	
-	// 주소코드 조회
+
+	// 최신주소 탐색 
 	@Override
-	public int selectAddressCode(int userCode) {
-		return session.selectOne(namespace + "selectAddressCode", userCode);
+	public int lastOrderAddressCode(int userCode) {
+		return session.selectOne(namespace + "lastOrderAddressCode", userCode);
 	}
 	
 	// 주소에 맞는 주소코드 조회 (카카오, 도로명)
