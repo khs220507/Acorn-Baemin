@@ -701,8 +701,6 @@ footer {
 		}
 	</script>
 
-
-
 	<!-- 카카오맵-->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac76afb73e017bb01fa395c302f99e21&libraries=services"></script>

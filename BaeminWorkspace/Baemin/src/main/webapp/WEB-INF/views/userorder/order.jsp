@@ -421,7 +421,7 @@ body {
 					<div class="section-order-address-citygu">현재주소 :
 						${userInfo[0].userAddress}</div>
 					<input class="section-order-address-detail" placeholder="상세주소"
-						id="base-structure-input">
+						id="base-structure-input" value="${userInfo[0].userAddressDetail}">
 				</div>
 			</div>
 
