@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
@@ -11,12 +12,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="../base/header.jsp"/>
-<%
-    session.invalidate();
-    response.sendRedirect("redirect:/home");
-    
-%>
-<jsp:include page="../base/footer.jsp"/>
+	<jsp:include page="../base/header.jsp" />
+	<%
+	session.invalidate();
+	response.sendRedirect("redirect:/home");
+	%>
+	<jsp:include page="../base/footer.jsp" />
 </body>
 </html>

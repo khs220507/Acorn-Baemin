@@ -23,9 +23,10 @@ import com.google.gson.JsonParser;
 @Service
 public class LoginService {
 
-
 	@Autowired
 	private LoginRepository loginRepository;
+
+
 	
 	public String getAccessToken (String authorize_code) {
 		String access_Token = "";

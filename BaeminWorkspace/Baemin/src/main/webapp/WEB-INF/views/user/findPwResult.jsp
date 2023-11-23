@@ -1,14 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>아이디 찾기</title>
+    <meta charset="UTF-8">
+    <title>비밀번호 찾기 결과</title>
+<style>
+    .findPwResult-form {
+	background-color: #fff;
+	padding: 20px;
+	max-width: 350px;
+	/* 폼의 최대 너비 설정 */
+	width: 100%;
+	border: 3px solid #82d9d0;
+	box-shadow: 0px 0px 5px #ccc;
+	border-radius: 10px;
+	position: absolute;
+	top: 250px;
+}
+a{
+	text-style: none;
+}
+.findPwResult-title{
+	text-align: center;	
+}
+input[type="button"] {
+	font-weight: bolder;
+	font-size: 20px;
+	background-color: #82d9d0;
+	color: white;
+	height: 50px;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	width: 250px;
+	display: block;
+	margin: 0 auto;
+}
+</style>
 </head>
+<jsp:include page="../base/header_login.jsp" />
+<!-- 생략된 부분은 유지 -->
+
 <body>
-   <h1>비밀번호 찾기 결과</h1>
-    <%-- <p>${message}</p>
-    <p><a href="/user/findPasswordForm">비밀번호 찾기 폼으로 돌아가기</a></p> --%>
+    <!-- 비밀번호 찾기 결과 폼 -->
+    <form class="findPwResult-form" id="findPw-form">
+        <div class="findPwResult-title">
+            <h1>비밀번호 찾기 결과</h1>
+            <br>            
+        </div>
+        
+        <p id="customerPw" style="display: none;">손님 비밀번호 : ${customerPw}</p>
+        <p id="sellerPw" style="display: none;">사장님 비밀번호: ${sellerPw}</p>
+        
+    </form>
+
+    <script>
+        let customerPw = "${customerPw}";
+        let sellerPw = "${sellerPw}";
+
+        // 결과를 보여줄 요소 선택
+        let customerElement = document.getElementById("customerPw");
+        let sellerElement = document.getElementById("sellerPw");
+
+        // customerPw가 존재하면 해당 요소 보이기
+        if (customerPw && customerPw.length > 0) {
+            customerElement.style.display = "block";
+        }
+
+        // sellerPw가 존재하면 해당 요소 보이기
+        if (sellerPw && sellerPw.length > 0) {
+            sellerElement.style.display = "block";
+        }
+    </script>
 </body>
 </html>
+
