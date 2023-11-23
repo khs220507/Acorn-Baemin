@@ -48,11 +48,14 @@ public class HomeController {
 	// 홈화면
 	@GetMapping("/home")
 	public String home(HttpSession session,Model model) {
-
-		if(session.getAttribute("userCode") != null) {
+		Integer userCode = (Integer) session.getAttribute("userCode");
+		if(userCode != null) {
 			int addressCode = (int)session.getAttribute("addressCode");
 			AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
 			model.addAttribute("deliveryAddress", addressDTO.getDeliveryAddress());
+			
+//			List<AddressDTO> addressList = addressDAO.selectAddress(userCode);
+//			model.addAttribute("addressList", addressList);
 		}
 		
 		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
@@ -111,6 +114,21 @@ public class HomeController {
 		addressDAO.deleteAddress(addressCode);
 		
 		return "address-delete-ok";
+	}
+	
+	// 1, 0 변경
+	@ResponseBody
+	@PostMapping("/addressStatusSwitch")
+	public String addressStatusSwitch(@RequestParam("addressCode")int addressCode, HttpSession session) {
+		
+		int userCode = (int)session.getAttribute("userCode");
+		AddressDTO addressDTO = new AddressDTO(addressCode,userCode, null, null,0);
+		addressDAO.addressStatusSwitch(addressDTO);	
+		addressDAO.AddressToOne(addressCode);
+		
+		session.setAttribute("addressCode", addressCode);
+		
+		return "1-0 switch-ok";
 	}
 	
 	

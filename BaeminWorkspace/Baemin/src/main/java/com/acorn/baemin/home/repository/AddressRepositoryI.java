@@ -15,6 +15,9 @@ public interface AddressRepositoryI {
 	// 1 => 0으로 변경
 	public int addressStatusSwitch(AddressDTO addressDTO);
 	
+	// 0 => 1으로 변경 (선택된거 1로)
+	public int AddressToOne(int addressCode);
+	
 	// 주소 조회
 	public List<AddressDTO> selectAddress(int userCode);
 	
