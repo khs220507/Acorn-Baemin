@@ -262,6 +262,22 @@ button {
 .user-star-wrap {
 	display: flex;
 }
+
+.review-image {
+	width: 250px;
+	height: 300px;
+	border-radius: 5px;
+}
+
+.review-wrap{
+margin-top: 20px;
+padding-bottom: 20px;
+border-bottom: 1px #d9d9d9 solid;
+}
+
+.reply-review-wrap{
+margin-top:5px;
+}
 </style>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e1731c3f7c3d4a983be89d9de5add7e&libraries=services"></script>
@@ -403,6 +419,47 @@ button {
 			alert("로그인 후 가능합니다.");
 		}
 	}; 
+	
+	
+	$(document).ready(function() {
+        // ... (your existing code)
+
+        // Add click event handler for the "등록" button
+        $("#submitReplyBtn").on("click", function() {
+            // Get the reviewCode value from the hidden input
+            var reviewCode = $("input[name='reviewCode']").val();
+
+            // Get the reply content from the textarea
+            var replyContent = $("#replyContent").val();
+
+            // Prepare data to send to the server
+            var data = {
+                reviewCode: reviewCode,
+                replyContent: replyContent
+            };
+
+            // Send an AJAX request to the server
+            $.ajax({
+                type: "POST",
+                url: "/baemin/submitReply", // Replace with your actual controller endpoint
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function(response) {
+                    // Handle the success response from the server
+                    console.log("Reply submitted successfully");
+                    alert(data);
+                    // Optionally, you can update the UI or perform other actions here
+                },
+                error: function() {
+                    alert("실패")
+                    console.error("Error submitting reply");
+                    // Optionally, you can display an error message to the user
+                }
+            });
+        });
+    });
+
+	
 </script>
 </head>
 <body>
@@ -530,26 +587,36 @@ button {
 			<div class="store-review-tab">
 
 				<c:forEach var="item" items="${RList}">
-					<div class="user-star-wrap">
-						<div>${item.userNickName}</div>
-						<!-- Display stars based on the rating -->
-						<div class="star-rating">
-							<c:forEach begin="1" end="${item.reviewRating}">
-								<span class="star on"></span>
-							</c:forEach>
-							<c:forEach begin="${item.reviewRating + 1}" end="5">
-								<span class="star"></span>
-							</c:forEach>
+					<div class="review-wrap">
+						<div class="user-star-wrap">
+							<div>${item.userNickName}</div>
+							<!-- Display stars based on the rating -->
+							<div class="star-rating">
+								<c:forEach begin="1" end="${item.reviewRating}">
+									<span class="star on"></span>
+								</c:forEach>
+								<c:forEach begin="${item.reviewRating + 1}" end="5">
+									<span class="star"></span>
+								</c:forEach>
+							</div>
+						</div>
+						<div>주문메뉴 : ${item.orderMenuName}</div>
+						<div>${item.reviewContent}</div>
+
+						<c:if test="${not empty item.reviewImageName}">
+							<img class="review-image"
+								src="${path}/reviewImages/${item.reviewImageName}"
+								alt="Review Image">
+						</c:if>
+						
+
+						<div class="reply-review-wrap">
+						<input type="hidden" name="reviewCode" value="${item.reviewCode}">
+							<p style="margin-bottom:5px;">답글달기</p>
+							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
+							<button id="submitReplyBtn">등록</button>
 						</div>
 					</div>
-					<div>주문메뉴 : ${item.orderMenuName}</div>
-					<div>${item.reviewContent}</div>
-
-					<c:if test="${not empty item.reviewImageName}">
-						<img class= src="${path}/reviewImages/${item.reviewImageName}"
-							alt="Review Image">
-					</c:if>
-
 
 				</c:forEach>
 

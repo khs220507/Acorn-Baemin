@@ -248,7 +248,6 @@ select * from review_tbl;
 CREATE TABLE answer_tbl (
     answerCode int AUTO_INCREMENT PRIMARY KEY,
     storeCode int,
-    sellerCode int,
     reviewCode int,
     answerDate DATE NOT NULL,
     answerContent VARCHAR(300) NOT NULL,
