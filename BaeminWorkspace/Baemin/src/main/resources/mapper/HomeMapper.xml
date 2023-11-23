@@ -24,7 +24,7 @@
 		addressCode = #{addressCode}
 	</update>
 
-	<!-- 1 => 0으로 변경 -->
+	<!-- 1 => 0으로 변경 (선택된거 빼고 다 0으로)-->
 	<update id="addressStatusSwitch" parameterType="AddressDTO">
 		UPDATE address_tbl
 		SET
@@ -32,12 +32,22 @@
 		WHERE
 		addressCode != #{addressCode} AND userCode = #{userCode}
 	</update>
+	
+	<!-- 0 => 1으로 변경 (선택된거 1로)  -->	
+	<update id="AddressToOne" parameterType="int">
+		UPDATE address_tbl
+		SET
+		addressStatus = 1
+		WHERE
+		addressCode = #{addressCode}
+	</update>
 
 	<!-- 유저코드로 전체 조회 (홈) -->
 	<select id="selectAddress" resultType="AddressDTO"
 		parameterType="int">
 		SELECT * FROM address_tbl
 		WHERE userCode= #{userCode}
+		ORDER BY addressStatus DESC;
 	</select>
 
 	<!-- 최신주소 탐색 -->
