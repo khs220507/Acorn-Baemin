@@ -82,6 +82,13 @@
 		deliveryAddress = #{deliveryAddress} and detailDeliveryAddress =
 		#{detailDeliveryAddress};
 	</select>
+	
+	<!-- 유저코드 + addressStatus=2 인 주소코드 조회 -->
+	<select id="getAddressCodeHome" resultType="int"
+		parameterType="int">
+		select addressCode from address_tbl where
+		userCode = #{userCode} and addressStatus = 2;
+	</select>
 
 	<!-- 유저코드당 주소개수 조회 -->
 	<select id="selectAddressCount" resultType="int"

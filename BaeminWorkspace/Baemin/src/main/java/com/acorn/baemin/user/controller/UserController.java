@@ -2,7 +2,6 @@ package com.acorn.baemin.user.controller;
 
 import javax.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.user.repository.UserRepositoryI;
 import com.acorn.baemin.user.service.MailSendService;
 
@@ -30,6 +31,11 @@ public class UserController {
 
 	@Autowired
 	MailSendService mailService;
+
+	
+	@Autowired
+	AddressRepositoryImp addressDAO;
+
 
 	// 이메일 인증
 	@ResponseBody
@@ -324,7 +330,11 @@ public class UserController {
 			
 			////////////////주소 업데이트 ////////////////
 			
-			
+			String deliveryAddress = updatecustomer.getUserAddress();
+			String detailDeliveryAddress = updatecustomer.getUserAddressDetail();
+			int addressCode = addressDAO.getAddressCodeHome(userCode);
+			AddressDTO addressDTO = new AddressDTO(addressCode, userCode,deliveryAddress,detailDeliveryAddress, 2);
+			addressDAO.updateAddress(addressDTO);
 			
 			return "수정 성공";
 		} catch (Exception e) {

@@ -133,6 +133,15 @@ header {
 	padding: 10px;
 	position: relative;
 }
+.address-home-icon{
+	width: 18px;
+	height: 18px;
+	margin-right:5px;
+}
+.home-address-item-wrap{
+	display: flex;
+	align-items: center;
+}
 .deliveryAddress{
 	font-size: 18px;
 }
@@ -1173,6 +1182,13 @@ footer {
 				<p  onclick="switchAddressStatus(`+item.addressCode+`, '`+item.deliveryAddress+`')" class="deliveryAddress">`+ item.deliveryAddress +`</p>
 				<p  onclick="switchAddressStatus(`+item.addressCode+`, '`+item.deliveryAddress+`')" class="detailDeliveryAddress">`+ item.detailDeliveryAddress+`</p>
 				<img onclick="deleteAddress(`+item.addressCode+`, `+item.addressStatus+`)" class="address-x-btn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAyklEQVR4nO2WQQ6DMAwE+QSofUgkr+T8/xBO5dDnUFE4tBEE27iKRFkpJ7JM7JAlTXPpLwWgA9Avo7P6iSiJ/czcAngAGKdBRM8Y410KNfsxV/k2fZgHycqnOcvc3J9MYAl8CyoGc9aq7AWrbdvzhBBuu2At3A2qgbtDhfs2lJ5ZjuGXSlW5V2qFu0Kl8J9ApWBNwrm32g3Oho/rMBw1jhMLwsESr0VpEskNzoYYdIGj1m8RtS4CvHJ10STSIT/mlSfVZc3Rf+kcegEOjsATVQE+UwAAAABJRU5ErkJggg==">
+				</div>`
+			}else if(item.addressStatus == 2){
+				str+= `<div class="addressList-item" id="a`+ item.addressCode +`">
+				<div class="home-address-item-wrap">
+				<img class="address-home-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB9klEQVR4nO2YMUgcQRiFNyFEAiYmhRbapNNGUtkJh+SOnX1v2KsGrcTKOl3Ka20tba0CgSAByxDQQzAIqWzEJk1ClBSBcIUejozc6Xqse3dhb28O/gcPFpad+b+Zef/uXRCIuisMw9cAvjq762AUBWCJ5G+StuU/AFQwQnpE8j2AZgKi7SuSG7Va7XHgs5RSLwB8SgG4ZwC7JF8FPorkG5Kn3SASMD+01gsdY9g0FwmxCqDRK0QCxj2zmhjnHcmLwkGUUmMkN/sFSPG2MeaZG1NrvUjyZ2EgJGcAHOQA0fZRu0UrpSZJfhk4iNa6RPJXjhDto3YeRVHFzVEqlZ64Duc6XdGtNS+YppvDzdVatOVcCeI4fg7g46AAUoA+V6vVl7lCaK3nSB4XBcE7mJMoiuZzgSC5QvJf0RC8g2kAWPtvgETYrCfeMsY87QuiUqlMJdufR67HcTzdE0TaC8kzn2mt32ZCkFxP+0Tw0JfJFn0rY8w4gA8eFGj79E65XJ64BQHwrXXjrwfF2R59UyuAw+SRqpP8HobhrAcF2l7cqvUIwN5DObGj4KCbhl0gBaRDw15pyo50aNgrTdmRDg17penDjnQdvMi5KCCUHaEcrQxJRigZsZKRLElGKBmxkpEsSUYoGbGSkSwB2Pf9hxUe+ndRJApy1zULYoKtMzyokgAAAABJRU5ErkJggg==">
+				<p  onclick="switchAddressStatus(`+item.addressCode+`, '`+item.deliveryAddress+`')" class="deliveryAddress">`+ item.deliveryAddress +`</p></div>
+				<p  onclick="switchAddressStatus(`+item.addressCode+`, '`+item.deliveryAddress+`')" class="detailDeliveryAddress">`+ item.detailDeliveryAddress+`</p>
 				</div>`
 			}else{
 				str+= `<div class="addressList-item" id="a`+ item.addressCode +`">
