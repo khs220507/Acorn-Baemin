@@ -30,6 +30,7 @@ public class ReviewDTO {
     // add
     private String userNickName;
     private int orderNumber;
-    
+    String answerContent;
+    private String answerDate;
     
 }

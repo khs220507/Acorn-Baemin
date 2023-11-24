@@ -438,50 +438,7 @@ button {
 	}; 
 	
 	
-	$(document).ready(function() {
-        
-        // Function to check if there is an existing answer and hide the reply section
-   
-        
-
-        // Add click event handler for the "등록" button
-        $("#submitReplyBtn").on("click", function() {
-            // Get the reviewCode value from the hidden input
-            var reviewCode = $("input[name='reviewCode']").val();
-            var storeCode = $("input[name='storeCode']").val();
-
-            // Get the reply content from the textarea
-            var answerContent = $("#replyContent").val();
-
-            // Prepare data to send to the server
-            var data = {
-                reviewCode: reviewCode,
-                storeCode : storeCode,
-                answerContent: answerContent
-            };
-
-            // Send an AJAX request to the server
-            $.ajax({
-                type: "POST",
-                url: "/baemin/submitReply", // Replace with your actual controller endpoint
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function(response) {
-                    // Handle the success response from the server
-                  
-    
-                    // Optionally, you can update the UI or perform other actions here
-                },
-                error: function() {
-                   
-                    // Optionally, you can display an error message to the user
-                }
-            });
-        });
-        
-      
-
-    });
+	
 
 	
 </script>
@@ -583,6 +540,7 @@ button {
 													</div>
 												</c:when>
 											</c:choose>	
+
 										</div>
 										<hr class="thin-line">
 									</c:when>
@@ -653,16 +611,12 @@ button {
 								src="${path}/reviewImages/${item.reviewImageName}"
 								alt="Review Image">
 						</c:if>
+						<c:if test="${not empty item.answerContent}">
+						<div>사장님</div>
+						<div>${item.answerContent}</div>
+						</c:if>
 						
-						<!--  
-						<div class="reply-review-wrap">
-							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
-							<input type="hidden" name="storeCode" value="${item.storeCode}">
-							<p style="margin-bottom: 5px;">답글달기</p>
-							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
-							<button id="submitReplyBtn">등록</button>
-						</div>
-						-->
+						
 						
 						
 					</div>
