@@ -30,8 +30,9 @@ body {
 ul {
 	list-style: none;
 }
-input, option, select{
-font-family: '';
+
+input, option, select {
+	font-family: '';
 }
 /* 헤더 ////////////////////////////////////////////////////*/
 header {
@@ -80,7 +81,6 @@ header {
 	font-weight: bold;
 }
 
-
 .search-wrap {
 	width: 250px;
 	height: 40px;
@@ -89,8 +89,8 @@ header {
 	background-color: white;
 	border-bottom: 2px solid black;
 	position: absolute;
-    right: 0;
-    top: -30px;
+	right: 0;
+	top: -30px;
 }
 
 .search-wrap input {
@@ -132,7 +132,8 @@ header {
 	font-size: 22px;
 	font-weight: bold;
 }
-.menu-wrap li:hover{
+
+.menu-wrap li:hover {
 	color: #48D1CC;
 }
 
@@ -159,28 +160,28 @@ section {
 }
 /* 반응형 /////////////////////////////////////////////////////////////////*/
 /* 중간화면 */
-@media (max-width:1280px) {
-	header{
+@media ( max-width :1280px) {
+	header {
 		width: 100vw;
 		padding: 0 20px;
 	}
 }
 
 /* 작은화면 */
-@media (max-width:767px) {
-	header{
+@media ( max-width :767px) {
+	header {
 		height: 200px;
 	}
 	.header-wrap {
-	    display: flex;
-	    flex-direction: column;
-	    justify-content: center;
-	    align-items: center;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
-	.logo{
+	.logo {
 		margin-bottom: 20px;
 	}
-	section{
+	section {
 		padding-top: 220px;
 	}
 }
@@ -201,7 +202,7 @@ section {
 				<input type="text" name="searchTerm">
 				<button class="search-btn" type="submit">
 					<img
-					src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII=">
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACiklEQVR4nO2ZzWtTURDFf25ixSiIiO22FdutG8FFa2PpX+CytRQLotD/waILrXv3piCIyySk7VYXfrRd+rVx407blaI2FSNXbyAMk7SJM3kv+g4MhMA95x3umzsz90GGDKnEELAArABbwDZQi/EJ2ASKwFVgkBRiEqgAP4D6AWMPKAMTpABngLUOHr5VVIGRpEzMAV8MTDTiMzDbaxO32jzQa+AOMAWMAkdjjMX/7gJv2qxf6pWJ2y0e4AVQ6IDnAvA0KTNziugucA041AVfWHM9ckjeGRwTW+ZEOF7HDbjDybWj5MwwDpCn066RiQYuxnrTrFHBoU7IrQ+vkzVuKDrjlgIVQf68y5zYD4HzpdAqWbYde4I8vAZeKCgdwGkL4gVB/Ap/vBWa8xakK4I0FDtvLAvNBxakW4I0VGdvTAvNDQvSbUF6Fn+MCs2PFqSy6ubxR15ofvcwcgx/HFeq/D/xar23IN1MQbI/syAtCtIwT3jjntC871EQw1DkjXdC87IF6aDSooQm0gtTSpd90oq8rEyDXk2jzMmipcCE0l6Hyc4ai4rOOWuRqhCoGd9JFZTB6iEOGImFqVlox6iln1RG3XAzeQonzCpbX4uTXbeXD4vKToR4AuRwxJIi2uhQL3V4OsnEllEFBpIwU49D0XKszmOxAczH39Ox2Mk60S5K3jszo+SMV5SBw55mhpWLiU7jJ/AYWE/aDPHKpqR0AO3iG/AIOP+b4U8urO6zptILM8Tbjvk4Y2/EIzS0GF+BD/GqJzSAV4ATyvpUmflb5JSWqC5i1fs066WZtcxMAsj9bzuzDhyhDzBwgNOs598fPXbmJn2GnGKm70xoZvrWRHPOuH0szZCB1vgFpd/exdTtQfAAAAAASUVORK5CYII=">
 				</button>
 			</form>
 
@@ -212,13 +213,12 @@ section {
 				<%
 				Integer userCodeInfo = (Integer) session.getAttribute("userCode");
 				if (userCodeInfo != null) {
-					
 				%>
-				
-			
+
+
 				<!-- 로그인 했을 때 -->
 				<ul class="menu-wrap">
-					<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+					<a href="${path }/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/orderList"><li>주문내역</li></a>
 					<span class="menu-bar">|</span>

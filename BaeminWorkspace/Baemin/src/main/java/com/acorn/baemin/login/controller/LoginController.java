@@ -62,7 +62,6 @@ public class LoginController {
 		return "user/findIdResult";
 	}
 
-
 	// 유저 비밀번호 찾기 보내기
 	@GetMapping("/findPwForm")
 	public String findPwForm() {
@@ -86,34 +85,37 @@ public class LoginController {
 		return "user/findPwResult";
 	}
 
+	@GetMapping(value = "/kakaoLogin")
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("code : " + code);
+
+		String access_Token = loginService.getAccessToken(code);
+		System.out.println("access_Token : " + access_Token);
 
 
 	@GetMapping(value="/kakaoLogin")
-		public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
-			System.out.println("code : " + code);
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("code : " + code);
 			
-			String access_Token = loginService.getAccessToken(code);
-			System.out.println(" access_Token @LoginController : " + access_Token);
+		String access_Token = loginService.getAccessToken(code);
+		System.out.println(" access_Token @LoginController : " + access_Token);
 			
-			UserDTO userInfo = loginService.getUserInfoAndAddress(access_Token);
-			System.out.println("LoginController : " +  userInfo );
+		UserDTO userInfo = loginService.getUserInfoAndAddress(access_Token);
+		System.out.println("LoginController : " +  userInfo );
 			
-			System.out.println("phoneNumber : " + userInfo.getUserPhone());
-			System.out.println("email : " + userInfo.getUserEmail());
-			System.out.println("baseAddress : " + userInfo.getUserAddress());
-			System.out.println("detailAddress : " + userInfo.getUserAddressDetail());
+		System.out.println("phoneNumber : " + userInfo.getUserPhone());
+		System.out.println("email : " + userInfo.getUserEmail());
+		System.out.println("baseAddress : " + userInfo.getUserAddress());
+		System.out.println("detailAddress : " + userInfo.getUserAddressDetail());
 			
-			// session에 담긴 정보를 초기화.
-			session.invalidate();
-			// session에 userCode 담기
-			session.setAttribute("userCode", userInfo.getUserCode());
+		// session에 담긴 정보를 초기화.
+		session.invalidate();
+		// session에 userCode 담기
+		session.setAttribute("userCode", userInfo.getUserCode());
 		    
-		    // 리턴값은 용도에 맞게 변경
-			return "redirect:/home";
-	    	}
-
- 		
-	
+		// 리턴값은 용도에 맞게 변경
+		return "redirect:/home";
+	}
 
 
 	// 유저 로그인 보내기
@@ -142,10 +144,11 @@ public class LoginController {
 			///////////////// 주소
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
 
-			
+
 			if(addressCount == 0 ) {
-				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
+				addressDAO.loginInsertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 2));
 			}else {
+
 
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}
@@ -174,11 +177,12 @@ public class LoginController {
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
-		
-	System.out.println("seller" + seller);
-		
-		
+
+		System.out.println("seller" + seller);
+
 		int status = seller.getSellerStatus();
+		System.out.println("status" + status);
+
 		if (seller != null && status == 1) {
 			int sellerCode = seller.getSellerCode();
 			session.setAttribute("user", sellerCode);

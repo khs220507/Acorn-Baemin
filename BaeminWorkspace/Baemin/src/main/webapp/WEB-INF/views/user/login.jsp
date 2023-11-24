@@ -216,7 +216,34 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 			
-		
+function checkCapsLock(e) {
+    const charCode = e.keyCode ? e.keyCode : e.which;
+    const shiftKey = e.shiftKey ? e.shiftKey : (charCode === 16 ? true : false);
+
+    // 입력 중인 요소가 input 또는 textarea인 경우에만 작동
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        const isCapsLockOn = (charCode >= 65 && charCode <= 90 && !shiftKey) || 
+                              (charCode >= 97 && charCode <= 122 && shiftKey);
+
+        const messageElement = document.getElementById('capsLockMessage'); // 알림 메시지를 표시할 요소
+
+        if (isCapsLockOn) {
+            messageElement.style.display = 'block'; // Caps Lock가 켜져 있을 때 메시지 표시
+        } else {
+            messageElement.style.display = 'none'; // Caps Lock가 꺼져 있을 때 메시지 숨김
+        }
+    }
+}
+
+document.addEventListener('keypress', function(e) {
+    checkCapsLock(e);
+});
+
+document.addEventListener('keydown', function(e) {
+    checkCapsLock(e);
+});
+
+
 		
 </script>
 	<jsp:include page="../base/header_login.jsp" />

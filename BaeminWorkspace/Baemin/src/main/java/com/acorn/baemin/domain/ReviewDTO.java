@@ -29,6 +29,7 @@ public class ReviewDTO {
     
     // add
     private String userNickName;
+    private int orderNumber;
     
     
 }

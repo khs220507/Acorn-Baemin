@@ -80,7 +80,9 @@ public class ReviewController {
 		reviewDTO.setUserCode(orderDTO.get(0).getUserCode());
 		reviewDTO.setOrderMenuName(orderDTO.get(0).getOrderMenuName());
 		reviewDTO.setStoreCode(orderDTO.get(0).getStoreCode());
+		reviewDTO.setOrderNumber(orderNumber);
 		reviewDTO.setReviewDate(reviewDate);
+		
 
 		// Set other properties as needed
 

@@ -238,12 +238,11 @@ public class HomeController {
 
 	// 주문 상세내역 조회
 	@GetMapping("/orderDetail")
-	public String orderDetailSelect(@RequestParam int orderNumber, Model model) {
+	public String orderDetailSelect(HttpSession session, @RequestParam int orderNumber, Model model) {
 
 		List<OrderDTO> result = detailDAO.orderDetailSelect(orderNumber);
 		model.addAttribute("orderDetail", result);
-		System.out.println(result);
-		System.out.println("orderNumber= " + orderNumber);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ result);
 
 		return "home/order_detail";
 	}

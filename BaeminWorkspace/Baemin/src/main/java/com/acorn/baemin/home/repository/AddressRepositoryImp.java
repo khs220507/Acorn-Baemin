@@ -21,6 +21,12 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 	public int insertAddress(AddressDTO addressDTO) {
 		return session.insert(namespace + "insertAddress", addressDTO);
 	}
+	
+	// 로그인시 등록
+	@Override
+	public int loginInsertAddress(AddressDTO addressDTO) {
+		return session.insert(namespace + "loginInsertAddress", addressDTO);
+	}
 
 	// 주소 변경
 	@Override
@@ -58,6 +64,13 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 		return session.selectOne(namespace + "getAddressCodeKakao", addressDTO);
 	}
 	
+	// 유저코드 + addressStatus=2 인 주소코드 조회
+	@Override
+	public int getAddressCodeHome(int userCode) {
+		return session.selectOne(namespace + "getAddressCodeHome", userCode);
+	}
+
+	
 	// 회원당 주소코드 개수 조회
 	@Override
 	public int selectAddressCount(int userCode) {
@@ -75,5 +88,6 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 	public int deleteAddress(int addressCode) {
 		return session.delete(namespace + "deleteAddress" , addressCode);
 	}
+
 
 }

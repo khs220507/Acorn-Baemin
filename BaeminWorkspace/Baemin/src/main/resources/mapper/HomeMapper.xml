@@ -14,32 +14,47 @@
 		#{deliveryAddress}, #{detailDeliveryAddress})
 	</insert>
 
+	<!-- 로그인시 등록 -->
+	<insert id="loginInsertAddress" parameterType="AddressDTO">
+		INSERT INTO
+		address_tbl
+		(userCode, deliveryAddress, detailDeliveryAddress,
+		addressStatus)
+		VALUES (#{userCode},
+		#{deliveryAddress},
+		#{detailDeliveryAddress}, 2)
+	</insert>
+
 	<!-- 변경 -->
 	<update id="updateAddress" parameterType="AddressDTO">
 		UPDATE address_tbl
 		SET
 		deliveryAddress = #{deliveryAddress},
-		detailDeliveryAddress = #{detailDeliveryAddress}
+		detailDeliveryAddress =
+		#{detailDeliveryAddress}
 		WHERE
 		addressCode = #{addressCode}
 	</update>
 
-	<!-- 1 => 0으로 변경 (선택된거 빼고 다 0으로)-->
+	<!-- 1 => 0으로 변경 (선택된거 빼고 다 0으로) -->
 	<update id="addressStatusSwitch" parameterType="AddressDTO">
-		UPDATE address_tbl
+		UPDATE
+		address_tbl
 		SET
 		addressStatus = 0
 		WHERE
-		addressCode != #{addressCode} AND userCode = #{userCode}
+		addressCode != #{addressCode} AND
+		userCode = #{userCode} AND addressStatus != 2
 	</update>
-	
-	<!-- 0 => 1으로 변경 (선택된거 1로)  -->	
+
+	<!-- 0 => 1으로 변경 (선택된거 1로) -->
 	<update id="AddressToOne" parameterType="int">
 		UPDATE address_tbl
 		SET
 		addressStatus = 1
 		WHERE
-		addressCode = #{addressCode}
+		addressCode = #{addressCode} AND addressStatus
+		!= 2
 	</update>
 
 	<!-- 유저코드로 전체 조회 (홈) -->
@@ -54,8 +69,10 @@
 	<select id="lastOrderAddressCode" resultType="int"
 		parameterType="int">
 		SELECT addressCode FROM address_tbl
-		WHERE userCode=
-		#{userCode} AND addressStatus = 1
+		WHERE userCode = #{userCode} AND
+		(addressStatus = 1 OR (addressStatus = 2 AND
+		NOT EXISTS (SELECT 1 FROM address_tbl WHERE userCode = #{userCode} AND
+		addressStatus = 1)))
 	</select>
 
 	<!-- 주소에 맞는 주소코드 조회 (카카오, 도로명) -->
@@ -64,6 +81,13 @@
 		select addressCode from address_tbl where
 		deliveryAddress = #{deliveryAddress} and detailDeliveryAddress =
 		#{detailDeliveryAddress};
+	</select>
+	
+	<!-- 유저코드 + addressStatus=2 인 주소코드 조회 -->
+	<select id="getAddressCodeHome" resultType="int"
+		parameterType="int">
+		select addressCode from address_tbl where
+		userCode = #{userCode} and addressStatus = 2;
 	</select>
 
 	<!-- 유저코드당 주소개수 조회 -->
@@ -93,11 +117,14 @@
 	<select id="searchStoresAndMenus" resultType="StoreDTO"
 		parameterType="String">
 
-		SELECT store_tbl.*, GROUP_CONCAT(menu_tbl.menuName) AS menuNames
+		SELECT store_tbl.*, GROUP_CONCAT(menu_tbl.menuName) AS
+		menuNames
 		FROM
 		store_tbl
-		JOIN menu_tbl ON store_tbl.storeCode = menu_tbl.storeCode
-		WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '') LIKE CONCAT('%',
+		JOIN menu_tbl ON store_tbl.storeCode =
+		menu_tbl.storeCode
+		WHERE REPLACE(LOWER(store_tbl.storeName), ' ', '')
+		LIKE CONCAT('%',
 		REPLACE(LOWER(#{searchTerm}), ' ', ''), '%')
 		OR
 		REPLACE(LOWER(menu_tbl.menuName), ' ', '') LIKE CONCAT('%',

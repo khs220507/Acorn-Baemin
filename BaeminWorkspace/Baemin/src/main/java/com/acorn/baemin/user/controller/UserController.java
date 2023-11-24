@@ -2,7 +2,6 @@ package com.acorn.baemin.user.controller;
 
 import javax.servlet.http.HttpSession;
 
-import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.user.repository.UserRepositoryI;
 import com.acorn.baemin.user.service.MailSendService;
 
@@ -30,8 +31,11 @@ public class UserController {
 
 	@Autowired
 	MailSendService mailService;
+
 	
-	
+	@Autowired
+	AddressRepositoryImp addressDAO;
+
 
 	// 이메일 인증
 	@ResponseBody
@@ -179,29 +183,57 @@ public class UserController {
 		return password; // 실제 해싱 로직은 여기에 구현되어야 합니다.
 	}
 
+
 	// 내 정보 수정 시, 기존 정보 가져오기 손님
+//	@RequestMapping("/selectUserInfo2")
+//	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
+//		try {
+//			Integer userType = (Integer) session.getAttribute("userCode");
+//			System.out.println(userType + "2");
+//
+//			if (userCode != null) {
+//				Object userInfo = rep.selectUserInfo(userCode, 1);
+//
+//				System.out.println("aaaaaa=" + userInfo);
+//				model.addAttribute("userInfo", userInfo);
+//				return "user/customer_modify";
+//			} else {
+//				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
+//				return "error";
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			model.addAttribute("message", "사용자 정보를 불러오는 중 오류가 발생했습니다.");
+//			return "error";
+//		}
+//	}
 	@RequestMapping("/selectUserInfo2")
 	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
-		try {
-			Integer userType = (Integer) session.getAttribute("userCode");
-			System.out.println(userType + "2");
-
-			if (userCode != null) {
-				Object userInfo = rep.selectUserInfo(userCode, 1);
-
-				System.out.println("aaaaaa=" + userInfo);
-				model.addAttribute("userInfo", userInfo);
-				return "user/customer_modify";
-			} else {
-				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
-				return "error";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("message", "사용자 정보를 불러오는 중 오류가 발생했습니다.");
-			return "error";
-		}
+	    try {
+	        Integer sessionUserCode = (Integer) session.getAttribute("userCode");
+	        if (sessionUserCode == null) {
+	            return "redirect:/login";
+	        }
+	        if (userCode == null) {
+	            model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
+	            return "error";
+	        }
+	        if (!sessionUserCode.equals(userCode)) {
+	            model.addAttribute("message", "사용자 정보를 수정할 수 있는 권한이 없습니다.");
+	            return "error";
+	        }
+	        // 기존 비밀번호 확인 후 내 정보 수정 페이지로 이동
+	        // 여기서 rep.selectUserInfo 메서드는 사용자 정보를 가져오는 로직을 수행하는 부분으로 대체되어야 합니다.
+	        Object userInfo = rep.selectUserInfo(userCode, 1);
+	        model.addAttribute("userInfo", userInfo);
+	        return "user/customer_modify";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        model.addAttribute("message", "사용자 정보를 불러오는 중 오류가 발생했습니다.");
+	        return "error";
+	    }
 	}
+
 
 	// 내 정보 수정 시, 기존 정보 가져오기 사장님
 	@RequestMapping("/selectUserInfo3")
@@ -283,13 +315,6 @@ public class UserController {
 		rep.insertSeller(seller);
 	}
 
-//	// 사장님 회원 가입
-//	@ResponseBody
-//	@RequestMapping(value = "/seller_signup", method = RequestMethod.POST)
-//	public void insertSellerSignup(@RequestBody SellerDTO seller) {
-//		rep.insertSeller(seller);
-//	}
-
 	// 손님 정보 수정
 	@ResponseBody
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
@@ -302,6 +327,15 @@ public class UserController {
 			System.out.println("success899");
 			rep.updateCustomer(updatecustomer);
 			System.out.println("success890");
+			
+			////////////////주소 업데이트 ////////////////
+			
+			String deliveryAddress = updatecustomer.getUserAddress();
+			String detailDeliveryAddress = updatecustomer.getUserAddressDetail();
+			int addressCode = addressDAO.getAddressCodeHome(userCode);
+			AddressDTO addressDTO = new AddressDTO(addressCode, userCode,deliveryAddress,detailDeliveryAddress, 2);
+			addressDAO.updateAddress(addressDTO);
+			
 			return "수정 성공";
 		} catch (Exception e) {
 			return "수정 실패: " + e.getMessage();
@@ -325,12 +359,12 @@ public class UserController {
 			return "수정 실패: " + e.getMessage();
 		}
 	}
-	
+
 	// 손님 회원 탈퇴
 	@RequestMapping(value = "/customerSignoutStatus", method = RequestMethod.GET)
 	public String UserSignOutStatus(HttpSession session) {
 		Integer userCode = (Integer) session.getAttribute("userCode");
-		System.out.println("userCode"+ userCode);
+		System.out.println("userCode" + userCode);
 		if (userCode != null) {
 			rep.signoutUser(userCode);
 			session.invalidate();
@@ -339,13 +373,13 @@ public class UserController {
 		}
 
 		return "redirect:/home";
-	}	
-	
+	}
+
 	// 사장님 회원 탈퇴
 	@RequestMapping(value = "/sellerSignoutStatus", method = RequestMethod.GET)
 	public String SellerSignOutStatus(HttpSession session) {
 		Integer sellerCode = (Integer) session.getAttribute("user");
-		System.out.println("sellerCode"+ sellerCode);
+		System.out.println("sellerCode" + sellerCode);
 		if (sellerCode != null) {
 			rep.signoutSeller(sellerCode);
 			session.invalidate();
@@ -354,6 +388,6 @@ public class UserController {
 		}
 
 		return "redirect:/home";
-	}	// 홈화면 리다이렉트 후 페이지 이동 에러
+	} 
 
 }

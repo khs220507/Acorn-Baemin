@@ -6,8 +6,11 @@ import com.acorn.baemin.domain.AddressDTO;
 
 public interface AddressRepositoryI {
 
-	// 회원가입시에 주소테이블에 주소 삽입
+	// 주소 등록
 	public int insertAddress(AddressDTO addressDTO);
+	
+	// 로그인시 주소 등록
+	public int loginInsertAddress(AddressDTO addressDTO);
 	
 	// 주소 변경
 	public int updateAddress(AddressDTO addressDTO);
@@ -26,6 +29,9 @@ public interface AddressRepositoryI {
 	
 	// 주소에 맞는 주소코드 조회 (카카오, 도로명)
 	public int getAddressCodeKakao(AddressDTO addressDTO);
+	
+	// 유저코드 + addressStatus=2 인 주소코드 조회
+	public int getAddressCodeHome(int userCode);
 	
 	// 회원당 주소 개수 조회
 	public int selectAddressCount(int userCode);

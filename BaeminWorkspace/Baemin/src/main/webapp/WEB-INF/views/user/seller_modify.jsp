@@ -46,6 +46,24 @@
         cursor: pointer;
         margin-left: 10px;
     }
+    
+    button#signout_button{
+		background-color: red;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		margin-left: 10px;
+		height: 30px;
+		color: white;
+		border-radius: 4px;
+		font-size: 15px;
+		cursor: pointer;
+		margin-left: 10px;
+		width: 300px;
+		display: block;
+		margin: 10px auto;
+	}
 
     .container {
         display: flex;
@@ -257,6 +275,16 @@
     td {
         display: flex;
     }
+    .warning-button {
+    /* 기본 스타일 */
+    
+}
+
+.warning-button:hover {
+    /* 호버 시 스타일 */
+    /* 여기에 호버 시 버튼의 스타일을 추가하세요 */
+     font-size: 1.5em;
+}
 </style>
 <script>
     function updateseller() {
@@ -416,7 +444,16 @@
 	    
 	}
 
-    	
+   const signoutButton = document.getElementById('signout_button');
+
+   signoutButton.addEventListener('mouseover', function () {
+       signoutButton.textContent = '누르지마!!!';
+   });
+
+   signoutButton.addEventListener('mouseout', function () {
+       signoutButton.textContent = '회원탈퇴';
+   });
+
     
 
 </script>
@@ -482,7 +519,7 @@
 
                         <button onclick="updateseller()" value="수정완료" id="modify_button">수정완료</button>
 						<!-- <input type="hidden" value="${userInfo.sellerCode}" id="userInfo">-->
-						<button onclick="signoutseller()" value="회원탈퇴" id="signout_button">회원탈퇴</button>
+						<button onclick="signoutseller()" value="회원탈퇴" id="signout_button" class="warning-button">회원탈퇴</button>
                     </div>
                 </div>
 

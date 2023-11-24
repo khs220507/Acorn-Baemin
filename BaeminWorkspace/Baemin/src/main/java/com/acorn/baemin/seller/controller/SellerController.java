@@ -55,7 +55,7 @@ public class SellerController {
 
 	// 사장님의 메뉴 탭 화면
 	@GetMapping("/sellerMenu")
-	public String readMenu(Integer storeCode, Model model, HttpSession session) {
+	public String readMenu(Integer storeCode, Model model, HttpSession session)  {
 
 		System.out.println("storeCode @controller: " + storeCode);
 		session.setAttribute("storeCode", storeCode);
@@ -74,6 +74,10 @@ public class SellerController {
 			model.addAttribute("CList", CList);
 			model.addAttribute("avgRating", storeAvgRating);
 			model.addAttribute("RCount", reviewCount);
+			
+			List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
+			System.out.println(reviewList);
+			model.addAttribute("reviewList", reviewList);
 
 			return "seller/store_manage";
 		} else {
@@ -218,20 +222,16 @@ public class SellerController {
 	// 리뷰, 답글 조회
 	@ResponseBody
 	@GetMapping("/reviewAnswer")
-	public HashMap<String, Object> readRnA(HttpSession session) {
+	public String ReviewAnswer(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
+		
 
-		HashMap<String, Object> reviewAnswer = new HashMap<>();
-
-		int storeCode = (int) session.getAttribute("storeCode");
-		int reviewCode = (int) session.getAttribute("reviewCode");
-
-		System.out.println("storeCode @service: " + storeCode);
+		
 		List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
+		model.addAttribute("Rlist", readReview);
+	
 
-		reviewAnswer.put("readReview", readReview);
-
-		System.out.println("reviewAnswer : " + reviewAnswer);
-		return reviewAnswer;
+		
+		return "seller/seller_home";
 	}
 
 	// 답글 수정
@@ -290,6 +290,10 @@ public class SellerController {
 
 		// 리뷰 탭
 		List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
+		
+		System.out.println("테스트 : " + reviewList);
+		
+		
 
 		// 모델 심기
 		model.addAttribute("readStore", readStore);
@@ -297,7 +301,6 @@ public class SellerController {
 		model.addAttribute("readMenuInfo", readMenuInfo);
 		model.addAttribute("CList", CList);
 		model.addAttribute("RList", reviewList);
-
 		model.addAttribute("RCount", reviewCount);
 
 		return "store/store";
@@ -310,17 +313,18 @@ public class SellerController {
 	}
 	
 	// 답글 등록
-    @PostMapping("/submitReply")
-    @ResponseBody
-    public void submitReply(@RequestBody AnswerDTO answer) {
-        try {
-            // Assuming your AnswerDTO has appropriate fields like reviewCode, replyContent, etc.
-            sc.insertAnswer(answer);
-            System.out.println("성공!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("실패!");
-        }
-    }
+	@PostMapping("/submitReply")
+	@ResponseBody
+	public void submitReply(@RequestBody Integer reviewCode) {
+	    try {
+	        System.out.println("Received reviewCode: " + reviewCode);
+	        System.out.println("Attempting to insert reply...");
+	        sc.insertAnswer(reviewCode);
+	        System.out.println("Reply insertion successful!");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        System.out.println("Failed to insert reply. Exception details: " + e.getMessage());
+	    }
+	}
 
 }
