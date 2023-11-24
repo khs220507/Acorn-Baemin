@@ -109,9 +109,9 @@ public class SellerService implements SellerServiceI{
 
 	// 답변 등록
 	@Override
-	public void insertAnswer(int reviewCode) {
+	public void updateAnswer(AnswerDTO answerDTO) {
 		System.out.println("isnertReview @service");
-		rep.insertAnswer(reviewCode);
+		rep.updateAnswer(answerDTO);
 	}
 	@Override
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {

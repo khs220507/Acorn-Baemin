@@ -294,7 +294,6 @@ section {
 	display: flex;
 	display: none;
 	width: 40%;
-	height: 250px;
 	margin-top: 1%;
 	flex-direction: column;
 	justify-content: space-between;
@@ -589,7 +588,7 @@ hr {
    				console.log(e)
    				alert("error");
    			}
-   		});
+   		}); 
 	}
 	
 	
@@ -627,15 +626,16 @@ hr {
 	     
 	     var reviewCode = $(button).siblings("input[name='reviewCode']").val();
 	     var answerContent = $(button).siblings("#replyContent").val();
-	   
+	     
+	     
 	      $.ajax({
 	         type: "POST",
-	         url: "${path}/submitReply",
-	         contentType: "application/json",
-	         data: JSON.stringify({
+	         url: "${path}/submitAnswer",
+	         contentType: "application/x-www-form-urlencoded",
+	         data: {
 	             reviewCode: reviewCode,
 	             answerContent: answerContent
-	         }),
+	         },
 	         success: function () {
 	            console.log("답글이 성공적으로 등록되었습니다!");
 	            // You might want to update the UI or do something else on success
@@ -846,6 +846,7 @@ hr {
 			</c:forEach>
 
 		</div>
+		
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>
