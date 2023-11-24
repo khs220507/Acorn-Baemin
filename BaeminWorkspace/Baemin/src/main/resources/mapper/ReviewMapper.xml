@@ -51,6 +51,15 @@
 		WHERE
 		o.orderNumber = #{orderNumber};
 	</insert>
+	
+	
+
+	<update id="updateReviewStatus">
+        UPDATE order_tbl
+        SET reviewStatus = #{reviewStatus}
+        WHERE orderNumber = #{orderNumber}
+    </update>
+	
 
 
 

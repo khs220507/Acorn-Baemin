@@ -26,4 +26,5 @@ public class OrderDTO {
 	String deliveryAddress;
 	String userPhone;
 	String optionsInfo;
+	int reviewStatus;
 }

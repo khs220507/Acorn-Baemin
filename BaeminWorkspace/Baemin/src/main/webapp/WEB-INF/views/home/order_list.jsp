@@ -217,6 +217,7 @@ hr {
 						<div class="btn-wrap">
 							<button class="gray-radius-btn" id="order-detail-btn">주문상세</button>
 							<br>
+							<input type="hidden" id="reviewStatus" value="${orderList.reviewStatus}">
 							<button class="gray-radius-btn" id="review-write-btn">리뷰쓰기</button>
 						</div>
 					</div>
@@ -291,6 +292,24 @@ hr {
 	        window.location.href = "${path}/cartListRe?orderNumber=" + orderNumber;
 	    });
 
+	    
+	    $(document).ready(function() {
+	        // Iterate through each order list entry
+	        $('.orderList-wrap').each(function() {
+	            // Get the review status value from the hidden input
+	            var reviewStatus = $(this).find('#reviewStatus').val();
+	            alert(reviewStatus);
+
+	            // Check if the reviewStatus is 1
+	            if (reviewStatus == 1) {
+	                // Change the button text to "작성완료"
+	                $(this).find('#review-write-btn').text('작성완료');
+
+	                // Disable the button
+	                $(this).find('#review-write-btn').prop('disabled', true);
+	            }
+	        });
+	    });
 		
 	</script>
 

@@ -40,6 +40,7 @@ public class UserOrderController {
 		orderDTO.setUserPhone(userPhone);
 		orderDTO.setPayType(payType);
 		orderDTO.setOrderType(orderType);
+		orderDTO.setReviewStatus(0);
 		userOrderService.insertOrder(orderDTO);
 		System.out.println(orderDTO);
 		

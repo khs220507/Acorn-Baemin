@@ -3,6 +3,7 @@ package com.acorn.baemin.review.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.review.repository.ReviewRepository;
 
@@ -18,5 +19,11 @@ public class ReviewService implements ReviewServiceI{
 		System.out.println("servie : " + review);
 		reviewRepository.insertReview(review);
     }
+
+	@Override
+	public void updateReviewStatus(OrderDTO orderDTO) {
+		reviewRepository.updateReviewStatus(orderDTO);
+		
+	}
 
 }

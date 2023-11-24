@@ -72,6 +72,7 @@ public class ReviewController {
 		ReviewDTO reviewDTO = new ReviewDTO();
 		int orderNumber = (int) session.getAttribute("orderNumber");
 		List<OrderDTO> orderDTO = rep.orderDetailSelect(orderNumber);
+		orderDTO.get(0).setReviewStatus(1);
 
 		
 		reviewDTO.setReviewContent(reviewContent);
@@ -88,6 +89,7 @@ public class ReviewController {
 
 		// Save the review to the database using the ReviewService
 		reviewService.insertReview(reviewDTO);
+		reviewService.updateReviewStatus(orderDTO.get(0));
 		return "review/review_submit";
 	}
 

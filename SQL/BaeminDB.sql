@@ -19,14 +19,6 @@ CREATE TABLE user_tbl (
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 10001;
 
-INSERT INTO user_tbl (userId, userPw, userName, userNickname, userPhone, userEmail, userBirth, userGender, userPostCode, userAddress, userAddressDetail, userStatus)
-VALUES
-('user001', 'password1', '홍길동', '길동이', '010-1234-5678', 'user1@example.com', '1990-01-01', 0, '12345', '서울시 강남구', '아파트 101호', 1),
-('user002', 'password2', '김철수', '철수씨', '010-2345-6789', 'user2@example.com', '1985-05-15', 1, '54321', '서울시 강서구', '오피스텔 202호', 1),
-('user003', 'password3', '이영희', '영희언니', '010-3456-7890', 'user3@example.com', '1992-11-30', 1, '67890', '서울시 송파구', '단독주택', 1),
-('user004', 'password4', '박민수', '민수씨', '010-4567-8901', 'user4@example.com', '1988-03-25', 0, '45678', '서울시 서초구', '맨션 303호', 1),
-('user005', 'password5', '정수영', '영이니', '010-5678-9012', 'user5@example.com', '1996-09-10', 1, '78901', '서울시 강북구', '단독주택', 1);
-
 select * from user_tbl;
 
 
@@ -201,6 +193,7 @@ CREATE TABLE order_tbl (
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
+    reviewStatus TINYINT(1) UNSIGNED, -- 0 : 리뷰X, 1: 리뷰O
     FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
@@ -263,22 +256,11 @@ CREATE TABLE address_tbl (
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress,addressStatus )
-VALUES
-(10001, '서울시 강남구 강남대로 123 아파트', '101호',2),
-(10002, '서울시 강서구 강서로 456 오피스텔', '202호',2),
-(10003, '서울시 송파구 올림픽로 789', '단독주택',1),
-(10004, '서울시 서초구 강남대로 1010 맨션','303호',1),
-(10005, '서울시 강북구 북촌로 111','단독주택',1);
 
 
 
-SELECT addressCode FROM address_tbl
-WHERE userCode = 10001 AND
-    (addressStatus = 1 OR (addressStatus = 2 AND 
-    NOT EXISTS (SELECT 1 FROM address_tbl WHERE userCode = 10001 AND addressStatus = 1)));
+
 
 commit;
 show tables;
 
-select * from order_tbl where userCode=10001;
