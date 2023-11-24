@@ -358,9 +358,9 @@ margin: 0 auto;
 				 			let result  = updataStoreHTML(data, storeCode);
 				 			$(but).closest(".store-list").html(result);
 				 		},
-				 		error: function(){
+				 		error: function(){ 
 				 			alert( "error");
-				 		}
+				 		} 
 				 	}		 
 				 );	 
 			 }

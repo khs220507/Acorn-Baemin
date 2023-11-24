@@ -216,7 +216,34 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 			
-		
+function checkCapsLock(e) {
+    const charCode = e.keyCode ? e.keyCode : e.which;
+    const shiftKey = e.shiftKey ? e.shiftKey : (charCode === 16 ? true : false);
+
+    // 입력 중인 요소가 input 또는 textarea인 경우에만 작동
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        const isCapsLockOn = (charCode >= 65 && charCode <= 90 && !shiftKey) || 
+                              (charCode >= 97 && charCode <= 122 && shiftKey);
+
+        const messageElement = document.getElementById('capsLockMessage'); // 알림 메시지를 표시할 요소
+
+        if (isCapsLockOn) {
+            messageElement.style.display = 'block'; // Caps Lock가 켜져 있을 때 메시지 표시
+        } else {
+            messageElement.style.display = 'none'; // Caps Lock가 꺼져 있을 때 메시지 숨김
+        }
+    }
+}
+
+document.addEventListener('keypress', function(e) {
+    checkCapsLock(e);
+});
+
+document.addEventListener('keydown', function(e) {
+    checkCapsLock(e);
+});
+
+
 		
 </script>
 	<jsp:include page="../base/header_login.jsp" />
@@ -283,51 +310,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 				
 				<div class="kakao">
-				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=e70ac5a45fa1cba7935fa44d0c23e6d6&redirect_uri=http://localhost:8080/baemin/kakaoLogin&response_type=code">
+				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=f4125065b4bcb8b373afee7bfa037d69&redirect_uri=http://localhost:8080/baemin/kakaoLogin&response_type=code">
 				        카카오로 간편 로그인
 				    </a>
 				</div>
 			</form>
-
-
-			<a href="javascript:kakaoLogin();"><img src="./kakao_login.png"
-				alt="카카오계정 로그인" style="height: 100px;" /></a>
-
-			<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-			<script>
-        window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
-
-        function kakaoLogin() {
-            window.Kakao.Auth.login({
-                scope: 'profile_nickname, account_email, talk_message', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
-                success: function(response) {
-                    console.log(response) // 로그인 성공하면 받아오는 데이터
-                    window.Kakao.API.request({ // 사용자 정보 가져오기 
-                        url: '/v2/user/me',
-                        success: (res) => {
-                            const kakao_account = res.kakao_account;
-                            console.log(kakao_account)
-                        }
-                    });
-                     window.location.href='/baemin/home' //리다이렉트 되는 코드
-                },
-                fail: function(error) {
-                    console.log(error);
-                }
-            });
-        }
-            window.Kakao.init('5e1731c3f7c3d4a983be89d9de5add7e');
-        	function kakaoLogout() {
-            	if (!Kakao.Auth.getAccessToken()) {
-        		    console.log('Not logged in.');
-        		    return;
-        	    }
-        	    Kakao.Auth.logout(function(response) {
-            		alert(response +' logout');
-        		    window.location.href='/baemin/home'
-        	    });
-        };
-    </script>
 
 
 		</div>
