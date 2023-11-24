@@ -132,10 +132,11 @@ public class LoginController {
 			///////////////// 주소
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
 
-			if (addressCount == 0) {
-				addressDAO.insertAddress(
-						new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
-			} else {
+
+			if(addressCount == 0 ) {
+				addressDAO.loginInsertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 2));
+			}else {
+
 
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}

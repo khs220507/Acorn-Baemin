@@ -3,12 +3,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.acorn.AnswerMapper">
 	
-	<insert id="insertAnswer" parameterType="AnswerDTO">
-        INSERT INTO answer_tbl (
-             stroeCode, reviewCode, answerDate, answerContent, answerStatus
-        ) VALUES (
-             #{stroeCode}, #{reviewCode}, #{answerDate}, #{answerContent}, #{answerStatus}
-        )
-    </insert>
+<insert id="insertAnswer" parameterType="int">
+    INSERT INTO review_tbl (answerContent, answerDate)
+    VALUES (
+      #{answerContent},
+      NOW()
+    )
+   	WHERE reviewCode = #{reviewCode}
+</insert>
+
+   
 
 </mapper>

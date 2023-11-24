@@ -321,6 +321,11 @@ public class UserController {
 			System.out.println("success899");
 			rep.updateCustomer(updatecustomer);
 			System.out.println("success890");
+			
+			////////////////주소 업데이트 ////////////////
+			
+			
+			
 			return "수정 성공";
 		} catch (Exception e) {
 			return "수정 실패: " + e.getMessage();

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 <!DOCTYPE html>
 <html>
@@ -11,7 +11,6 @@
 <title>Insert title here</title>
 <style type="text/css">
 /* 태그 파트 */
-
 body {
 	height: 100vh;
 }
@@ -40,46 +39,47 @@ section {
 .menu-info-review-tab {
 	display: flex;
 	width: 60%;
-    justify-content: space-around;
-    font-size: 22px;
-    margin-top: 30px;
+	justify-content: space-around;
+	font-size: 22px;
+	margin-top: 30px;
 }
 
-.menu-info-review-tab li{
+.menu-info-review-tab li {
 	width: 33.333333333333333333333333333%;
-    text-align: center;
+	text-align: center;
 	padding: 5px 0;
 }
 
-.menu-tab{
+.menu-tab {
 	border-top: 2px solid black;
 }
 
-.info-tab, .review-tab{
+.info-tab, .review-tab {
 	border-bottom: 2px solid black;
 }
 
 .menu-sub-tab {
 	width: 60%;
 }
-@media (max-width:767px) {
+
+@media ( max-width :767px) {
 	.menu-sub-tab {
-	width: 54%;
+		width: 54%;
 	}
 	.modify-delete, .insert-cancel {
-	width: 16%;
+		width: 16%;
 	}
 	.menu-modify-btn-without-c, .menu-delete-btn {
-	width: 50%;
+		width: 50%;
 	}
 	.menu-image {
-    width: 100px;
-    height: 100px;
+		width: 100px;
+		height: 100px;
 	}
 }
 
 .store-name {
-	font-size : 3rem;
+	font-size: 3rem;
 	margin-bottom: 1%;
 }
 
@@ -90,16 +90,16 @@ section {
 	height: 45px;
 }
 
-.classification>a{
-	padding-left : 10px;
-	padding-right : 10px;
-	}
-	
-.classification>input{
-	margin-left : 10px;
-	margin-right : 10px;
+.classification>a {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.classification>input {
+	margin-left: 10px;
+	margin-right: 10px;
 	font-size: 20px;
-	}
+}
 
 .menu-image-link {
 	width: 19.5%;
@@ -110,8 +110,8 @@ section {
 }
 
 .menu-image {
-    width: 120px;
-    height: 120px;
+	width: 120px;
+	height: 120px;
 }
 
 .rating-count-minprice {
@@ -138,8 +138,8 @@ section {
 }
 
 .CModify {
-	width : 12%;
-	height : 70%;
+	width: 12%;
+	height: 70%;
 }
 
 .menu-info-with-btn {
@@ -184,6 +184,7 @@ section {
 	justify-content: center;
 	align-items: center;
 }
+
 .menu-status {
 	width: 50%;
 }
@@ -192,6 +193,7 @@ section {
 	padding-left: 5px;
 	padding-right: 5px;
 }
+
 #menu-status-text {
 	padding-left: 5px;
 	padding-right: 5px;
@@ -204,18 +206,20 @@ section {
 	width: 15%;
 }
 
-.menu-modify-btn-without-c, .menu-delete-btn, .insert-menu-btn, .cancel-btn {
+.menu-modify-btn-without-c, .menu-delete-btn, .insert-menu-btn,
+	.cancel-btn {
 	width: 30%;
 	height: 50%;
 }
+
 .info-sub-tab {
 	width: 100%;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	
 }
+
 .info-sub-tab-with-btn {
 	display: flex;
 	height: 100%;
@@ -243,7 +247,7 @@ section {
 	margin-top: 4.5%;
 }
 
-.operating-time>div{
+.operating-time>div {
 	margin-top: 3%;
 }
 
@@ -253,7 +257,6 @@ section {
 
 .store-description>input, .operating-time>input {
 	width: 78%;
-
 }
 
 .seller-info {
@@ -288,7 +291,6 @@ section {
 }
 
 .store-info-tab, .store-review-tab {
-
 	display: flex;
 	display: none;
 	width: 40%;
@@ -325,17 +327,63 @@ section {
 	width: 100%;
 }
 
-.seller-info-sub{
+.seller-info-sub {
 	width: 78%;
 }
 
-hr{
+hr {
 	width: 80%;
 	border: 0px;
 	height: 2px;
 	background-color: #d9d9d9;
 	margin-top: 1%;
 	margin-bottom: 1%;
+}
+
+.star-rating {
+	display: inline-flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.star-rating .star {
+	width: 25px;
+	height: 25px;
+	margin-right: 5px;
+	display: inline-block;
+	background:
+		url('https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2bww%2FbtsviSSBz4Q%2F5UYnwSWgTlFt6CEFZ1L3Q0%2Fimg.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
+}
+
+.star-rating .star.on {
+	background:
+		url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png')
+		no-repeat;
+	background-size: 100%;
+	box-sizing: border-box;
+}
+
+.user-star-wrap {
+	display: flex;
+}
+
+.review-image {
+	width: 250px;
+	height: 300px;
+	border-radius: 5px;
+}
+
+.review-wrap {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px #d9d9d9 solid;
+}
+
+.reply-review-wrap {
+	margin-top: 5px;
 }
 </style>
 <script>
@@ -557,30 +605,57 @@ hr{
 		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none");
 		
 		$.ajax({
-			type : "GET",
-   			url : "${path}/reviewAnswer",
-   			success : function(response) {
-   				let reviewList = response.readReview;
-   				let answerList = response.readAnswer;
-   				console.log(res);
-   				alert("조회완료");
-   			},
-   			error : function(e) {
-   				console.log(e)
-   				alert("error");
-   			}
+		    type: "GET",
+		    url: "${path}/reviewAnswer",
+		    data: { storeCode: storeCode },  // Add this line to send the storeCode
+		    success: function(response) {
+		        let reviewList = response.readReview;
+		        let answerList = response.readAnswer;
+		        console.log(response);
+		    },
+		    error: function(e) {
+		        console.log(e);
+		        alert("error");
+		    }
 		});
 		
 	}
+	
+	function submitReply(button) {
+	      // Get the review code from somewhere (e.g., a hidden input field)
+	     
+	     
+	     var reviewCode = $(button).siblings("input[name='reviewCode']").val();
+	     var answerContent = $(button).siblings("#replyContent").val();
+	   
+	      $.ajax({
+	         type: "POST",
+	         url: "${path}/submitReply",
+	         contentType: "application/json",
+	         data: JSON.stringify({
+	             reviewCode: reviewCode,
+	             answerContent: answerContent
+	         }),
+	         success: function () {
+	            console.log("답글이 성공적으로 등록되었습니다!");
+	            // You might want to update the UI or do something else on success
+	         },
+	         error: function () {
+	            console.error("답글 등록 실패!");
+	            // Handle the error or display a message to the user
+	         }
+	      });
+	   }
 
 </script>
 </head>
 <body>
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
-	<c:set var="storeImage" value="${readStore.storeImage}" />
+		<c:set var="storeImage" value="${readStore.storeImage}" />
 		<div>
-			<img alt="가게 로고" class="store-image" src="${path}/storeImages/${readStore.storeImage}">
+			<img alt="가게 로고" class="store-image"
+				src="${path}/storeImages/${readStore.storeImage}">
 		</div>
 		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 		<hr>
@@ -606,11 +681,14 @@ hr{
 			<div>
 				<!-- 메뉴 리스트 -->
 				<c:forEach items="${CList}" var="classificationList">
-				<div class="classification">
-					<a class="old-menu-classification" id="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
-					<input type="text" class="new-menu-classification" placeholder="메뉴분류 입력">
-					<button class="CModify" onclick="modifyMenuClassification(${readStore.storeCode}, this)">수정</button>
-				</div>
+					<div class="classification">
+						<a class="old-menu-classification"
+							id="${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+						<input type="text" class="new-menu-classification"
+							placeholder="메뉴분류 입력">
+						<button class="CModify"
+							onclick="modifyMenuClassification(${readStore.storeCode}, this)">수정</button>
+					</div>
 					<c:forEach items="${readMenuInfo}" var="menuList">
 						<c:if
 							test="${menuList.menuClassification eq classificationList.menuClassification}">
@@ -619,30 +697,38 @@ hr{
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<form class="menu-info-with-btn">
 										<div class="modify-form" style="display: flex">
-											<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}">
-												<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}"></a>
-											<input type="file" class="input-menu-image" name="menuImageFile">
+											<a class="menu-image-link"
+												href="${path}/sellerOption?menuCode=${menuList.menuCode}">
+												<img class="menu-image" alt="메뉴사진"
+												src="${path}/images/${menuList.menuImage}">
+											</a> <input type="file" class="input-menu-image"
+												name="menuImageFile">
 											<div class="input-menu-content">
-												<input type="text" class="menu-name" name="menuName" value="${menuList.menuName}">
-												<input type="text" class="menu-content" name="menuContent" value="${menuList.menuContent}">
-												<input type="text" class="menu-price" name="menuPrice" value="${menuList.menuPrice}">
-												<div class="now-menu-status"><span id="menu-status-text">상태 : <c:choose>
-														<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
-														<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
-														<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
-													</c:choose>
-													</span>
-													<select class="menu-status" name="menuStatus">
+												<input type="text" class="menu-name" name="menuName"
+													value="${menuList.menuName}"> <input type="text"
+													class="menu-content" name="menuContent"
+													value="${menuList.menuContent}"> <input type="text"
+													class="menu-price" name="menuPrice"
+													value="${menuList.menuPrice}">
+												<div class="now-menu-status">
+													<span id="menu-status-text">상태 : <c:choose>
+															<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
+															<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
+															<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
+														</c:choose>
+													</span> <select class="menu-status" name="menuStatus">
 														<option value="0">판매중</option>
 														<option value="1">매진</option>
-													</select>
-												<input type="hidden" class="menu-code" name="menuCode" value="${menuList.menuCode}">
+													</select> <input type="hidden" class="menu-code" name="menuCode"
+														value="${menuList.menuCode}">
 												</div>
 											</div>
 										</div>
 										<div class="modify-delete">
-											<button type="button" class="menu-modify-btn-without-c" onclick="menuModifyBtnWithoutC()">수정</button>
-											<button type="button" class="menu-delete-btn" onclick="deleteMenu()">삭제</button>
+											<button type="button" class="menu-modify-btn-without-c"
+												onclick="menuModifyBtnWithoutC()">수정</button>
+											<button type="button" class="menu-delete-btn"
+												onclick="deleteMenu()">삭제</button>
 										</div>
 									</form>
 								</c:when>
@@ -657,11 +743,13 @@ hr{
 					<input type="text" name="menuClassification" placeholder="메뉴분류">
 				</div>
 				<div class="menu-input-with-btn">
-					<input type="file" name="menuImageFile" accept="image/*" required> <!-- 이미지 등록 input, 이미지파일만 필수로 제한 -->
+					<input type="file" name="menuImageFile" accept="image/*" required>
+					<!-- 이미지 등록 input, 이미지파일만 필수로 제한 -->
 					<div class="input-menu-form">
-						<input type="hidden" name="storeCode" value="${readStore.storeCode}"><br />
-						<input type="text" name="menuName" placeholder="메뉴명"><br />
-						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
+						<input type="hidden" name="storeCode"
+							value="${readStore.storeCode}"><br /> <input type="text"
+							name="menuName" placeholder="메뉴명"><br /> <input
+							type="text" name="menuContent" placeholder="메뉴설명"><br />
 						<input type="number" name="menuPrice" placeholder="메뉴가격"><br />
 						<select name="menuStatus">
 							<option value="0">판매중</option>
@@ -673,10 +761,12 @@ hr{
 						<button type="button" class="cancel-btn">취소하기</button>
 					</div>
 				</div>
-				
+
 			</form>
 			<!-- 얘를 클릭하면 등록 폼이 활성화 -->
-			<div class="add-menu" onclick="addMenuBtn()"><img src="${path}/resources/icons/addoption.png"></div>
+			<div class="add-menu" onclick="addMenuBtn()">
+				<img src="${path}/resources/icons/addoption.png">
+			</div>
 		</div>
 		<!-- 가게 정보 탭 -->
 		<div class="store-info-tab">
@@ -713,41 +803,48 @@ hr{
 					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
-		<!-- 리뷰 리스트 나오는 탭, 리뷰 정보 받는데 실패ㅠㅜ -->
+		
+		
 		<div class="store-review-tab">
-			<c:forEach items="${review}" var="readReview">
-				<div class="review-answer">
-					<div>(닉네임)</div>
-					<div>
-					<c:set var="reviewRating" value="${reviewList.reviewRating}" />
+			
+			<c:forEach var="item" items="${reviewList}">
+				<div class="review-wrap">
+					<div class="user-star-wrap">
+						<div>${item.userNickName}</div>
+						<!-- Display stars based on the rating -->
+						<div class="star-rating">
+							<c:forEach begin="1" end="${item.reviewRating}">
+								<span class="star on"></span>
+							</c:forEach>
+							<c:forEach begin="${item.reviewRating + 1}" end="5">
+								<span class="star"></span>
+							</c:forEach>
+						</div>
+					</div>
+					<div>주문메뉴 : ${item.orderMenuName}</div>
+					<div>${item.reviewContent}</div>
 
-						<p>평점: ${reviewRating} (별 ${fn:substringBefore(reviewRating, '.')}개)</p>
+					<c:if test="${not empty item.reviewImageName}">
+						<img class="review-image"
+							src="${path}/reviewImages/${item.reviewImageName}"
+							alt="Review Image">
+					</c:if>
+
+					
+						<div class="reply-review-wrap">
+							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
+							<input type="hidden" name="storeCode" value="${item.storeCode}">
+							<p style="margin-bottom: 5px;">답글달기</p>
+							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
+							<button id="submitReplyBtn" onclick="submitReply(this)">등록</button>
+						</div>
 						
-						<c:forEach var="star" begin="1" end="${fn:substringBefore(reviewRating, '.')}">
-						    ★
-						</c:forEach>
-						
-						<c:forEach var="star" begin="${fn:substringBefore(reviewRating, '.') + 1}" end="5">
-						    ☆
-						</c:forEach>
-					</div>
-					<div>주문메뉴 : (메뉴명)</div>
-					<div>
-						${readReview.reviewContent}
-						<div>${readReview.reviewDate}</div>
-						<!-- 답글 달기를 누르면 답변내용을 입력하는 폼 활성화 -->
-						<form class="reply-form" style="display: none;">
-							<textarea placeholder="답글 내용을 입력해주세요" rows="5" cols="30"></textarea>
-							<button type="button" class="insert-answer-btn">등록</button>
-						</form>
-					</div>
-					<button class="active-reply-form-btn">답글달기</button>
-					<!-- 답글이 생기면 답글달기 버튼 사라지고 수정 삭제 버튼 생성-->
-					<button class="reply-modify-btn" style="display: none">수정</button>
-					<button class="reply-delete-btn" style="display: none">삭제</button>
-					<button class="cancel-btn" style="display: none">취소</button>
+
+
 				</div>
+
 			</c:forEach>
+
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
