@@ -34,23 +34,20 @@ public class LoginRepository implements LoginRepositoryI {
 		SellerDTO seller = session.selectOne(namespace + "findSellerId", params);
 		return (seller != null) ? seller.getSellerId() : null;
 	}
-	
-	
 
-	    // 손님 비밀번호 찾기
-	    @Override
-	    public String findCustomerPassword(Map<String, Object> params) {
-	        return session.selectOne(namespace + "finduserPw", params);
-	    }
+	// 손님 비밀번호 찾기
+	@Override
+	public String findCustomerPassword(Map<String, Object> params) {
+		UserDTO user = session.selectOne(namespace + "finduserPw", params);
+		return (user != null) ? user.getUserPw() : null;
+	}
 
-	    // 사장님 비밀번호 찾기
-	    @Override
-	    public String findSellerPassword(Map<String, Object> params) {
-	        return session.selectOne(namespace + "findsellerPw", params);
-	    }
-	
-	
-	
+	// 사장님 비밀번호 찾기
+	@Override
+	public String findSellerPassword(Map<String, Object> params) {
+		SellerDTO user = session.selectOne(namespace + "findsellerPw", params);
+		return (user != null) ? user.getSellerPw() : null;
+	}
 
 	// 손님 로그인
 	@Override
@@ -121,9 +118,5 @@ public class LoginRepository implements LoginRepositoryI {
 	public void updatePassword(UserDTO userPw) {
 		session.update("com.acorn.mapper.LoginMapper.updatePassword", userPw);
 	}
-
-	
-
-
 
 }

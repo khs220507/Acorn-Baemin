@@ -26,13 +26,14 @@ public class UserRepository implements UserRepositoryI {
 		if (userType == 1) {
 			return session.selectOne(namespace + "selectCustomerInfo", userCode);
 		} else if (userType == 2) {
-			
-			System.out.println("2222 "+ userCode);
+
+			System.out.println("2222 " + userCode);
 			return session.selectOne(namespace + "selectSellerInfo", userCode);
 		} else {
 			throw new IllegalArgumentException("Invalid userType");
 		}
 	}
+
 	@Override
 	public String getPasswordByUserId(String userId) {
 		return session.selectOne(namespace + "getPasswordByUserId", userId);
@@ -65,8 +66,6 @@ public class UserRepository implements UserRepositoryI {
 	// 손님 정보 수정
 	@Override
 	public void updateCustomer(UserDTO updatecustomer) {
-
-		System.out.println(updatecustomer);
 		session.update(namespace + "updateInfoCustomer", updatecustomer);
 	}
 
@@ -74,6 +73,18 @@ public class UserRepository implements UserRepositoryI {
 	@Override
 	public void updateSeller(SellerDTO updateseller) {
 		session.update(namespace + "updateInfoSeller", updateseller);
+	}
+
+	// 사장님 회원 탈퇴
+	@Override
+	public void signoutSeller(int sellerSignOut) {
+		session.update(namespace + "signoutseller", sellerSignOut);
+	}
+	
+	// 손님 회원 탈퇴
+	@Override
+	public void signoutUser(int userSignOut) {
+		session.update(namespace + "signoutuser", userSignOut);
 	}
 
 	// 손님 아이디 중복 확인
@@ -88,35 +99,48 @@ public class UserRepository implements UserRepositoryI {
 		return session.selectOne(namespace + "idCheck2", sellerId);
 	}
 
-	// 손님 닉네임, 연락처, 이메일 중복 확인
-	@Override
-	public Map<String, Long> checkForDuplicates(@Param("nickname") String nickname, @Param("phone") String phone,
-			@Param("email") String email) {
-		Map<String, String> params = new HashMap<>();
-		params.put("nickname", nickname);
-		params.put("phone", phone);
-		params.put("email", email);
-
-		return session.selectOne(namespace + "checkForDuplicates", params);
-	}
 	// 닉네임 중복 확인
 	@Override
 	public int checkDuplicateNickname(String userNickname) {
 		return session.selectOne(namespace + "nickCheck", userNickname);
 	}
-	
+
 	// 손님 연락처 중복 확인
 	@Override
 	public int checkDuplicateUserphone(String userPhone) {
 		return session.selectOne(namespace + "userPhoneCheck", userPhone);
 	}
+
+	// 사장님 연락처 중복 확인
+	@Override
+	public int checkDuplicateSellerphone(String sellerPhone) {
+		return session.selectOne(namespace + "sellerPhoneCheck", sellerPhone);
+	}
+
 	// 손님 이메일 중복 확인
 	@Override
 	public int checkDuplicateUseremail(String userEmail) {
-		System.out.println(  "userEmail===>" + userEmail);
+		System.out.println("userEmail===>" + userEmail);
 		return session.selectOne(namespace + "emailCheck", userEmail);
 	}
 
-	
+	// 사장님 이메일 중복 확인
+	@Override
+	public int checkDuplicateSelleremail(String sellerEmail) {
+		System.out.println("sellerEmail===>" + sellerEmail);
+		return session.selectOne(namespace + "emailCheck2", sellerEmail);
+	}
+
+	// 사업자등록번호 중복 확인
+	@Override
+	public int checkDuplicateSellerRegCode(String sellerRegCode) {
+		return session.selectOne(namespace + "sellerRegCodeCheck", sellerRegCode);
+	}
+
+	@Override
+	public Map<String, Long> checkForDuplicates(String nickname, String phone, String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

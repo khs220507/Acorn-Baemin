@@ -241,17 +241,24 @@ ul {
 							<p class="strong-title">${detail.orderMenuName }
 								${detail.orderMenuNumber }개</p>
 
-							<!-- 옵션 -->
-							<c:set var="optionsInfo" value="${detail.optionsInfo }" />
-							<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
+								<c:choose>
+									<c:when test="${detail.optionsInfo == ''}">
+										<input type="hidden">
+									</c:when>
+									<c:otherwise>
+										<!-- 옵션 -->
+										<c:set var="optionsInfo" value="${detail.optionsInfo }" />
+										<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
 
-							<ul>
-								<c:forEach items="${options}" var="option">
-									<c:set var="parts" value="${fn:split(option, '/')}" />
-									<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
-								</c:forEach>
-							</ul>
-
+										<ul>
+											<c:forEach items="${options}" var="option">
+												<c:set var="parts" value="${fn:split(option, '/')}" />
+												<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
+											</c:forEach>
+										</ul>
+									</c:otherwise>
+								</c:choose>
+								
 							<p class="normal-text">${detail.orderMenuPrice}원</p>
 						</div>
 						<hr class="bold-line">
@@ -296,8 +303,8 @@ ul {
 						<hr class="bold-line">
 
 						<div class="user-info-wrap">
-							<p class="normal-text black-text">배달주소</p>
-							<p class="gray-text">${detail.deliveryAddress }</p>
+							<p class="normal-text black-text">배달 주소</p>
+							<p class="gray-text">${detail.deliveryAddress}</p>
 						</div>
 
 						<hr class="thin-line">
@@ -359,15 +366,24 @@ ul {
 								${detail.orderMenuNumber }개</p>
 
 							<!-- 옵션 -->
-							<c:set var="optionsInfo" value="${detail.optionsInfo }" />
-							<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
+						
+								<c:choose>
+									<c:when test="${detail.optionsInfo == ''}">
+										<input type="hidden">
+									</c:when>
+									<c:otherwise>
+										<!-- 옵션 -->
+										<c:set var="optionsInfo" value="${detail.optionsInfo }" />
+										<c:set var="options" value="${fn:split(optionsInfo, ',')}" />
 
-							<ul>
-								<c:forEach items="${options}" var="option">
-									<c:set var="parts" value="${fn:split(option, '/')}" />
-									<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
-								</c:forEach>
-							</ul>
+										<ul>
+											<c:forEach items="${options}" var="option">
+												<c:set var="parts" value="${fn:split(option, '/')}" />
+												<li>· ${parts[3]}: ${parts[1]} (${parts[2]}원)</li>
+											</c:forEach>
+										</ul>
+									</c:otherwise>
+								</c:choose>
 
 							<p class="normal-text">${detail.orderMenuPrice}원</p>
 						</div>

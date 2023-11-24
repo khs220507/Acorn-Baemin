@@ -36,17 +36,14 @@
 	<form class="findId-form" action="${path}/findId" method="post"
 		id="findId-form">
 
-
 		<div class="findId-title">
 			<h1>아이디 찾기</h1>
 			<br>
 		</div>
 
-		<form>
-			이메일: <input type="email" name="email" required> 
-			<input type="submit" id="findId" value="아이디찾기">
-		</form>
-		
+		이메일: <input type="email" name="email" required> <input
+			type="submit" id="findId" value="아이디찾기">
+
 	</form>
 
 

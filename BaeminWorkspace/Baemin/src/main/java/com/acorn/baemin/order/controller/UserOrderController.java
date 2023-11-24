@@ -23,7 +23,7 @@ public class UserOrderController {
 	AddressRepositoryImp addressDAO;
 
 	@PostMapping("/orderDetail")
-	public String submitOrder(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam String deliveryAddress,  @RequestParam String detailDeliveryAddress, @RequestParam int deliveryFee, 
+	public String submitOrder(RedirectAttributes redirectAttributes, HttpSession session, @RequestParam String deliveryAddress, @RequestParam String allAddress,  @RequestParam String detailDeliveryAddress, @RequestParam int deliveryFee, 
 			@RequestParam int payType,
 			@RequestParam int orderType,
 			@RequestParam String reqToSeller, 
@@ -31,7 +31,7 @@ public class UserOrderController {
             @RequestParam String userPhone) {
 		System.out.println("테스트On");
 		OrderDTO orderDTO = (OrderDTO) session.getAttribute("orderDTO");
-		orderDTO.setDeliveryAddress(deliveryAddress);
+		orderDTO.setDeliveryAddress(allAddress);
 		orderDTO.setDeliveryFee(deliveryFee);
 		System.out.println(deliveryFee);
 		orderDTO.setReqToRider(reqToRider);

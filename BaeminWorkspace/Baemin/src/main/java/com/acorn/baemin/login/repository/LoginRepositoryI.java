@@ -17,16 +17,12 @@ public interface LoginRepositoryI {
 
 	String findSellerId(Map<String, Object> params);
 
-	
+	// 손님 비밀번호 찾기
+	String findCustomerPassword(Map<String, Object> params);
 
+	// 사장님 비밀번호 찾기
+	String findSellerPassword(Map<String, Object> params);
 
-    // 손님 비밀번호 찾기
-    String findCustomerPassword(Map<String, Object> params);
-
-    // 사장님 비밀번호 찾기
-    String findSellerPassword(Map<String, Object> params);
-
-	
 	// 로그인
 	public String customerlogin();
 
@@ -39,7 +35,6 @@ public interface LoginRepositoryI {
 	// 사장님 로그인
 	SellerDTO loginseller(String sellerId, String sellerPw);
 
-	
 	// 아이디 비번 찾기
 
 	UserDTO findUserById(String userId);

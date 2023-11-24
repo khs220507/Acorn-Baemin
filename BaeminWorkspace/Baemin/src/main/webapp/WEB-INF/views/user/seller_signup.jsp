@@ -376,8 +376,7 @@ td {
 							} else {
 								// 유효성검사
 								let idCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,8}$/;
-								let sellerId = $("#sellerId")
-										.val();
+								let sellerId = $("#sellerId").val();
 
 								if (!idCheck.test(sellerId)) {
 									alert("아이디는 영문과 숫자 조합으로 6~8자여야 합니다.");
@@ -455,17 +454,43 @@ td {
 						$("#sellerRegCode").on("input",function() {
 							let regCodeCheck = /^\d{10}$/;
 
-							if ($(this).val() === ""
-									|| !regCodeCheck
-											.test($(this).val())) {
-								$("#regCodeError").text(
-										"사업자등록번호 형식에 맞지 않습니다.");
+							if ($(this).val() === "" || !regCodeCheck.test($(this).val())) {
+								$("#regCodeError").text("사업자등록번호 형식에 맞지 않습니다.");
 								$(this).css("border-color", "red");
 								sellerRegCodeValid = false;
 							} else {
 								$("#regCodeError").text("");
 								$(this).css("border-color", "");
 								sellerRegCodeValid = true;
+							}
+						});
+						
+						// 사업자등록번호 중복 확인
+						$("#sellerRegCode").on('focusout',function() {
+							var sellerInput = $(this).val();
+							if (sellerInput == "") {
+							} else {
+								$.ajax({
+											url : "/baemin/checkDuplicateRegCode",
+											type : "POST",
+											data : {
+												sellerRegCode : $("#sellerRegCode").val()
+											},
+											success : function(data) {
+												if (data === "yes") {
+													$("#sellerRegCode").css("border-color","red");
+													alert("중복된 사업자등록번호 입니다.");
+													Code_check = false;
+													$("#sellerRegCode").val("");
+												} else {
+													$("#sellerRegCode").css("border-color","");
+													Code_check = true;
+												}
+											},
+											error : function() {
+												alert("에러발생");
+											}
+										});
 							}
 						});
 
@@ -475,17 +500,46 @@ td {
 							if (!/^[0-9]*$/.test($(this).val())) {
 								$(this).val('');
 							}
-							if ($(this).val() === ""
-									|| !phoneCheck.test($(this)
-											.val())) {
-								$(this).css("border-color",
-										"red");
+							if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
+								$(this).css("border-color","red");
 								sellerPhoneValid = false;
 							} else {
 								$(this).css("border-color", "");
 								sellerPhoneValid = true;
 							}
 						});
+
+						// 연락처 중복 확인
+						$("#sellerPhone").on('focusout',function() {
+							var sellerInput = $(this).val();
+							if (sellerInput == "") {
+							} else {
+								$.ajax({
+											url : "/baemin/checkDuplicatePhone2",
+											type : "POST",
+											data : {
+												sellerPhone : $("#sellerPhone").val()
+											},
+											
+											success : function(data) {
+												
+												if (data === "yes") {
+													$("#sellerPhone").css("border-color","red");
+													alert("중복된 연락처 입니다.");
+													phone_check = false;
+													$("#sellerPhone").val("");
+												} else {
+													$("#sellerPhone").css("border-color","");
+													phone_check = true;
+												}
+											},
+											error : function() {
+												alert("에러발생");
+											}
+										});
+							}
+						});
+						
 						// 이메일 인증
 						$('#mail-Check-Btn').click(function() {
 							const email = $('#sellerEmail1').val()
@@ -504,6 +558,7 @@ td {
 								}
 							}); // end ajax
 						}); // end send email
+						
 						$('#sellerEmail2').change(function() {
 							var selectedEmail = $(this).val();
 
