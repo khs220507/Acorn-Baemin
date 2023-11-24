@@ -291,6 +291,8 @@ show tables;
 
 
 
+ -- userInfo===>{phoneNumber=+82 10-9381-1510, baseAddress=서울 영등포구 선유로35길 25 (양평동3가, 파크뷰), detailAddress=906호, email=tmpark11@naver.com}
 
-
-
+	SELECT * 
+		FROM user_tbl 
+		WHERE userEmail='tmpark11@naver.com' AND userPhone=#{phone_number}
