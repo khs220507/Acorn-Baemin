@@ -48,6 +48,23 @@
 		cursor: pointer;
 		margin-left: 10px;
 	}
+	button#signout_button{
+		background-color: red;
+		color: white;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+		margin-left: 10px;
+		height: 30px;
+		color: white;
+		border-radius: 4px;
+		font-size: 15px;
+		cursor: pointer;
+		margin-left: 10px;
+		width: 300px;
+		display: block;
+		margin: 10px auto;
+	}
 
 	.container {
 		display: flex;
@@ -271,7 +288,7 @@ function updatecustomer() {
 		    let userAddressDetail = $('#userAddressdetail').val();
 
 		    
-		 // 빈칸으로 수정되는경우 방지. 유효성 검사
+		 // 빈칸으로 수정되는경우 방지
 			if (userPw === "" || confirmPassword === ""
 					|| userNickname === "" || userPhone === ""
 					|| userEmail === "" || userPostCode === "" || userAddress === "" || userAddressDetail === "" ) {
@@ -449,11 +466,18 @@ function updatecustomer() {
 			// 이메일 유효성 검사
 			const previousEmail = "";
 			$("#userEmail").on("input", function() {
-			    let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-			    if (!emailCheck.test($(this).val())) {
+				let emailCheck = /^[a-zA-Z0-9._-]+@(example\.com|gmail\.com|naver\.com|kakao\.com)$/;
+				if (!$(this).val().includes('@') || !emailCheck.test($(this).val())) {
 			        $(this).css("border-color", "red");
 			    } else {
-			        $(this).css("border-color", ""); // 초기화
+			        let parts = $(this).val().split('@');
+			        let domain = parts[1] || ''; // 도메인 부분을 가져옴
+			        let validDomains = ['example.com', 'gmail.com', 'naver.com', 'kakao.com'];
+			        if (!validDomains.includes(domain)) {
+			            $(this).css("border-color", "red");
+			        } else {
+			            $(this).css("border-color", ""); // 초기화
+			        }
 			    }
 			});
 			

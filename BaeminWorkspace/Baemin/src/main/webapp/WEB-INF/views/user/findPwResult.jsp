@@ -53,9 +53,11 @@ input[type="button"] {
             <br>            
         </div>
         
-        <p id="customerPw" style="display: none;">손님 비밀번호 : ${customerPw}</p>
-        <p id="sellerPw" style="display: none;">사장님 비밀번호: ${sellerPw}</p>
+        <p id="customerPw" style="display: ${customerPw ? 'block' : 'none'};">손님 비밀번호 : ${customerPw}</p>
+        <p id="sellerPw" style="display: ${sellerPw ? 'block' : 'none'};">사장님 비밀번호: ${sellerPw}</p>
         
+        <!-- 결과값이 없을 때 -->
+        <p id="noResultMessage" style="display: ${!customerPw && !sellerPw ? 'block' : 'none'};">결과가 없습니다.</p>
     </form>
 
     <script>
@@ -65,6 +67,7 @@ input[type="button"] {
         // 결과를 보여줄 요소 선택
         let customerElement = document.getElementById("customerPw");
         let sellerElement = document.getElementById("sellerPw");
+        let noResultMessage = document.getElementById("noResultMessage");
 
         // customerPw가 존재하면 해당 요소 보이기
         if (customerPw && customerPw.length > 0) {
@@ -74,6 +77,11 @@ input[type="button"] {
         // sellerPw가 존재하면 해당 요소 보이기
         if (sellerPw && sellerPw.length > 0) {
             sellerElement.style.display = "block";
+        }
+
+        // 결과값이 없을 때 해당 요소 보이기
+        if (!customerPw && !sellerPw) {
+            noResultMessage.style.display = "block";
         }
     </script>
 </body>
