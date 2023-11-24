@@ -11,6 +11,8 @@
 	<!-- 메뉴 전체 조회 -->
 	<select id="selectAllMenuInfo" resultType="MenuDTO" parameterType="int">
 		SELECT * FROM menu_tbl where storeCode = #{storeCode}
+		ORDER
+		BY menuStatus
 	</select>
 	
 	<!-- 메뉴 조회 -->

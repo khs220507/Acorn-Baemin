@@ -162,7 +162,7 @@ hr {
 								<a href="${path}/store?storeCode=${searchList.storeCode}">${searchList.storeName }
 									<span class="store-code"> ${searchList.storeCode }</span> <c:choose>
 										<c:when test="${searchList.storeStatus == 1 }">
-											<span>(준비중입니다...)</span>
+											<span>(영업준비중...)</span>
 										</c:when>
 									</c:choose>
 								</a>

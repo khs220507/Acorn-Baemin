@@ -241,6 +241,8 @@ public class HomeController {
 		model.addAttribute("orderDetail", result);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ result);
 
+
+		
 		return "home/order_detail";
 	}
 

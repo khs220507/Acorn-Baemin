@@ -142,7 +142,24 @@ button {
 	width: 100px;
 	height: 100px;
 }
-
+.menu-img{
+	position: relative;
+}
+.ready-msg{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.521);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.ready-msg p{
+	color: white;
+	font-size: 20px;
+}
 .menu-classification-list {
 	display: inline-block;
 }
@@ -497,7 +514,6 @@ button {
 			<%
 			}
 			%>
-			<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 			<hr class="line">
 			<div class="store-name">${readStore.storeName}</div>
 			<div class="rating-review-minprice">
@@ -534,17 +550,39 @@ button {
 									<c:when
 										test="${menuList.menuClassification eq classificationList.menuClassification}">
 										<div class="menu-info-with-btn">
-											<a class="menu-img"
-												href="${path}/option?menuCode=${menuList.menuCode}"><img
-												alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-											<div class="menuName-wrap">
-												<div class="menuName menuName-bigger">${menuList.menuName}</div>
-												<div class="menuName">${menuList.menuContent}</div>
-												<div class="menuName">${menuList.menuPrice}</div>
-												<c:choose>
-													<c:when test="${menuList.menuStatus eq 1}">(준비중)</c:when>
-												</c:choose>
-											</div>
+
+											<c:choose>
+												<c:when test="${menuList.menuStatus eq 1}">
+												<!-- 영업준비중일때 -->
+													<a class="menu-img"><img
+													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}">
+													<div class="ready-msg">
+														<p>준비중</p>
+													</div>
+													</a>
+													<div class="menuName-wrap">
+														<div class="menuName menuName-bigger">${menuList.menuName}</div>
+															<div class="menuName">${menuList.menuContent}</div>
+															<div class="menuName">${menuList.menuPrice}</div>
+													</div>
+												</c:when>
+
+												<c:when test="${menuList.menuStatus eq 0}">
+													<!-- 영업중일때 -->
+													<a class="menu-img"
+													href="${path}/option?menuCode=${menuList.menuCode}"><img
+													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+
+													<div class="menuName-wrap">
+														<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName menuName-bigger">${menuList.menuName}</div></a>
+															<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuContent}</div></a>
+															<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuPrice}</div></a>
+													</div>
+												</c:when>
+											</c:choose>	
 										</div>
 										<hr class="thin-line">
 									</c:when>
