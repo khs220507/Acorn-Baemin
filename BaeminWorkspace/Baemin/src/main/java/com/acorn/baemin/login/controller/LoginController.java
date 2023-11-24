@@ -135,24 +135,18 @@ public class LoginController {
 		try {
 			UserDTO user = loginService.loginCustomer(userId, userPw);
 			int status = user.getUserStatus();
-
 			///////////////// 주소
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
-
 
 			if(addressCount == 0 ) {
 				addressDAO.loginInsertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 2));
 			}else {
-
-
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}
 			// 주소코드 가져와서 세션에 넣기
 			int addressCode = addressDAO.lastOrderAddressCode(user.getUserCode());
 			session.setAttribute("addressCode", addressCode);
-
 			///////////////////////////////////
-
 			if (user != null && status == 1) {
 				session.setAttribute("userCode", user.getUserCode());
 				session.setAttribute("user", user.getUserId());
@@ -172,7 +166,6 @@ public class LoginController {
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
-
 		System.out.println("seller" + seller);
 
 		int status = seller.getSellerStatus();
@@ -203,7 +196,6 @@ public class LoginController {
 			result = rep.selectAll();
 			model.addAttribute("list", result);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "user/login";

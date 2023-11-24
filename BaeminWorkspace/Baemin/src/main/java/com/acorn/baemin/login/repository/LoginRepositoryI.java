@@ -24,9 +24,6 @@ public interface LoginRepositoryI {
 	// 사장님 비밀번호 찾기
 	String findSellerPassword(Map<String, Object> params);
 
-	// 로그인
-	public String customerlogin();
-
 	// 로그아웃
 	public String logout();
 
