@@ -68,7 +68,6 @@ public class LoginController {
 		return "user/findIdResult";
 	}
 
-
 	// 유저 비밀번호 찾기 보내기
 	@GetMapping("/findPwForm")
 	public String findPwForm() {
@@ -92,26 +91,20 @@ public class LoginController {
 		return "user/findPwResult";
 	}
 
+	@GetMapping(value = "/kakaoLogin")
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("code : " + code);
 
+		String access_Token = loginService.getAccessToken(code);
+		System.out.println("access_Token : " + access_Token);
 
- 		@GetMapping(value="/kakaoLogin")
- 		public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
- 			System.out.println("code : " + code);
- 			
- 			String access_Token = loginService.getAccessToken(code);
- 			System.out.println("access_Token : " + access_Token);
- 			
- 			HashMap<String, Object> userInfo = loginService.getUserInfo(access_Token);
- 			System.out.println("access_Token : " + access_Token);
- 			System.out.println("nickname : " + userInfo.get("profile_nickname"));
- 			System.out.println("email : " + userInfo.get("account_email"));
- 			
- 			return "redirect:/home";
- 	    	}
+		HashMap<String, Object> userInfo = loginService.getUserInfo(access_Token);
+		System.out.println("access_Token : " + access_Token);
+		System.out.println("nickname : " + userInfo.get("profile_nickname"));
+		System.out.println("email : " + userInfo.get("account_email"));
 
- 		
-	
-
+		return "redirect:/home";
+	}
 
 	// 유저 로그인 보내기
 	@GetMapping("/login")
@@ -139,10 +132,10 @@ public class LoginController {
 			///////////////// 주소
 			int addressCount = addressDAO.selectAddressCount(user.getUserCode());
 
-			
-			if(addressCount == 0 ) {
-				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
-			}else {
+			if (addressCount == 0) {
+				addressDAO.insertAddress(
+						new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
+			} else {
 
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
 			}
@@ -171,11 +164,12 @@ public class LoginController {
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
 		SellerDTO seller = loginService.loginSeller(userId, userPw);
-		
-	System.out.println("seller" + seller);
-		
-		
+
+		System.out.println("seller" + seller);
+
 		int status = seller.getSellerStatus();
+		System.out.println("status" + status);
+
 		if (seller != null && status == 1) {
 			int sellerCode = seller.getSellerCode();
 			session.setAttribute("user", sellerCode);

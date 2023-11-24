@@ -359,7 +359,7 @@ td {
 						window.location.href = "http://localhost:8080/baemin/login";
 					},
 					error : function() {
-						alert("입력한 정보를 확인해주세요.");
+						//alert("입력한 정보를 확인해주세요.");
 					},
 				});
 			} else {
@@ -380,14 +380,14 @@ td {
 						let userEmailValid = false;
 						// 아이디 유효성 검사
 						$("#userId").on("focusout",function() {
-							let idCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,8}$/;
+							let idCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,12}$/;
 							let userId = $(this).val();
 							if (userId === ""
 									|| !idCheck.test(userId)) {
 								$(this).css("border-color",
 										"red");
 								userIdValid = false;
-								alert("아이디는 영문과 숫자의 조합으로 6~8자여야 합니다.");
+								alert("아이디는 영문과 숫자의 조합으로 6~12자여야 합니다.");
 							} else {
 								$(this).css("border-color", "");
 								userIdValid = true;
@@ -401,17 +401,16 @@ td {
 								alert("아이디를 입력해주세요.");
 							} else {
 								// 유효성검사
-								let idCheck = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{6,8}$/;
+								let idCheck = /^(?=.*[a-z])(?=.*[0-9])[a-z0-9]{6,8}$/;								
 								let userId = $("#userId").val();
 
 								if (!idCheck.test(userId)) {
-									alert("아이디는 영문과 숫자의 조합으로 6~8자여야 합니다.");
+									alert("아이디는 영문 소문자와 숫자 조합으로 6~12자여야 합니다.");
 									return;
 								}
 
 								// 유효성 검사 통과시 중복 확인 Ajax 요청
-								$
-										.ajax({
+								$.ajax({
 											url : "/baemin/checkDuplicate",
 											type : "POST",
 											data : {
@@ -420,20 +419,12 @@ td {
 											success : function(
 													data) {
 												if (data === "yes") {
-													$("#userId")
-															.css(
-																	"border-color",
-																	"red");
+													$("#userId").css("border-color","red");
 													alert("중복된 아이디 입니다.");
 													id_check = false;
-													$("#userId")
-															.val(
-																	"");
+													$("#userId").val("");
 												} else {
-													$("#userId")
-															.css(
-																	"border-color",
-																	"");
+													$("#userId").css("border-color","");
 													alert("사용가능한 아이디 입니다.");
 													id_check = true;
 												}
@@ -478,20 +469,23 @@ td {
 
 						// 손님 이름
 						$("#userName").blur(function() {
-							let userName = $(this).val();
-							let namePattern = /^[가-힣]{1,10}$|^[a-zA-Z]{1,16}$/;
-							if (userName === ""
-									|| !namePattern
-											.test(userName)) {
-								$(this).css("border-color",
-										"red");
-								userNameValid = false;
-							} else {
-								86
-								$(this).css("border-color", "");
-								userNameValid = true;
-							}
+						    let userName = $(this).val();
+						    let namePattern = /^[가-힣]{2,10}$|^[a-zA-Z]{2,10}$/;
+						    let forbiddenChars = /[^\wㄱ-힣]/; // 특수문자, 공백, 숫자 제외
+						
+						    if (
+						        userName === "" ||
+						        !namePattern.test(userName) ||
+						        forbiddenChars.test(userName)
+						    ) {
+						        $(this).css("border-color", "red");
+						        userNameValid = false;
+						    } else {
+						        $(this).css("border-color", "");
+						        userNameValid = true;
+						    }
 						});
+
 
 						let timeoutId;
 
@@ -546,10 +540,8 @@ td {
 								$(this).val('');
 							}
 							if ($(this).val() === ""
-									|| !phoneCheck.test($(this)
-											.val())) {
-								$(this).css("border-color",
-										"red");
+									|| !phoneCheck.test($(this).val())) {
+								$(this).css("border-color",	"red");
 								userPhoneValid = false;
 							} else {
 								$(this).css("border-color", "");
@@ -591,10 +583,8 @@ td {
 
 							let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 							if ($(this).val() === ""
-									|| !emailCheck.test($(this)
-											.val())) {
-								$(this).css("border-color",
-										"red");
+									|| !emailCheck.test($(this).val())) {
+								$(this).css("border-color","red");
 								userEmailValid = false;
 							} else {
 								$(this).css("border-color", "");
@@ -680,7 +670,7 @@ td {
 										
 										alert("회원가입이 완료되었습니다.");
 									} else {
-										alert("입력 정보를 확인해주세요.");
+										//alert("입력 정보를 확인해주세요.");
 									}
 								});
 
