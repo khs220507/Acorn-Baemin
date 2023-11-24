@@ -202,6 +202,7 @@ CREATE TABLE order_tbl (
     FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
+    
 ) AUTO_INCREMENT = 70001;
 
 
@@ -231,32 +232,23 @@ CREATE TABLE review_tbl (
     orderMenuName VARCHAR(100),
     userCode int,
     storeCode int,
+    orderNumber int,
     reviewImage VARCHAR(300),
     reviewDate DATE,
     reviewRating INT,
     reviewContent VARCHAR(300),
     reviewImageName VARCHAR(300),
     userNickName VARCHAR(100),
-   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
+    answerContent VARCHAR(300),
+    answerDate DATE,
+    foreign key (orderNumber) references order_tbl(orderNumber),
+    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
 
 
 select * from review_tbl;
 
--- 10
-CREATE TABLE answer_tbl (
-    answerCode int AUTO_INCREMENT PRIMARY KEY,
-    storeCode int,
-    reviewCode int,
-    answerDate DATE NOT NULL,
-    answerContent VARCHAR(300) NOT NULL,
-    FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
-    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
-) AUTO_INCREMENT=100001;
-
-
-select * from answer_tbl;
 
 -- 11 태민 address_tbl;
 
@@ -283,7 +275,7 @@ commit;
 
 show tables;
 
-
+select * from order_tbl where userCode=10001;
 
 
 -- Drop all tables

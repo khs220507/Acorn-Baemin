@@ -269,14 +269,14 @@ button {
 	border-radius: 5px;
 }
 
-.review-wrap{
-margin-top: 20px;
-padding-bottom: 20px;
-border-bottom: 1px #d9d9d9 solid;
+.review-wrap {
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px #d9d9d9 solid;
 }
 
-.reply-review-wrap{
-margin-top:5px;
+.reply-review-wrap {
+	margin-top: 5px;
 }
 </style>
 <script type="text/javascript"
@@ -422,20 +422,25 @@ margin-top:5px;
 	
 	
 	$(document).ready(function() {
-        // ... (your existing code)
+        
+        // Function to check if there is an existing answer and hide the reply section
+   
+        
 
         // Add click event handler for the "등록" button
         $("#submitReplyBtn").on("click", function() {
             // Get the reviewCode value from the hidden input
             var reviewCode = $("input[name='reviewCode']").val();
+            var storeCode = $("input[name='storeCode']").val();
 
             // Get the reply content from the textarea
-            var replyContent = $("#replyContent").val();
+            var answerContent = $("#replyContent").val();
 
             // Prepare data to send to the server
             var data = {
                 reviewCode: reviewCode,
-                replyContent: replyContent
+                storeCode : storeCode,
+                answerContent: answerContent
             };
 
             // Send an AJAX request to the server
@@ -446,17 +451,19 @@ margin-top:5px;
                 contentType: "application/json",
                 success: function(response) {
                     // Handle the success response from the server
-                    console.log("Reply submitted successfully");
-                    alert(data);
+                  
+    
                     // Optionally, you can update the UI or perform other actions here
                 },
                 error: function() {
-                    alert("실패")
-                    console.error("Error submitting reply");
+                   
                     // Optionally, you can display an error message to the user
                 }
             });
         });
+        
+      
+
     });
 
 	
@@ -609,13 +616,17 @@ margin-top:5px;
 								alt="Review Image">
 						</c:if>
 						
-
+						<!--  
 						<div class="reply-review-wrap">
-						<input type="hidden" name="reviewCode" value="${item.reviewCode}">
-							<p style="margin-bottom:5px;">답글달기</p>
+							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
+							<input type="hidden" name="storeCode" value="${item.storeCode}">
+							<p style="margin-bottom: 5px;">답글달기</p>
 							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
 							<button id="submitReplyBtn">등록</button>
 						</div>
+						-->
+						
+						
 					</div>
 
 				</c:forEach>

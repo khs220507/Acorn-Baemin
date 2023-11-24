@@ -12,6 +12,5 @@ public class AnswerDTO {
 	Integer storeCode;
 	Integer reviewCode;
 	String answerDate;
-	String answerContent;
-	Integer answerStatus; 
+	String answerContent; 
 }

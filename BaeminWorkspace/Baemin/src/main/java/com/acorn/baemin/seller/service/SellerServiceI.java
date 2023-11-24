@@ -43,6 +43,8 @@ public interface SellerServiceI {
 		public int reviewCount(Integer storeCode);
 		
 		// 답변 등록
-		public void insertAnswer(AnswerDTO answerDTO);
+		public void insertAnswer(int reviewCode);
+		
+		public List<AnswerDTO> selectAllAnswer(Integer reviewCode);
 }
 
