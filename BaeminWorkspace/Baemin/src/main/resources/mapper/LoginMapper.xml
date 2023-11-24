@@ -253,6 +253,20 @@
 		WHERE userId = #{userId}
 	</update>
 
+
+<!-- 카카오 api에서 받아온 정보가 db에 있는지 확인 -->
+	<select id="findKakao" parameterType="java.util.HashMap" resultType="UserDTO">
+		SELECT * 
+		FROM user_tbl 
+		WHERE userEmail=#{email} AND userPhone=#{phoneNumber}
+	</select>
+
+<!-- 없다면 insert -->
+	<insert id="kakaoInsert" parameterType="java.util.HashMap">
+		INSERT INTO user_tbl (userEmail, userPhone, userAddress, userAddressDetail)
+		VALUES(#{email}, #{phoneNumber}, #{baseAddress}, #{detailAddress})
+	</insert>
+
 	<!-- <select id="findUserByType" resultType="SellerDTO" parameterType="SellerDTO"> -->
 	<!-- select * from seller_tbl where sellerId = #{sellerId} and sellerPw 
 		= #{sellerPw} -->

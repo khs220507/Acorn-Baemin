@@ -5,17 +5,17 @@ DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, addr
 -- 01 회원 user_tbl
 CREATE TABLE user_tbl (
     userCode INT AUTO_INCREMENT PRIMARY KEY,
-    userId VARCHAR(20) NOT NULL UNIQUE,
-    userPw VARCHAR(30) NOT NULL,
-    userName VARCHAR(20) NOT NULL,
-    userNickname VARCHAR(20) NOT NULL,
-    userPhone VARCHAR(50) NOT NULL UNIQUE,
-    userEmail VARCHAR(50) NOT NULL UNIQUE,
-    userBirth VARCHAR(20) NOT NULL,
-    userGender TINYINT(1) NOT NULL, -- 0:남자, 1:여자
-    userPostCode VARCHAR(50) NOT NULL,
-    userAddress VARCHAR(150) NOT NULL,
-    userAddressDetail VARCHAR(150) NOT NULL,
+    userId VARCHAR(20) UNIQUE,
+    userPw VARCHAR(30),
+    userName VARCHAR(20),
+    userNickname VARCHAR(20),
+    userPhone VARCHAR(50) UNIQUE,
+    userEmail VARCHAR(50) UNIQUE,
+    userBirth VARCHAR(20),
+    userGender TINYINT(1), -- 0:남자, 1:여자
+    userPostCode VARCHAR(50),
+    userAddress VARCHAR(150),
+    userAddressDetail VARCHAR(150),
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 10001;
 
@@ -29,7 +29,9 @@ VALUES
 
 select * from user_tbl;
 
-
+SELECT * 
+		FROM user_tbl 
+		WHERE userEmail='tmpark11@naver.com' AND userPhone='+82 10-9381-1510';
 -- 02 사장 seller_tbl
 CREATE TABLE seller_tbl (
     sellerCode INT AUTO_INCREMENT PRIMARY KEY,
