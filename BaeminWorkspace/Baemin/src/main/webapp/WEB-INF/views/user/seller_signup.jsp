@@ -90,7 +90,7 @@ button#mail-Check-Btn {
 }
 
 input#sellerEmail1 {
-	width: 65%;
+	width: 64%;
 	height: 25px;
 	padding: 10px;
 	font-size: 15px;
@@ -437,7 +437,7 @@ td {
 						});
 
 						// 사장님 이름
-						$("#sellerName").on("blur",function() {
+						$("#sellerName").on("input",function() {
 							let sellerName = $(this).val();
 							let namePattern = /^[가-힣a-zA-Z]{1,16}$/; // 한글과 영어 대소문자만 허용, 최대 16자까지
 							if (sellerName === ""

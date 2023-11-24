@@ -22,8 +22,7 @@
 	<select id="finduserPw" resultType="UserDTO">
 		select userPw
 		from user_tbl
-		where userId = #{userId}
-		and userEmail = #{userEmail}
+		where userId = #{userId} and userEmail = #{userEmail} and userStatus = 1
 	</select>
 
 	<!-- 사장님 비밀번호 찾기 -->
@@ -31,8 +30,7 @@
 		select sellerPw
 		from
 		seller_tbl
-		where sellerId = #{sellerId}
-		and sellerEmail = #{sellerEmail}
+		where sellerId = #{sellerId} and sellerEmail = #{sellerEmail} and sellerStatus = 1
 	</select>
 
 	<!-- 손님 비밀번호 초기화 -->
@@ -42,7 +40,7 @@
 		WHERE userId = (
 		SELECT userId
 		FROM user_tbl
-		WHERE userEmail = #{userEmail}
+		WHERE userEmail = #{userEmail} 
 		)
 	</update>
 
@@ -84,7 +82,7 @@
 	<select id="selectUserById" resultType="UserDTO"
 		parameterType="UserDTO">
 		select * from user_tbl where userId = #{userId} and
-		userPw = #{userPw}
+		userPw = #{userPw} and userStatus = 1
 	</select>
 
 	<!-- 사장님 로그인 -->
@@ -114,7 +112,7 @@
 		userPostCode = #{userPostCode},
 		userAddress = #{userAddress},
 		userAddressDetail = #{userAddressDetail}
-		where userCode = #{userCode}
+		where userCode = #{userCode} and userStatus = 1
 	</update>
 
 	<!-- 손님 정보 수정시 기존 정보 불러오기 -->
@@ -123,7 +121,7 @@
 		select userNickname, userPw, userPhone, userEmail,
 		userPostCode, userAddress, userAddressDetail
 		from user_tbl where
-		userCode = #{userCode}
+		userCode = #{userCode} and userStatus = 1
 	</select>
 
 	<!-- 사장님 정보 수정 -->
@@ -250,27 +248,4 @@
 		WHERE userId = #{userId}
 	</update>
 
-	<!-- <select id="findUserByType" resultType="SellerDTO" parameterType="SellerDTO"> -->
-	<!-- select * from seller_tbl where sellerId = #{sellerId} and sellerPw 
-		= #{sellerPw} -->
-	<!-- </select> -->
-
-	<!-- <insert id="insertUser"> -->
-	<!-- insert into user_tbl (userId, userPw, userName, userNickname, userPhone, 
-		userAddress, userEmail, userBirth, userGender, userStatus) -->
-	<!-- values (#{userId}, #{userPw}, #{userName}, #{userNickname}, #{userPhone}, 
-		#{userAddress}, #{userEmail}, #{userBirth}, #{userGender}, #{userStatus}) -->
-	<!-- </insert> -->
-
-	<!-- <update id="updateUser"> -->
-	<!-- update user_tbl -->
-	<!-- set userName = #{userName}, userNickname = #{userNickname}, userPhone 
-		= #{userPhone}, userAddress = #{userAddress}, userEmail = #{userEmail}, userBirth 
-		= #{userBirth}, userGender = #{userGender} -->
-	<!-- where userId = #{userId} -->
-	<!-- </update> -->
-
-	<!-- <delete id="deleteUser"> -->
-	<!-- delete from user_tbl where userId = #{userId} -->
-	<!-- </delete> -->
 </mapper>

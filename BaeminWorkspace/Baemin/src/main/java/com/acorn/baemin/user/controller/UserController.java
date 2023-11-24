@@ -179,28 +179,6 @@ public class UserController {
 
 
 	// 내 정보 수정 시, 기존 정보 가져오기 손님
-//	@RequestMapping("/selectUserInfo2")
-//	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
-//		try {
-//			Integer userType = (Integer) session.getAttribute("userCode");
-//			System.out.println(userType + "2");
-//
-//			if (userCode != null) {
-//				Object userInfo = rep.selectUserInfo(userCode, 1);
-//
-//				System.out.println("aaaaaa=" + userInfo);
-//				model.addAttribute("userInfo", userInfo);
-//				return "user/customer_modify";
-//			} else {
-//				model.addAttribute("message", "유저 코드가 유효하지 않습니다.");
-//				return "error";
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("message", "사용자 정보를 불러오는 중 오류가 발생했습니다.");
-//			return "error";
-//		}
-//	}
 	@RequestMapping("/selectUserInfo2")
 	public String modifyInfo(Model model, @RequestParam("userCode") Integer userCode, HttpSession session) {
 	    try {
@@ -216,8 +194,6 @@ public class UserController {
 	            model.addAttribute("message", "사용자 정보를 수정할 수 있는 권한이 없습니다.");
 	            return "error";
 	        }
-	        // 기존 비밀번호 확인 후 내 정보 수정 페이지로 이동
-	        // 여기서 rep.selectUserInfo 메서드는 사용자 정보를 가져오는 로직을 수행하는 부분으로 대체되어야 합니다.
 	        Object userInfo = rep.selectUserInfo(userCode, 1);
 	        model.addAttribute("userInfo", userInfo);
 	        return "user/customer_modify";
@@ -322,9 +298,7 @@ public class UserController {
 			rep.updateCustomer(updatecustomer);
 			System.out.println("success890");
 			
-			////////////////주소 업데이트 ////////////////
-			
-			
+			////////////////주소 업데이트 ////////////////			
 			
 			return "수정 성공";
 		} catch (Exception e) {
