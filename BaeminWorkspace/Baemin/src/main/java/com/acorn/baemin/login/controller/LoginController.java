@@ -85,12 +85,7 @@ public class LoginController {
 		return "user/findPwResult";
 	}
 
-	@GetMapping(value = "/kakaoLogin")
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
-		System.out.println("code : " + code);
 
-		String access_Token = loginService.getAccessToken(code);
-		System.out.println("access_Token : " + access_Token);
 
 
 	@GetMapping(value="/kakaoLogin")
