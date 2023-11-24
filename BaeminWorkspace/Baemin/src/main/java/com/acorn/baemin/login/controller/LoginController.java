@@ -141,7 +141,7 @@ public class LoginController {
 
 			
 			if(addressCount == 0 ) {
-				addressDAO.insertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 1));
+				addressDAO.loginInsertAddress(new AddressDTO(0, user.getUserCode(), user.getUserAddress(), user.getUserAddressDetail(), 2));
 			}else {
 
 				System.out.println("주소값이 이미 있습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
