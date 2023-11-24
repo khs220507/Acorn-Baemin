@@ -111,9 +111,8 @@ public class SellerRepository implements SellerRepositoryI {
 	
 	// 답변 등록
 	@Override
-	public int updateAnswer(AnswerDTO answerDTO) {
-		System.out.println("insertAnswer @repo");
-		return session.insert(namespaceAnswer + "updateReview", answerDTO);
+	public int updateAnswer(ReviewDTO reviewDTO) {
+		return session.insert(namespaceAnswer + "updateReview", reviewDTO);
 	}
 	@Override
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode) {

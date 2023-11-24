@@ -302,15 +302,15 @@ public class SellerController {
 	// 답글 등록
 	@PostMapping("/submitAnswer")
 	@ResponseBody
-	public String submitAnswer(@Param("reviewCode") Integer reviewCode, @Param("answerContent") String answerContent, AnswerDTO answerDTO) {
+	public String submitAnswer(@Param("reviewCode") Integer reviewCode, @Param("answerContent") String answerContent, ReviewDTO reviewDTO) {
 		System.out.println("테스트중입니다.");
 	    try {
 	        System.out.println("Received reviewCode: " + reviewCode);
 	        System.out.println("Attempting to insert reply...");
 	        System.out.println(answerContent);
-	        answerDTO.setAnswerContent(answerContent);
-	        answerDTO.setReviewCode(reviewCode);
-	        sc.updateAnswer(answerDTO);
+	        reviewDTO.setAnswerContent(answerContent);
+	        reviewDTO.setReviewCode(reviewCode);
+	        sc.updateAnswer(reviewDTO);
 	        System.out.println("Reply insertion successful!");
 	    } catch (Exception e) {
 	        e.printStackTrace();

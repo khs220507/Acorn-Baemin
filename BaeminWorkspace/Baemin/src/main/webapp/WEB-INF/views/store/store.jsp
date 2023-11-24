@@ -572,6 +572,10 @@ button {
 								src="${path}/reviewImages/${item.reviewImageName}"
 								alt="Review Image">
 						</c:if>
+						<c:if test="${not empty item.answerContent}">
+						<div>사장님</div>
+						<div>${item.answerContent}</div>
+						</c:if>
 						
 						
 						

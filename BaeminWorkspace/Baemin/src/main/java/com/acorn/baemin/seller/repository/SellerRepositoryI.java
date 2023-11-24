@@ -47,7 +47,7 @@ public interface SellerRepositoryI {
 	public int reviewCount(Integer storeCode);
 	
 	// 답변 등록
-	public int updateAnswer(AnswerDTO answerDTO);
+	public int updateAnswer(ReviewDTO reviewDTO);
 	
 	public List<AnswerDTO> selectAllAnswer(Integer reviewCode);
 	
