@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -223,28 +224,14 @@ public class SellerController {
 	@ResponseBody
 	@GetMapping("/reviewAnswer")
 	public String ReviewAnswer(@RequestParam("storeCode") int storeCode, Model model, HttpSession session) {
-		
-
-		
 		List<ReviewDTO> readReview = sc.selectAllReview(storeCode);
 		model.addAttribute("Rlist", readReview);
-	
-
-		
 		return "seller/seller_home";
 	}
 
-	// 답글 수정
-	@PutMapping("/reviewAnswer")
-	public void updateAnswer(AnswerDTO answerContent) {
 
-	}
 
-	// 답글 삭제
-	@PutMapping("/deleteAnswer")
-	public void deleteAnswer(AnswerDTO answerCode) {
-
-	}
+	
 
 	// 손님이 볼 가게 화면
 	@GetMapping("/store")
@@ -313,18 +300,23 @@ public class SellerController {
 	}
 	
 	// 답글 등록
-	@PostMapping("/submitReply")
+	@PostMapping("/submitAnswer")
 	@ResponseBody
-	public void submitReply(@RequestBody Integer reviewCode) {
+	public String submitAnswer(@Param("reviewCode") Integer reviewCode, @Param("answerContent") String answerContent, AnswerDTO answerDTO) {
+		System.out.println("테스트중입니다.");
 	    try {
 	        System.out.println("Received reviewCode: " + reviewCode);
 	        System.out.println("Attempting to insert reply...");
-	        sc.insertAnswer(reviewCode);
+	        System.out.println(answerContent);
+	        answerDTO.setAnswerContent(answerContent);
+	        answerDTO.setReviewCode(reviewCode);
+	        sc.updateAnswer(answerDTO);
 	        System.out.println("Reply insertion successful!");
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        System.out.println("Failed to insert reply. Exception details: " + e.getMessage());
 	    }
+		return "seller/store_manage";
 	}
 
 }

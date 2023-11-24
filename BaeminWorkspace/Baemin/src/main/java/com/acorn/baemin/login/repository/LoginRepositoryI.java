@@ -1,5 +1,6 @@
 package com.acorn.baemin.login.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,5 +40,11 @@ public interface LoginRepositoryI {
 	UserDTO findUserByEmail(String userEmail);
 
 	void updatePassword(UserDTO user);
-
+	
+	// 카카오에서 받은 정보가 db에 있는지 확인
+	void kakaoInsert(HashMap<String, Object> userInfo);
+	
+	// db에 없으면 insert
+	UserDTO findKakao(HashMap<String, Object> userInfo);
+	
 }

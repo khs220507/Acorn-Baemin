@@ -71,8 +71,8 @@ hr {
 }
 
 .store-img {
-	width: 110px;
-	height: 85px;
+	width: 100px;
+	height: 100px;
 	flex: 2;
 }
 
@@ -156,7 +156,7 @@ hr {
 					<div class="wrap-include-hr">
 						<div class="searchList-wrap">
 							<a href="${path}/store?storeCode=${searchList.storeCode}"><img
-								class="store-img" src=""></a>
+								class="store-img" src="${path}/storeImages/${searchList.storeImage }"></a>
 
 							<div class="store-info-wrap">
 								<a href="${path}/store?storeCode=${searchList.storeCode}">${searchList.storeName }

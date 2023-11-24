@@ -64,6 +64,13 @@ public class AddressRepositoryImp implements AddressRepositoryI{
 		return session.selectOne(namespace + "getAddressCodeKakao", addressDTO);
 	}
 	
+	// 유저코드 + addressStatus=2 인 주소코드 조회
+	@Override
+	public int getAddressCodeHome(int userCode) {
+		return session.selectOne(namespace + "getAddressCodeHome", userCode);
+	}
+
+	
 	// 회원당 주소코드 개수 조회
 	@Override
 	public int selectAddressCount(int userCode) {
