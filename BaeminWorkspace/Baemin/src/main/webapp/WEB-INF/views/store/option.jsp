@@ -35,11 +35,16 @@ hr {
 	border-width: 2px;
 }
 
-.menu-img {
+.menu-img{
 	width: 200px;
 	height: 200px;
 	margin: 20px auto;
 	padding: 10px;
+}
+
+.menu-img img{
+	width: 200px;
+	height: 200px;
 }
 
 .menu-name {

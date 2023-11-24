@@ -1,27 +1,18 @@
 package com.acorn.baemin.login.controller;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
@@ -45,7 +36,10 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
-
+	
+	@Autowired
+	private HttpSession session;
+	
 	// 유저 아이디 찾기 보내기
 	@GetMapping("/findIdForm")
 	public String findIdForm() {
@@ -98,13 +92,31 @@ public class LoginController {
 		String access_Token = loginService.getAccessToken(code);
 		System.out.println("access_Token : " + access_Token);
 
-		HashMap<String, Object> userInfo = loginService.getUserInfo(access_Token);
-		System.out.println("access_Token : " + access_Token);
-		System.out.println("nickname : " + userInfo.get("profile_nickname"));
-		System.out.println("email : " + userInfo.get("account_email"));
 
+	@GetMapping(value="/kakaoLogin")
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
+		System.out.println("code : " + code);
+			
+		String access_Token = loginService.getAccessToken(code);
+		System.out.println(" access_Token @LoginController : " + access_Token);
+			
+		UserDTO userInfo = loginService.getUserInfoAndAddress(access_Token);
+		System.out.println("LoginController : " +  userInfo );
+			
+		System.out.println("phoneNumber : " + userInfo.getUserPhone());
+		System.out.println("email : " + userInfo.getUserEmail());
+		System.out.println("baseAddress : " + userInfo.getUserAddress());
+		System.out.println("detailAddress : " + userInfo.getUserAddressDetail());
+			
+		// session에 담긴 정보를 초기화.
+		session.invalidate();
+		// session에 userCode 담기
+		session.setAttribute("userCode", userInfo.getUserCode());
+		    
+		// 리턴값은 용도에 맞게 변경
 		return "redirect:/home";
 	}
+
 
 	// 유저 로그인 보내기
 	@GetMapping("/login")

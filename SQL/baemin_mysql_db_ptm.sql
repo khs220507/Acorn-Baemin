@@ -5,17 +5,17 @@ DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, addr
 -- 01 회원 user_tbl
 CREATE TABLE user_tbl (
     userCode INT AUTO_INCREMENT PRIMARY KEY,
-    userId VARCHAR(20) NOT NULL UNIQUE,
-    userPw VARCHAR(30) NOT NULL,
-    userName VARCHAR(20) NOT NULL,
-    userNickname VARCHAR(20) NOT NULL,
-    userPhone VARCHAR(50) NOT NULL UNIQUE,
-    userEmail VARCHAR(50) NOT NULL UNIQUE,
-    userBirth VARCHAR(20) NOT NULL,
-    userGender TINYINT(1) NOT NULL, -- 0:남자, 1:여자
-    userPostCode VARCHAR(50) NOT NULL,
-    userAddress VARCHAR(150) NOT NULL,
-    userAddressDetail VARCHAR(150) NOT NULL,
+    userId VARCHAR(20) UNIQUE,
+    userPw VARCHAR(30),
+    userName VARCHAR(20),
+    userNickname VARCHAR(20),
+    userPhone VARCHAR(50) UNIQUE,
+    userEmail VARCHAR(50) UNIQUE,
+    userBirth VARCHAR(20),
+    userGender TINYINT(1), -- 0:남자, 1:여자
+    userPostCode VARCHAR(50),
+    userAddress VARCHAR(150),
+    userAddressDetail VARCHAR(150),
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 10001;
 
@@ -29,7 +29,9 @@ VALUES
 
 select * from user_tbl;
 
-
+SELECT * 
+		FROM user_tbl 
+		WHERE userEmail='tmpark11@naver.com' AND userPhone='+82 10-9381-1510';
 -- 02 사장 seller_tbl
 CREATE TABLE seller_tbl (
     sellerCode INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,10 +82,10 @@ CREATE TABLE store_tbl (
 INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
 VALUES
 (20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 0),
-(20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 0),
-(20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 0),
-(20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 0),
-(20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 0);
+(20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 1),
+(20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 1),
+(20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 1),
+(20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 1);
 
 select * from store_tbl;
 SELECT AVG(storeRating) AS storeAvgRating
@@ -148,14 +150,14 @@ VALUES
 (40001, '소스', 0, '간장 소스', 1000, 0),
 (40001, '소스', 0, '마요네즈 소스', 1000, 0),
 (40001, '소스', 0, '고추장 소스', 1000, 0),
-(40002, '치즈', 1, '모짜렐라 치즈', 2000, 0),
-(40002, '치즈', 1, '체다 치즈', 2000, 0),
-(40003, '맛 추가', 2, '매운맛 추가', 500, 0),
-(40003, '맛 추가', 2, '양념맛 추가', 500, 0),
-(40004, '토핑', 3, '계란 토핑', 1500, 0),
-(40004, '토핑', 3, '베이컨 토핑', 2000, 0),
-(40005, '스프', 4, '미소 스프', 1000, 0),
-(40005, '스프', 4, '토마토 스프', 1000, 0);
+(40002, '치즈', 1, '모짜렐라 치즈', 2000, 1),
+(40002, '치즈', 1, '체다 치즈', 2000, 1),
+(40003, '맛 추가', 2, '매운맛 추가', 500, 1),
+(40003, '맛 추가', 2, '양념맛 추가', 500, 1),
+(40004, '토핑', 3, '계란 토핑', 1500, 1),
+(40004, '토핑', 3, '베이컨 토핑', 2000, 1),
+(40005, '스프', 4, '미소 스프', 1000, 1),
+(40005, '스프', 4, '토마토 스프', 1000, 1);
 
 select * from option_tbl;
 
@@ -204,7 +206,6 @@ CREATE TABLE order_tbl (
     FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
-    
 ) AUTO_INCREMENT = 70001;
 
 
@@ -234,23 +235,32 @@ CREATE TABLE review_tbl (
     orderMenuName VARCHAR(100),
     userCode int,
     storeCode int,
-    orderNumber int,
     reviewImage VARCHAR(300),
     reviewDate DATE,
     reviewRating INT,
     reviewContent VARCHAR(300),
     reviewImageName VARCHAR(300),
     userNickName VARCHAR(100),
-    answerContent VARCHAR(300),
-    answerDate DATE,
-    foreign key (orderNumber) references order_tbl(orderNumber),
-    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
+   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
 
 
 select * from review_tbl;
 
+-- 10
+CREATE TABLE answer_tbl (
+    answerCode int AUTO_INCREMENT PRIMARY KEY,
+    storeCode int,
+    reviewCode int,
+    answerDate DATE NOT NULL,
+    answerContent VARCHAR(300) NOT NULL,
+    FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
+    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
+) AUTO_INCREMENT=100001;
+
+
+select * from answer_tbl;
 
 -- 11 태민 address_tbl;
 
@@ -259,30 +269,25 @@ CREATE TABLE address_tbl (
   userCode INT,						-- 회원코드
   deliveryAddress VARCHAR(200) NOT NULL,
   detailDeliveryAddress varchar(300) NOT NULL,-- 배달주소
-  addressStatus int not null default 1, -- 가장최근:1 나머지:0 , 집:2
+  addressStatus tinyint(1) not null default 1, -- 가장최근:1 나머지:0
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress,addressStatus )
+INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress)
 VALUES
-(10001, '서울시 강남구 강남대로 123 아파트', '101호',2),
-(10002, '서울시 강서구 강서로 456 오피스텔', '202호',2),
-(10003, '서울시 송파구 올림픽로 789', '단독주택',1),
-(10004, '서울시 서초구 강남대로 1010 맨션','303호',1),
-(10005, '서울시 강북구 북촌로 111','단독주택',1);
+(10001, '서울시 강남구 강남대로 123 아파트', '101호'),
+(10002, '서울시 강서구 강서로 456 오피스텔', '202호'),
+(10003, '서울시 송파구 올림픽로 789', '단독주택'),
+(10004, '서울시 서초구 강남대로 1010 맨션','303호'),
+(10005, '서울시 강북구 북촌로 111','단독주택');
 
-
-
-SELECT addressCode FROM address_tbl
-WHERE userCode = 10001 AND
-    (addressStatus = 1 OR (addressStatus = 2 AND 
-    NOT EXISTS (SELECT 1 FROM address_tbl WHERE userCode = 10001 AND addressStatus = 1)));
-
+select * from address_tbl;
 
 commit;
+
 show tables;
 
-select * from order_tbl where userCode=10001;
+
 
 
 
