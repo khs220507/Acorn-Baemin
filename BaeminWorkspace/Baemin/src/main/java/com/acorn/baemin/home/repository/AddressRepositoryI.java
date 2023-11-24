@@ -6,8 +6,11 @@ import com.acorn.baemin.domain.AddressDTO;
 
 public interface AddressRepositoryI {
 
-	// 회원가입시에 주소테이블에 주소 삽입
+	// 주소 등록
 	public int insertAddress(AddressDTO addressDTO);
+	
+	// 로그인시 주소 등록
+	public int loginInsertAddress(AddressDTO addressDTO);
 	
 	// 주소 변경
 	public int updateAddress(AddressDTO addressDTO);
