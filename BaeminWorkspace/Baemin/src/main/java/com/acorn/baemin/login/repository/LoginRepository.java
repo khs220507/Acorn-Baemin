@@ -59,7 +59,6 @@ public class LoginRepository implements LoginRepositoryI {
 		System.out.println("select" + user);
 		UserDTO result = session.selectOne(namespace + "selectUserById", user);
 		System.out.println("result" + result);
-
 		return result;
 	}
 
@@ -89,17 +88,10 @@ public class LoginRepository implements LoginRepositoryI {
 		return true;
 	}
 
-	// 소비자 로그인
-	@Override
-	public String customerlogin() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 로그아웃
 	@Override
 	public String logout() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

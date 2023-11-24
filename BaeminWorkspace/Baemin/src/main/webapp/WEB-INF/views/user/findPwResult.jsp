@@ -54,7 +54,7 @@ input[type="button"] {
         </div>
         
         <p id="customerPw" style="display: ${customerPw ? 'block' : 'none'};">손님 비밀번호 : ${customerPw}</p>
-        <p id="sellerPw" style="display: ${sellerPw ? 'block' : 'none'};">사장님 비밀번호: ${sellerPw}</p>
+        <p id="sellerPw" style="display: ${sellerPw ? 'block' : 'none'};">사장님 비밀번호 : ${sellerPw}</p>
         
         <!-- 결과값이 없을 때 -->
         <p id="noResultMessage" style="display: ${!customerPw && !sellerPw ? 'block' : 'none'};">결과가 없습니다.</p>
