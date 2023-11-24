@@ -92,6 +92,7 @@ public class CartController {
 		int addressCode = (int) session.getAttribute("addressCode");
 		AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
 		model.addAttribute("addressDTO",addressDTO);
+		System.out.println(addressDTO);
 		
 	    return "userorder/order";
 	}

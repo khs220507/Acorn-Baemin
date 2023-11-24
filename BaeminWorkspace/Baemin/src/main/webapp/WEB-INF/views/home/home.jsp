@@ -38,6 +38,9 @@ body {
 ul {
 	list-style: none;
 }
+input{
+	font-family: '';
+}
 
 /* 헤더 ////////////////////////////////////////////////////*/
 header {

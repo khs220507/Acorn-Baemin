@@ -288,6 +288,19 @@ body {
 			alert(msg);
 		});
 	});
+	
+	
+	function a(){								
+	
+			var deliveryAddress = $("#section-order-address-citygu").val();  
+			var detailedAddress = $("#base-structure-input").val(); 
+			let allAddress = deliveryAddress+ " " + detailedAddress;
+			
+		
+		  /// hidden  값넣어 주기
+		  $("#allAddress").val( allAddress);
+		  $("#order-form").submit();	
+   }
 
 	$(document)
 			.ready(
@@ -310,27 +323,35 @@ body {
 										});
 
 						// Function to update the hidden deliveryAddress field
+						
+						
+						
+						
 						function updateDeliveryAddress() {
-							var deliveryAddress = "${userInfo[0].userAddress}"; // Get the user's address
-							var detailedAddress = $("#base-structure-input")
-									.val(); // Get the detailed address
+							var deliveryAddress = $("#section-order-address-citygu").val(); // Get the user's address
+							var detailedAddress = $("#base-structure-input").val(); // Get the detailed address
+							deliveryAddress += detailedAddress;
 
 							// Concatenate user's address and detailed address
-							if (detailedAddress.trim() !== "") {
+							/* if (detailedAddress.trim() !== "") {
 								deliveryAddress += " " + detailedAddress;
 							}
-
+ */
 							// Update the hidden deliveryAddress field value
-							$("#deliveryAddress").val(deliveryAddress);
+							$(".section-order-address-citygu").val(deliveryAddress);
+ 
+ 							return deliveryAddress;
 						}
 
 						// Initial call to set the delivery address based on the default value
-						//updateDeliveryAddress();
+						updateDeliveryAddress();
+						
+						
 
 						// Handle detailed address input change event
-						/*$("#base-structure-input").on("input", function() {
+						$("#base-structure-input").on("input", function() {
 							updateDeliveryAddress(); // Update delivery address when the detailed address changes
-						});*/
+						});
 
 						function updateRequestValues() {
 							var reqToSellerStoreValue = $(
@@ -417,13 +438,12 @@ body {
 						<img class="current-location-img"
 							src="resources/icons/current-location.png"> 기타
 					</div>
-					<c:set value="${addressDTO.deliveryAddress }" var="deliveryAddress"/>
-					<c:set value="${addressDTO.detailDeliveryAddress }" var="detailDeliveryAddress"/>
 					
 					<div class="section-order-address-citygu">현재주소 :
-						${deliveryAddress}</div>
+						${addressDTO.deliveryAddress }</div>
+						<input type="hidden" value="${addressDTO.deliveryAddress }" id="section-order-address-citygu">
 					<input class="section-order-address-detail" placeholder="상세주소"
-						name="detailDeliveryAddress" id="base-structure-input" value="${detailDeliveryAddress}">
+						name="detailDeliveryAddress" id="base-structure-input" value="${addressDTO.detailDeliveryAddress}">
 				</div>
 			</div>
 
@@ -484,8 +504,8 @@ body {
 
 			<div class="section-order-button-wrap">
 
-
-				<input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${deliveryAddress}"> 
+				<input type="hidden" name="allAddress" id="allAddress" > 
+				<input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${addressDTO.deliveryAddress}"> 
 					<input type="hidden"
 					name="deliveryFee" id="deliveryFee"	value="${storeInfo[0].deliveryFee}"> <input type="hidden"
 					name="userPhone" id="userPhone" value="${userInfo[0].userPhone}">
@@ -494,7 +514,7 @@ body {
 					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
 					value="${orderMenuPrice}">
 
-				<button type="submit" id="order-button">결제하기</button>
+				<button type="button"    onclick="a()"  id="order-button">결제하기</button>
 			</div>
 		</form>
 	</div>
