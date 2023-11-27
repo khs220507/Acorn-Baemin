@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
 
@@ -42,9 +43,9 @@ public interface LoginRepositoryI {
 	void updatePassword(UserDTO user);
 	
 	// 카카오에서 받은 정보가 db에 있는지 확인
-	void kakaoInsert(HashMap<String, Object> userInfo);
+	UserDTO findKakao(HashMap<String, Object> userInfo);
 	
 	// db에 없으면 insert
-	UserDTO findKakao(HashMap<String, Object> userInfo);
+	void kakaoInsert(HashMap<String, Object> userInfo);
 	
 }

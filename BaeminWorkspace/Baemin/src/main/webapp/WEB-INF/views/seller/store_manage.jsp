@@ -701,30 +701,27 @@ hr {
 									test="${menuList.menuClassification eq classificationList.menuClassification}">
 									<form class="menu-info-with-btn">
 										<div class="modify-form" style="display: flex">
-											<a class="menu-image-link"
-												href="${path}/sellerOption?menuCode=${menuList.menuCode}">
-												<img class="menu-image" alt="메뉴사진"
-												src="${path}/images/${menuList.menuImage}">
-											</a> <input type="file" class="input-menu-image"
-												name="menuImageFile">
+											<a class="menu-image-link" href="${path}/sellerOption?menuCode=${menuList.menuCode}">
+												<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}">
+											</a>
+											<input type="file" class="input-menu-image" name="menuImageFile">
+											<input type="hidden" class="old-menu-image" name="old-menuImageFile">
 											<div class="input-menu-content">
-												<input type="text" class="menu-name" name="menuName"
-													value="${menuList.menuName}"> <input type="text"
-													class="menu-content" name="menuContent"
-													value="${menuList.menuContent}"> <input type="text"
-													class="menu-price" name="menuPrice"
-													value="${menuList.menuPrice}">
+												<input type="text" class="menu-name" name="menuName" value="${menuList.menuName}">
+												<input type="text" class="menu-content" name="menuContent" value="${menuList.menuContent}">
+												<input type="text" class="menu-price" name="menuPrice" value="${menuList.menuPrice}">
 												<div class="now-menu-status">
 													<span id="menu-status-text">상태 : <c:choose>
 															<c:when test="${menuList.menuStatus eq 0}">판매중</c:when>
 															<c:when test="${menuList.menuStatus eq 1}">매진</c:when>
 															<c:when test="${menuList.menuStatus eq 2}">삭제</c:when>
 														</c:choose>
-													</span> <select class="menu-status" name="menuStatus">
+													</span>
+													<select class="menu-status" name="menuStatus">
 														<option value="0">판매중</option>
 														<option value="1">매진</option>
-													</select> <input type="hidden" class="menu-code" name="menuCode"
-														value="${menuList.menuCode}">
+													</select>
+													<input type="hidden" class="menu-code" name="menuCode" value="${menuList.menuCode}">
 												</div>
 											</div>
 										</div>

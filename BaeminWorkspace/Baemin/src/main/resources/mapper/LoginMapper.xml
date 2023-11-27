@@ -257,11 +257,22 @@
 		WHERE userEmail=#{email} AND userPhone=#{phoneNumber}
 	</select>
 
-<!-- 없다면 insert -->
+<!-- 없다면 유저정보 insert -->
 	<insert id="kakaoInsert" parameterType="java.util.HashMap">
 		INSERT INTO user_tbl (userEmail, userPhone, userAddress, userAddressDetail)
 		VALUES(#{email}, #{phoneNumber}, #{baseAddress}, #{detailAddress})
 	</insert>
-
 	
+<!-- UserDTO의 정보가 address_tbl에 있는지 확인 -->
+	<select id="findAddrInfo" parameterType="UserDTO" resultType="AddressDTO">
+		SELECT * 
+		FROM address_tbl 
+		WHERE userCode=#{userCode} AND deliveryAddress=#{userAddress}
+	</select>
+	
+<!-- 없다면 주소정보 insert -->
+	<insert id="addressInsert" parameterType="UserDTO">
+		INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress)
+		VALUES(#{userCode}, #{deliveryAddress}, #{detailDeliveryAddress})
+	</insert>
 </mapper>

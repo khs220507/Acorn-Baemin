@@ -12,6 +12,7 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.login.repository.LoginRepository;
@@ -208,6 +209,22 @@ public class LoginService {
 	    }
 	}
 	
+	// 카카오 로그인 api로 가져온 주소 정보를 address_tbl에 추가하기
+	public AddressDTO findAndInsertAddrInfo(UserDTO userInfo) {
+		
+		AddressDTO addr = loginRepository.findAddrInfo(userInfo);
+		
+		if(addr == null) {
+			loginRepository.addressInsert(userInfo);   //등록
+			
+			AddressDTO addrInfo = loginRepository.findAddrInfo(userInfo);
+			System.out.println(addrInfo);
+			return addrInfo;
+		} else {
+			System.out.println("@service : " + addr);
+			return addr;
+		}
+	}
 	
 	// 손님 로그인
 	public UserDTO loginCustomer(String userId, String userPw) {
