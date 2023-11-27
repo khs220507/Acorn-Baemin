@@ -1,4 +1,4 @@
-package com.acorn.baemin.domain;
+ package com.acorn.baemin.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +15,7 @@ public class StoreDTO {
 	String storeCategory;
 	String storeImage;
 	String storeAddress;
+	String storeAddressDetail;
 	String storePhone;
 	int zzimCount;
 	int reviewCount;

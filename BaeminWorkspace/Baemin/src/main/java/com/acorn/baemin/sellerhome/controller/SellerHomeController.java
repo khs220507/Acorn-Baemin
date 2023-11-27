@@ -49,7 +49,7 @@ public class SellerHomeController {
 	
 	@ResponseBody
 	@RequestMapping( value="/sellerHome" , method=RequestMethod.POST)
-	public String insertStore(int sellerCode, String storeName, String storeCategory, MultipartFile storeImage, String storeAddress, String storePhone, int minOrderPrice, int deliveryFee, String deliveryArea) throws IllegalStateException, IOException {
+	public String insertStore(int sellerCode, String storeName, String storeCategory, MultipartFile storeImage, String storeAddress, String storeAddressDetail,String storePhone, int minOrderPrice, int deliveryFee, String deliveryArea) throws IllegalStateException, IOException {
 		if( !storeImage.isEmpty()) {
 			//이미지 업로드 파트
 			String fileName  = storeImage.getOriginalFilename();
@@ -59,7 +59,7 @@ public class SellerHomeController {
 			//db에 넣기
 
 			String storeImageName = sellerCode+fileName;
-			StoreDTO store = new StoreDTO(0, sellerCode, storeName, storeCategory, storeImageName, storeAddress, storePhone, 0, 0, 0, null, minOrderPrice, deliveryFee, null, deliveryArea, 0);
+			StoreDTO store = new StoreDTO(0, sellerCode, storeName, storeCategory, storeImageName, storeAddress, storeAddressDetail, storePhone, 0, 0, 0, null, minOrderPrice, deliveryFee, null, deliveryArea, 0);
 			rep.insertStore(store);
 		}
 		
@@ -90,7 +90,7 @@ public class SellerHomeController {
 
 	@ResponseBody
 	@RequestMapping( value="/upsellerHome" , method=RequestMethod.POST)
-	public String updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
+	public String updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstoreAddressDetail, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {
 	
 		System.out.println("테스트1 : " + upstoreStatus);
 		
@@ -107,7 +107,7 @@ public class SellerHomeController {
 			storeImageName = backupStoreImage;
 		}
 		
-		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, upstoreStatus);
+		StoreDTO Store = new StoreDTO(sstoreCode, sellerCode, upstoreName, upstoreCategory, storeImageName, upstoreAddress, upstoreAddressDetail,upstorePhone, 0, 0, 0, null, upminOrderPrice, updeliveryFee, null, updeliveryArea, upstoreStatus);
 		System.out.println("테스트2 : " + Store);
 		rep.updateStore(Store);
 		return "sss";
