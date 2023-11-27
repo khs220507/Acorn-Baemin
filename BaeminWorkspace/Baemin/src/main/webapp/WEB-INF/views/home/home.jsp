@@ -671,7 +671,7 @@ footer {
 
 					<%
 					Integer addressCode = (Integer) session.getAttribute("addressCode");
-					Integer userId = (Integer) session.getAttribute("user");
+					String userId = (String) session.getAttribute("user");
 					if (userCodeInfo != null) {
 					%>
 					<!-- 로그인 했을 때 -->
