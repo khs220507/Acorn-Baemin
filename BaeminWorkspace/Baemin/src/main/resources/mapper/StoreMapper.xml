@@ -22,9 +22,9 @@
 
 	<insert id="insertStore" parameterType="StoreDTO">
 		INSERT INTO store_tbl 
-		(sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, minOrderPrice, deliveryFee, deliveryArea)
+		(sellerCode, storeName, storeCategory, storeImage, storeAddress, storeAddressDetail, storePhone, minOrderPrice, deliveryFee, deliveryArea)
 		VALUES 
-		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
+		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, #{storeAddressDetail}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
 	</insert>
 	
        <update id="deleteStore" parameterType="StoreDTO">
@@ -48,6 +48,7 @@
 	        storeCategory = #{storeCategory},
 	        storeImage = #{storeImage},
 	        storeAddress = #{storeAddress},
+	        storeAddressDetail = #{storeAddressDetail},
 	        storePhone = #{storePhone},
 	        minOrderPrice = #{minOrderPrice},
 	        deliveryFee = #{deliveryFee},
