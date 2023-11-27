@@ -131,6 +131,23 @@
 	margin: 0 auto;
 	
 }
+.order-refuse-btn {
+	width: 250px;
+	height: 40px;
+	font-size: 20px;
+	border: none;
+	border-radius: 10px;
+	background-color: #d9d9d9;
+	color: #4b4b4b;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 </style>
 
 
@@ -241,7 +258,16 @@ $(document).ready(function() {
 				<div class="total-price-title">총 주문금액</div>
 				<div class="total-price" id="total-price"></div>
 			</div>
-			<button type="submit" class="order-btn">주문하기</button>
+			
+			<c:choose>
+			    <c:when test="${storeInfo[0].storeStatus == 0}">
+			        <button type="submit" class="order-btn">주문하기</button>
+			    </c:when>
+			    <c:when test="${storeInfo[0].storeStatus == 1}">
+			    	<div class="order-refuse-btn">영업 준비중입니다</div>
+			    </c:when>
+			</c:choose>
+					
 		</form>
 
 	</div>

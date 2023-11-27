@@ -159,11 +159,7 @@
 <script>
 	$(document).ready(function() {
 		// Use JSTL to set unitPrice as a JavaScript variable
-		var unitPrice = $
-		{
-			menuInfo[0].menuPrice
-		}
-		;
+		var unitPrice = ${menuInfo[0].menuPrice};
 
 		function adjustQuantity(change) {
 			var quantityInput = $(".quantity-input");
@@ -178,12 +174,10 @@
 
 		$(".minus").click(function() {
 			adjustQuantity(-1);
-			alert('dkfjlwkfdklf마이너스');
 		});
 
 		$(".plus").click(function() {
 			adjustQuantity(1);
-			alert('dkfjlwkfdklf플러스');
 		});
 
 		function updateTotalPrice() {

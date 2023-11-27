@@ -91,15 +91,15 @@ button {
 }
 
 .menu-tab {
-	border-top: 1px solid black;
+	border-top: 2px solid black;
 }
 
 .info-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 
 .review-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 
 .menu-sub-tab {
@@ -319,9 +319,9 @@ button {
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
 
-		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black");
 
 		
 	}
@@ -371,9 +371,9 @@ button {
 	    } 
 	});    
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black");
 	}
 	
 	// 리뷰 탭 영역
@@ -383,9 +383,9 @@ button {
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "1px solid black").css("border-bottom", "none");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black");
+		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none");
 		
 		
 		
