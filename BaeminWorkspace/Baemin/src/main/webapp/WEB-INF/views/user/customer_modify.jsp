@@ -542,15 +542,17 @@ function updatecustomer() {
 	 
 
 		// 회원 탈퇴
-		   function signoucustomer() {
-			    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
+		function signoucustomer() {
+		    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
+		    
+		    if (confirmResult) {
+		        window.location.href='/baemin/customerSignoutStatus';
+		        alert("회원탈퇴 완료되었습니다.");
+		    } else {
+		        alert("회원탈퇴가 취소되었습니다.");
+		    }
+		}
 
-			    if (confirmResult) {
-			    	window.location.href='/baemin/customerSignoutStatus' 
-			    }
-			    alert("회원탈퇴 완료되었습니다.");
-			    
-			}
 
 </script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
