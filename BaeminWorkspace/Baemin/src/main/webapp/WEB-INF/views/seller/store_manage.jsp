@@ -156,8 +156,9 @@ section {
 }
 
 .input-menu-content {
-	width: 30%;
+	width: 45%;
 	height: 100%;
+	padding-left: 70px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -482,12 +483,13 @@ hr {
 		});
 	}
 	// 메뉴 수정
-	function menuModifyBtnWithoutC(){
-		
-		let formData = new FormData(document.querySelector(".menu-info-with-btn"));
+	function menuModifyBtnWithoutC(obj){
+		let myForm = obj.parentElement.parentElement ;
+		//let formData = new FormData(document.querySelector(".menu-info-with-btn"));
+		let formData = new FormData(myForm);
    		
    		$.ajax({
-   			type : "PUT",
+   			type : "POST",
    			url : "${path}/updateSellerMenu",
 			data : formData,
    			enctype : 'multipart/form-data',
@@ -724,7 +726,7 @@ hr {
 										</div>
 										<div class="modify-delete">
 											<button type="button" class="menu-modify-btn-without-c"
-												onclick="menuModifyBtnWithoutC()">수정</button>
+												onclick="menuModifyBtnWithoutC(this)">수정</button>
 											<button type="button" class="menu-delete-btn"
 												onclick="deleteMenu()">삭제</button>
 										</div>
