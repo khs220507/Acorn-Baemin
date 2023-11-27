@@ -47,15 +47,16 @@ public class SellerRepository implements SellerRepositoryI {
 		System.out.println("insertMenu @repo");
 		return session.insert(namespaceSeller + "insertMenu", menu);
 	}
-	// 메뉴 수정
+	// 첨부파일 없는 메뉴 수정
 	@Override
 	public int updateMenu(MenuDTO menu) {
-		System.out.println("updateMenu @repo");
+		System.out.println("updateMenu @repo : " + menu);
 		return session.update(namespaceSeller + "updateMenu", menu);
 	}
+	// 첨부파일 있는 메뉴 수정
 	@Override
 	public int updateMenuIncludeImg(MenuDTO menu) {
-		System.out.println("updateMenuIncludeImg @repo");
+		System.out.println("updateMenuIncludeImg @repo : " + menu);
 		return session.update(namespaceSeller + "updateMenuIncludeImg", menu);
 	}
 	// 메뉴 삭제

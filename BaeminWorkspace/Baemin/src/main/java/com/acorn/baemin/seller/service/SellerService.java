@@ -45,15 +45,16 @@ public class SellerService implements SellerServiceI{
 		System.out.println("isnertMenu @service : " + menu);
 		rep.insertMenu(menu);
 	}
-	// 메뉴 수정
+	// 첨부파일 없는 메뉴 수정
 	@Override
 	public void modifingMenu(MenuDTO menu) {
-		System.out.println("modifingMenu @service");
+		System.out.println("modifingMenu @service : " + menu);
 		rep.updateMenu(menu);
 	}
+	// 첨부파일 있는 메뉴 수정
 	@Override
 	public void modifingMenuIncludeImg(MenuDTO menu) {
-		System.out.println("modifingMenuImg @service");
+		System.out.println("modifingMenuImg @service : " + menu);
 		rep.updateMenuIncludeImg(menu);
 		
 	}
