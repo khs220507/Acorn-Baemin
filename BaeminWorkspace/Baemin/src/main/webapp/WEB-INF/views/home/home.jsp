@@ -231,7 +231,7 @@ position: fixed;
 	background-color: white;
 	position: absolute;
 	padding: 20px;
-	top: 60%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	border-radius: 20px;
@@ -239,7 +239,7 @@ position: fixed;
 }
 #doro{
     width: 500px!important;
-    height: 600px!important;
+    height: 500px!important;
     margin: 0 auto;
     border: 3px solid #d9d9d9;
     border-radius: 10px;
