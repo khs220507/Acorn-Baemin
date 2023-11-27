@@ -80,7 +80,7 @@ VALUES
 (20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111','123', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 0);
 
 
-
+UPDATE store_tbl set reviewCount= 2 where storeCode = 30001;
 
 -- 04. 태민 menu_tbl 
 
@@ -233,7 +233,11 @@ CREATE TABLE review_tbl (
 
 select * from review_tbl;
 
-
+SELECT storeRating AS storeAvgRating
+		FROM store_tbl
+		WHERE storeCode = 30001 ;
+        
+        
 -- 11 태민 address_tbl;
 
 CREATE TABLE address_tbl (

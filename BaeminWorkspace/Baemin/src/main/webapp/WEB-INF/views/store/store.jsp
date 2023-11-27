@@ -429,7 +429,7 @@ button {
 			<hr class="line">
 			<div class="store-name">${readStore.storeName}</div>
 			<div class="rating-review-minprice">
-				<div>⭐: ${avgRating}점</div>
+				<div>⭐: ${readStore.storeRating}점</div>
 				<div>리뷰수: ${RCount}</div>
 				<div>최소주문금액: ${readStore.minOrderPrice}원</div>
 			</div>

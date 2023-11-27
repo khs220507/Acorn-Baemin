@@ -25,5 +25,13 @@ public class ReviewRepository implements ReviewRepositoryI {
 		sqlSession.update(namespace + "updateReviewStatus", orderDTO);
 		
 	}
+	@Override
+	public int reviewCount(int storeCode) {
+		return sqlSession.selectOne(namespace + "reviewCount", storeCode);
+	}
+	@Override
+	public double storeAvgRating(int storeCode) {
+		return sqlSession.selectOne(namespace + "storeAvgRating", storeCode);
+	}
 
 }
