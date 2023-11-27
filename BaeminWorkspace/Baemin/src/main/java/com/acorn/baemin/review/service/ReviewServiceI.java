@@ -7,5 +7,7 @@ public interface ReviewServiceI {
 
     void insertReview(ReviewDTO review);
     void updateReviewStatus(OrderDTO orderDTO);
+    public int reviewCount(int count);
+    public double storeAvgRating(int rating);
 
 }

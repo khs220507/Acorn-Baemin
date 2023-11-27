@@ -159,11 +159,7 @@
 <script>
 	$(document).ready(function() {
 		// Use JSTL to set unitPrice as a JavaScript variable
-		var unitPrice = $
-		{
-			menuInfo[0].menuPrice
-		}
-		;
+		var unitPrice = ${menuInfo[0].menuPrice};
 
 		function adjustQuantity(change) {
 			var quantityInput = $(".quantity-input");

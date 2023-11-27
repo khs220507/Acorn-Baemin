@@ -16,4 +16,8 @@ public class SelectStoreRepository  {
 	    public List<StoreDTO> selectStore(String storeCategory) {
 	    	return session.selectList(namespaceStore+"selectStore",storeCategory);
 	    }
+	    
+	    public void upReviewCountAndStoreRating(StoreDTO store) {
+	    	session.selectList(namespaceStore+"upReviewCountAndStoreRating",store);
+	    }
 }

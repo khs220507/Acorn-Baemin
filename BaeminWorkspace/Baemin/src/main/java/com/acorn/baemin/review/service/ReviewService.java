@@ -26,4 +26,14 @@ public class ReviewService implements ReviewServiceI{
 		
 	}
 
+	@Override
+	public int reviewCount(int storeCode) {
+		return reviewRepository.reviewCount(storeCode);
+	}
+
+	@Override
+	public double storeAvgRating(int storeCode) {
+		return reviewRepository.storeAvgRating(storeCode);
+	}
+
 }
