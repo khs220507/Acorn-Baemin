@@ -165,21 +165,26 @@ public class LoginController {
 	// 사장님 로그인 입력 정보 받아오기
 	@PostMapping("/login2")
 	public String processLogin2(String userId, String userPw, Model model, String logintype, HttpSession session) {
-		SellerDTO seller = loginService.loginSeller(userId, userPw);
-		System.out.println("seller" + seller);
+	    SellerDTO seller = loginService.loginSeller(userId, userPw);
 
-		int status = seller.getSellerStatus();
-		System.out.println("status" + status);
+	    if (seller != null) {
+	    	int status = seller.getSellerStatus();
+	        System.out.println("status" + status);
 
-		if (seller != null && status == 1) {
-			int sellerCode = seller.getSellerCode();
-			session.setAttribute("user", sellerCode);
-			return "redirect:/sellerHome?sellerCode=" + sellerCode;
-		} else {
-			model.addAttribute("message", "로그인 실패. 로그인 유형과 계정 정보를 확인해주세요.");
-			return "user/login";
-		}
+	        if (status == 1) {
+	            int sellerCode = seller.getSellerCode();
+	            session.setAttribute("user", sellerCode);
+	            return "redirect:/sellerHome?sellerCode=" + sellerCode;
+	        } else {
+	            model.addAttribute("message", "로그인 실패. 로그인 유형과 계정 정보를 확인해주세요.");
+	            return "user/login";
+	        }
+	    } else {
+	        model.addAttribute("message", "로그인 실패. 로그인 유형과 계정 정보를 확인해주세요.");
+	        return "user/login";
+	    }
 	}
+
 
 	// 유저 로그아웃
 	@GetMapping("/logout")

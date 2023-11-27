@@ -577,8 +577,7 @@ td {
 						$("#userEmail").on("input",function() {
 
 							let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-							if ($(this).val() === ""
-									|| !emailCheck.test($(this).val())) {
+							if ($(this).val() === "" || !emailCheck.test($(this).val())) {
 								$(this).css("border-color","red");
 								userEmailValid = false;
 							} else {
@@ -601,8 +600,7 @@ td {
 											data : {
 												userEmail : $("#userEmail").val()
 											},
-											success : function(
-													data) {
+											success : function(data) {
 												if (data === "yes") {
 
 													$("#userEmail").css("border-color","red");
@@ -689,23 +687,15 @@ td {
 								});
 						});
 
-						// 직접 입력시 인풋창 생성
-// 						$('#userEmail2').change(function() {
-// 							var selectedEmail = $(this).val();
-// 							if (selectedEmail === 'custom') {
-// 								$('#customEmail').css('display', 'block');
-// 								$('#customEmail').val('@');
-// 							} else {
-// 								$('#customEmail').css('display', 'none');
-// 							}
-// 						});
-
-// 						$('#customEmail').on('blur', function() {
-// 							const customEmail = $(this).val();
-// 							if (!customEmail.endsWith('.com')) {
-// 								alert('".com"으로 끝나는 다른 이메일을 사용해주세요.');
-// 							}
-// 						});
+						// 직접입력 옵션 선택 시 동적으로 입력 필드 보이기/숨기기
+						document.getElementById("userEmail2").addEventListener("change", function() {
+						    var directInput = document.getElementById("directEmailInput");
+						    if (this.value === ".com") {
+						        directInput.style.display = "block";
+						    } else {
+						        directInput.style.display = "none";
+						    }
+						});
 
 						// 인증번호 비교 
 						$('.mail-check-input').blur(function() {
@@ -741,6 +731,16 @@ td {
 			}
 		});
 	});
+	
+	function handleEmailSelection(selectedValue) {
+	    if (selectedValue === "") {
+	        document.getElementById("directEmailInput").style.display = "inline-block";
+	        document.getElementById("directEmailInput").setAttribute("required", "required");
+	    } else {
+	        document.getElementById("directEmailInput").style.display = "none";
+	        document.getElementById("directEmailInput").removeAttribute("required");
+	    }
+	}
 </script>
 
 <script
@@ -857,7 +857,6 @@ td {
 						<div class="input-group">
 							<input type="text" class="form-control" name="userEmail1"
 								id="userEmail1" placeholder="이메일">
-							<!-- <input type="text" class="form-control" name="userEmail2" id="userEmail2"> -->
 
 							<select class="form-control" name="userEmail2" id="userEmail2">
 								<option value="@gmail.com.com">@
@@ -866,18 +865,11 @@ td {
 								<option value="@naver.com.com">@
 									<div class="mail">naver.com</div>
 								</option>
-								<option value="@kakao.com.com">@
-									<div class="mail">daum.net</div>
-								</option>
-								<option value="@lycos.com.com">@
-									<div class="mail">lycos.com</div>
-								</option>
-<!-- 								<option value="custom">직접 입력</option> -->
-
-							</select> <input type="text" class="form-control" id="customEmail"
-								name="customEmail" style="display: none;"
-								placeholder="도메인을 포함한 이메일 주소를 입력하세요">
-
+								<option value=".com">직접입력</option>
+							</select> 
+							<input type="text" class="form-control" name="directEmailInput" id="directEmailInput" placeholder="직접 이메일 입력" style="display: none;">
+							<input type="text" class="form-control" id="customEmail"
+								name="customEmail" style="display: none;" placeholder="도메인을 포함한 이메일 주소를 입력하세요">
 						</div>
 						<div class="mail-check-box">
 							<input class="form-control mail-check-input"
