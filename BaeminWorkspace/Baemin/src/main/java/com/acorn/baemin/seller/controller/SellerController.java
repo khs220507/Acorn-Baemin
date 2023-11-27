@@ -135,7 +135,7 @@ public class SellerController {
 
 	// 메뉴 수정
 	@ResponseBody
-	@PutMapping("/updateSellerMenu")
+	@PostMapping("/updateSellerMenu")
 	public void updateMenuInfo(Integer menuCode, String menuName, Integer menuPrice, MultipartFile menuImageFile,
 			String menuContent, Integer menuStatus) throws IllegalStateException, IOException {
 
@@ -147,8 +147,15 @@ public class SellerController {
 		System.out.println("menuStatus : " + menuStatus);
 
 		try {
-			if (menuImageFile != null) {
+			if (menuImageFile.isEmpty()) {
+				// 이미지파일 없을 때의 코드
+				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuStatus);
 
+				System.out.println("이미지 미포함" + menu);
+
+				sc.modifingMenu(menu);
+				
+			} else {
 				// 이미지파일이 있을 때의 코드
 
 				String fileName = menuImageFile.getOriginalFilename();
@@ -161,16 +168,9 @@ public class SellerController {
 
 				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuImage, menuContent, menuStatus);
 
-				System.out.println("이미지포함" + menu);
+				System.out.println("이미지 포함" + menu);
 
 				sc.modifingMenuIncludeImg(menu);
-			} else {
-				// 이미지파일 없을 때의 코드
-				MenuDTO menu = new MenuDTO(menuCode, menuName, menuPrice, menuContent, menuStatus);
-
-				System.out.println("이미지미포함" + menu);
-
-				sc.modifingMenu(menu);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -313,7 +313,7 @@
 
 						<div class="menu-detail-wrap">
 							<img class="menu-img"
-								src="${path}/menuImages/${menuInfo[0].menuImage}">
+								src="${path}/images/${menuInfo[0].menuImage}">
 							<div class="menu-option">
 								<p>가격: ${menuInfo[0].menuPrice}원</p>
 								<c:forEach var="cartItem" items="${cartInfo.options}">

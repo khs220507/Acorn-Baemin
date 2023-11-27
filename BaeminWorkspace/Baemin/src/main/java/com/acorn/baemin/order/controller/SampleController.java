@@ -73,7 +73,7 @@ public class SampleController {
         
         
         
-        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token));
+        model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, orderDTO));
         
         OrderDTO lastOrderDTO = userOrderService.getLastOrder();
 		System.out.println(lastOrderDTO.getOrderNumber());

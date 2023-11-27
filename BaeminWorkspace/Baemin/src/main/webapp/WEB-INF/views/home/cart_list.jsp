@@ -159,7 +159,8 @@
 <script>
 	$(document).ready(function() {
 		// Use JSTL to set unitPrice as a JavaScript variable
-		var unitPrice = ${menuInfo[0].menuPrice};
+
+		var unitPrice = parseInt('${menuInfo[0].menuPrice}', 10);
 
 		function adjustQuantity(change) {
 			var quantityInput = $(".quantity-input");
@@ -174,29 +175,32 @@
 
 		$(".minus").click(function() {
 			adjustQuantity(-1);
-			alert('dkfjlwkfdklf마이너스');
-		});
+			
 
 		$(".plus").click(function() {
 			adjustQuantity(1);
-			alert('dkfjlwkfdklf플러스');
+			
 		});
 
 		function updateTotalPrice() {
-			var quantity = parseInt($(".quantity-input").val());
+	        var quantity = parseInt($(".quantity-input").val(), 10);
 
-			var totalOptionsPrice = 0;
-			$(".option-total-price").each(function() {
-				var optionValues = $(this).text().split(":");
-				var optionPrice = parseInt(optionValues[2].trim());
-				totalOptionsPrice += optionPrice;
-			});
+	        var totalOptionsPrice = 0;
+	        $(".option-total-price").each(function() {
+	            var optionValues = $(this).text().split(":");
+	            var optionPrice = parseInt(optionValues[2].trim(), 10); // Parse as integer
+	            totalOptionsPrice += optionPrice;
+	        });
 
-			var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
+	        var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
 
-			$("#totalPriceInput").val(orderMenuPrice);
-			$("#total-price").text(orderMenuPrice + "원");
-		}
+	        // Check if orderMenuPrice is a valid number before updating
+	        if (!isNaN(orderMenuPrice)) {
+	            $("#totalPriceInput").val(orderMenuPrice);
+	            $("#total-price").text(orderMenuPrice + "원");
+	        }
+	    }
+
 
 		updateTotalPrice();
 	});
@@ -236,7 +240,7 @@
 
 						<div class="menu-detail-wrap">
 							<img class="menu-img"
-								src="${path}/menuImages/${menuInfo[0].menuImage}">
+								src="${path}/images/${menuInfo[0].menuImage}">
 							<div class="menu-option">
 								<p>가격: ${menuInfo[0].menuPrice}원</p>
 								<c:forEach var="cartItem" items="${cartInfo.options}">
@@ -309,7 +313,7 @@
 
 						<div class="menu-detail-wrap">
 							<img class="menu-img"
-								src="${path}/menuImages/${menuInfo[0].menuImage}">
+								src="${path}/images/${menuInfo[0].menuImage}">
 							<div class="menu-option">
 								<p>가격: ${menuInfo[0].menuPrice}원</p>
 								<c:forEach var="cartItem" items="${cartInfo.options}">

@@ -181,18 +181,20 @@ a {
         }
     }
 
-    if (selectedLogintype) {
-        const form = document.getElementById("loginForm");
-        if (selectedLogintype === "customer") {
-            form.action = "${path}/login";
-        } else if (selectedLogintype === "seller") {
-            form.action = "${path}/login2";
-        } 
-        form.submit();
-    } else {
-        alert("입력 정보를 확인해주세요.");
-    }		
-}	
+	    if (selectedLogintype) {
+	        const form = document.getElementById("loginForm");
+	        if (selectedLogintype === "customer") {
+	            form.action = "${path}/login";
+	        } else if (selectedLogintype === "seller") {
+	            form.action = "${path}/login2";
+	        } 
+	        form.submit();
+	    } else if(result == null){
+	    	alert("로그인에 실패했습니다. 입력 정보를 확인해주세요.");
+			}else {
+	        alert("로그인 유형을 선택해주세요.");
+	    }			
+	}	
 		
 // Enter 키 누를 시 로그인 button click과 같은 효과
 document.addEventListener("DOMContentLoaded", function() {

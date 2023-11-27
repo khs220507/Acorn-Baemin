@@ -39,6 +39,8 @@ public class CartController {
 		List<StoreDTO> storeInfo = cartService.selectStoreInfo(menuCode);
 		List<MenuDTO> menuInfo = cartService.selectMenuInfo(menuCode);
 		model.addAttribute("cartInfo", cartInfoDTO);
+		System.out.println("테스트!!!");
+		System.out.println(cartInfoDTO);
 		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
 		
@@ -87,7 +89,7 @@ public class CartController {
 		String optionsInfo = cartInfo.getOptions();
 		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
-		session.setAttribute("orderDTO", orderDTO);		
+		session.setAttribute("orderDTO", orderDTO);
 		
 		int addressCode = (int) session.getAttribute("addressCode");
 		AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);

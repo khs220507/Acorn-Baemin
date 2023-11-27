@@ -668,7 +668,6 @@ footer {
 				<!-- 로그인시 -->
 				<div id="loginStatus">
 
-
 					<%
 					Integer addressCode = (Integer) session.getAttribute("addressCode");
 					String userId = (String) session.getAttribute("user");
@@ -676,10 +675,10 @@ footer {
 					%>
 					<!-- 로그인 했을 때 -->
 					<ul class="menu-wrap">
-						<c:if test="${not empty userId}">
+				        <% if (userId != null) { %>
 				            <a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
 				            <span class="menu-bar">|</span>
-				        </c:if>
+				        <% } %>
 						<a href="${path }/orderList"><li>주문내역</li></a>
 						<span class="menu-bar">|</span>
 						<a href="${path }/orderList"><li>알림</li></a>
@@ -691,27 +690,26 @@ footer {
 
 				</div>
 				<%
-				} else {
-				%>
-				<!-- 로그인 안했을 때 -->
-				<ul class="menu-wrap">
-					<a href="${path }/login"><li>내정보수정</li></a>
-					<span class="menu-bar">|</span>
-					<a href="${path }/login"><li>주문내역</li></a>
-					<span class="menu-bar">|</span>
-					<a href="${path }/orderList"><li>알림</li></a>
-					<span class="menu-bar">|</span>
-					<a href="${path }/login"><li>찜</li></a>
-					<span class="menu-bar">|</span>
-					<a href="${path }/login"><li>로그인</li></a>
-				</ul>
-				<%
-				}
-				%>
+					} else {
+					%>
+					<!-- 로그인 안했을 때 -->
+					<ul class="menu-wrap">
+						<a href="${path }/login"><li>내정보수정</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/login"><li>주문내역</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/orderList"><li>알림</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/login"><li>찜</li></a>
+						<span class="menu-bar">|</span>
+						<a href="${path }/login"><li>로그인</li></a>
+					</ul>
+					<%
+					}
+					%>
 
 			</div>
 
-		</div>
 
 	</header>
 

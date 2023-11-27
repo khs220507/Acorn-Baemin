@@ -211,15 +211,16 @@ section {
 
 
 				<%
-				Integer userCodeInfo = (Integer) session.getAttribute("userCode");
-				if (userCodeInfo != null) {
-				%>
-
-
-				<!-- 로그인 했을 때 -->
-				<ul class="menu-wrap">
-					<a href="${path }/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
-					<span class="menu-bar">|</span>
+					Integer userCodeInfo = (Integer) session.getAttribute("userCode");
+					String userId = (String) session.getAttribute("user");
+					if (userCodeInfo != null) {
+					%>
+					<!-- 로그인 했을 때 -->
+					<ul class="menu-wrap">
+				        <% if (userId != null) { %>
+				            <a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
+				            <span class="menu-bar">|</span>
+				        <% } %>
 					<a href="${path }/orderList"><li>주문내역</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/orderList"><li>알림</li></a>
