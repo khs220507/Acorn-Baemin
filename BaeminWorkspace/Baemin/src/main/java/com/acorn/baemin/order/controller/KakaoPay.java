@@ -87,13 +87,15 @@ public class KakaoPay {
             e.printStackTrace();
         }
         
-        return "/pay";
+        return "/kakaoPay";
         
     }
 
 
-	public KakaoPayApprovalVO kakaoPayInfo(String pg_token) {
+	public KakaoPayApprovalVO kakaoPayInfo(String pg_token, OrderDTO orderDTO) {
  
+		String total_amount = String.valueOf(orderDTO.getOrderMenuPrice());
+		
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
         
@@ -112,7 +114,7 @@ public class KakaoPay {
         params.add("partner_order_id", "user1");
         params.add("partner_user_id", "gorany");
         params.add("pg_token", pg_token);
-        params.add("total_amount", "2100");
+        params.add("total_amount", total_amount);
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         

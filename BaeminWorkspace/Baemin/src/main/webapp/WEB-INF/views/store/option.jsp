@@ -106,11 +106,8 @@ function insertCart(){
 	  optionList.forEach((el) => {
 	    resultArr.push(el.value +"");
 	  });
-	  
-	  optionString = resultArr.toString();  //
-	  
-	  
-   
+	  optionString = resultArr.toString();
+
 }
 
 
@@ -146,7 +143,8 @@ function sendOptionJson() {
 										<c:when test="${items.optionSelectType eq 1 }">
 											<div class="option-list">
 												<input type="radio" name="option"
-													value="${items.optionCode}" onclick="insertCart()">
+													value="${items.optionCode} / ${items.optionName} / ${items.optionPrice} / ${items.optionCategory}"
+													onclick="insertCart()"> 
 												<div class="option-name">${items.optionName}</div> <div>${items.optionPrice}원</div>
 												<input type="hidden" name="${items.optionCode}"
 													value="${items.optionCode}">
