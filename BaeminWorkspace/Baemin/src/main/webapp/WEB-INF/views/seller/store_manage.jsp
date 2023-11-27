@@ -294,7 +294,6 @@ section {
 	display: flex;
 	display: none;
 	width: 40%;
-	height: 250px;
 	margin-top: 1%;
 	flex-direction: column;
 	justify-content: space-between;
@@ -589,7 +588,7 @@ hr {
    				console.log(e)
    				alert("error");
    			}
-   		});
+   		}); 
 	}
 	
 	
@@ -627,23 +626,28 @@ hr {
 	     
 	     var reviewCode = $(button).siblings("input[name='reviewCode']").val();
 	     var answerContent = $(button).siblings("#replyContent").val();
-	   
+	     
+	     
 	      $.ajax({
 	         type: "POST",
-	         url: "${path}/submitReply",
-	         contentType: "application/json",
-	         data: JSON.stringify({
+	         url: "${path}/submitAnswer",
+	         contentType: "application/x-www-form-urlencoded",
+	         data: {
 	             reviewCode: reviewCode,
 	             answerContent: answerContent
-	         }),
+	         },
 	         success: function () {
 	            console.log("답글이 성공적으로 등록되었습니다!");
+	            
 	            // You might want to update the UI or do something else on success
 	         },
 	         error: function () {
 	            console.error("답글 등록 실패!");
 	            // Handle the error or display a message to the user
 	         }
+	         
+	         
+	         
 	      });
 	   }
 
@@ -831,13 +835,21 @@ hr {
 					</c:if>
 
 					
-						<div class="reply-review-wrap">
+					
+					<c:if test="${not empty item.answerContent}">
+						<div>사장님</div>
+						<div>${item.answerContent}</div>
+		
+						</c:if>
+						<c:if test="${empty item.answerContent}">
+							<div class="reply-review-wrap">
 							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
 							<input type="hidden" name="storeCode" value="${item.storeCode}">
 							<p style="margin-bottom: 5px;">답글달기</p>
 							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
 							<button id="submitReplyBtn" onclick="submitReply(this)">등록</button>
 						</div>
+						</c:if>
 						
 
 
@@ -846,6 +858,7 @@ hr {
 			</c:forEach>
 
 		</div>
+		
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>

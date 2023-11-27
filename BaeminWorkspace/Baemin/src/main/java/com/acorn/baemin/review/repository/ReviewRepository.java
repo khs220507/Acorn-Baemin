@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 
 @Repository
@@ -17,6 +18,11 @@ public class ReviewRepository implements ReviewRepositoryI {
 	public void insertReview(ReviewDTO review) {
 		System.out.println("rep : " + review);
 		sqlSession.insert(namespace + "insertReview", review);
+		
+	}
+	@Override
+	public void updateReviewStatus(OrderDTO orderDTO) {
+		sqlSession.update(namespace + "updateReviewStatus", orderDTO);
 		
 	}
 

@@ -24,18 +24,42 @@
 	</select>
 
 	<insert id="insertReview" parameterType="ReviewDTO">
-		INSERT INTO review_tbl (reviewContent, reviewRating, reviewImageName,
-		userCode, orderMenuName, storeCode, orderNumber, reviewDate,
-		userNickName)
+		INSERT INTO review_tbl (
+		reviewContent,
+		reviewRating,
+		reviewImageName,
+		userCode,
+		orderMenuName,
+		storeCode,
+		orderNumber,
+		reviewDate,
+		userNickName
+		)
 		SELECT
-		#{reviewContent}, #{reviewRating}, #{reviewImageName}, o.userCode, #{orderMenuName},
-		#{storeCode}, #{orderNumber}, NOW(), u.userNickName
+		#{reviewContent},
+		#{reviewRating},
+		#{reviewImageName},
+		o.userCode,
+		#{orderMenuName},
+		#{storeCode},
+		#{orderNumber},
+		NOW(),
+		u.userNickName
 		FROM
 		order_tbl o
 		JOIN user_tbl u ON o.userCode = u.userCode
 		WHERE
-		o.userCode = #{userCode}
+		o.orderNumber = #{orderNumber};
 	</insert>
+	
+	
+
+	<update id="updateReviewStatus">
+        UPDATE order_tbl
+        SET reviewStatus = #{reviewStatus}
+        WHERE orderNumber = #{orderNumber}
+    </update>
+	
 
 
 

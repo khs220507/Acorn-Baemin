@@ -6,22 +6,32 @@ DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, addr
 CREATE TABLE user_tbl (
     userCode INT AUTO_INCREMENT PRIMARY KEY,
     userId VARCHAR(20) UNIQUE,
-    userPw VARCHAR(30) ,
-    userName VARCHAR(20) ,
-    userNickname VARCHAR(20) ,
+    userPw VARCHAR(30),
+    userName VARCHAR(20),
+    userNickname VARCHAR(20),
     userPhone VARCHAR(50) UNIQUE,
     userEmail VARCHAR(50) UNIQUE,
-    userBirth VARCHAR(20) ,
-    userGender TINYINT(1) , -- 0:남자, 1:여자
-    userPostCode VARCHAR(50) ,
-    userAddress VARCHAR(150) ,
-    userAddressDetail VARCHAR(150) ,
+    userBirth VARCHAR(20),
+    userGender TINYINT(1), -- 0:남자, 1:여자
+    userPostCode VARCHAR(50),
+    userAddress VARCHAR(150),
+    userAddressDetail VARCHAR(150),
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 10001;
 
+INSERT INTO user_tbl (userId, userPw, userName, userNickname, userPhone, userEmail, userBirth, userGender, userPostCode, userAddress, userAddressDetail, userStatus)
+VALUES
+('user001', 'password1', '홍길동', '길동이', '010-1234-5678', 'user1@example.com', '1990-01-01', 0, '12345', '서울시 강남구', '아파트 101호', 1),
+('user002', 'password2', '김철수', '철수씨', '010-2345-6789', 'user2@example.com', '1985-05-15', 1, '54321', '서울시 강서구', '오피스텔 202호', 1),
+('user003', 'password3', '이영희', '영희언니', '010-3456-7890', 'user3@example.com', '1992-11-30', 1, '67890', '서울시 송파구', '단독주택', 1),
+('user004', 'password4', '박민수', '민수씨', '010-4567-8901', 'user4@example.com', '1988-03-25', 0, '45678', '서울시 서초구', '맨션 303호', 1),
+('user005', 'password5', '정수영', '영이니', '010-5678-9012', 'user5@example.com', '1996-09-10', 1, '78901', '서울시 강북구', '단독주택', 1);
+
 select * from user_tbl;
 
-
+SELECT * 
+		FROM user_tbl 
+		WHERE userEmail='tmpark11@naver.com' AND userPhone='+82 10-9381-1510';
 -- 02 사장 seller_tbl
 CREATE TABLE seller_tbl (
     sellerCode INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,7 +65,6 @@ CREATE TABLE store_tbl (
   storeCategory VARCHAR(50) NOT NULL,  		-- 음식 카테고리
   storeImage VARCHAR(200),   			-- 매장사진
   storeAddress VARCHAR(200) default '',  	-- 매장주소
-  storeAddressDetail VARCHAR(200) default '', -- 상세주소
   storePhone VARCHAR(12) NOT NULL,    		-- 매장전화번호
   zzimCount INT default 0,             		-- 찜개수
   reviewCount INT default 0,           		-- 리뷰수
@@ -69,18 +78,20 @@ CREATE TABLE store_tbl (
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
 
-select * from store_tbl;
 
-INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storeAddressDetail, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
+INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
 VALUES
-(20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123','123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 0),
-(20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456','123', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 0),
-(20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789','123', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 0),
-(20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010','123', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 0),
-(20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111','123', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 0);
+(20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 0),
+(20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 1),
+(20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 1),
+(20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 1),
+(20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 1);
 
-
-
+select * from store_tbl;
+SELECT AVG(storeRating) AS storeAvgRating
+        FROM store_tbl
+        WHERE storeCode = 30001;
+UPDATE store_tbl SET storeStatus = 0 where storeCode = 30006;
 
 -- 04. 태민 menu_tbl 
 
@@ -96,8 +107,6 @@ CREATE TABLE menu_tbl (
   foreign key (storeCode) references store_tbl(storeCode)
 ) auto_increment = 40001;
 
-select * from menu_tbl;
-
 INSERT INTO menu_tbl (storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
 VALUES
 (30001, '김치찌개', 9000, 'menu1.jpg', '맛있는 김치찌개', '찌개', 0),
@@ -112,8 +121,15 @@ VALUES
 (30005, '짜장면', 8000, 'menu10.jpg', '간짜장의 맛', '면요리', 0),
 (30005, '짬뽕', 10000, 'menu11.jpg', '매운 맛이 일품', '면요리', 0);
 
-
-
+select * from menu_tbl;
+select DISTINCT menuClassification from menu_tbl;
+        
+UPDATE menu_tbl
+		SET menuName = '비지찌개',
+		menuPrice = 10000,
+		menuContent = '볶음김치가 들어가 살짝 매콤',
+		menuStatus = 1
+		WHERE menuCode = 40001;
         
 -- 05. 옵션 option_tbl
 create table option_tbl (
@@ -126,23 +142,24 @@ create table option_tbl (
     optionStatus INT default 0 
 )auto_increment = 50001;
 
-select * from option_tbl;
+UPDATE option_tbl SET optionStatus = 0 where optionCode = 50001 ;
+
 
 INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
 VALUES
 (40001, '소스', 0, '간장 소스', 1000, 0),
 (40001, '소스', 0, '마요네즈 소스', 1000, 0),
 (40001, '소스', 0, '고추장 소스', 1000, 0),
-(40002, '치즈', 1, '모짜렐라 치즈', 2000, 0),
-(40002, '치즈', 1, '체다 치즈', 2000, 0),
-(40003, '맛 추가', 2, '매운맛 추가', 500, 0),
-(40003, '맛 추가', 2, '양념맛 추가', 500, 0),
-(40004, '토핑', 3, '계란 토핑', 1500, 0),
-(40004, '토핑', 3, '베이컨 토핑', 2000, 0),
-(40005, '스프', 4, '미소 스프', 1000, 0),
-(40005, '스프', 4, '토마토 스프', 1000, 0);
+(40002, '치즈', 1, '모짜렐라 치즈', 2000, 1),
+(40002, '치즈', 1, '체다 치즈', 2000, 1),
+(40003, '맛 추가', 2, '매운맛 추가', 500, 1),
+(40003, '맛 추가', 2, '양념맛 추가', 500, 1),
+(40004, '토핑', 3, '계란 토핑', 1500, 1),
+(40004, '토핑', 3, '베이컨 토핑', 2000, 1),
+(40005, '스프', 4, '미소 스프', 1000, 1),
+(40005, '스프', 4, '토마토 스프', 1000, 1);
 
-
+select * from option_tbl;
 
 -- 06. 장바구니 cart_tbl 테이블 생성
 create table cart_tbl (
@@ -159,6 +176,9 @@ create table cart_tbl (
     foreign key  (optionCode) references option_tbl(optionCode)
 )auto_increment = 60001;
 
+
+
+SELECT DISTINCT userId, optionCode,menuCount from cart_tbl where userId = 'user001';
 select * from cart_tbl;
 
 -- 07
@@ -183,15 +203,13 @@ CREATE TABLE order_tbl (
     deliveryFee INT,
 	deliveryAddress VARCHAR(200),
     userPhone varchar(50),
-    reviewStatus TINYINT(1) UNSIGNED, -- 0 : 리뷰X, 1: 리뷰O
     FOREIGN KEY (menuCode) REFERENCES menu_tbl(menuCode),
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
-    
 ) AUTO_INCREMENT = 70001;
 
-select * from order_tbl;
 
+select * from order_tbl;
 
 -- 08
 CREATE TABLE zzim_tbl (
@@ -201,8 +219,6 @@ CREATE TABLE zzim_tbl (
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 );
 
-select * from zzim_tbl;
-
 INSERT INTO zzim_tbl (userCode, storeCode)
 VALUES
 (10001, 30001),
@@ -211,28 +227,40 @@ VALUES
 (10004, 30004),
 (10005, 30005);
 
+select * from zzim_tbl;
+
 -- 09
 CREATE TABLE review_tbl (
     reviewCode INT AUTO_INCREMENT PRIMARY KEY,
     orderMenuName VARCHAR(100),
     userCode int,
     storeCode int,
-    orderNumber int,
     reviewImage VARCHAR(300),
     reviewDate DATE,
     reviewRating INT,
     reviewContent VARCHAR(300),
     reviewImageName VARCHAR(300),
     userNickName VARCHAR(100),
-    answerContent VARCHAR(300),
-    answerDate DATE,
-    foreign key (orderNumber) references order_tbl(orderNumber),
-    FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
+   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
 
+
 select * from review_tbl;
 
+-- 10
+CREATE TABLE answer_tbl (
+    answerCode int AUTO_INCREMENT PRIMARY KEY,
+    storeCode int,
+    reviewCode int,
+    answerDate DATE NOT NULL,
+    answerContent VARCHAR(300) NOT NULL,
+    FOREIGN KEY (reviewCode) REFERENCES review_tbl(reviewCode),
+    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
+) AUTO_INCREMENT=100001;
+
+
+select * from answer_tbl;
 
 -- 11 태민 address_tbl;
 
@@ -241,38 +269,30 @@ CREATE TABLE address_tbl (
   userCode INT,						-- 회원코드
   deliveryAddress VARCHAR(200) NOT NULL,
   detailDeliveryAddress varchar(300) NOT NULL,-- 배달주소
-  addressStatus int not null default 1, -- 가장최근:1 나머지:0 , 집:2
+  addressStatus tinyint(1) not null default 1, -- 가장최근:1 나머지:0
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-
-SELECT addressCode FROM address_tbl;
-
-INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress,addressStatus )
+INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress)
 VALUES
-(10001, '서울시 강남구 강남대로 123 아파트', '101호',2),
-(10002, '서울시 강서구 강서로 456 오피스텔', '202호',2),
-(10003, '서울시 송파구 올림픽로 789', '단독주택',1),
-(10004, '서울시 서초구 강남대로 1010 맨션','303호',1),
-(10005, '서울시 강북구 북촌로 111','단독주택',1);
+(10001, '서울시 강남구 강남대로 123 아파트', '101호'),
+(10002, '서울시 강서구 강서로 456 오피스텔', '202호'),
+(10003, '서울시 송파구 올림픽로 789', '단독주택'),
+(10004, '서울시 서초구 강남대로 1010 맨션','303호'),
+(10005, '서울시 강북구 북촌로 111','단독주택');
 
+select * from address_tbl;
 
 commit;
+
 show tables;
 
 
 
--- Drop all tables
-DROP TABLE cart_tbl;
-DROP TABLE order_tbl;
-DROP TABLE answer_tbl;
-DROP TABLE zzim_tbl;
-DROP TABLE review_tbl;
-DROP TABLE address_tbl;
-DROP TABLE option_tbl;
-DROP TABLE menu_tbl;
-DROP TABLE store_tbl;
-DROP TABLE seller_tbl;
-DROP TABLE user_tbl;
-DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
 
+
+ -- userInfo===>{phoneNumber=+82 10-9381-1510, baseAddress=서울 영등포구 선유로35길 25 (양평동3가, 파크뷰), detailAddress=906호, email=tmpark11@naver.com}
+
+	SELECT * 
+		FROM user_tbl 
+		WHERE userEmail='tmpark11@naver.com' AND userPhone=#{phone_number}

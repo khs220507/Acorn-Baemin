@@ -176,7 +176,6 @@
 
 
 	<!-- 주문내역 관련 -->
-
 	<!-- 주문내역 조회 -->
 	<select id="orderSelectAll" resultType="OrderDTO"
 		parameterType="int">
@@ -194,8 +193,6 @@
 		WHERE orderNumber = #{orderNumber}
 	</delete>
 
-
-
 	<!-- 주문 상세내역 관련 -->
 	<!-- 주문상세내역 조회 -->
 	<select id="orderDetailSelect" resultType="OrderDTO"
@@ -204,5 +201,8 @@
 		from order_tbl
 		WHERE orderNumber = #{orderNumber}
 	</select>
+	
+	
+	<!-- orderNuber로 해당 가게의 storeStatus 조회 -->
 
 </mapper>

@@ -1,9 +1,9 @@
 package com.acorn.baemin.login.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.Spring;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,6 @@ public class LoginRepository implements LoginRepositoryI {
 		System.out.println("select" + user);
 		UserDTO result = session.selectOne(namespace + "selectUserById", user);
 		System.out.println("result" + result);
-
 		return result;
 	}
 
@@ -89,17 +88,10 @@ public class LoginRepository implements LoginRepositoryI {
 		return true;
 	}
 
-	// 소비자 로그인
-	@Override
-	public String customerlogin() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	// 로그아웃
 	@Override
 	public String logout() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -117,6 +109,28 @@ public class LoginRepository implements LoginRepositoryI {
 	@Override
 	public void updatePassword(UserDTO userPw) {
 		session.update("com.acorn.mapper.LoginMapper.updatePassword", userPw);
+	}
+
+	@Override
+	public void kakaoInsert(HashMap<String, Object> userInfo) {
+		System.out.println("다음 정보를 저장합니다+++++");
+		System.out.println("RN:"+userInfo.get("phoneNumber"));
+		System.out.println("RE:"+userInfo.get("email"));
+		System.out.println("RA:"+userInfo.get("baseAddress"));
+		System.out.println("RDA:"+userInfo.get("detailAddress"));
+				
+		
+		
+		session.insert(namespace+"kakaoInsert",userInfo);
+	}
+
+	@Override
+	public UserDTO findKakao(HashMap<String, Object> userInfo) {
+		System.out.println("userInfo : "+ userInfo);
+	
+		UserDTO findUserInfo = session.selectOne(namespace+"findKakao", userInfo);
+		System.out.println(findUserInfo);
+	return  findUserInfo;
 	}
 
 }

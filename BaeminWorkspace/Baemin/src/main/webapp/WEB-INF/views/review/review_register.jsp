@@ -161,6 +161,23 @@ body {
 .review-register-btn {
 	
 }
+
+textarea {
+	width: 100%;
+	height: 200px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: solid 2px #1E90FF;
+	border-radius: 5px;
+	font-size: 16px;
+	resize: both;
+	outline: none;
+    resize: none;
+}
+
+
+
+
 </style>
 
 <script>
@@ -174,7 +191,7 @@ body {
 	<jsp:include page="../base/header.jsp" />
 
 
-	<section>
+	<section id="content">
 
 		<div class="review-title">
 			<div class="review-title-inner">
@@ -193,7 +210,8 @@ body {
 			</div>
 			<div class="order-detail-wrap">
 				<div class="order-store-name">BBQ 홍대점</div>
-				<div class="order-info-detail"> ${orderMenuName} ${orderMenuPrice}원 </div>
+				<div class="order-info-detail">${orderMenuName}
+					${orderMenuPrice}원</div>
 			</div>
 		</div>
 
@@ -202,8 +220,8 @@ body {
 				action="/baemin/submitReview">
 				<div class="review-input-box-wrap">
 					<div class="review-content-wrap">
-						<input type="text" name="reviewContent" class="review-input-box"
-							placeholder="리뷰를 입력하세요"></input>
+						<textarea name="reviewContent" class="review-input-box"
+							placeholder="리뷰를 입력하세요"></textarea>
 					</div>
 					<div class="test">
 						<input type="file" name="reviewImage" class="review-file">

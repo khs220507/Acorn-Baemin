@@ -48,15 +48,18 @@ public class HomeController {
 	// 홈화면
 	@GetMapping("/home")
 	public String home(HttpSession session,Model model) {
-		Integer userCode = (Integer) session.getAttribute("userCode");
-		if(userCode != null) {
-			int addressCode = (int)session.getAttribute("addressCode");
-			AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
-			model.addAttribute("deliveryAddress", addressDTO.getDeliveryAddress());
+	    Integer userCode = (Integer) session.getAttribute("userCode");
+	    if (userCode != null) {
+	        Integer addressCode = (Integer) session.getAttribute("addressCode");
+
+	        if (addressCode != null) {
+	            AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
+	            model.addAttribute("deliveryAddress", addressDTO.getDeliveryAddress());
+	        }
+	    }
 			
 //			List<AddressDTO> addressList = addressDAO.selectAddress(userCode);
 //			model.addAttribute("addressList", addressList);
-		}
 		
 		String[] foodCategories = {"치킨", "피자", "햄버거", "족발·보쌈", "한식", "중식","일식","양식","분식","디저트","야식"};
         model.addAttribute("categories", foodCategories);
@@ -241,6 +244,8 @@ public class HomeController {
 		model.addAttribute("orderDetail", result);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ result);
 
+
+		
 		return "home/order_detail";
 	}
 

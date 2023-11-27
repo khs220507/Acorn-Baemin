@@ -62,7 +62,7 @@ button#mail-Check-Btn {
 }
 
 input#userEmail1 {
-	width: 65%;
+	width: 64%;
 	height: 25px;
 	padding: 10px;
 	font-size: 15px;
@@ -468,15 +468,13 @@ td {
 						});
 
 						// 손님 이름
-						$("#userName").blur(function() {
+						$("#userName").on("input", function() {
 						    let userName = $(this).val();
 						    let namePattern = /^[가-힣]{2,10}$|^[a-zA-Z]{2,10}$/;
 						    let forbiddenChars = /[^\wㄱ-힣]/; // 특수문자, 공백, 숫자 제외
 						
 						    if (
-						        userName === "" ||
-						        !namePattern.test(userName) ||
-						        forbiddenChars.test(userName)
+						        userName === "" || !namePattern.test(userName) || forbiddenChars.test(userName)
 						    ) {
 						        $(this).css("border-color", "red");
 						        userNameValid = false;
@@ -485,6 +483,7 @@ td {
 						        userNameValid = true;
 						    }
 						});
+
 
 
 						let timeoutId;
@@ -499,12 +498,10 @@ td {
 								$(this).css("border-color", "");
 								clearTimeout(timeoutId);
 								timeoutId = setTimeout(
-										function() {
-											checkNicknameDuplicate(userNickname);
-										}, 500);
+										function() {checkNicknameDuplicate(userNickname);
+										}, 200);
 							} else {
-								$(this).css("border-color",
-										"red");
+								$(this).css("border-color", "red");
 							}
 						});
 
@@ -518,13 +515,11 @@ td {
 								},
 								success : function(data) {
 									if (data.toLowerCase() === "yes") {
-										$("#userNickname").css("border-color",
-												"red");
+										$("#userNickname").css("border-color", "red");
 										alert("중복된 닉네임 입니다.");
 										$("#userNickname").val("");
 									} else {
-										$("#userNickname").css("border-color",
-												"");
+										$("#userNickname").css("border-color", "");
 									}
 								},
 								error : function() {
@@ -695,22 +690,22 @@ td {
 						});
 
 						// 직접 입력시 인풋창 생성
-						$('#userEmail2').change(function() {
-							var selectedEmail = $(this).val();
-							if (selectedEmail === 'custom') {
-								$('#customEmail').css('display', 'block');
-								$('#customEmail').val('@');
-							} else {
-								$('#customEmail').css('display', 'none');
-							}
-						});
+// 						$('#userEmail2').change(function() {
+// 							var selectedEmail = $(this).val();
+// 							if (selectedEmail === 'custom') {
+// 								$('#customEmail').css('display', 'block');
+// 								$('#customEmail').val('@');
+// 							} else {
+// 								$('#customEmail').css('display', 'none');
+// 							}
+// 						});
 
-						$('#customEmail').on('blur', function() {
-							const customEmail = $(this).val();
-							if (!customEmail.endsWith('.com')) {
-								alert('".com"으로 끝나는 다른 이메일을 사용해주세요.');
-							}
-						});
+// 						$('#customEmail').on('blur', function() {
+// 							const customEmail = $(this).val();
+// 							if (!customEmail.endsWith('.com')) {
+// 								alert('".com"으로 끝나는 다른 이메일을 사용해주세요.');
+// 							}
+// 						});
 
 						// 인증번호 비교 
 						$('.mail-check-input').blur(function() {
@@ -871,19 +866,17 @@ td {
 								<option value="@naver.com.com">@
 									<div class="mail">naver.com</div>
 								</option>
-								<option value="@daum.net.net">@
+								<option value="@kakao.com.com">@
 									<div class="mail">daum.net</div>
 								</option>
 								<option value="@lycos.com.com">@
 									<div class="mail">lycos.com</div>
 								</option>
-								<option value="custom">직접 입력</option>
+<!-- 								<option value="custom">직접 입력</option> -->
 
 							</select> <input type="text" class="form-control" id="customEmail"
 								name="customEmail" style="display: none;"
 								placeholder="도메인을 포함한 이메일 주소를 입력하세요">
-
-
 
 						</div>
 						<div class="mail-check-box">

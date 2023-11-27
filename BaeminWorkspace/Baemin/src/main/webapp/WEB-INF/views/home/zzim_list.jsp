@@ -165,7 +165,7 @@ section{
 								
 								<c:choose>
 									<c:when test="${zzimList.storeStatus == 1 }">
-										<span>(준비중입니다...)</span>
+										<span>(영업준비중...)</span>
 									</c:when>
 								</c:choose>
 								

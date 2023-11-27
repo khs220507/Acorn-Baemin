@@ -142,7 +142,24 @@ button {
 	width: 100px;
 	height: 100px;
 }
-
+.menu-img{
+	position: relative;
+}
+.ready-msg{
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.521);
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.ready-msg p{
+	color: white;
+	font-size: 20px;
+}
 .menu-classification-list {
 	display: inline-block;
 }
@@ -421,50 +438,7 @@ button {
 	}; 
 	
 	
-	$(document).ready(function() {
-        
-        // Function to check if there is an existing answer and hide the reply section
-   
-        
-
-        // Add click event handler for the "등록" button
-        $("#submitReplyBtn").on("click", function() {
-            // Get the reviewCode value from the hidden input
-            var reviewCode = $("input[name='reviewCode']").val();
-            var storeCode = $("input[name='storeCode']").val();
-
-            // Get the reply content from the textarea
-            var answerContent = $("#replyContent").val();
-
-            // Prepare data to send to the server
-            var data = {
-                reviewCode: reviewCode,
-                storeCode : storeCode,
-                answerContent: answerContent
-            };
-
-            // Send an AJAX request to the server
-            $.ajax({
-                type: "POST",
-                url: "/baemin/submitReply", // Replace with your actual controller endpoint
-                data: JSON.stringify(data),
-                contentType: "application/json",
-                success: function(response) {
-                    // Handle the success response from the server
-                  
-    
-                    // Optionally, you can update the UI or perform other actions here
-                },
-                error: function() {
-                   
-                    // Optionally, you can display an error message to the user
-                }
-            });
-        });
-        
-      
-
-    });
+	
 
 	
 </script>
@@ -497,7 +471,6 @@ button {
 			<%
 			}
 			%>
-			<!-- 아래 div는 추후에 선으로 대체할 예정 -->
 			<hr class="line">
 			<div class="store-name">${readStore.storeName}</div>
 			<div class="rating-review-minprice">
@@ -534,17 +507,40 @@ button {
 									<c:when
 										test="${menuList.menuClassification eq classificationList.menuClassification}">
 										<div class="menu-info-with-btn">
-											<a class="menu-img"
-												href="${path}/option?menuCode=${menuList.menuCode}"><img
-												alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
-											<div class="menuName-wrap">
-												<div class="menuName menuName-bigger">${menuList.menuName}</div>
-												<div class="menuName">${menuList.menuContent}</div>
-												<div class="menuName">${menuList.menuPrice}</div>
-												<c:choose>
-													<c:when test="${menuList.menuStatus eq 1}">(준비중)</c:when>
-												</c:choose>
-											</div>
+
+											<c:choose>
+												<c:when test="${menuList.menuStatus eq 1}">
+												<!-- 영업준비중일때 -->
+													<a class="menu-img"><img
+													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}">
+													<div class="ready-msg">
+														<p>준비중</p>
+													</div>
+													</a>
+													<div class="menuName-wrap">
+														<div class="menuName menuName-bigger">${menuList.menuName}</div>
+															<div class="menuName">${menuList.menuContent}</div>
+															<div class="menuName">${menuList.menuPrice}</div>
+													</div>
+												</c:when>
+
+												<c:when test="${menuList.menuStatus eq 0}">
+													<!-- 영업중일때 -->
+													<a class="menu-img"
+													href="${path}/option?menuCode=${menuList.menuCode}"><img
+													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+
+													<div class="menuName-wrap">
+														<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName menuName-bigger">${menuList.menuName}</div></a>
+															<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuContent}</div></a>
+															<a class="menu-img"
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuPrice}</div></a>
+													</div>
+												</c:when>
+											</c:choose>	
+
 										</div>
 										<hr class="thin-line">
 									</c:when>
@@ -615,16 +611,12 @@ button {
 								src="${path}/reviewImages/${item.reviewImageName}"
 								alt="Review Image">
 						</c:if>
+						<c:if test="${not empty item.answerContent}">
+						<div>사장님</div>
+						<div>${item.answerContent}</div>
+						</c:if>
 						
-						<!--  
-						<div class="reply-review-wrap">
-							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
-							<input type="hidden" name="storeCode" value="${item.storeCode}">
-							<p style="margin-bottom: 5px;">답글달기</p>
-							<textarea id="replyContent" placeholder="답글을 남겨주세요"></textarea>
-							<button id="submitReplyBtn">등록</button>
-						</div>
-						-->
+						
 						
 						
 					</div>
