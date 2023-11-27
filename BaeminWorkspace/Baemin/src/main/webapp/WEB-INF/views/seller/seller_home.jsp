@@ -190,7 +190,7 @@ display: flex;
 margin: 0 auto;
 }
 .dAddr{
-    width: 180px!important;
+    width: 174.5px!important;
 }
 .doro-but{
     width: 70px;
@@ -465,9 +465,9 @@ margin: 0 auto;
 		                }
 	
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById(storeAddress).value = roadAddr
-		                document.getElementById(storeAddressDetail).value = ''
-		               	document.getElementById(storeAddressDetail).focus();
+		                document.getElementById('storeAddress').value = roadAddr
+		                document.getElementById('storeAddressDetail').value = ''
+		               	document.getElementById('storeAddressDetail').focus();
 		                
 		        
 		              
