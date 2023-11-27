@@ -274,7 +274,7 @@ button {
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
 
-		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none");
+		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none").css("background-color", "#d9d9d9");;
 		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
 		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
 
@@ -534,9 +534,9 @@ button {
 							</table>
 						</div>
 					</div>
-			</div>
 						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
 						<div id="map" style="width: 40%; height: 350px;"></div>
+			</div>
 			<!-- 리뷰 리스트 나오는 탭 -->
 			<div class="store-review-tab">
 

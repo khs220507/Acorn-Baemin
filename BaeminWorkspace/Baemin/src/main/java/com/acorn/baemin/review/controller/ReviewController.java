@@ -49,12 +49,15 @@ public class ReviewController {
 		int orderMenuNumber = orderDTO.get(0).getOrderMenuNumber();
 		int orderMenuPrice = orderDTO.get(0).getOrderMenuPrice();
 		String orderStatus = orderDTO.get(0).getOrderStatus();
-		
+		String orderStoreName = orderDTO.get(0).getOrderStoreName();
+		String orderStoreImage = orderDTO.get(0).getOrderStoreImage();
 		model.addAttribute("orderDate", orderDate);
 		model.addAttribute("orderMenuName", orderMenuName);
 		model.addAttribute("orderMenuNumber", orderMenuNumber);
 		model.addAttribute("orderMenuPrice", orderMenuPrice);
 		model.addAttribute("orderStatus", orderStatus);
+		model.addAttribute("orderStoreName", orderStoreName);
+		model.addAttribute("orderStoreImage", orderStoreImage);
 		
 		return "/review/review_register";
 	}

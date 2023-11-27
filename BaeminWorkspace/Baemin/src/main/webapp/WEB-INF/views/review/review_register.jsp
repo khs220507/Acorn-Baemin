@@ -186,7 +186,7 @@ textarea {
 
 <body>
 
-
+<c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 
 	<jsp:include page="../base/header.jsp" />
 
@@ -206,12 +206,11 @@ textarea {
 
 		<div class="order-info-wrap">
 			<div class="order-info-image">
-				<img class="order-info-image" src="resources/images/food.png">
+				<img class="order-info-image" src="/baemin/images/${orderStoreImage}">
 			</div>
 			<div class="order-detail-wrap">
-				<div class="order-store-name">BBQ 홍대점</div>
-				<div class="order-info-detail">${orderMenuName}
-					${orderMenuPrice}원</div>
+				<div class="order-store-name">${orderStoreName}</div>
+				<div class="order-info-detail">${orderMenuName} ${orderMenuPrice}원</div>
 			</div>
 		</div>
 

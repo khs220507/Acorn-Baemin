@@ -157,53 +157,51 @@
 
 
 <script>
-	$(document).ready(function() {
-		// Use JSTL to set unitPrice as a JavaScript variable
-		var unitPrice = parseInt('${menuInfo[0].menuPrice}', 10);
+$(document).ready(function() {
+    // Use JSTL to set unitPrice as a JavaScript variable
+    var unitPrice = ${menuInfo[0].menuPrice};
 
+    function adjustQuantity(change) {
+        var quantityInput = $(".quantity-input");
+        var currentQuantity = parseInt(quantityInput.val());
 
-		function adjustQuantity(change) {
-			var quantityInput = $(".quantity-input");
-			var currentQuantity = parseInt(quantityInput.val());
+        // Ensure the quantity is not negative
+        if (currentQuantity + change >= 1) {
+            quantityInput.val(currentQuantity + change);
+            updateTotalPrice();
+        }
+    }
 
-			// Ensure the quantity is not negative
-			if (currentQuantity + change >= 1) {
-				quantityInput.val(currentQuantity + change);
-				updateTotalPrice();
-			}
-		}
+    $(".minus").click(function() {
+        adjustQuantity(-1);
+    });
 
-		$(".minus").click(function() {
-			adjustQuantity(-1);
-			
+    $(".plus").click(function() {
+        adjustQuantity(1);
+    });
 
-		$(".plus").click(function() {
-			adjustQuantity(1);
-			
-		});
+    function updateTotalPrice() {
+        var quantity = parseInt($(".quantity-input").val(), 10);
 
-		function updateTotalPrice() {
-	        var quantity = parseInt($(".quantity-input").val(), 10);
+        var totalOptionsPrice = 0;
+        $(".option-total-price").each(function() {
+            var optionValues = $(this).text().split(":");
+            var optionPrice = parseInt(optionValues[2].trim(), 10); // Parse as integer
+            totalOptionsPrice += optionPrice;
+        });
 
-	        var totalOptionsPrice = 0;
-	        $(".option-total-price").each(function() {
-	            var optionValues = $(this).text().split(":");
-	            var optionPrice = parseInt(optionValues[2].trim(), 10); // Parse as integer
-	            totalOptionsPrice += optionPrice;
-	        });
+        var unitPrice = parseInt(${menuInfo[0].menuPrice}, 10); // Get the unit price from JSTL
+        var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
 
-	        var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
+        // Check if orderMenuPrice is a valid number before updating
+        if (!isNaN(orderMenuPrice)) {
+            $("#totalPriceInput").val(orderMenuPrice);
+            $("#total-price").text(orderMenuPrice + "원");
+        }
+    }
 
-	        // Check if orderMenuPrice is a valid number before updating
-	        if (!isNaN(orderMenuPrice)) {
-	            $("#totalPriceInput").val(orderMenuPrice);
-	            $("#total-price").text(orderMenuPrice + "원");
-	        }
-	    }
-
-
-		updateTotalPrice();
-	});
+    updateTotalPrice();
+});
 </script>
 
 
