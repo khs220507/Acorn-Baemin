@@ -9,9 +9,9 @@
 	<!-- 등록 -->
 	<insert id="insertAddress" parameterType="AddressDTO">
 		INSERT INTO address_tbl
-		(userCode, deliveryAddress, detailDeliveryAddress)
+		(userCode, deliveryAddress, detailDeliveryAddress, addressStatus)
 		VALUES (#{userCode},
-		#{deliveryAddress}, #{detailDeliveryAddress})
+		#{deliveryAddress}, #{detailDeliveryAddress} , #{addressStatus})
 	</insert>
 
 	<!-- 로그인시 등록 -->

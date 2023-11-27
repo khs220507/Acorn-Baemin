@@ -239,7 +239,7 @@ position: fixed;
 }
 #doro{
     width: 500px!important;
-    height: 400px!important;
+    height: 500px!important;
     margin: 0 auto;
     border: 3px solid #d9d9d9;
     border-radius: 10px;
