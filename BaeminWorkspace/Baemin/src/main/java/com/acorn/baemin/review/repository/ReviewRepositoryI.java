@@ -12,5 +12,7 @@ public interface ReviewRepositoryI {
 	
 	void insertReview(ReviewDTO review);
 	void updateReviewStatus(OrderDTO orderDTO);
+	public int reviewCount(int storeCode);
+	public double storeAvgRating(int storeCode);
 
 }

@@ -159,8 +159,8 @@
 <script>
 	$(document).ready(function() {
 		// Use JSTL to set unitPrice as a JavaScript variable
-		var unitPrice = parseInt('${menuInfo[0].menuPrice}', 10);
 
+		var unitPrice = parseInt('${menuInfo[0].menuPrice}', 10);
 
 		function adjustQuantity(change) {
 			var quantityInput = $(".quantity-input");

@@ -15,8 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.ReviewDTO;
+import com.acorn.baemin.domain.StoreDTO;
 import com.acorn.baemin.home.repository.OrderDetailRepositoryImp;
 import com.acorn.baemin.review.service.ReviewService;
+import com.acorn.baemin.selectstrore.repository.SelectStoreRepository;
 import com.acorn.baemin.seller.service.SellerService;
 
 import java.io.File;
@@ -35,6 +37,9 @@ public class ReviewController {
 	
 	@Autowired
 	private SellerService sellerService;
+	
+	@Autowired
+	SelectStoreRepository StoreREP;
 
 	@Autowired
 	OrderDetailRepositoryImp rep;
@@ -84,13 +89,27 @@ public class ReviewController {
 		reviewDTO.setOrderNumber(orderNumber);
 		reviewDTO.setReviewDate(reviewDate);
 		
-
+		
 		// Set other properties as needed
 
 		// Save the review to the database using the ReviewService
 		reviewService.insertReview(reviewDTO);
 		reviewService.updateReviewStatus(orderDTO.get(0));
+		
+		//count
+		int storeCode = orderDTO.get(0).getStoreCode();
+		int cont = reviewService.reviewCount(storeCode);
+		System.out.println(cont);
+		
+		//avg
+		double avg = reviewService.storeAvgRating(storeCode);
+		System.out.println(avg);
+		StoreDTO store = new StoreDTO(storeCode, 0, null, null, null, null, null, null, 0, cont, avg, null, 0, 0, null, null, 0);
+		System.out.println(store);
+		StoreREP.upReviewCountAndStoreRating(store);
 		return "review/review_submit";
 	}
+	
+	
 
 }
