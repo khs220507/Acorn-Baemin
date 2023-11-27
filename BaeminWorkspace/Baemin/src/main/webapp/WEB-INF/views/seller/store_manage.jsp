@@ -227,40 +227,38 @@ section {
 
 .store-description, .operating-time {
 	display: flex;
+	align-items: center;
 }
 
 .store-description {
-	height: 33%;
+	height: 200px;
 }
 
 .operating-time {
-	height: 22%;
+	height: 33%;
+	padding-top: 10px;
 }
 
 .store-description>div, .operating-time>div, #seller-info {
 	width: 22%;
-	height: 40%;
+	height: 25%;
 	text-align: center;
-}
-
-.store-description>div {
-	margin-top: 4.5%;
-}
-
-.operating-time>div {
-	margin-top: 3%;
 }
 
 #seller-info {
 	margin-top: 5%;
 }
 
-.store-description>input, .operating-time>input {
+textarea {
+	width: 78%;
+	height: 100%;
+}
+.operating-time>input {
 	width: 78%;
 }
-
 .seller-info {
 	display: flex;
+	padding-top: 10px;
 }
 
 .seller-name {
@@ -284,10 +282,10 @@ section {
 }
 
 .store-info-modify-btn {
-	width: 15%;
-	height: 45%;
-	margin-left: 3%;
-	margin-top: 10%;
+	width: 20%;
+	height: 40%;
+	margin-left: 4%;
+	margin-top: 18%;
 }
 
 .store-info-tab, .store-review-tab {
@@ -705,7 +703,6 @@ hr {
 												<img class="menu-image" alt="메뉴사진" src="${path}/images/${menuList.menuImage}">
 											</a>
 											<input type="file" class="input-menu-image" name="menuImageFile">
-											<input type="hidden" class="old-menu-image" name="old-menuImageFile">
 											<div class="input-menu-content">
 												<input type="text" class="menu-name" name="menuName" value="${menuList.menuName}">
 												<input type="text" class="menu-content" name="menuContent" value="${menuList.menuContent}">
@@ -747,10 +744,9 @@ hr {
 					<input type="file" name="menuImageFile" accept="image/*" required>
 					<!-- 이미지 등록 input, 이미지파일만 필수로 제한 -->
 					<div class="input-menu-form">
-						<input type="hidden" name="storeCode"
-							value="${readStore.storeCode}"><br /> <input type="text"
-							name="menuName" placeholder="메뉴명"><br /> <input
-							type="text" name="menuContent" placeholder="메뉴설명"><br />
+						<input type="hidden" name="storeCode" value="${readStore.storeCode}"><br />
+						<input type="text" name="menuName" placeholder="메뉴명"><br />
+						<input type="text" name="menuContent" placeholder="메뉴설명"><br />
 						<input type="number" name="menuPrice" placeholder="메뉴가격"><br />
 						<select name="menuStatus">
 							<option value="0">판매중</option>
@@ -775,8 +771,9 @@ hr {
 				<div class="info-sub-tab">
 					<div class="store-description">
 						<div>가게소개</div>
-						<input type="text" id="store-description"
-							value="readStore.storeDescription">
+						<textarea id="store-description">
+						  readStore.storeDescription
+						</textarea>
 					</div>
 					<div class="operating-time">
 						<div>운영시간</div>

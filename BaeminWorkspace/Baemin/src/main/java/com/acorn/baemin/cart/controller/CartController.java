@@ -87,7 +87,7 @@ public class CartController {
 		String optionsInfo = cartInfo.getOptions();
 		orderDTO.setOptionsInfo(optionsInfo);
 		orderDTO.setUserCode(userCode);
-		session.setAttribute("orderDTO", orderDTO);		
+		session.setAttribute("orderDTO", orderDTO);
 		
 		int addressCode = (int) session.getAttribute("addressCode");
 		AddressDTO addressDTO = addressDAO.returnAddressDTO(addressCode);
