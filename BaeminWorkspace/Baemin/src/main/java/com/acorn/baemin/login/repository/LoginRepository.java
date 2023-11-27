@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.UserDTO;
 
@@ -112,25 +113,46 @@ public class LoginRepository implements LoginRepositoryI {
 	}
 
 	@Override
+	public UserDTO findKakao(HashMap<String, Object> userInfo) {
+		System.out.println("userInfo : "+ userInfo);
+	
+		UserDTO findUserInfo = session.selectOne(namespace+"findKakao", userInfo);
+		System.out.println(findUserInfo);
+		return  findUserInfo;
+	}
+
+	@Override
 	public void kakaoInsert(HashMap<String, Object> userInfo) {
 		System.out.println("다음 정보를 저장합니다+++++");
 		System.out.println("RN:"+userInfo.get("phoneNumber"));
 		System.out.println("RE:"+userInfo.get("email"));
 		System.out.println("RA:"+userInfo.get("baseAddress"));
 		System.out.println("RDA:"+userInfo.get("detailAddress"));
-				
 		
-		
-		session.insert(namespace+"kakaoInsert",userInfo);
+		session.insert(namespace+"kakaoInsert", userInfo);
 	}
-
-	@Override
-	public UserDTO findKakao(HashMap<String, Object> userInfo) {
-		System.out.println("userInfo : "+ userInfo);
 	
-		UserDTO findUserInfo = session.selectOne(namespace+"findKakao", userInfo);
-		System.out.println(findUserInfo);
-	return  findUserInfo;
+	public AddressDTO findAddrInfo(UserDTO userInfo) {
+		
+		return session.selectOne(namespace+"findAddrInfo", userInfo);
+		
+	}
+	
+	public AddressDTO addressInsert(UserDTO userInfo) {
+		int userCode = (int) userInfo.getUserCode();
+		String deliveryAddress = userInfo.getUserAddress();
+		String detailDeliveryAddress = userInfo.getUserAddressDetail();
+		
+		// 추출한 정보를 이용하여 AddressDTO 객체 생성
+		AddressDTO addressDTO = new AddressDTO();
+		
+		addressDTO.setUserCode(userCode);
+		addressDTO.setDeliveryAddress(deliveryAddress);
+		addressDTO.setDetailDeliveryAddress(detailDeliveryAddress);
+		// AddressDTO 객체를 이용하여 데이터베이스에 삽입
+		session.insert(namespace + "addressInsert", addressDTO);
+
+		return addressDTO;
 	}
 
 }
