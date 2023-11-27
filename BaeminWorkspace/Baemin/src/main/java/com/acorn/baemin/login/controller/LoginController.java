@@ -87,7 +87,7 @@ public class LoginController {
 
 
 
-
+	// 카카오 간편 로그인
 	@GetMapping(value="/kakaoLogin")
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code) throws Exception {
 		System.out.println("code : " + code);
@@ -102,17 +102,22 @@ public class LoginController {
 		System.out.println("email : " + userInfo.getUserEmail());
 		System.out.println("baseAddress : " + userInfo.getUserAddress());
 		System.out.println("detailAddress : " + userInfo.getUserAddressDetail());
-			
-		// session에 담긴 정보를 초기화.
-		session.invalidate();
-		// session에 userCode 담기
-		session.setAttribute("userCode", userInfo.getUserCode());
-		    
+
+	    AddressDTO addrInfo = loginService.findAndInsertAddrInfo(userInfo);
+	    
+	    int addressCode = addrInfo.getAddressCode();
+	    System.out.println("addressCode @LoginController : " + addressCode);
+
+	    // session에 담긴 정보를 초기화.
+	    session.invalidate();
+	    // session에 userCode와 addressCode 담기
+	    session.setAttribute("userCode", userInfo.getUserCode());
+	    session.setAttribute("addressCode", addressCode);
 		// 리턴값은 용도에 맞게 변경
 		return "redirect:/home";
 	}
 
-
+	
 	// 유저 로그인 보내기
 	@GetMapping("/login")
 	public String login(HttpSession session) {

@@ -298,7 +298,6 @@ hr {
 	        $('.orderList-wrap').each(function() {
 	            // Get the review status value from the hidden input
 	            var reviewStatus = $(this).find('#reviewStatus').val();
-	            //alert(reviewStatus);
 
 	            // Check if the reviewStatus is 1
 	            if (reviewStatus == 1) {
