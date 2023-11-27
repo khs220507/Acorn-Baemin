@@ -16,26 +16,21 @@
 	padding: 0;
 	box-sizing: border-box;
 }
-
 a {
 	text-decoration: none;
 }
-
 body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	height: 100vh;
 }
-
 ul {
 	list-style: none;
 }
-
 input {
 	display: block;
 }
-
 section {
 	display: flex;
 	flex-direction: column;
@@ -46,12 +41,10 @@ section {
 	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
-
 button {
 	outline: none;
 	cursor: pointer; /* 손가락모양 */
 }
-
 .wrap-all {
 	display: flex;
 	flex-direction: column;
@@ -60,21 +53,18 @@ button {
 	width: 75%;
 	position: relative;
 }
-
 .line {
 	background-color: #d9d9d9;
 	height: 2px;
 	border: 0px;
 	width: 100%;
 }
-
 .thin-line {
 	background-color: #d9d9d9;
 	height: 1px;
 	border: 0px;
 	width: 100%;
 }
-
 .menu-info-review-tab {
 	display: flex;
 	width: 80%;
@@ -83,61 +73,49 @@ button {
 	margin-top: 30px;
 	padding: 5px 0;
 }
-
 .menu-info-review-tab li {
 	width: 33.333333333333333333333333333%;
 	text-align: center;
 	padding: 5px 0;
 }
-
 .menu-tab {
 	border-top: 1px solid black;
 }
-
 .info-tab {
 	border-bottom: 1px solid black;
 }
-
 .review-tab {
 	border-bottom: 1px solid black;
 }
-
 .menu-sub-tab {
 	width: 80%;
 }
-
 .click-category {
 	display: flex;
 	justify-content: space-around;
 	padding: 5px 0;
 }
-
 .classification {
 	padding: 5px 10px;
 }
-
 .old-menu-classification {
 	font-size: 20px;
 }
-
 .store-image img {
 	width: 250px;
 	height: 250px;
 	margin: 10px;
 }
-
 .store-name {
 	font-size: 27px;
 	margin: 15px;
 }
-
 .rating-review-minprice {
 	display: flex;
-	align-items: center;
+	align-items: end;
 	justify-content: space-between;
 	width: 33%;
 }
-
 .menu-img img {
 	width: 100px;
 	height: 100px;
@@ -163,80 +141,65 @@ button {
 .menu-classification-list {
 	display: inline-block;
 }
-
 .menu-classification {
 	display: flex;
 }
-
 .menu-info-with-btn {
 	display: flex;
 	align-items: center;
 	padding: 10px;
 }
-
 .menuName-wrap {
 	margin-left: 20px;
 	line-height: 23px;
 }
-
 .menuName-bigger {
 	font-size: 20px;
 }
-
-.info-sub-tab-with-btn {
-	display: flex;
-}
-
 .info-sub-tab {
 	margin-top: 50px;
 }
-
 .store-description {
 	display: flex;
 	flex-direction: column;
 	line-height: 20px;
 }
-
 .introduce-title {
 	font-size: 19px;
 }
-
 .operating-time {
 	display: flex;
 	flex-direction: column;
 	margin: 20px 0;
 	line-height: 20px;
 }
-
 .seller-info {
 	display: flex;
 	flex-direction: column;
 }
-
 .seller-info-sub {
 	line-height: 20px;
 }
-
 .seller-name {
 	display: flex;
 }
-
 .introduce-small-title {
 	width: 140px;
 }
-
 .store-address {
 	display: flex;
 }
-
 .seller-regcode {
 	display: flex;
 }
-
 .store-info-tab, .store-review-tab {
 	display: none;
 }
-
+.store-info-tab{
+	width: 40%;
+	margin-bottom: 40p
+	x;
+}
 .zzim {
 	border: none;
 	background-color: white;
@@ -245,17 +208,14 @@ button {
 	right: 60px;
 	top: 0px;
 }
-
 .zzim img {
 	width: 20px;
 }
-
 .star-rating {
 	display: inline-flex;
 	flex-direction: row;
 	justify-content: flex-start;
 }
-
 .star-rating .star {
 	width: 25px;
 	height: 25px;
@@ -267,7 +227,6 @@ button {
 	background-size: 100%;
 	box-sizing: border-box;
 }
-
 .star-rating .star.on {
 	background:
 		url('https://blog.kakaocdn.net/dn/b2d6gV/btsvbDoal87/XH5b17uLeEJcBP3RV3FyDk/img.png')
@@ -275,23 +234,19 @@ button {
 	background-size: 100%;
 	box-sizing: border-box;
 }
-
 .user-star-wrap {
 	display: flex;
 }
-
 .review-image {
 	width: 250px;
 	height: 300px;
 	border-radius: 5px;
 }
-
 .review-wrap {
 	margin-top: 20px;
 	padding-bottom: 20px;
 	border-bottom: 1px #d9d9d9 solid;
 }
-
 .reply-review-wrap {
 	margin-top: 5px;
 }
@@ -511,8 +466,7 @@ button {
 											<c:choose>
 												<c:when test="${menuList.menuStatus eq 1}">
 												<!-- 영업준비중일때 -->
-													<a class="menu-img"><img
-													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}">
+													<a class="menu-img"><img alt="메뉴 사진" src="${path}/images/${menuList.menuImage}">
 													<div class="ready-msg">
 														<p>준비중</p>
 													</div>
@@ -528,7 +482,7 @@ button {
 													<!-- 영업중일때 -->
 													<a class="menu-img"
 													href="${path}/option?menuCode=${menuList.menuCode}"><img
-													alt="메뉴 사진" src="${path}/images/${readStore.storeImage}"></a>
+													alt="메뉴 사진" src="${path}/images/${menuList.menuImage}"></a>
 
 													<div class="menuName-wrap">
 														<a class="menu-img"
@@ -552,7 +506,6 @@ button {
 			</div>
 			<!-- 가게 정보 탭 -->
 			<div class="store-info-tab">
-				<div class="info-sub-tab-with-btn">
 					<div class="info-sub-tab">
 						<div class="store-description">
 							<div class="introduce-title">가게소개</div>
@@ -580,12 +533,10 @@ button {
 								</tr>
 							</table>
 						</div>
-						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
-						<div id="map" style="width: 100%; height: 350px;"></div>
-
 					</div>
-				</div>
 			</div>
+						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
+						<div id="map" style="width: 40%; height: 350px;"></div>
 			<!-- 리뷰 리스트 나오는 탭 -->
 			<div class="store-review-tab">
 
