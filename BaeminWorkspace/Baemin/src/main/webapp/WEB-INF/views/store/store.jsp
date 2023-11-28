@@ -74,18 +74,19 @@ button {
 	padding: 5px 0;
 }
 .menu-info-review-tab li {
-	width: 33.333333333333333333333333333%;
+	width: 34%;
 	text-align: center;
 	padding: 5px 0;
 }
 .menu-tab {
-	border-top: 1px solid black;
+	border-top: 2px solid black;
+	background-color: rgb(244,243,243);
 }
 .info-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 .review-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 .menu-sub-tab {
 	width: 80%;
@@ -274,9 +275,11 @@ button {
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
 
-		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none").css("background-color", "#d9d9d9");;
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
+		
+		
 
 		
 	}
@@ -326,9 +329,9 @@ button {
 	    } 
 	});    
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 	}
 	
 	// 리뷰 탭 영역
@@ -338,9 +341,9 @@ button {
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "1px solid black").css("border-bottom", "none");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
 		
 		
 		
