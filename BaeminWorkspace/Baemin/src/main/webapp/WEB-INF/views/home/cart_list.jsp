@@ -157,20 +157,19 @@
 
 
 <script>
-<<<<<<< HEAD
 $(document).ready(function() {
-    // Use JSTL to set unitPrice as a JavaScript variable
-    var unitPrice = ${menuInfo[0].menuPrice};
+	// Use JSTL to set unitPrice as a JavaScript variable
 
-    function adjustQuantity(change) {
-        var quantityInput = $(".quantity-input");
-        var currentQuantity = parseInt(quantityInput.val());
-=======
-	$(document).ready(function() {
-		// Use JSTL to set unitPrice as a JavaScript variable
 
+  
+	
 		var unitPrice = parseInt('${menuInfo[0].menuPrice}', 10);
->>>>>>> 3d04214398913c50dd2d0b0f9fbd1bf755deda49
+
+	
+		  function adjustQuantity(change) {
+		        var quantityInput = $(".quantity-input");
+		        var currentQuantity = parseInt(quantityInput.val());
+
 
         // Ensure the quantity is not negative
         if (currentQuantity + change >= 1) {
@@ -278,6 +277,7 @@ $(document).ready(function() {
 								<%
 								}
 								%>
+							
 					</div>
 
 					<hr class="thin-line">
