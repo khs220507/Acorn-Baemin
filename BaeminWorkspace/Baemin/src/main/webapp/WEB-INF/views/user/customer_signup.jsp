@@ -62,7 +62,7 @@ button#mail-Check-Btn {
 }
 
 input#userEmail1 {
-	width: 64%;
+	width: 63%;
 	height: 25px;
 	padding: 10px;
 	font-size: 15px;
@@ -71,6 +71,7 @@ input#userEmail1 {
 }
 
 input#userEmail2 {
+	width: 10%;
 	padding: 10px;
 	font-size: 15px;
 	border: 1px solid #ccc;
@@ -355,7 +356,7 @@ td {
 					data : infos,
 					contentType : "application/json", // 필수
 					success : function(data) {
-						alert("가입축하 q(≧▽≦q)");
+						alert("회원가입 되었습니다.");
 						window.location.href = "http://localhost:8080/baemin/login";
 					},
 					error : function() {
@@ -455,10 +456,7 @@ td {
 
 						// 비밀번호 확인
 						$("#confirmPassword").on("input",function() {
-							if ($(this).val() === ""
-									|| !userPwValid
-									|| $("#userPw").val() !== $(this)
-											.val()) {
+							if ($(this).val() === "" || !userPwValid || $("#userPw").val() !== $(this).val()) {
 								$(this).css("border-color", "red");
 								confirmPasswordValid = false;
 							} else {
@@ -505,7 +503,7 @@ td {
 							}
 						});
 
-						// 중복 확인하는 함수
+						// 닉네임 중복 확인하는 함수
 						function checkNicknameDuplicate(userNickname) {
 							$.ajax({
 								url : "/baemin/checkDuplicateNick",
@@ -534,8 +532,7 @@ td {
 							if (!/^[0-9]*$/.test($(this).val())) {
 								$(this).val('');
 							}
-							if ($(this).val() === ""
-									|| !phoneCheck.test($(this).val())) {
+							if ($(this).val() === "" || !phoneCheck.test($(this).val())) {
 								$(this).css("border-color",	"red");
 								userPhoneValid = false;
 							} else {
@@ -572,11 +569,11 @@ td {
 										});
 							}
 						});
-
+						
 						// 이메일 유효성 검사
 						$("#userEmail").on("input",function() {
-
-							let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+							let emailCheck = /^[^@.]+$/; 
+// 							let emailCheck = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
 							if ($(this).val() === "" || !emailCheck.test($(this).val())) {
 								$(this).css("border-color","red");
 								userEmailValid = false;
@@ -651,7 +648,6 @@ td {
 
 						// 회원가입 버튼 클릭 시 유효성 검사 및 서버 전송
 						$("#signin_button").click(
-
 								function() {
 									if (userIdValid && userPwValid
 											&& confirmPasswordValid
@@ -688,14 +684,14 @@ td {
 						});
 
 						// 직접입력 옵션 선택 시 동적으로 입력 필드 보이기/숨기기
-						document.getElementById("userEmail2").addEventListener("change", function() {
-						    var directInput = document.getElementById("directEmailInput");
-						    if (this.value === ".com") {
-						        directInput.style.display = "block";
-						    } else {
-						        directInput.style.display = "none";
-						    }
-						});
+// 						document.getElementById("userEmail2").addEventListener("change", function() {
+// 						    var directInput = document.getElementById("directEmailInput");
+// 						    if (this.value === ".com") {
+// 						        directInput.style.display = "block";
+// 						    } else {
+// 						        directInput.style.display = "none";
+// 						    }
+// 						});
 
 						// 인증번호 비교 
 						$('.mail-check-input').blur(function() {
@@ -732,15 +728,15 @@ td {
 		});
 	});
 	
-	function handleEmailSelection(selectedValue) {
-	    if (selectedValue === "") {
-	        document.getElementById("directEmailInput").style.display = "inline-block";
-	        document.getElementById("directEmailInput").setAttribute("required", "required");
-	    } else {
-	        document.getElementById("directEmailInput").style.display = "none";
-	        document.getElementById("directEmailInput").removeAttribute("required");
-	    }
-	}
+// 	function handleEmailSelection(selectedValue) {
+// 	    if (selectedValue === "") {
+// 	        document.getElementById("directEmailInput").style.display = "inline-block";
+// 	        document.getElementById("directEmailInput").setAttribute("required", "required");
+// 	    } else {
+// 	        document.getElementById("directEmailInput").style.display = "none";
+// 	        document.getElementById("directEmailInput").removeAttribute("required");
+// 	    }
+// 	}
 </script>
 
 <script
@@ -865,11 +861,13 @@ td {
 								<option value="@naver.com.com">@
 									<div class="mail">naver.com</div>
 								</option>
+								<option value="kakao.com.com">@
+									<div class="mail">kakao.com</div>
+								</option>
 								<option value=".com">직접입력</option>
 							</select> 
-							<input type="text" class="form-control" name="directEmailInput" id="directEmailInput" placeholder="직접 이메일 입력" style="display: none;">
-							<input type="text" class="form-control" id="customEmail"
-								name="customEmail" style="display: none;" placeholder="도메인을 포함한 이메일 주소를 입력하세요">
+<!-- 							<input type="text" class="form-control" name="directEmailInput" id="directEmailInput" placeholder="직접 이메일 입력" style="display: none;"> -->
+<!-- 							<input type="text" class="form-control" id="customEmail" name="customEmail" style="display: none;" placeholder="도메인을 포함한 이메일 주소를 입력하세요"> -->
 						</div>
 						<div class="mail-check-box">
 							<input class="form-control mail-check-input"

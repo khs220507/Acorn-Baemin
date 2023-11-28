@@ -178,11 +178,8 @@ public class UserController {
 
 	// 해시 함수를 사용하여 비밀번호를 암호화하는 메서드 (SHA-256 등)
 	private String encryptPassword(String password) {
-		// 비밀번호를 해싱하는 로직 구현 (예: SHA-256)
-		// return hashedPassword;
-		return password; // 실제 해싱 로직은 여기에 구현되어야 합니다.
+		return password;
 	}
-
 
 	// 내 정보 수정 시, 기존 정보 가져오기 손님
 	@RequestMapping("/selectUserInfo2")
@@ -209,7 +206,6 @@ public class UserController {
 	        return "error";
 	    }
 	}
-
 
 	// 내 정보 수정 시, 기존 정보 가져오기 사장님
 	@RequestMapping("/selectUserInfo3")
@@ -257,18 +253,13 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/customer_signup", method = RequestMethod.POST)
 	public void insertUserSignup(@RequestBody UserDTO user) {
-
 		System.out.println("dfdfd" + user);
-
 		String email = user.getUserEmail(); // .com.com
-
 		int index = email.lastIndexOf('.');
 		if (index != -1) {
 			email = email.substring(0, index);
-			// System.out.println( "dfdfdfd" + email);
 		}
 		user.setUserEmail(email);
-		// System.out.println( " u =" + user);
 		rep.insertCustomer(user);
 	}
 
@@ -276,18 +267,13 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/seller_signup", method = RequestMethod.POST)
 	public void insertSellerSignup2(@RequestBody SellerDTO seller) {
-
 		System.out.println("dfdfd" + seller);
-
 		String email = seller.getSellerEmail(); // .com.com
-
 		int index = email.lastIndexOf('.');
 		if (index != -1) {
-			email = email.substring(0, index);
-			// System.out.println( "dfdfdfd" + email);
+			email = email.substring(0, index);		
 		}
 		seller.setSellerEmail(email);
-		// System.out.println( " u =" + user);
 		rep.insertSeller(seller);
 	}
 
@@ -295,14 +281,10 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
 	public String updateUserInfo(@RequestBody UserDTO updatecustomer, HttpSession session) {
-		System.out.println("success1");
 		Integer userCode = (Integer) session.getAttribute("userCode");
 		updatecustomer.setUserCode(userCode);
-		System.out.println("dkfkfkfkffkfk" + updatecustomer);
 		try {
-			System.out.println("success899");
 			rep.updateCustomer(updatecustomer);
-			System.out.println("success890");
 			
 
 			////////////////주소 업데이트 ////////////////
@@ -324,14 +306,10 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "/updateSellerInfo", method = RequestMethod.POST)
 	public String updateSellerInfo(@RequestBody SellerDTO updateseller, HttpSession session) {
-		System.out.println("success889");
 		Integer sellerCode = (Integer) session.getAttribute("user");
 		updateseller.setSellerCode(sellerCode);
-		System.out.println("success890");
 		try {
-			System.out.println("success891");
 			rep.updateSeller(updateseller);
-			System.out.println("success892");
 			return "수정 성공";
 		} catch (Exception e) {
 			return "수정 실패: " + e.getMessage();
@@ -349,7 +327,6 @@ public class UserController {
 		} else {
 			System.out.println("망함" + userCode);
 		}
-
 		return "redirect:/home";
 	}
 
@@ -364,7 +341,6 @@ public class UserController {
 		} else {
 			System.out.println("망함" + sellerCode);
 		}
-
 		return "redirect:/home";
 	} 
 
