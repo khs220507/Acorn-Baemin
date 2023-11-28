@@ -189,6 +189,9 @@ width: 100px;
 display: flex;
 margin: 0 auto;
 }
+.updAddr{
+    width: 180px!important;
+}
 .dAddr{
     width: 174.5px!important;
 }
@@ -388,7 +391,7 @@ margin: 0 auto;
 		    result += '<option value="야식">야식</option></select></div>';
 		    result += '<div class="store-plus-info"><span>매장사진</span><input name="upstoreImage" type="file" ></div>';
 		    result += '<div class="store-plus-info"><span>매장주소</span><input id = "addr'+ s +'" readonly name="upstoreAddress" type="text" value="' + d.storeAddress + '">';
-		    result += '<input class="dAddr" id = "dAddr'+ s +'" type="text" name="upstoreAddressDetail" placeholder="상세주소" value="' + d.storeAddressDetail + '"><button class="doro-but" type="button" onclick="updoro('+s+')">주소찾기</button></div>';
+		    result += '<input class="updAddr" id = "dAddr'+ s +'" type="text" name="upstoreAddressDetail" placeholder="상세주소" value="' + d.storeAddressDetail + '"><button class="doro-but" type="button" onclick="updoro('+s+')">주소찾기</button></div>';
 		    result += '<div class="store-plus-info"><span>매장전화번호</span><input name="upstorePhone" type="text" value="' + d.storePhone + '"></div>';
 		    result += '<div class="store-plus-info"><span>최소주문금액</span><input name="upminOrderPrice" type="text" value="' + d.minOrderPrice + '"></div>';
 		    result += '<div class="store-plus-info"><span>배달비</span><input name="updeliveryFee" type="text" value="' + d.deliveryFee + '"></div>';

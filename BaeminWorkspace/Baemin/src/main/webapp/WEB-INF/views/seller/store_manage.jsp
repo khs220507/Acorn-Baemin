@@ -664,6 +664,30 @@ hr {
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
 		<div>
+			<img alt="가게 로고" class="store-image"
+				src="${path}/storeImages/${readStore.storeImage}">
+		</div>
+		<!-- 아래 div는 추후에 선으로 대체할 예정 -->
+		<hr>
+		<div class="store-name">${readStore.storeName}</div>
+		<div class="rating-count-minprice">
+			<div class="rating">⭐: ${readStore.storeRating}</div>
+			<div class="count">리뷰수: ${readStore.reviewCount}</div>
+			<div class="minprice">최소주문금액: ${readStore.minOrderPrice}원</div>
+		</div>
+		<ul class="menu-info-review-tab">
+			<li class="menu-tab" onclick="sellerMenu()">메뉴</li>
+			<li class="info-tab" onclick="storeInfo()">정보</li>
+			<li class="review-tab" onclick="review(${readStore.storeCode})">리뷰</li>
+		</ul>
+		<!-- 메뉴 리스트 나오는 탭 -->
+		<div class="menu-sub-tab">
+			<div class="classification">
+				<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
+				<c:forEach items="${CList}" var="classificationList">
+					<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+				</c:forEach>
+			</div>
 			<c:set var="storeImage" value="${readStore.storeImage}" />
 			<div>
 				<img alt="가게 로고" class="store-image"
