@@ -99,6 +99,7 @@ button {
 .classification {
 	padding: 5px 10px;
 }
+
 .old-menu-classification {
 	font-size: 20px;
 }
@@ -446,7 +447,7 @@ button {
 				<div class="click-category">
 					<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 					<c:forEach items="${CList}" var="classificationList">
-						<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+						<a class="menuC" href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 					</c:forEach>
 				</div>
 				<hr class="thin-line">
@@ -582,5 +583,16 @@ button {
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
+<script>
+	$(function () {
+	    $(".menuC").on("click", function(){
+	        let headerHeight = $("header").outerHeight();
+	        let href = $(this).attr("href");
+	        let target = $(href == "#" || href == "" ? "body" : href);
+	        let position = target.offset().top - headerHeight;
+	        $("html, body").animate({ scrollTop: position }, 600, "swing");
+	    });
+	});
+</script>
 </body>
 </html>
