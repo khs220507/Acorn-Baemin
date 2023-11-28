@@ -514,7 +514,7 @@ body {
 					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
 					value="${orderMenuPrice}">
 
-				<button type="button"    onclick="a()"  id="order-button">결제하기</button>
+				<button type="button" onclick="a()" id="order-button">결제하기</button>
 			</div>
 		</form>
 	</div>

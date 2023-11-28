@@ -312,7 +312,7 @@ document.addEventListener('keydown', function(e) {
 
 				
 				<div class="kakao">
-				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=f4125065b4bcb8b373afee7bfa037d69&redirect_uri=http://localhost:8080/baemin/kakaoLogin&response_type=code">
+				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=f4125065b4bcb8b373afee7bfa037d69&redirect_uri=${path}/kakaoLogin&response_type=code">
 				        카카오로 간편 로그인
 				    </a>
 				</div>
