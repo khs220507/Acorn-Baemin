@@ -637,8 +637,10 @@ hr {
 	             answerContent: answerContent
 	         },
 	         success: function () {
-	            console.log("답글이 성공적으로 등록되었습니다!");
-	            
+	        	 var ownerReplyDiv = $(button).closest('.review-wrap').find('.reply-review-wrap');
+	             var ownerReplyContent = '<div>사장님</div><div>' + answerContent + '</div>';
+	             ownerReplyDiv.html(ownerReplyContent);
+
 	            // You might want to update the UI or do something else on success
 	         },
 	         error: function () {
