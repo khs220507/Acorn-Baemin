@@ -535,7 +535,7 @@ button {
 						</div>
 					</div>
 						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
-						<div id="map" style="width: 40%; height: 350px;"></div>
+						<div id="map" style="width: 100%; height: 350px;"></div>
 			</div>
 			<!-- 리뷰 리스트 나오는 탭 -->
 			<div class="store-review-tab">

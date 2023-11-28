@@ -23,12 +23,14 @@ section {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid black;
 	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 
-.menu-info-review-tab {
+section>div {
+	width : 75%;
 	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .store-image {
@@ -38,7 +40,7 @@ section {
 
 .menu-info-review-tab {
 	display: flex;
-	width: 60%;
+	width: 80%;
 	justify-content: space-around;
 	font-size: 22px;
 	margin-top: 30px;
@@ -59,7 +61,7 @@ section {
 }
 
 .menu-sub-tab {
-	width: 60%;
+	width: 80%;
 }
 
 @media ( max-width :767px) {
@@ -118,6 +120,7 @@ section {
 	display: flex;
 	width: 30%;
 	justify-content: space-between;
+	align-items: end;
 }
 
 .old-menu-classification {
@@ -172,6 +175,7 @@ section {
 .now-menu-status {
 	display: flex;
 	height: 30px;
+	align-items: center;
 }
 
 .now-menu-status {
@@ -223,7 +227,9 @@ section {
 
 .info-sub-tab-with-btn {
 	display: flex;
+	width: 120%;
 	height: 100%;
+	margin-top: 2%;
 }
 
 .store-description, .operating-time {
@@ -267,11 +273,11 @@ textarea {
 }
 
 .seller-name>div, .store-address>div, .seller-regcode>div {
-	width: 36%;
+	width: 60%;
 }
 
 .seller-name>input, .store-address>input, .seller-regcode>input {
-	width: 64%;
+	width: 100%;
 }
 
 .store-address {
@@ -330,7 +336,7 @@ textarea {
 }
 
 hr {
-	width: 80%;
+	width: 100%;
 	border: 0px;
 	height: 2px;
 	background-color: #d9d9d9;
@@ -342,6 +348,8 @@ hr {
 	display: inline-flex;
 	flex-direction: row;
 	justify-content: flex-start;
+	margin-top: -5px;
+	margin-left: 12px;
 }
 
 .star-rating .star {
@@ -656,6 +664,7 @@ hr {
 <body>
 	<jsp:include page="../base/sellerHeader.jsp" />
 	<section id="content">
+		<div>
 		<c:set var="storeImage" value="${readStore.storeImage}" />
 		<div>
 			<img alt="가게 로고" class="store-image"
@@ -854,7 +863,7 @@ hr {
 			</c:forEach>
 
 		</div>
-		
+		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
 </body>
