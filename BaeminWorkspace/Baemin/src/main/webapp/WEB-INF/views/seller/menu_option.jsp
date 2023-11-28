@@ -231,7 +231,7 @@ border: none!important;
        	
    		$.ajax({
    			type : "POST",
-   			url : "/baemin/sellerOptionSolo",
+   			url : "${path}/sellerOptionSolo",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -260,7 +260,7 @@ border: none!important;
        	
    		$.ajax({
    			type : "POST",
-   			url : "/baemin/sellerOption",
+   			url : "${path}/sellerOption",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -287,7 +287,7 @@ border: none!important;
        	
    		$.ajax({
    			type : "PUT",
-   			url : "/baemin/sellerOptionSolo",
+   			url : "${path}/sellerOptionSolo",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -313,7 +313,7 @@ border: none!important;
        	
    		$.ajax({
    			type : "PUT",
-   			url : "/baemin/sellerOption",
+   			url : "${path}/sellerOption",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -330,7 +330,7 @@ border: none!important;
     	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({
 			type: "put",
-			url: "/baemin/sellerOptionDSolo/"+optionCode, //path Variable  ,
+			url: "${path}/sellerOptionDSolo/"+optionCode, //path Variable  ,
 			
 			success : function (data){
 				alert("옵션이 삭제되었습니다.");
@@ -345,7 +345,7 @@ border: none!important;
     	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({
 			type: "PUT",
-			url: "/baemin/sellerOptionD/" + ${menuCode} + "/" + category, 
+			url: "${path}/sellerOptionD/" + ${menuCode} + "/" + category, 
 			
 			success : function (data){
 				alert("옵션이 삭제되었습니다.");

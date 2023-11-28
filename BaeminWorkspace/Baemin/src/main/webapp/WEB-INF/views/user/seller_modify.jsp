@@ -311,12 +311,12 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/baemin/updateSellerInfo',
+                url: '${path}/updateSellerInfo',
                 data: infos,
                 contentType: "application/json",
                 success: function (data) {
                     alert("수정 성공.");
-                    window.location.href = "http://localhost:8080/baemin/sellerHome?sellerCode=" + sellerCode;
+                    window.location.href = "${path}/sellerHome?sellerCode=" + sellerCode;
                 },
                 error: function () {
                     alert("수정 정보를 확인해주세요.");
@@ -431,7 +431,7 @@
 	    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
 
 	    if (confirmResult) {
-	        window.location.href='/baemin/customerSignoutStatus';
+	        window.location.href='${path}/customerSignoutStatus';
 	        alert("회원탈퇴 완료되었습니다.");
 	    } else {
 	        alert("회원탈퇴가 취소되었습니다.");

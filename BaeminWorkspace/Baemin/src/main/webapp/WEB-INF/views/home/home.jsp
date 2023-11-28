@@ -622,7 +622,7 @@ footer {
 		<div class="header-wrap">
 			<div class="logo">
 				<img class="rider-img" src="${path}/resources/icons/배민캐릭터로고.png">
-				<a href="/baemin/home">배달<span class="small-font">의</span>민족
+				<a href="${path}/home">배달<span class="small-font">의</span>민족
 				</a>
 			</div>
 
