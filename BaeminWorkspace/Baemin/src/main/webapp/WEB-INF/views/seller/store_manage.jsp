@@ -665,8 +665,8 @@ hr {
 		<hr>
 		<div class="store-name">${readStore.storeName}</div>
 		<div class="rating-count-minprice">
-			<div class="rating">⭐: ${avgRating}</div>
-			<div class="count">리뷰수: ${RCount}</div>
+			<div class="rating">⭐: ${readStore.storeRating}</div>
+			<div class="count">리뷰수: ${readStore.reviewCount}</div>
 			<div class="minprice">최소주문금액: ${readStore.minOrderPrice}원</div>
 		</div>
 		<ul class="menu-info-review-tab">

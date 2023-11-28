@@ -66,15 +66,15 @@ public class SellerController {
 			List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 			List<MenuDTO> CList = sc.selectMenuClassification(storeCode);
 			System.out.println(readMenuInfo);
-			double storeAvgRating = sc.storeAvgRating(storeCode);
-			int reviewCount = sc.reviewCount(storeCode);
+			//double storeAvgRating = sc.storeAvgRating(storeCode);
+			//int reviewCount = sc.reviewCount(storeCode);
 
 			model.addAttribute("readStore", readStore);
 			model.addAttribute("readSeller", readSeller);
 			model.addAttribute("readMenuInfo", readMenuInfo);
 			model.addAttribute("CList", CList);
-			model.addAttribute("avgRating", storeAvgRating);
-			model.addAttribute("RCount", reviewCount);
+			//model.addAttribute("avgRating", storeAvgRating);
+			//model.addAttribute("RCount", reviewCount);
 			
 			List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
 			System.out.println(reviewList);
