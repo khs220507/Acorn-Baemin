@@ -389,7 +389,6 @@
                     }
                 });
                 
-                
              	// 연락처 유효성 검사
                 $("#sellerPhone").on("input", function () {
                     let phoneCheck = /^[0-9]{11}$/;
@@ -424,13 +423,7 @@
     				} else {
     					alert("입력 정보를 확인해주세요.");
     				}
-    			});
-
-            
-                
-                
-                
-                
+    			}); 
     });
       
    // 회원 탈퇴
@@ -438,10 +431,11 @@
 	    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
 
 	    if (confirmResult) {
-	    	window.location.href='/baemin/sellerSignoutStatus' 
+	        window.location.href='/baemin/customerSignoutStatus';
+	        alert("회원탈퇴 완료되었습니다.");
+	    } else {
+	        alert("회원탈퇴가 취소되었습니다.");
 	    }
-	    alert("회원탈퇴 완료되었습니다.");
-	    
 	}
 
    const signoutButton = document.getElementById('signout_button');
@@ -515,8 +509,6 @@
                                 </span></td>
                         </table>
 
-
-
                         <button onclick="updateseller()" value="수정완료" id="modify_button">수정완료</button>
 						<!-- <input type="hidden" value="${userInfo.sellerCode}" id="userInfo">-->
 						<button onclick="signoutseller()" value="회원탈퇴" id="signout_button" class="warning-button">회원탈퇴</button>
@@ -525,7 +517,6 @@
 
             </section>
             <jsp:include page="../base/footer.jsp" />
-
 
         </body>
 

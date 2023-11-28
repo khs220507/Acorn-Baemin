@@ -126,6 +126,7 @@ header {
 	display: flex;
 	align-items: center;
 	margin-top: 20px;
+	justify-content: flex-end;
 }
 
 .menu-wrap li {
@@ -223,8 +224,6 @@ section {
 				        <% } %>
 					<a href="${path }/orderList"><li>주문내역</li></a>
 					<span class="menu-bar">|</span>
-					<a href="${path }/orderList"><li>알림</li></a>
-					<span class="menu-bar">|</span>
 					<a href="${path }/zzim"><li>찜</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/logout"><li>로그아웃</li></a>
@@ -239,8 +238,6 @@ section {
 				<a href="${path }/login"><li>내정보수정</li></a>
 				<span class="menu-bar">|</span>
 				<a href="${path }/login"><li>주문내역</li></a>
-				<span class="menu-bar">|</span>
-				<a href="${path }/orderList"><li>알림</li></a>
 				<span class="menu-bar">|</span>
 				<a href="${path }/login"><li>찜</li></a>
 				<span class="menu-bar">|</span>

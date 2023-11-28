@@ -74,18 +74,19 @@ button {
 	padding: 5px 0;
 }
 .menu-info-review-tab li {
-	width: 33.333333333333333333333333333%;
+	width: 34%;
 	text-align: center;
 	padding: 5px 0;
 }
 .menu-tab {
-	border-top: 1px solid black;
+	border-top: 2px solid black;
+	background-color: rgb(244,243,243);
 }
 .info-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 .review-tab {
-	border-bottom: 1px solid black;
+	border-bottom: 2px solid black;
 }
 .menu-sub-tab {
 	width: 80%;
@@ -98,6 +99,7 @@ button {
 .classification {
 	padding: 5px 10px;
 }
+
 .old-menu-classification {
 	font-size: 20px;
 }
@@ -274,9 +276,11 @@ button {
 		$(".menu-sub-tab").show();
 		$(".store-info-tab, .store-review-tab").hide();
 
-		$(".menu-tab").css("border-top", "1px solid black").css("border-bottom", "none").css("background-color", "#d9d9d9");;
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
+		
+		
 
 		
 	}
@@ -326,9 +330,9 @@ button {
 	    } 
 	});    
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "1px solid black").css("border-bottom", "none");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "1px solid black");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 	}
 	
 	// 리뷰 탭 영역
@@ -338,9 +342,9 @@ button {
 		$(".menu-sub-tab, .store-info-tab").hide();
 		$(".store-review-tab").show();
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".info-tab").css("border-top", "none").css("border-bottom", "1px solid black");
-		$(".review-tab").css("border-top", "1px solid black").css("border-bottom", "none");
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
 		
 		
 		
@@ -443,7 +447,7 @@ button {
 				<div class="click-category">
 					<!-- 메뉴 카테고리, 클릭 시 클릭한 카테고리로 -->
 					<c:forEach items="${CList}" var="classificationList">
-						<a href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
+						<a class="menuC" href="#${classificationList.menuClassification}">${classificationList.menuClassification}</a>
 					</c:forEach>
 				</div>
 				<hr class="thin-line">
@@ -535,7 +539,7 @@ button {
 						</div>
 					</div>
 						<!-- 카카오api를 이용하여 가게 주소를 기반으로 지도에 좌표찍기 -->
-						<div id="map" style="width: 40%; height: 350px;"></div>
+						<div id="map" style="width: 100%; height: 350px;"></div>
 			</div>
 			<!-- 리뷰 리스트 나오는 탭 -->
 			<div class="store-review-tab">
@@ -579,5 +583,16 @@ button {
 		</div>
 	</section>
 	<jsp:include page="../base/footer.jsp" />
+<script>
+	$(function () {
+	    $(".menuC").on("click", function(){
+	        let headerHeight = $("header").outerHeight();
+	        let href = $(this).attr("href");
+	        let target = $(href == "#" || href == "" ? "body" : href);
+	        let position = target.offset().top - headerHeight;
+	        $("html, body").animate({ scrollTop: position }, 600, "swing");
+	    });
+	});
+</script>
 </body>
 </html>

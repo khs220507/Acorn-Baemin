@@ -61,29 +61,31 @@ input[type="button"] {
     </form>
 
     <script>
-        let customerPw = "${customerPw}";
-        let sellerPw = "${sellerPw}";
+    let customerPw = "${customerPw}";
+    let sellerPw = "${sellerPw}";
 
-        // 결과를 보여줄 요소 선택
-        let customerElement = document.getElementById("customerPw");
-        let sellerElement = document.getElementById("sellerPw");
-        let noResultMessage = document.getElementById("noResultMessage");
+    // 결과를 보여줄 요소 선택
+    let customerElement = document.getElementById("customerPw");
+    let sellerElement = document.getElementById("sellerPw");
+    let noResultMessage = document.getElementById("noResultMessage");
 
-        // customerPw가 존재하면 해당 요소 보이기
-        if (customerPw && customerPw.length > 0) {
-            customerElement.style.display = "block";
-        }
+    // customerPw가 존재하면 해당 요소 보이기
+    if (customerPw && customerPw.length > 0) {
+        customerElement.style.display = "block";
+        noResultMessage.style.display = "none"; // 결과가 있으면 결과 없음 메시지 숨기기
+    }
 
-        // sellerPw가 존재하면 해당 요소 보이기
-        if (sellerPw && sellerPw.length > 0) {
-            sellerElement.style.display = "block";
-        }
+    // sellerPw가 존재하면 해당 요소 보이기
+    if (sellerPw && sellerPw.length > 0) {
+        sellerElement.style.display = "block";
+        noResultMessage.style.display = "none"; // 결과가 있으면 결과 없음 메시지 숨기기
+    }
 
-        // 결과값이 없을 때 해당 요소 보이기
-        if (!customerPw && !sellerPw) {
-            noResultMessage.style.display = "block";
-        }
-    </script>
+    // 결과값이 없을 때 해당 요소 보이기
+    if (!customerPw && !sellerPw) {
+        noResultMessage.style.display = "block";
+    }
+</script>
 </body>
 </html>
 

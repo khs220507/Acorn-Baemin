@@ -129,6 +129,7 @@ padding-top: 140px;
 	display: flex;
 	align-items: center;
 	margin-top: 20px;
+	justify-content: flex-end;
 }
 
 .menu-wrap li {
@@ -210,8 +211,6 @@ section {
 				<ul class="menu-wrap">
 					<a href="${path}/selectUserInfo3?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
 					<span class="menu-bar">|</span>
-					<a href="${path }/"><li>알림</li></a>
-					<span class="menu-bar">|</span>
 					<a href="${path }/logout"><li>로그아웃</li></a>
 				</ul>
 
@@ -222,8 +221,6 @@ section {
 			<!-- 로그인 안했을 때 -->
 			<ul class="menu-wrap">
 			<a href="${path}/selectUserInfo2?userCode=<%=userCodeInfo%>"><li>내정보수정</li></a>
-					<span class="menu-bar">|</span>
-					<a href="${path }/"><li>알림</li></a>
 					<span class="menu-bar">|</span>
 					<a href="${path }/login"><li>로그인</li></a>
 			</ul>

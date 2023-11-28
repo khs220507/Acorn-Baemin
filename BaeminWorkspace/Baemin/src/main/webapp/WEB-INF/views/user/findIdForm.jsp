@@ -41,8 +41,8 @@
 			<br>
 		</div>
 
-		이메일: <input type="email" name="email" required> <input
-			type="submit" id="findId" value="아이디찾기">
+		이메일: <input type="email" name="email" required> 
+			  <input type="submit" id="findId" value="아이디찾기">
 
 	</form>
 

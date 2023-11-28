@@ -90,7 +90,7 @@ button#mail-Check-Btn {
 }
 
 input#sellerEmail1 {
-	width: 64%;
+	width: 63%;
 	height: 25px;
 	padding: 10px;
 	font-size: 15px;
