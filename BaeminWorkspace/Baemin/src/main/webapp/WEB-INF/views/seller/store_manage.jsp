@@ -857,5 +857,16 @@ hr {
 		
 	</section>
 	<%@ include file="../base/footer.jsp"%>
+	<script>
+	$(function () {
+	    $(".menuC").on("click", function(){
+	        let headerHeight = $("header").outerHeight();
+	        let href = $(this).attr("href");
+	        let target = $(href == "#" || href == "" ? "body" : href);
+	        let position = target.offset().top - headerHeight;
+	        $("html, body").animate({ scrollTop: position }, 600, "swing");
+	    });
+	});
+</script>
 </body>
 </html>

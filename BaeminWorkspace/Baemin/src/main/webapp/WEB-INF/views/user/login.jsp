@@ -269,9 +269,7 @@ document.addEventListener('keydown', function(e) {
 				</c:choose>
 			</div>
 			<!-- 로그인 폼 -->
-			<form class="login-form" action="${path}/login" method="post"
-				id="loginForm">
-
+			<form class="login-form" action="${path}/login" method="post" id="loginForm">
 
 				<div class="login-title">
 					<h1>로그인</h1>

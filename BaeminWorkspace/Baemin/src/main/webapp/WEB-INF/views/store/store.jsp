@@ -279,10 +279,6 @@ button {
 		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
 		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
-		
-		
-
-		
 	}
 	
 	// 정보 탭 영역
@@ -347,10 +343,6 @@ button {
 		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
-		
-		
-		
-		
 	}
 	//찜 취소
 	function zzimDelete(zzimSCode,zzimUCode) {
@@ -397,11 +389,6 @@ button {
 			alert("로그인 후 가능합니다.");
 		}
 	}; 
-	
-	
-	
-
-	
 </script>
 </head>
 <body>
@@ -500,7 +487,6 @@ button {
 													</div>
 												</c:when>
 											</c:choose>	
-
 										</div>
 										<hr class="thin-line">
 									</c:when>
@@ -572,15 +558,8 @@ button {
 						<div>사장님</div>
 						<div>${item.answerContent}</div>
 						</c:if>
-						
-						
-						
-						
 					</div>
-
 				</c:forEach>
-
-
 			</div>
 		</div>
 	</section>
