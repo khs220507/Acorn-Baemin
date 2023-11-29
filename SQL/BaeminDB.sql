@@ -1,5 +1,4 @@
 use baemin_db;
--- Drop all tables
 DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
 
 -- 01 회원 user_tbl
@@ -21,7 +20,6 @@ CREATE TABLE user_tbl (
 
 select * from user_tbl;
 
-
 -- 02 사장 seller_tbl
 CREATE TABLE seller_tbl (
     sellerCode INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,14 +33,6 @@ CREATE TABLE seller_tbl (
     sellerGender TINYINT(1) NOT NULL, -- 0:남자, 1:여자
     sellerStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 20001;
-
-INSERT INTO seller_tbl (sellerRegCode, sellerId, sellerPw, sellerName, sellerPhone, sellerEmail, sellerBirth, sellerGender, sellerStatus)
-VALUES
-('reg001', 'seller001', 'password1', '김사장', '010-1234-5678', 'seller1@example.com', '1978-07-20', 0, 1),
-('reg002', 'seller002', 'password2', '이사장', '010-2345-6789', 'seller2@example.com', '1982-04-15', 0, 1),
-('reg003', 'seller003', 'password3', '박사장', '010-3456-7890', 'seller3@example.com', '1975-11-30', 0, 1),
-('reg004', 'seller004', 'password4', '최사장', '010-4567-8901', 'seller4@example.com', '1989-02-25', 0, 1),
-('reg005', 'seller005', 'password5', '정사장', '010-5678-9012', 'seller5@example.com', '1983-06-10', 0, 1);
 
 select * from seller_tbl;
 
@@ -71,17 +61,6 @@ CREATE TABLE store_tbl (
 
 select * from store_tbl;
 
-INSERT INTO store_tbl (sellerCode, storeName, storeCategory, storeImage, storeAddress, storeAddressDetail, storePhone, zzimCount, reviewCount, storeRating, storeDescription, minOrderPrice, deliveryFee, operatingTime, deliveryArea, storeStatus)
-VALUES
-(20001, '맛있는 음식점1', '한식', 'store1.jpg', '서울시 강남구 강남대로 123','123', '02-1234-5678', 100, 50, 4.5, '맛있는 음식점입니다.', 15000, 3000, '10:00 - 22:00', '강남구', 0),
-(20002, 'Pizza Heaven', '피자', 'store2.jpg', '서울시 강서구 강서로 456','123', '02-2345-6789', 120, 70, 4.2, '신선한 재료로 만든 피자!', 20000, 2500, '11:00 - 21:00', '강서구', 0),
-(20003, 'Sushi Master', '일식', 'store3.jpg', '서울시 송파구 올림픽로 789','123', '02-3456-7890', 90, 60, 4.3, '마스터의 손맛을 느껴보세요.', 18000, 3500, '12:00 - 20:00', '송파구', 0),
-(20004, 'BBQ Grill', '양식', 'store4.jpg', '서울시 서초구 강남대로 1010','123', '02-4567-8901', 80, 40, 4.1, '고기의 맛을 느끼세요!', 25000, 2000, '11:30 - 22:30', '서초구', 0),
-(20005, 'Noodle House', '중식', 'store5.jpg', '서울시 강북구 북촌로 111','123', '02-5678-9012', 70, 30, 4.4, '뜨끈한 국수 맛집입니다.', 12000, 2800, '11:00 - 21:00', '강북구', 0);
-
-
-UPDATE store_tbl set reviewCount= 2 where storeCode = 30001;
-
 -- 04. 태민 menu_tbl 
 
 CREATE TABLE menu_tbl (
@@ -98,23 +77,6 @@ CREATE TABLE menu_tbl (
 
 select * from menu_tbl;
 
-INSERT INTO menu_tbl (storeCode, menuName, menuPrice, menuImage, menuContent, menuClassification, menuStatus)
-VALUES
-(30001, '김치찌개', 9000, 'menu1.jpg', '맛있는 김치찌개', '찌개', 0),
-(30001, '된장찌개', 8500, 'menu2.jpg', '향긋한 된장찌개', '찌개', 0),
-(30001, '불고기', 12000, 'menu3.jpg', '매콤한 불고기', '고기요리', 0),
-(30002, '페퍼로니 피자', 18000, 'menu4.jpg', '고소한 페퍼로니와 치즈', '피자', 0),
-(30002, '마르게리따 피자', 16000, 'menu5.jpg', '신선한 토마토와 바질', '피자', 0),
-(30003, '연어 초밥', 20000, 'menu6.jpg', '신선한 연어와 식재료', '초밥', 0),
-(30003, '새우 초밥', 18000, 'menu7.jpg', '신선한 새우와 식재료', '초밥', 0),
-(30004, '스테이크', 25000, 'menu8.jpg', '부드러운 스테이크', '고기요리', 0),
-(30004, '리브 아이 스테이크', 28000, 'menu9.jpg', '초이스 등급의 스테이크', '고기요리', 0),
-(30005, '짜장면', 8000, 'menu10.jpg', '간짜장의 맛', '면요리', 0),
-(30005, '짬뽕', 10000, 'menu11.jpg', '매운 맛이 일품', '면요리', 0);
-
-
-
-        
 -- 05. 옵션 option_tbl
 create table option_tbl (
     optionCode int auto_increment primary key,
@@ -127,22 +89,6 @@ create table option_tbl (
 )auto_increment = 50001;
 
 select * from option_tbl;
-
-INSERT INTO option_tbl (menuCode, optionCategory, optionSelectType, optionName, optionPrice, optionStatus)
-VALUES
-(40001, '소스', 0, '간장 소스', 1000, 0),
-(40001, '소스', 0, '마요네즈 소스', 1000, 0),
-(40001, '소스', 0, '고추장 소스', 1000, 0),
-(40002, '치즈', 1, '모짜렐라 치즈', 2000, 0),
-(40002, '치즈', 1, '체다 치즈', 2000, 0),
-(40003, '맛 추가', 2, '매운맛 추가', 500, 0),
-(40003, '맛 추가', 2, '양념맛 추가', 500, 0),
-(40004, '토핑', 3, '계란 토핑', 1500, 0),
-(40004, '토핑', 3, '베이컨 토핑', 2000, 0),
-(40005, '스프', 4, '미소 스프', 1000, 0),
-(40005, '스프', 4, '토마토 스프', 1000, 0);
-
-
 
 -- 06. 장바구니 cart_tbl 테이블 생성
 create table cart_tbl (
@@ -192,7 +138,6 @@ CREATE TABLE order_tbl (
 
 select * from order_tbl;
 
-
 -- 08
 CREATE TABLE zzim_tbl (
     userCode int,
@@ -200,16 +145,6 @@ CREATE TABLE zzim_tbl (
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
     FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 );
-
-select * from zzim_tbl;
-
-INSERT INTO zzim_tbl (userCode, storeCode)
-VALUES
-(10001, 30001),
-(10001, 30002),
-(10001, 30003),
-(10001, 30004),
-(10001, 30005);
 
 -- 09
 CREATE TABLE review_tbl (
@@ -232,13 +167,8 @@ CREATE TABLE review_tbl (
 ) AUTO_INCREMENT=90001;
 
 select * from review_tbl;
-
-SELECT storeRating AS storeAvgRating
-		FROM store_tbl
-		WHERE storeCode = 30001 ;
         
-        
--- 11 태민 address_tbl;
+-- 10 태민 address_tbl;
 
 CREATE TABLE address_tbl (
   addressCode INT AUTO_INCREMENT PRIMARY KEY,			-- 주소코드
@@ -249,34 +179,5 @@ CREATE TABLE address_tbl (
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-
-SELECT addressCode FROM address_tbl;
-
-INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress,addressStatus )
-VALUES
-(10001, '서울시 강남구 강남대로 123 아파트', '101호',2),
-(10002, '서울시 강서구 강서로 456 오피스텔', '202호',2),
-(10003, '서울시 송파구 올림픽로 789', '단독주택',1),
-(10004, '서울시 서초구 강남대로 1010 맨션','303호',1),
-(10005, '서울시 강북구 북촌로 111','단독주택',1);
-
-
 commit;
 show tables;
-
-
-
--- Drop all tables
-DROP TABLE cart_tbl;
-DROP TABLE order_tbl;
-DROP TABLE answer_tbl;
-DROP TABLE zzim_tbl;
-DROP TABLE review_tbl;
-DROP TABLE address_tbl;
-DROP TABLE option_tbl;
-DROP TABLE menu_tbl;
-DROP TABLE store_tbl;
-DROP TABLE seller_tbl;
-DROP TABLE user_tbl;
-DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
-

@@ -254,7 +254,7 @@ button {
 }
 </style>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e1731c3f7c3d4a983be89d9de5add7e&libraries=services"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=882eaf7bb4b6e556ac95cc08a1a01c24&libraries=services"></script>
 <script>
 	$(document).ready(function() {
 		// 삭제된 메뉴는 보이지 않게 처리
@@ -279,10 +279,6 @@ button {
 		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
 		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
-		
-		
-
-		
 	}
 	
 	// 정보 탭 영역
@@ -345,10 +341,6 @@ button {
 		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
-		
-		
-		
-		
 	}
 	//찜 취소
 	function zzimDelete(zzimSCode,zzimUCode) {
@@ -395,11 +387,6 @@ button {
 			alert("로그인 후 가능합니다.");
 		}
 	}; 
-	
-	
-	
-
-	
 </script>
 </head>
 <body>
@@ -498,7 +485,6 @@ button {
 													</div>
 												</c:when>
 											</c:choose>	
-
 										</div>
 										<hr class="thin-line">
 									</c:when>
@@ -570,15 +556,8 @@ button {
 						<div>사장님</div>
 						<div>${item.answerContent}</div>
 						</c:if>
-						
-						
-						
-						
 					</div>
-
 				</c:forEach>
-
-
 			</div>
 		</div>
 	</section>

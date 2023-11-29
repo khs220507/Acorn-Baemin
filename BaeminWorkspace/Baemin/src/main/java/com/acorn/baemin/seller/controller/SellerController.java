@@ -238,10 +238,6 @@ public class SellerController {
 	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session)
 			throws Exception {
 
-		// 고정 정보 내용
-
-		// 리뷰 평점
-
 		// 리뷰 갯수 카운트
 		int reviewCount = sc.reviewCount(storeCode);
 
@@ -279,8 +275,6 @@ public class SellerController {
 		List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
 		
 		System.out.println("테스트 : " + reviewList);
-		
-		
 
 		// 모델 심기
 		model.addAttribute("readStore", readStore);
