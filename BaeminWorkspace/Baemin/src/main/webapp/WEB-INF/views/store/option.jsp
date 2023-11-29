@@ -128,7 +128,7 @@ function sendOptionJson() {
 	<section id="content">
 
 		<div>
-			<form name="frm" method="post" action="/baemin/cartList?menuCode=${menuCode}">
+			<form name="frm" method="post" action="${path}/cartList?menuCode=${menuCode}">
 				<div>
 					<div class="menu-img"><img alt="메뉴 사진" src="${path}/images/${MenuInfo.menuImage}"></div>
 					<div class="menu-name">${MenuInfo.menuName}</div>

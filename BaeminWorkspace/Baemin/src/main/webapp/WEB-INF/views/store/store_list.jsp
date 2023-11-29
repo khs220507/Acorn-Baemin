@@ -141,7 +141,7 @@
 
        	});
        	function choiceStore(storeCode) {
-       		window.opener.location.href = "http://localhost:8080/baemin/store?=storeCode="+storeCode;
+       		window.opener.location.href = "${path}/store?=storeCode="+storeCode;
 		}
        	
 
@@ -152,7 +152,7 @@
 <body>
 <jsp:include page="../base/header.jsp" />
 		<nav class="nav-var">
-<c:set var="href" value="http://localhost:8080/baemin/storeList?storeCategory="/>
+<c:set var="href" value="${path}/storeList?storeCategory="/>
 <a class="categorys" id="치킨" href="${href}치킨">치킨</a><a class="categorys" id="피자" href="${href}피자">피자</a>
 <a class="categorys" id="햄버거" href="${href}햄버거">햄버거</a><a class="categorys" id="족발·보쌈" href="${href}족발·보쌈">족발·보쌈</a>
 <a class="categorys" id="한식" href="${href}한식">한식</a><a class="categorys" id="중식" href="${href}중식">중식</a>
@@ -168,7 +168,7 @@
         <c:forEach items="${list }" var="item">
             <div class="store-list" id="store-list">
                 <div class="store-img-wrap">
-                    <div class="store-img"><img alt="" src="/baemin/images/${item.storeImage }"></div>
+                    <div class="store-img"><img alt="" src="${path}/images/${item.storeImage }"></div>
                 </div>
                 <div class="store-info-wrap">
                     <div class="store-info">
