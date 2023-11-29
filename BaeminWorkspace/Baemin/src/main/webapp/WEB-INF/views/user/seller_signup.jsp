@@ -336,7 +336,7 @@ td {
 					contentType : "application/json", // 필수
 					success : function(data) {
 						alert("가입축하 q(≧▽≦q)");
-						window.location.href = "http://localhost:8080/baemin/login";
+						window.location.href = "${path}/login";
 					},
 					error : function() {
 						alert("입력한 정보를 확인해주세요.");

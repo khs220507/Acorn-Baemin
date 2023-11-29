@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.acorn</groupId>
 	<artifactId>baemin</artifactId>
-	<name>Baemin</name>
+	<name>baemin</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

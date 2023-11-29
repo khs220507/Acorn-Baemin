@@ -316,7 +316,7 @@
                 contentType: "application/json",
                 success: function (data) {
                     alert("수정 성공.");
-                    window.location.href = "http://localhost:8080/baemin/sellerHome?sellerCode=" + sellerCode;
+                    window.location.href = "http://${path}/sellerHome?sellerCode=" + sellerCode;
                 },
                 error: function () {
                     alert("수정 정보를 확인해주세요.");

@@ -53,7 +53,7 @@ public class LoginService {
             
 			sb.append("&client_id=f4125065b4bcb8b373afee7bfa037d69"); //본인이 발급받은 key
 
-			sb.append("&redirect_uri=http://localhost:8080/baemin/kakaoLogin"); // 본인이 설정한 주소
+			sb.append("&redirect_uri=http://3.35.26.227:8080/baemin/kakaoLogin"); // 본인이 설정한 주소
 
 			sb.append("&code=" + authorize_code);
 			bw.write(sb.toString());

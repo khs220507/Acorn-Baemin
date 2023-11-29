@@ -254,7 +254,7 @@ button {
 }
 </style>
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5e1731c3f7c3d4a983be89d9de5add7e&libraries=services"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=882eaf7bb4b6e556ac95cc08a1a01c24&libraries=services"></script>
 <script>
 	$(document).ready(function() {
 		// 삭제된 메뉴는 보이지 않게 처리
@@ -291,6 +291,10 @@ button {
 		
 		$(".menu-sub-tab, .store-review-tab").hide();
 		$(".store-info-tab").show();
+		
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
@@ -330,9 +334,7 @@ button {
 	    } 
 	});    
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
-		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		
 	}
 	
 	// 리뷰 탭 영역

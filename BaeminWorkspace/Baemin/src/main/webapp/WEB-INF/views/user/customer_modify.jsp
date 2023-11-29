@@ -318,7 +318,7 @@ function updatecustomer() {
 		                success: function (data) {
 		                    console.log("Update success:", data);
 		                    alert("수정 성공.");
-		                    window.location.href = "http://localhost:8080/baemin/home";
+		                    window.location.href = "${path}/home";
 		                },
 		                error: function (xhr, status, error) {
 		                    console.log("Update error:", status, error);
