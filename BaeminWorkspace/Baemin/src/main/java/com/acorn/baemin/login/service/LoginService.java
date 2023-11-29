@@ -51,7 +51,7 @@ public class LoginService {
 			sb.append("grant_type=authorization_code");
 
             
-			sb.append("&client_id=f4125065b4bcb8b373afee7bfa037d69"); //본인이 발급받은 key
+			sb.append("&client_id=cb322579447f8ce7146c35d4ff678f85"); //본인이 발급받은 key
 
 			sb.append("&redirect_uri=http://3.35.26.227:8080/baemin/kakaoLogin"); // 본인이 설정한 주소
 
