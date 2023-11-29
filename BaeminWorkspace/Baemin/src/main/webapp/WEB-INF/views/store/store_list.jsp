@@ -168,7 +168,7 @@
         <c:forEach items="${list }" var="item">
             <div class="store-list" id="store-list">
                 <div class="store-img-wrap">
-                    <div class="store-img"><img alt="" src="/baemin/images/${item.storeImage }"></div>
+                    <div class="store-img"><img alt="" src="${path}/images/${item.storeImage }"></div>
                 </div>
                 <div class="store-info-wrap">
                     <div class="store-info">

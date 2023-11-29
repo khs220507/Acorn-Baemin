@@ -331,7 +331,7 @@ td {
 
 				$.ajax({
 					type : "POST",
-					url : "/baemin/seller_signup",
+					url : "${path}/seller_signup",
 					data : infos,
 					contentType : "application/json", // 필수
 					success : function(data) {
@@ -384,7 +384,7 @@ td {
 								}
 
 								$.ajax({
-									url : "/baemin/checkDuplicate2",
+									url : "${path}/checkDuplicate2",
 									type : "POST",
 									data : {
 										sellerId : sellerId
@@ -471,7 +471,7 @@ td {
 							if (sellerInput == "") {
 							} else {
 								$.ajax({
-											url : "/baemin/checkDuplicateRegCode",
+											url : "${path}/checkDuplicateRegCode",
 											type : "POST",
 											data : {
 												sellerRegCode : $("#sellerRegCode").val()
@@ -515,7 +515,7 @@ td {
 							if (sellerInput == "") {
 							} else {
 								$.ajax({
-											url : "/baemin/checkDuplicatePhone2",
+											url : "${path}/checkDuplicatePhone2",
 											type : "POST",
 											data : {
 												sellerPhone : $("#sellerPhone").val()
@@ -549,7 +549,7 @@ td {
 
 							$.ajax({
 								type : 'GET',
-								url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+								url : "${path}/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 								success : function(data) {
 									console.log("data : " + data);
 									checkInput.attr('disabled', false);
@@ -577,24 +577,15 @@ td {
 
 							if (inputCode === code) {
 								$resultMsg.html('인증번호가 일치합니다.');
-								$resultMsg
-										.css('color', 'green');
-								$('#mail-Check-Btn').attr(
-										'disabled', true);
-								$('#sellerEmail1').attr(
-										'readonly', true);
-								$('#sellerEmail2').attr(
-										'readonly', true);
-								$('#sellerEmail2')
-										.attr('onFocus',
-												'this.initialSelect = this.selectedIndex');
-								$('#sellerEmail2')
-										.attr('onChange',
-												'this.selectedIndex = this.initialSelect');
+								$resultMsg.css('color', 'green');
+								$('#mail-Check-Btn').attr('disabled', true);
+								$('#sellerEmail1').attr('readonly', true);
+								$('#sellerEmail2').attr('readonly', true);
+								$('#sellerEmail2').attr('onFocus','this.initialSelect = this.selectedIndex');
+								$('#sellerEmail2').attr('onChange','this.selectedIndex = this.initialSelect');
 								mailCheck = 1;
 							} else {
-								$resultMsg
-										.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
+								$resultMsg.html('인증번호가 불일치 합니다. 다시 확인해주세요!.');
 								$resultMsg.css('color', 'red');
 								mailCheck = 0;
 							}

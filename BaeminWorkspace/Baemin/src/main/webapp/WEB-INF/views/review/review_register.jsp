@@ -206,7 +206,7 @@ textarea {
 
 		<div class="order-info-wrap">
 			<div class="order-info-image">
-				<img class="order-info-image" src="/baemin/images/${orderStoreImage}">
+				<img class="order-info-image" src="${path}/images/${orderStoreImage}">
 			</div>
 			<div class="order-detail-wrap">
 				<div class="order-store-name">${orderStoreName}</div>
@@ -216,7 +216,7 @@ textarea {
 
 		<div class="review-input-file-wrap">
 			<form enctype="multipart/form-data" method="POST"
-				action="/baemin/submitReview">
+				action="${path}/submitReview">
 				<div class="review-input-box-wrap">
 					<div class="review-content-wrap">
 						<textarea name="reviewContent" class="review-input-box"
