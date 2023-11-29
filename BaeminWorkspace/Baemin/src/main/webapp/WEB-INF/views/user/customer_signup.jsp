@@ -352,12 +352,12 @@ td {
 				let infos = JSON.stringify(info);
 				$.ajax({
 					type : "POST",
-					url : "/baemin/customer_signup",
+					url : "${path}/customer_signup",
 					data : infos,
 					contentType : "application/json", // 필수
 					success : function(data) {
 						alert("회원가입 되었습니다.");
-						window.location.href = "http://localhost:8080/baemin/login";
+						window.location.href = "${path}/login";
 					},
 					error : function() {
 						//alert("입력한 정보를 확인해주세요.");
@@ -385,8 +385,7 @@ td {
 							let userId = $(this).val();
 							if (userId === ""
 									|| !idCheck.test(userId)) {
-								$(this).css("border-color",
-										"red");
+								$(this).css("border-color",	"red");
 								userIdValid = false;
 								alert("아이디는 영문과 숫자의 조합으로 6~12자여야 합니다.");
 							} else {
@@ -412,7 +411,7 @@ td {
 
 								// 유효성 검사 통과시 중복 확인 Ajax 요청
 								$.ajax({
-											url : "/baemin/checkDuplicate",
+											url : "${path}/checkDuplicate",
 											type : "POST",
 											data : {
 												userId : userId
@@ -443,10 +442,8 @@ td {
 							let pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
 
 							if ($(this).val() === ""
-									|| !pwdCheck.test($(this)
-											.val())) {
-								$(this).css("border-color",
-										"red");
+									|| !pwdCheck.test($(this).val())) {
+								$(this).css("border-color", "red");
 								userPwValid = false;
 							} else {
 								$(this).css("border-color", "");
@@ -506,7 +503,7 @@ td {
 						// 닉네임 중복 확인하는 함수
 						function checkNicknameDuplicate(userNickname) {
 							$.ajax({
-								url : "/baemin/checkDuplicateNick",
+								url : "${path}/checkDuplicateNick",
 								type : "POST",
 								data : {
 									userNickname : userNickname
@@ -547,7 +544,7 @@ td {
 							if (userInput == "") {
 							} else {
 								$.ajax({
-											url : "/baemin/checkDuplicatePhone",
+											url : "${path}/checkDuplicatePhone",
 											type : "POST",
 											data : {
 												userPhone : $("#userPhone").val()
@@ -592,7 +589,7 @@ td {
 							if (userInput == "") {
 							} else {
 								$.ajax({
-											url : "/baemin/checkDuplicateEmail",
+											url : "${path}/checkDuplicateEmail",
 											type : "POST",
 											data : {
 												userEmail : $("#userEmail").val()
@@ -673,7 +670,7 @@ td {
 	
 								$.ajax({
 									type : 'GET',
-									url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+									url : "${path}/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 									success : function(data) {
 										console.log("data : " + data);
 										checkInput.attr('disabled', false);

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set  var="path" value="<%=request.getContextPath() %>"></c:set>
 <script
@@ -268,7 +267,7 @@ margin: 0 auto;
          			enctype : 'multipart/form-data',
          			processData : false,
         			contentType : false,
-         			url : "/baemin/sellerHome",
+         			url : "${path}/sellerHome",
          			data : formData,
          			success : function(data) {
          				alert("새로운 매장이 등록되었습니다.");
@@ -291,7 +290,7 @@ margin: 0 auto;
 	       	
 	   		$.ajax({
 	   			type : "PUT",
-	   			url : "/baemin/sellerHome",
+	   			url : "${path}/sellerHome",
 	   			data : infos,
 	   			contentType : "application/json", // 필수
 	   			success : function(data) {
@@ -320,7 +319,7 @@ margin: 0 auto;
 			   			enctype : 'multipart/form-data',
 			   			processData : false,
 		       			contentType : false,
-			   			url : "/baemin/upsellerHome",
+			   			url : "${path}/upsellerHome",
 			   			data : formData,
 			   			success : function(data) {
 			   				alert("매장정보가 수정되었습니다.");
@@ -340,7 +339,7 @@ margin: 0 auto;
 		   function b(){
 			   $.ajax({
 		   			type : "get",		   		 
-		   			url : "/baemin/sellerHome",		   		 
+		   			url : "${path}/sellerHome",		   		 
 		   			success : function(data) {
 		   				alert("매장정보가 수정되었습니다.");		   				 
 		   			},
@@ -361,7 +360,7 @@ margin: 0 auto;
 				 $.ajax(
 				 	{
 				 		type:"get" ,
-				 		url: "/baemin/sellerHome/"+storeCode ,
+				 		url: "${path}/sellerHome/"+storeCode ,
 				 		success : function( data ){
 				 			console.log(data);
 				 			

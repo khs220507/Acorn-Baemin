@@ -106,7 +106,7 @@ section {
 
 <script>
 	function a() {
-		window.location.href = '/baemin/customer_signup';
+		window.location.href = '${path}/customer_signup';
 	}
 </script>
 </head>

@@ -179,5 +179,7 @@ CREATE TABLE address_tbl (
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
+SELECT * FROM address_tbl;
+
 commit;
 show tables;

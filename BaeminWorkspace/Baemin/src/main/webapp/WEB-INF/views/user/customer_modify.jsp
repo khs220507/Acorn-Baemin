@@ -312,13 +312,13 @@ function updatecustomer() {
 		
 		            $.ajax({
 		                type: 'POST',
-		                url: '/baemin/updateUserInfo',
+		                url: '${path}/updateUserInfo',
 		                data: infos,
 		                contentType: "application/json",
 		                success: function (data) {
 		                    console.log("Update success:", data);
 		                    alert("수정 성공.");
-		                    window.location.href = "http://localhost:8080/baemin/home";
+		                    window.location.href = "${path}/home";
 		                },
 		                error: function (xhr, status, error) {
 		                    console.log("Update error:", status, error);
@@ -367,7 +367,7 @@ function updatecustomer() {
 			function checkNicknameDuplicate(userNickname) {
 				if(hiddenNickname != userNickname){				
 				    $.ajax({
-				        url: "/baemin/checkDuplicateNick",
+				        url: "${path}/checkDuplicateNick",
 				        type: "POST",
 				        data: {
 				            userNickname: userNickname
@@ -439,7 +439,7 @@ function updatecustomer() {
 			        return;
 			    } else {
 			        $.ajax({
-			            url: "/baemin/checkDuplicatePhone",
+			            url: "${path}/checkDuplicatePhone",
 			            type: "POST",
 			            data: {
 			                userPhone: userInput
@@ -491,7 +491,7 @@ function updatecustomer() {
 			    	return ;
 			    } else {
 			        $.ajax({
-			            url: "/baemin/checkDuplicateEmail",
+			            url: "${path}/checkDuplicateEmail",
 			            type: "POST",
 			            data: {
 			            	userEmail: userInput
@@ -546,7 +546,7 @@ function updatecustomer() {
 		    let confirmResult = confirm("정말 탈퇴하시겠습니까?");
 		    
 		    if (confirmResult) {
-		        window.location.href='/baemin/customerSignoutStatus';
+		        window.location.href='${path}/customerSignoutStatus';
 		        alert("회원탈퇴 완료되었습니다.");
 		    } else {
 		        alert("회원탈퇴가 취소되었습니다.");

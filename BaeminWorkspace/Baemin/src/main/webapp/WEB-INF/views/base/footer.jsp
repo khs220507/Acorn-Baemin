@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <style>
 /* 푸터  ////////////////////////////////////////////////////*/
@@ -54,4 +54,4 @@ p {
 	// 페이지 로드 시와 창 크기 변경 시에도 호출
 	window.onload = adjustDocumentHeight;
 	window.onresize = adjustDocumentHeight;
-</script>
+</script> --%>

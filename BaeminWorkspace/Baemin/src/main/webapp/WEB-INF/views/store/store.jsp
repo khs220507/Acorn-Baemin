@@ -287,6 +287,10 @@ button {
 		
 		$(".menu-sub-tab, .store-review-tab").hide();
 		$(".store-info-tab").show();
+		
+		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
+		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	    mapOption = {
@@ -326,9 +330,7 @@ button {
 	    } 
 	});    
 		
-		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
-		$(".info-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
-		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
+		
 	}
 	
 	// 리뷰 탭 영역
@@ -351,7 +353,7 @@ button {
    		let infos = JSON.stringify(info);
 	    $.ajax({
    			type : "DELETE",
-   			url : "/baemin/zzimClear",
+   			url : "${path}/zzimClear",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
@@ -373,7 +375,7 @@ button {
  	   		let infos = JSON.stringify(info);
    		$.ajax({
    			type : "POST",
-   			url : "/baemin/zzimInsert",
+   			url : "${path}/zzimInsert",
    			data : infos,
    			contentType : "application/json", // 필수
    			success : function(data) {
