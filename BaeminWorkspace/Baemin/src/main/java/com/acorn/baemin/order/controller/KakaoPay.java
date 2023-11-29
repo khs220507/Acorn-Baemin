@@ -65,9 +65,9 @@ public class KakaoPay {
         
         
         
-        params.add("approval_url", "http://localhost:8080/baemin/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8080/baemin/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8080/baemin/kakaoPaySuccessFail");
+        params.add("approval_url", "http://3.35.26.227:8080/baemin/kakaoPaySuccess");
+        params.add("cancel_url", "http://3.35.26.227:8080/baemin/kakaoPayCancel");
+        params.add("fail_url", "http://3.35.26.227:8080/baemin/kakaoPaySuccessFail");
  
          HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
  
