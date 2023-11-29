@@ -250,7 +250,7 @@ CREATE TABLE address_tbl (
 ) auto_increment = 110001;
 
 
-SELECT addressCode FROM address_tbl;
+SELECT * FROM address_tbl;
 
 INSERT INTO address_tbl (userCode, deliveryAddress, detailDeliveryAddress,addressStatus )
 VALUES
