@@ -37,7 +37,7 @@ section {
 	align-items: center;
 	flex: 7.8;
 	width: 1280px;
-	padding-bottom: 50px;
+	padding-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 button {
 	outline: none;
@@ -278,10 +278,6 @@ button {
 		$(".menu-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
 		$(".review-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");;
-		
-		
-
-		
 	}
 	
 	// 정보 탭 영역
@@ -346,10 +342,6 @@ button {
 		$(".menu-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".info-tab").css("border-top", "none").css("border-bottom", "2px solid black").css("background-color", "white");
 		$(".review-tab").css("border-top", "2px solid black").css("border-bottom", "none").css("background-color", "rgb(244,243,243)");
-		
-		
-		
-		
 	}
 	//찜 취소
 	function zzimDelete(zzimSCode,zzimUCode) {
@@ -396,11 +388,6 @@ button {
 			alert("로그인 후 가능합니다.");
 		}
 	}; 
-	
-	
-	
-
-	
 </script>
 </head>
 <body>
@@ -499,7 +486,6 @@ button {
 													</div>
 												</c:when>
 											</c:choose>	
-
 										</div>
 										<hr class="thin-line">
 									</c:when>
@@ -530,7 +516,7 @@ button {
 								</tr>
 								<tr class="store-address">
 									<td class="introduce-small-title">매장주소</td>
-									<td>${readStore.storeAddress}</td>
+									<td>${readStore.storeAddress}+${readStore.storeAddressDetail}</td>
 								</tr>
 								<tr class="seller-regcode">
 									<td class="introduce-small-title">사업자등록번호</td>
@@ -571,15 +557,8 @@ button {
 						<div>사장님</div>
 						<div>${item.answerContent}</div>
 						</c:if>
-						
-						
-						
-						
 					</div>
-
 				</c:forEach>
-
-
 			</div>
 		</div>
 	</section>
