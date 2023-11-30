@@ -11,7 +11,6 @@
 <meta charset="UTF-8">
 <title>Login Result</title>
 <script src="https://code.jquery.com/jquery-latest.js"></script>
-<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.min.js" charset="utf-8"></script>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 
@@ -310,7 +309,7 @@ document.addEventListener('keydown', function(e) {
 
 				
 				<div class="kakao">
-				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=cb322579447f8ce7146c35d4ff678f85&redirect_uri=${path}/kakaoLogin&response_type=code">
+				    <a href="https://kauth.kakao.com/oauth/authorize?client_id=cb322579447f8ce7146c35d4ff678f85&redirect_uri=http://3.35.26.227:8080/baemin/kakaoLogin&response_type=code">
 				        카카오로 간편 로그인
 				    </a>
 				</div>

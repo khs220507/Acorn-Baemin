@@ -34,7 +34,11 @@ public class KakaoPay {
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
+<<<<<<< HEAD
         headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
+=======
+        headers.add("Authorization", "KakaoAK " + "8b44519adc0723877cc1352fbf89cf6f");
+>>>>>>> 9aa647bc544dd9622b66a85772fe35b83fa3a1d6
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         
@@ -87,7 +91,11 @@ public class KakaoPay {
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
+<<<<<<< HEAD
         headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
+=======
+        headers.add("Authorization", "KakaoAK " + "8b44519adc0723877cc1352fbf89cf6f");
+>>>>>>> 9aa647bc544dd9622b66a85772fe35b83fa3a1d6
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
  

@@ -352,7 +352,7 @@ td {
 				let infos = JSON.stringify(info);
 				$.ajax({
 					type : "POST",
-					url : "${path}/customer_signup",
+					url : "/baemin/customer_signup",
 					data : infos,
 					contentType : "application/json", // 필수
 					success : function(data) {
@@ -411,7 +411,7 @@ td {
 
 								// 유효성 검사 통과시 중복 확인 Ajax 요청
 								$.ajax({
-											url : "${path}/checkDuplicate",
+											url : "/baemin/checkDuplicate",
 											type : "POST",
 											data : {
 												userId : userId
@@ -503,7 +503,7 @@ td {
 						// 닉네임 중복 확인하는 함수
 						function checkNicknameDuplicate(userNickname) {
 							$.ajax({
-								url : "${path}/checkDuplicateNick",
+								url : "/baemin/checkDuplicateNick",
 								type : "POST",
 								data : {
 									userNickname : userNickname
@@ -544,7 +544,7 @@ td {
 							if (userInput == "") {
 							} else {
 								$.ajax({
-											url : "${path}/checkDuplicatePhone",
+											url : "/baemin/checkDuplicatePhone",
 											type : "POST",
 											data : {
 												userPhone : $("#userPhone").val()
@@ -589,7 +589,7 @@ td {
 							if (userInput == "") {
 							} else {
 								$.ajax({
-											url : "${path}/checkDuplicateEmail",
+											url : "/baemin/checkDuplicateEmail",
 											type : "POST",
 											data : {
 												userEmail : $("#userEmail").val()

@@ -331,7 +331,7 @@ td {
 
 				$.ajax({
 					type : "POST",
-					url : "${path}/seller_signup",
+					url : "/baemin/seller_signup",
 					data : infos,
 					contentType : "application/json", // 필수
 					success : function(data) {
@@ -384,7 +384,7 @@ td {
 								}
 
 								$.ajax({
-									url : "${path}/checkDuplicate2",
+									url : "/baemin/checkDuplicate2",
 									type : "POST",
 									data : {
 										sellerId : sellerId
@@ -471,7 +471,7 @@ td {
 							if (sellerInput == "") {
 							} else {
 								$.ajax({
-											url : "${path}/checkDuplicateRegCode",
+											url : "/baemin/checkDuplicateRegCode",
 											type : "POST",
 											data : {
 												sellerRegCode : $("#sellerRegCode").val()
@@ -515,7 +515,7 @@ td {
 							if (sellerInput == "") {
 							} else {
 								$.ajax({
-											url : "${path}/checkDuplicatePhone2",
+											url : "/baemin/checkDuplicatePhone2",
 											type : "POST",
 											data : {
 												sellerPhone : $("#sellerPhone").val()
@@ -549,7 +549,7 @@ td {
 
 							$.ajax({
 								type : 'GET',
-								url : "${path}/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
+								url : "/baemin/mailCheck/" + email, // GET방식이라 Url 뒤에 email을 뭍힐수있다.
 								success : function(data) {
 									console.log("data : " + data);
 									checkInput.attr('disabled', false);
