@@ -67,7 +67,7 @@ public class SellerService implements SellerServiceI{
 	
 	
 	// 매장정보 탭
-	// 매장정보 일부조회1(매장이름, 평점, 리뷰수, 최소주문금액)
+	// 매장정보 일부조회(매장이름, 평점, 리뷰수, 최소주문금액, 주소)
 	@Override
 	public StoreDTO selectStore(Integer storeCode) {
 		System.out.println("storeCode @service : " + storeCode);

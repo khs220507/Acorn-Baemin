@@ -37,9 +37,7 @@ section {
 	align-items: center;
 	flex: 7.8;
 	width: 1280px;
-	padding-top: 5%;
-	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
-	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+	padding-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
 }
 button {
 	outline: none;
@@ -160,6 +158,7 @@ button {
 }
 .info-sub-tab {
 	margin-top: 50px;
+	margin-bottom: 25px;
 }
 .store-description {
 	display: flex;
@@ -517,7 +516,7 @@ button {
 								</tr>
 								<tr class="store-address">
 									<td class="introduce-small-title">매장주소</td>
-									<td>${readStore.storeAddress}</td>
+									<td>${readStore.storeAddress}+${readStore.storeAddressDetail}</td>
 								</tr>
 								<tr class="seller-regcode">
 									<td class="introduce-small-title">사업자등록번호</td>

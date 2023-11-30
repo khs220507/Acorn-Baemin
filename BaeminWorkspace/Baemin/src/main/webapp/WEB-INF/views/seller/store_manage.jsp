@@ -118,6 +118,7 @@ section {
 	display: flex;
 	width: 30%;
 	justify-content: space-between;
+	align-items: center;
 }
 
 .old-menu-classification {
@@ -379,9 +380,11 @@ hr {
 	padding-bottom: 20px;
 	border-bottom: 1px #d9d9d9 solid;
 }
-
 .reply-review-wrap {
-	margin-top: 5px;
+	margin-top:10px;
+}
+.reply-review {
+	padding-top: 5px;
 }
 </style>
 <script>
@@ -561,12 +564,13 @@ hr {
 		let storeDescription = $(element).closest('.store-info-tab').find('#store-description').val();
 		let operatingTime = $(element).closest('.store-info-tab').find('#operating-time').val();
 	    let storeAddress = $(element).closest('.store-info-tab').find('#store-address').val();
-	    
+	    let storeAddressDetail = $(element).closest('.store-info-tab').find('#store-detail-address').val();
 	    let storeInfo = {
 	    		storeCode : storeCode,
 		    	storeDescription : storeDescription,
 		    	operatingTime : operatingTime,
-		    	storeAddress : storeAddress
+		    	storeAddress : storeAddress,
+		    	storeAddressDetail : storeAddressDetail
 	    	}
 	    
 	    console.log(storeInfo);
@@ -639,11 +643,12 @@ hr {
 	         success: function () {
 	            console.log("답글이 성공적으로 등록되었습니다!");
 	            
-	            // You might want to update the UI or do something else on success
+	            var ownerReplyDiv = $(button).closest('.review-wrap').find('.reply-review');
+	            var ownerReplyContent = '<div>사장님</div><div>' + answerContent + '</div>';
+	            ownerReplyDiv.html(ownerReplyContent);
 	         },
 	         error: function () {
 	            console.error("답글 등록 실패!");
-	            // Handle the error or display a message to the user
 	         }
 	         
 	         
@@ -774,7 +779,7 @@ hr {
 					<div class="store-description">
 						<div>가게소개</div>
 						<textarea id="store-description">
-						  readStore.storeDescription
+						  ${readStore.storeDescription}
 						</textarea>
 					</div>
 					<div class="operating-time">
@@ -791,6 +796,7 @@ hr {
 							<div class="store-address">
 								<div>매장주소</div>
 								<input type="text" id="store-address" value="">
+								<input type="text" id="store-detail-address" value="">
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
@@ -831,14 +837,14 @@ hr {
 					</c:if>
 
 					
-					
+					<div class="reply-review-wrap">
 					<c:if test="${not empty item.answerContent}">
-						<div>사장님</div>
+						<div class="owner">[사장님]</div>
 						<div>${item.answerContent}</div>
 		
 						</c:if>
 						<c:if test="${empty item.answerContent}">
-							<div class="reply-review-wrap">
+							<div class="reply-review">
 							<input type="hidden" name="reviewCode" value="${item.reviewCode}">
 							<input type="hidden" name="storeCode" value="${item.storeCode}">
 							<p style="margin-bottom: 5px;">답글달기</p>
@@ -846,11 +852,8 @@ hr {
 							<button id="submitReplyBtn" onclick="submitReply(this)">등록</button>
 						</div>
 						</c:if>
-						
-
-
+					</div>
 				</div>
-
 			</c:forEach>
 
 		</div>
