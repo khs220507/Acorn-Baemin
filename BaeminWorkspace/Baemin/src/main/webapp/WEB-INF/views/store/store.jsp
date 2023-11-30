@@ -37,9 +37,7 @@ section {
 	align-items: center;
 	flex: 7.8;
 	width: 1280px;
-	padding-top: 5%;
-	padding-top: 140px; /* 헤더 높이만큼 padding-top 추가 */
-	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정 */
+	padding-bottom: 50px;
 }
 button {
 	outline: none;
@@ -160,6 +158,7 @@ button {
 }
 .info-sub-tab {
 	margin-top: 50px;
+	margin-bottom: 25px;
 }
 .store-description {
 	display: flex;
