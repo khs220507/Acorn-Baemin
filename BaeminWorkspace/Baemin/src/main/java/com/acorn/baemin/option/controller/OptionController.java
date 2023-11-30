@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.OptionDTO;
 import com.acorn.baemin.option.repository.OptionRepository;
+
 @Controller
 public class OptionController {
 	@Autowired
@@ -43,9 +44,6 @@ public class OptionController {
 		model.addAttribute("list", result);
 		model.addAttribute("menuCode", menuCode);
 		model.addAttribute("MenuInfo", MenuInfo);
-		
-		
-		
 		return "store/option";
 		}
 	

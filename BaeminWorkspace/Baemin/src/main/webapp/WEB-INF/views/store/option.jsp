@@ -166,7 +166,6 @@ function sendOptionJson() {
 					</c:forEach>
 					<input type="hidden" name="options">
 				</div>
-
 				<div class="plus-cart-but">
 					<button type="button" onclick="sendOptionJson()">장바구니에 추가</button>
 				</div>

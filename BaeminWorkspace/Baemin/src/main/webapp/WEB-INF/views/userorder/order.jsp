@@ -430,8 +430,6 @@ body {
 						value=1> 포장
 				</div>
 			</div>
-
-
 			<div class="section-order-address-wrap" id="address-wrap">
 				<div class="section-order-address">
 					<div class="section-order-address-api" id="base-structure">
@@ -446,8 +444,6 @@ body {
 						name="detailDeliveryAddress" id="base-structure-input" value="${addressDTO.detailDeliveryAddress}">
 				</div>
 			</div>
-
-
 			<div class="section-order-phone-wrap">
 				<div class="section-order-phone" id="base-structure">${userInfo[0].userPhone}</div>
 			</div>
@@ -464,7 +460,6 @@ body {
 					</div>
 				</div>
 			</div>
-
 			<div class="section-order-paytype-wrap">
 				<div class="section-order-paytype-title" id="base-structure">결제수단</div>
 				
@@ -478,10 +473,8 @@ body {
 						<input type="radio" id="card" name="payType" value="0">
 						<div id="base-structure">카카오페이 결제</div>
 					</div>
-
 				</div>
 			</div>
-
 			<div class="section-order-price-wrap">
 				<div class="section-order-price-title" id="base-structure">결제금액</div>
 				<div class="section-order-price-detail-wrap">
@@ -493,7 +486,6 @@ body {
 					<div class="section-order-price-detail-amount-delivery">${storeInfo[0].deliveryFee}원</div>
 				</div>
 			</div>
-
 			<c:set var="totalAmount"
 				value="${orderMenuPrice + storeInfo[0].deliveryFee}" />
 
@@ -501,9 +493,7 @@ body {
 				<div class="secion-order-totalPrice-title">총 결제금액</div>
 				<div class="section-order-orderMenuPrice">${totalAmount}원</div>
 			</div>
-
 			<div class="section-order-button-wrap">
-
 				<input type="hidden" name="allAddress" id="allAddress" > 
 				<input type="hidden" name="deliveryAddress" id="deliveryAddress" value="${addressDTO.deliveryAddress}"> 
 					<input type="hidden"
@@ -513,7 +503,6 @@ body {
 					<input
 					type="hidden" name="orderMenuPrice" id="orderMenuPrice"
 					value="${orderMenuPrice}">
-
 				<button type="button" onclick="a()" id="order-button">결제하기</button>
 			</div>
 		</form>

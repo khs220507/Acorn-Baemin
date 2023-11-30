@@ -237,10 +237,8 @@ public class SellerController {
 	@GetMapping("/store")
 	public String storeMain(@RequestParam("storeCode") int storeCode, Model model, HttpSession session)
 			throws Exception {
-
 		// 리뷰 갯수 카운트
 		int reviewCount = sc.reviewCount(storeCode);
-
 		// 찜
 		Integer userCode = (Integer) session.getAttribute("userCode");
 		System.out.println("userCode=" + userCode);
@@ -257,7 +255,6 @@ public class SellerController {
 		} else {
 			session.setAttribute("ZCheck", 1);
 		}
-
 		// 메뉴 탭
 		System.out.println("storeCode @service: " + storeCode);
 		// 메뉴분류 정보
@@ -265,17 +262,13 @@ public class SellerController {
 		// 메뉴정보
 		List<MenuDTO> readMenuInfo = sc.selectAllMenuInfo(storeCode);
 		System.out.println(readMenuInfo);
-
 		// 가게 정보 탭
 		StoreDTO readStore = sc.selectStore(storeCode);
 		SellerDTO readSeller = sc.selectSeller(readStore.getSellerCode());
 		System.out.println("sellerCode @service : " + readStore.getSellerCode());
-
 		// 리뷰 탭
 		List<ReviewDTO> reviewList = sc.selectAllReview(storeCode);
-		
 		System.out.println("테스트 : " + reviewList);
-
 		// 모델 심기
 		model.addAttribute("readStore", readStore);
 		model.addAttribute("readSeller", readSeller);
@@ -283,7 +276,6 @@ public class SellerController {
 		model.addAttribute("CList", CList);
 		model.addAttribute("RList", reviewList);
 		model.addAttribute("RCount", reviewCount);
-
 		return "store/store";
 	}
 

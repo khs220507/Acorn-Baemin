@@ -39,16 +39,12 @@ public class CartController {
 		List<StoreDTO> storeInfo = cartService.selectStoreInfo(menuCode);
 		List<MenuDTO> menuInfo = cartService.selectMenuInfo(menuCode);
 		model.addAttribute("cartInfo", cartInfoDTO);
-		System.out.println("테스트!!!");
-		System.out.println(cartInfoDTO);
 		model.addAttribute("menuInfo", menuInfo);
 		model.addAttribute("storeInfo", storeInfo);
-		
 		HttpSession session = request.getSession();
 		session.setAttribute("cartInfo", cartInfoDTO);
 		session.setAttribute("menuInfo", menuInfo);
 		session.setAttribute("storeInfo", storeInfo);
-		
 	    return "home/cart_list";
 	}
 	
