@@ -161,6 +161,9 @@ body {
 .review-register-btn {
 	
 }
+input{
+	font-family: '';
+}
 
 textarea {
 	width: 100%;
@@ -216,7 +219,7 @@ textarea {
 
 		<div class="review-input-file-wrap">
 			<form enctype="multipart/form-data" method="POST"
-				action="${path}/submitReview">
+				action="/baemin/submitReview">
 				<div class="review-input-box-wrap">
 					<div class="review-content-wrap">
 						<textarea name="reviewContent" class="review-input-box"
