@@ -66,11 +66,12 @@ public class CartController {
 	
 
 	@PostMapping("/order")
-	public String placeOrder(@RequestParam int orderMenuPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO) {
+	public String placeOrder(@RequestParam int orderMenuPrice, HttpSession session, Model model, CartInfoDTO cartInfoDTO, OrderDTO orderDTO ) {
 		
 		session.setAttribute("orderMenuPrice", orderMenuPrice);
 		Integer userCode = (Integer)session.getAttribute("userCode");
 		List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
+		session.setAttribute("storeInfo", storeInfo);
 		List<MenuDTO> menuInfo = (List<MenuDTO>) session.getAttribute("menuInfo");
 		System.out.println(userCode);
 		List<UserDTO> userInfo = userOrderService.getUserByCode(userCode);

@@ -242,7 +242,7 @@ ul {
 								${detail.orderMenuNumber }개</p>
 
 								<c:choose>
-									<c:when test="${detail.optionsInfo == ''}">
+									<c:when test="${detail.optionsInfo == '' or detail.optionsInfo == null}">
 										<input type="hidden">
 									</c:when>
 									<c:otherwise>
@@ -368,7 +368,7 @@ ul {
 							<!-- 옵션 -->
 						
 								<c:choose>
-									<c:when test="${detail.optionsInfo == ''}">
+									<c:when test="${detail.optionsInfo == '' or detail.optionsInfo == null}">
 										<input type="hidden">
 									</c:when>
 									<c:otherwise>
