@@ -3,6 +3,8 @@ package com.acorn.baemin.order.controller;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,49 +14,46 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.order.domain.KakaoPayApprovalVO;
 import com.acorn.baemin.order.domain.KakaoPayReadyVO;
+import com.acorn.baemin.domain.OrderDTO;
+import com.acorn.baemin.order.domain.KakaoOrderDTO;
 
 import lombok.extern.java.Log;
  
 @Service
 @Log
 public class KakaoPay {
- 
+	HttpSession session;
     private static final String HOST = "https://kapi.kakao.com";    
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-    public String kakaoPayReady( OrderDTO orderDTO) {
+    public String kakaoPayReady( KakaoOrderDTO order) {
  
         RestTemplate restTemplate = new RestTemplate();
         
-      
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-<<<<<<< HEAD
         headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
-=======
-        headers.add("Authorization", "KakaoAK " + "8b44519adc0723877cc1352fbf89cf6f");
->>>>>>> 9aa647bc544dd9622b66a85772fe35b83fa3a1d6
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-        
-        String quantity = String.valueOf(orderDTO.getOrderMenuNumber());
-        String total_amount = String.valueOf(orderDTO.getOrderMenuPrice());
         
         // 서버로 요청할 Body
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id",  "test");
         params.add("partner_user_id", "test");
-        params.add("item_name", orderDTO.getOrderMenuName());
-        params.add("quantity", quantity);
-        params.add("total_amount", total_amount);
+        params.add("item_name", "test");
+        params.add("quantity", "1");
+        params.add("total_amount", "15000");
         params.add("tax_free_amount", "0");
-        params.add("approval_url", "http://localhost:8080/kakaoPaySuccess");
+      
+        
+        params.add("approval_url", "http://localhost:8080/baemin/kakaoPaySuccess");
+        params.add("cancel_url", "http://localhost:8080/baemin/kakaoPayCancel");
+        params.add("fail_url", "http://localhost:8080/baemin/kakaoPaySuccessFail");
  
         
         //헤더,바디 합치는 방법 .
@@ -80,22 +79,18 @@ public class KakaoPay {
         
     }
     
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token  , OrderDTO orderDTO) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token  , KakaoOrderDTO order) {
     	 
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
         
-        RestTemplate restTemplate = new RestTemplate();
         
-        String total_amount = String.valueOf(orderDTO.getOrderMenuPrice());
+        
+        RestTemplate restTemplate = new RestTemplate();
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-<<<<<<< HEAD
         headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
-=======
-        headers.add("Authorization", "KakaoAK " + "8b44519adc0723877cc1352fbf89cf6f");
->>>>>>> 9aa647bc544dd9622b66a85772fe35b83fa3a1d6
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
  
@@ -106,7 +101,7 @@ public class KakaoPay {
         params.add("partner_order_id",  "test");
         params.add("partner_user_id", "test");
         params.add("pg_token", pg_token);
-        params.add("total_amount", total_amount);
+        params.add("total_amount","15000");
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         

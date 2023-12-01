@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.order.domain.KakaoOrderDTO;
 
 
 
@@ -31,6 +32,12 @@ public class UserOrderRepositoryImp implements UserOrderRepositoryI {
 	@Override
 	public OrderDTO getLastOrder() {
 		return session.selectOne(namespace+"getLastOrder");
+		
+	}
+
+	@Override
+	public void insertKakaoOrder(KakaoOrderDTO kakaoDTO) {
+		session.insert(namespace + "insertOrder", kakaoDTO);
 		
 	}
 }

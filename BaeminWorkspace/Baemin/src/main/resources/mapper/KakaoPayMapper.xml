@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.acorn.baemin.KakaoPayMapper">
+
+	<select id="getUserByCode" resultType="UserDTO">
+		SELECT * FROM user_tbl
+		WHERE userCode = #{userCode}
+	</select>
+
+	<insert id="insertOrder" parameterType="KakaoOrderDTO">
+        INSERT INTO order_tbl (userCode, storeCode, menuCode, orderMenuName, orderMenuNumber,
+        orderMenuPrice, orderStoreName, orderStoreImage, orderDate, payType, orderType,
+        reqToSeller, reqToRider, orderStatus, optionsInfo, deliveryFee,
+        deliveryAddress, userPhone, reviewStatus)
+        VALUES (#{userCode}, #{storeCode}, #{menuCode}, #{orderMenuName}, #{orderMenuNumber},
+        #{orderMenuPrice}, #{orderStoreName}, #{orderStoreImage}, NOW(),
+        #{payType}, #{orderType}, #{reqToSeller}, #{reqToRider}, #{orderStatus},
+        #{optionsInfo}, #{deliveryFee}, #{deliveryAddress}, #{userPhone}, #{reviewStatus});
+    </insert>
+    
+    <select id="getLastOrder" resultType="KakaoOrderDTO">
+         SELECT * FROM order_tbl
+        ORDER BY orderNumber DESC
+        LIMIT 1;
+    </select>
+    
+   
+    
+    
+    
+
+
+
+</mapper>

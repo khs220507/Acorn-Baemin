@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.OrderDTO;
 import com.acorn.baemin.domain.UserDTO;
+import com.acorn.baemin.order.domain.KakaoOrderDTO;
 import com.acorn.baemin.order.repository.UserOrderRepositoryImp;
 
 @Service
@@ -32,6 +33,12 @@ public class UserOrderServiceImp implements UserOrderServiceI{
 	public OrderDTO getLastOrder() {
 		OrderDTO lastOrderDTO = userOrderRepository.getLastOrder();
 		return lastOrderDTO;
+	}
+
+	@Override
+	public void insertKakaoOrder(KakaoOrderDTO kakaoDTO) {
+		userOrderRepository.insertKakaoOrder(kakaoDTO);
+		
 	}
 	
 	
