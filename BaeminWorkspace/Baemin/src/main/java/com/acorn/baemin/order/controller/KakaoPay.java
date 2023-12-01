@@ -36,7 +36,7 @@ public class KakaoPay {
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
+        headers.add("Authorization", "KakaoAK " + "1baca6037f64581a8e0c7d5eef0cf5e6");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
         
@@ -51,9 +51,9 @@ public class KakaoPay {
         params.add("tax_free_amount", "0");
       
         
-        params.add("approval_url", "http://localhost:8080/baemin/kakaoPaySuccess");
-        params.add("cancel_url", "http://localhost:8080/baemin/kakaoPayCancel");
-        params.add("fail_url", "http://localhost:8080/baemin/kakaoPaySuccessFail");
+        params.add("approval_url", "http://3.35.26.227:8080/baemin/kakaoPaySuccess");
+        params.add("cancel_url", "http://3.35.26.227:8080/baemin/kakaoPayCancel");
+        params.add("fail_url", "http://3.35.26.227:8080/baemin/kakaoPaySuccessFail");
  
         
         //헤더,바디 합치는 방법 .
@@ -90,7 +90,7 @@ public class KakaoPay {
  
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + "5066c047ce27be13e7066e4e1c19ac19");
+        headers.add("Authorization", "KakaoAK " + "1baca6037f64581a8e0c7d5eef0cf5e6");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
  

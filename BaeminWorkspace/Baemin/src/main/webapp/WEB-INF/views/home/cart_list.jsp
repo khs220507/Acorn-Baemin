@@ -3,7 +3,8 @@
 <%@ page import="javax.servlet.http.HttpSession"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<%@ page import="com.acorn.baemin.domain.StoreDTO" %>
+<%@ page import="java.util.*" %>
 <c:set var="path" value="<%=request.getContextPath()%>"></c:set>
 
 
@@ -197,12 +198,37 @@ $(document).ready(function() {
         });
 
         var unitPrice = parseInt(${menuInfo[0].menuPrice}, 10); // Get the unit price from JSTL
+        
+        
+        
         var orderMenuPrice = (unitPrice + totalOptionsPrice) * quantity;
+        let  minprice   =   $("#orderMinPrice").val();
 
+        console.log(minprice);
+        
+ 
+        
+        
+		
         // Check if orderMenuPrice is a valid number before updating
         if (!isNaN(orderMenuPrice)) {
             $("#totalPriceInput").val(orderMenuPrice);
             $("#total-price").text(orderMenuPrice + "원");
+            console.log(orderMenuPrice);
+            
+            if(orderMenuPrice < minprice){
+            	 $(".order-btn").click(function(event) {
+           	        // 이벤트의 기본 동작 막기
+           	        event.preventDefault();
+           	        $(".order-btn").off("click");
+           	        alert("주문 금액이 부족합니다");
+           	    });
+           }else{
+        	   $(".order-btn").click(function() {
+          	        $(".order-btn").on("click");
+          	    });
+        	   
+           }
         }
     }
 
@@ -223,6 +249,8 @@ $(document).ready(function() {
 
 <body>
 	<jsp:include page="../base/header.jsp" />
+	
+	<% int minOrderPrice=0; %>
 	<section id="content">
 		<div class="wrap-all">
 			<div class="cart-title">장바구니</div>
@@ -284,13 +312,20 @@ $(document).ready(function() {
 
 					<input type="hidden" id="totalPriceInput" name="orderMenuPrice"
 						value="0">
+						
+						
 					<div class="total-price-wrap">
 						<div class="total-price-title">총 주문금액</div>
 						<div class="total-price" id="total-price"></div>
 					</div>
 					<%
+					List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
+					
 					if (userCodeInfo != null) {
+						  minOrderPrice    = storeInfo.get(0).getMinOrderPrice();
+						
 					%>
+					
 					<button type="submit" class="order-btn">주문하기</button>
 					<%
 					} else {
@@ -298,6 +333,8 @@ $(document).ready(function() {
 					<%
 					}
 					%>
+						<input type="hidden" id="orderMinPrice" name="orderMinPrice"
+						value="<%=minOrderPrice%>">	
 					</form>
 				</c:when>
 
@@ -342,6 +379,7 @@ $(document).ready(function() {
 
 					<input type="hidden" id="totalPriceInput" name="orderMenuPrice"
 						value="0">
+					
 					<div class="total-price-wrap">
 						<div class="total-price-title">총 주문금액</div>
 						<div class="total-price" id="total-price"></div>

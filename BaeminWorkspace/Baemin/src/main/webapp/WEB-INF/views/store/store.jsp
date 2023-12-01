@@ -466,7 +466,7 @@ button {
 													<div class="menuName-wrap">
 														<div class="menuName menuName-bigger">${menuList.menuName}</div>
 															<div class="menuName">${menuList.menuContent}</div>
-															<div class="menuName">${menuList.menuPrice}</div>
+															<div class="menuName">${menuList.menuPrice}원</div>
 													</div>
 												</c:when>
 
@@ -482,7 +482,7 @@ button {
 															<a class="menu-img"
 															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuContent}</div></a>
 															<a class="menu-img"
-															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuPrice}</div></a>
+															href="${path}/option?menuCode=${menuList.menuCode}"><div class="menuName">${menuList.menuPrice}원</div></a>
 													</div>
 												</c:when>
 											</c:choose>	
