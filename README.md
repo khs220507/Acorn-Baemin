@@ -18,9 +18,9 @@
 
 ## Flowchart
 
-로그인 | 제목2 | 제목3
-    ------|------|-----
-   ![006](https://github.com/khs220507/Acorn-Baemin/assets/129834692/bc2a9718-7598-49b3-b709-b5b4dfd3e136)|1행2열|1행3열
+로그인전 | 제목2 | 제목3
+------|------|-----
+![006](https://github.com/khs220507/Acorn-Baemin/assets/129834692/bc2a9718-7598-49b3-b709-b5b4dfd3e136)|1행2열|1행3열
 
 
 
