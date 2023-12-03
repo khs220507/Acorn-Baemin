@@ -6,13 +6,11 @@
 
 ![003](https://github.com/khs220507/Acorn-Baemin/assets/129834692/fa7ee03f-9b7b-4419-93f8-a912cd978684)
 
-## ● Responsibilities
+## ● Responsibilities & Project Schedule
 
-![004](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e6a036f1-d81c-43f5-abf5-df7b0169a459)
-
-## ● Project Schedule
-
-![005](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e9946d52-0b8a-4273-af10-108286f16503)
+Responsibilities | Project Schedule |
+------|------|
+![004](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e6a036f1-d81c-43f5-abf5-df7b0169a459)|![005](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e9946d52-0b8a-4273-af10-108286f16503)
 
 ## ● Flowchart & Wireframe
 
