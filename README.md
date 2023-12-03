@@ -18,9 +18,9 @@
 
 ## Flowchart
 
-로그인전 | 제목2 | 제목3
+로그인전 | 사장님 | 손
 ------|------|-----
-![006](https://github.com/khs220507/Acorn-Baemin/assets/129834692/bc2a9718-7598-49b3-b709-b5b4dfd3e136)|1행2열|1행3열
+![006](https://github.com/khs220507/Acorn-Baemin/assets/129834692/bc2a9718-7598-49b3-b709-b5b4dfd3e136)|![007](https://github.com/khs220507/Acorn-Baemin/assets/129834692/f73b36be-1d13-45a6-910d-dc669fc209ec)|![008](https://github.com/khs220507/Acorn-Baemin/assets/129834692/a0daddd1-a13c-4988-a9ad-826af5d4bcda)
 
 
 
