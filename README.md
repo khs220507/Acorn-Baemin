@@ -8,7 +8,9 @@
 
 ![003](https://github.com/khs220507/Acorn-Baemin/assets/129834692/fa7ee03f-9b7b-4419-93f8-a912cd978684)
 
-## Project Plan Management
+## 02. Responsibilities
+
+![004](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e6a036f1-d81c-43f5-abf5-df7b0169a459)
 
 ## Implemented features
 
