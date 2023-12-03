@@ -14,6 +14,8 @@
 
 ## ● Project Schedule
 
+![005](https://github.com/khs220507/Acorn-Baemin/assets/129834692/e9946d52-0b8a-4273-af10-108286f16503)
+
 ## Examples of Use
 
 ## Member
