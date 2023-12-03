@@ -1,4 +1,4 @@
-# Acorn Academy 4th Team Project : BAEMIN (2023.10.20 ~ 2023.12.08)
+## Acorn Academy 4th Team Project : BAEMIN (2023.10.20 ~ 2023.12.08)
 
 ### AWS Link : http://3.35.26.227:8080/baemin/home
 
