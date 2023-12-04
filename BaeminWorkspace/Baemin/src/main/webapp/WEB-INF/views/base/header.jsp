@@ -146,8 +146,8 @@ header {
 /* 섹션 ////////////////////////////////////////////////////////*/
 section {
 	width: 1280px;
-	margin-bottom: 50px; /* 여분의 여백으로 풋터가 바닥에 유지되도록 설정*/
 	padding-top: 160px;
+	padding-bottom: 50px;
 }
 
 /* 배민 폰트*/

@@ -25,16 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.acorn.baemin.domain.AnswerDTO;
 import com.acorn.baemin.domain.MenuDTO;
 import com.acorn.baemin.domain.ReviewDTO;
 import com.acorn.baemin.domain.SellerDTO;
 import com.acorn.baemin.domain.StoreDTO;
-import com.acorn.baemin.domain.UserDTO;
 import com.acorn.baemin.home.repository.ZzimRepositoryImp;
 import com.acorn.baemin.domain.ZzimDTO;
 import com.acorn.baemin.seller.service.SellerService;
-import com.acorn.baemin.user.repository.UserRepository;
 
 @Controller
 public class SellerController {
@@ -96,9 +93,10 @@ public class SellerController {
 			String menuContent, String menuClassification, Integer menuStatus)
 			throws IllegalStateException, IOException {
 
-		try {
+		
 			if (!menuImageFile.isEmpty()) {
 				// 이미지 업로드
+				try {
 				String fileName = menuImageFile.getOriginalFilename();
 				String menuRealImage = fileDir + menuName + fileName; // c:\\test\\upload\\고양이.jpg
 				menuImageFile.transferTo(new File(menuRealImage));
@@ -121,12 +119,12 @@ public class SellerController {
 				System.out.println(menu);
 				sc.insertMenu(menu);
 
+				} catch (Exception e) {
+					e.printStackTrace();
+					System.out.println("error @insertMenu");
+				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("error @insertMenu");
-		}
 		return "seller/store_manage";
 	}
 
@@ -308,5 +306,5 @@ public class SellerController {
 	    }
 		return "seller/store_manage";
 	}
-
+	
 }

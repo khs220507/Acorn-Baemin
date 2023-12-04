@@ -386,6 +386,9 @@ hr {
 .reply-review {
 	padding-top: 5px;
 }
+.submitReplyBtn {
+	padding-left: 4px;
+}
 </style>
 <script>
 	$(document).ready(function() {
@@ -549,6 +552,7 @@ hr {
 	            // 사업자 정보 적용
 	            $("#seller-name").val(readSeller.sellerName);
 	            $("#store-address").val(readStore.storeAddress);
+	            $("#store-detail-address").val(readStore.storeAddressDetail);
 	            $("#seller-regCode").val(readSeller.sellerRegCode);
 			},
 			error : function(){
@@ -627,11 +631,9 @@ hr {
 	function submitReply(button) {
 	      // Get the review code from somewhere (e.g., a hidden input field)
 	     
-	     
 	     var reviewCode = $(button).siblings("input[name='reviewCode']").val();
 	     var answerContent = $(button).siblings("#replyContent").val();
-	     
-	     
+	   
 	      $.ajax({
 	         type: "POST",
 	         url: "${path}/submitAnswer",
@@ -644,15 +646,12 @@ hr {
 	            console.log("답글이 성공적으로 등록되었습니다!");
 	            
 	            var ownerReplyDiv = $(button).closest('.review-wrap').find('.reply-review');
-	            var ownerReplyContent = '<div>사장님</div><div>' + answerContent + '</div>';
+	            var ownerReplyContent = '<div>[사장님]</div><div>' + answerContent + '</div>';
 	            ownerReplyDiv.html(ownerReplyContent);
 	         },
 	         error: function () {
 	            console.error("답글 등록 실패!");
 	         }
-	         
-	         
-	         
 	      });
 	   }
 
@@ -795,7 +794,7 @@ hr {
 							</div>
 							<div class="store-address">
 								<div>매장주소</div>
-								<input type="text" id="store-address" value="">
+								<input type="text" id="store-address" value=""><br/>
 								<input type="text" id="store-detail-address" value="">
 							</div>
 							<div class="seller-regcode">
@@ -809,8 +808,7 @@ hr {
 					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
-		
-		
+		<!-- 리뷰 탭 -->
 		<div class="store-review-tab">
 			
 			<c:forEach var="item" items="${reviewList}">
@@ -855,21 +853,20 @@ hr {
 					</div>
 				</div>
 			</c:forEach>
-
 		</div>
 		
 	</section>
 	<%@ include file="../base/footer.jsp"%>
 	<script>
-	$(function () {
-	    $(".menuC").on("click", function(){
-	        let headerHeight = $("header").outerHeight();
-	        let href = $(this).attr("href");
-	        let target = $(href == "#" || href == "" ? "body" : href);
-	        let position = target.offset().top - headerHeight;
-	        $("html, body").animate({ scrollTop: position }, 600, "swing");
-	    });
-	});
-</script>
+		$(function () {
+		    $(".menuC").on("click", function(){
+		        let headerHeight = $("header").outerHeight();
+		        let href = $(this).attr("href");
+		        let target = $(href == "#" || href == "" ? "body" : href);
+		        let position = target.offset().top - headerHeight;
+		        $("html, body").animate({ scrollTop: position }, 600, "swing");
+		    });
+		});
+	</script>
 </body>
 </html>
