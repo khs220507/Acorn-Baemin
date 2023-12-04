@@ -6,40 +6,40 @@
 <mapper namespace="com.acorn.OptionMapper">
 	
 	
-
+<!-- 손님 옵션 조회 -->
 	<select id="userSelectOption" resultType="OptionDTO" parameterType="String">
 		SELECT *
 		FROM option_tbl
 		where menuCode  = #{menuCode} and optionStatus = 0
 	</select>
-
+<!-- 사장님 옵션 조회 -->
 	<select id="selectOption" resultType="OptionDTO" parameterType="String">
 		SELECT *
 		FROM option_tbl
 		where menuCode  = #{menuCode} and optionStatus != 2
 	</select>
-  
+  <!-- 옵션 추가 -->
 	<insert id="insertOption" parameterType="OptionDTO">
 		INSERT INTO option_tbl 
 		(menuCode,optionCategory, optionName, optionPrice, optionSelectType)
 		VALUES 
 		( #{menuCode}, #{optionCategory}, #{optionName}, #{optionPrice}, #{optionSelectType})
 	</insert>
-	
+	<!-- 옵션 삭제 -->
 	<update id="deleteOption" parameterType="String">
 	    UPDATE option_tbl SET optionStatus = 2 WHERE optionCode = #{optionCode}
 	</update>  
-    
+    <!-- 옵션 카테고리 삭제 -->
 	<update id="deleteOptionCategory" parameterType="OptionDTO">
 	    UPDATE option_tbl SET optionStatus = 2 WHERE optionCategory = #{optionCategory}  AND menuCode= #{menuCode};
 	</update>  
-    
+    <!-- 중복없는 카테고리와 선택타입 조회 -->
  	<select id="getCategoryAndSelectType" resultType="OptionDTO" parameterType="String">
 		SELECT DISTINCT optionCategory, optionSelectType 
 		from option_tbl 
 		where menuCode = #{menuCode} and optionStatus != 2
 	</select> 
-	
+	<!-- 옵션 수정 -->
     <update id="updateOption" parameterType="OptionDTO">
 	    UPDATE option_tbl
 	    SET
@@ -49,7 +49,7 @@
 	    WHERE
 	        optionCode = #{optionCode}
 	</update>
-	
+	<!-- 옵션 카테고리 수정 -->
 	    <update id="updateOptionCategory" parameterType="OptionDTO">
 	    UPDATE option_tbl
 	    SET
