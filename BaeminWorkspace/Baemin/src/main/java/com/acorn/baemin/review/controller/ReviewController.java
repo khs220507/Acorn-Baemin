@@ -29,8 +29,11 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 public class ReviewController {
-
-	private String fileDir = "c:\\test\\upload\\";
+	//로컬
+	//private String fileDir = "c:\\test\\upload\\";
+	
+	//배포
+	private String fileDir ="/usr/local/tomcat/upload/";  
 
 	@Autowired
 	ReviewService reviewService;

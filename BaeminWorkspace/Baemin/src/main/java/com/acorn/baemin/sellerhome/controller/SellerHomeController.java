@@ -30,7 +30,11 @@ public class SellerHomeController {
 	@Autowired
 	SellerHomeRepository rep;
 	
-	String fileDir ="c:\\test\\upload\\"  ;
+		//로컬
+		//private String fileDir = "c:\\test\\upload\\";
+		
+		//배포
+		private String fileDir ="/usr/local/tomcat/upload/";  
 	
 	@GetMapping("/sellerHome")
 	public String sellerStore(@RequestParam String sellerCode, Model model, HttpSession session) {
@@ -43,7 +47,7 @@ public class SellerHomeController {
 	 @ResponseBody
 	 @RequestMapping(value="/storeImages/{storeImage:.*}" ,method = RequestMethod.GET)
 	 public Resource sellerStoreImg(@PathVariable String storeImage) throws MalformedURLException {
-		 return new UrlResource("file:c:\\test\\upload\\"+storeImage);
+		 return new UrlResource("file:/usr/local/tomcat/upload/"+storeImage);
 	 }
 	
 	
