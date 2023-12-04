@@ -7,6 +7,7 @@
 	<select id="selectAllReview" resultType="ReviewDTO"
 		parameterType="int">
 		SELECT * FROM review_tbl where storeCode = #{storeCode}
+		ORDER BY reviewCode DESC;
 	</select>
 
 	<!-- 가게 평점 평균 -->
