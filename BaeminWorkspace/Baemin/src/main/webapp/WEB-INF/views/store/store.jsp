@@ -516,7 +516,7 @@ button {
 								</tr>
 								<tr class="store-address">
 									<td class="introduce-small-title">매장주소</td>
-									<td>${readStore.storeAddress}+${readStore.storeAddressDetail}</td>
+									<td>${readStore.storeAddress}, ${readStore.storeAddressDetail}</td>
 								</tr>
 								<tr class="seller-regcode">
 									<td class="introduce-small-title">사업자등록번호</td>
