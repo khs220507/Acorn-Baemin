@@ -795,8 +795,8 @@ hr {
 							<div class="store-address">
 								<div>매장주소</div>
 								<input type="text" id="store-address" value=""><br/>
-							</div>
 								<input type="text" id="store-detail-address" value="">
+							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
 								<input type="text" id="seller-regCode" value="" readonly>
