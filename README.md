@@ -24,10 +24,10 @@ Responsibilities | Project Schedule |
 
 
 ## ● Member
-- Hyunsu Kim (Project Leader) https://github.com/khs220507
-- Danya Kwak https://github.com/GTEM0
-- Minji Kim https://github.com/Min0729
-- Taemin Park https://github.com/taemin817
-- Juntae Pyo https://github.com/juntae710
+- Hyunsu Kim (Project Leader) : https://github.com/khs220507
+- Danya Kwak : https://github.com/GTEM0
+- Minji Kim : https://github.com/Min0729
+- Taemin Park : https://github.com/taemin817
+- Juntae Pyo : https://github.com/juntae710
   
 ## ● AWS Link : http://3.35.26.227:8080/baemin/home
