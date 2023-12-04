@@ -215,7 +215,7 @@ border: none!important;
 </style>
 <script>
 
-	/* */
+	/* 옵션 추가*/
 	    function insertOptoin(Category, SelectType , element) {
     		let menuCode = ${menuCode};
     		let optionSelectType=SelectType;
@@ -244,7 +244,7 @@ border: none!important;
    			}
    		})
     };
-    
+    /* 옵션 카테고리 추가*/
 	function insertOptionCategory() {
 		let menuCode = ${menuCode};
 		let optionCategory = $("#optionCategory").val();
@@ -274,6 +274,7 @@ border: none!important;
    		})
 	}
 	
+	/* 옵션 수정*/
 	function updateSellerOption(Code, element) {
 		let optionCode = Code;
 		let optionName = $(element).closest('.option-list').find('.upOptionName').val();
@@ -300,7 +301,7 @@ border: none!important;
    			}
    		})
 	}
-	
+	/* 옵션 카테고리 수정*/
 	function optionupdatecategory(Category, element) {
 		let menuCode= ${menuCode};
 		let optionCategory = Category;
@@ -326,6 +327,7 @@ border: none!important;
    			}
    		})
 	}
+	/* 옵션 삭제*/
     function optiondelete(optionCode) {
     	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({
@@ -341,6 +343,7 @@ border: none!important;
 			}
 		});
 	}}
+    /* 옵션 카테고리 삭제*/
     function optiondeletecategory(category) {
     	if(confirm("정말 옵션을 삭제 하시겠습니까?")){
 	    $.ajax({

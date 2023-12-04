@@ -29,9 +29,14 @@ import com.acorn.baemin.sellerhome.repository.SellerHomeRepository;
 public class SellerHomeController {
 	@Autowired
 	SellerHomeRepository rep;
+	//이미지 경로
+	//로컬
+	//private String fileDir = "c:\\test\\upload\\";
 	
-	String fileDir ="c:\\test\\upload\\"  ;
+	//배포
+	private String fileDir ="/usr/local/tomcat/upload/";  
 	
+	//사장님 홈 화면
 	@GetMapping("/sellerHome")
 	public String sellerStore(@RequestParam String sellerCode, Model model, HttpSession session) {
 		List<StoreDTO> result  = rep.sellerStore(sellerCode);
@@ -40,13 +45,14 @@ public class SellerHomeController {
 		return "seller/seller_home";
 		}
 	
+	//이미지 불러오기
 	 @ResponseBody
 	 @RequestMapping(value="/storeImages/{storeImage:.*}" ,method = RequestMethod.GET)
 	 public Resource sellerStoreImg(@PathVariable String storeImage) throws MalformedURLException {
-		 return new UrlResource("file:c:\\test\\upload\\"+storeImage);
+		 return new UrlResource("file:/usr/local/tomcat/upload/"+storeImage);
 	 }
 	
-	
+	//매장 등록
 	@ResponseBody
 	@RequestMapping( value="/sellerHome" , method=RequestMethod.POST)
 	public String insertStore(int sellerCode, String storeName, String storeCategory, MultipartFile storeImage, String storeAddress, String storeAddressDetail,String storePhone, int minOrderPrice, int deliveryFee, String deliveryArea) throws IllegalStateException, IOException {
@@ -67,20 +73,14 @@ public class SellerHomeController {
 		return  "upload-ok";
 	}
 	
-
-//	@ResponseBody
-//	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.DELETE)
-//	public void deleteStore(@PathVariable String storecode) {
-//		rep.deleteStore(storecode);
-//	}
-//	
+	//매장 삭제
 	@ResponseBody
 	@RequestMapping( value="/sellerHome" , method=RequestMethod.PUT)
 	public void updateOption(@RequestBody StoreDTO store) {
 		rep.deleteStore(store);
 	}
 	
-	
+	//매장 수정 화면 불러오기
 	@ResponseBody
 	@RequestMapping( value="/sellerHome/{storecode}" , method=RequestMethod.GET)
 	public StoreDTO updateSellerStore(@PathVariable String storecode , Model model){	
@@ -88,6 +88,7 @@ public class SellerHomeController {
 		return store;
 	}
 
+	//매장 수정
 	@ResponseBody
 	@RequestMapping( value="/upsellerHome" , method=RequestMethod.POST)
 	public String updateStore(int upstoreStatus ,int sellerCode, String upstoreName, String upstoreCategory, MultipartFile upstoreImage, String upstoreAddress, String upstoreAddressDetail, String upstorePhone, int upminOrderPrice, int updeliveryFee, String updeliveryArea, int sstoreCode ,String backupStoreImage) throws IllegalStateException, IOException {

@@ -42,7 +42,11 @@ public class SellerController {
 	@Autowired
 	ZzimRepositoryImp zr;
 
-	String fileDir = "c:\\test\\upload\\";
+	//로컬
+		//private String fileDir = "c:\\test\\upload\\";
+		
+		//배포
+		private String fileDir ="/usr/local/tomcat/upload/";  
 
 	// 이미지 주소 리턴
 	@ResponseBody
