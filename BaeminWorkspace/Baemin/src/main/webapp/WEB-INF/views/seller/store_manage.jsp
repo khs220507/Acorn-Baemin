@@ -631,11 +631,9 @@ hr {
 	function submitReply(button) {
 	      // Get the review code from somewhere (e.g., a hidden input field)
 	     
-	     
 	     var reviewCode = $(button).siblings("input[name='reviewCode']").val();
 	     var answerContent = $(button).siblings("#replyContent").val();
-	     
-	     
+	   
 	      $.ajax({
 	         type: "POST",
 	         url: "${path}/submitAnswer",
@@ -654,9 +652,6 @@ hr {
 	         error: function () {
 	            console.error("답글 등록 실패!");
 	         }
-	         
-	         
-	         
 	      });
 	   }
 
@@ -813,8 +808,7 @@ hr {
 					onclick="modifyStoreInfo(${readStore.storeCode}, this)">수정하기</button>
 			</div>
 		</div>
-		
-		
+		<!-- 리뷰 탭 -->
 		<div class="store-review-tab">
 			
 			<c:forEach var="item" items="${reviewList}">
@@ -859,7 +853,6 @@ hr {
 					</div>
 				</div>
 			</c:forEach>
-
 		</div>
 		
 	</section>
