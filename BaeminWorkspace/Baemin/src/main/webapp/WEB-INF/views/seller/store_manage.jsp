@@ -279,6 +279,11 @@ textarea {
 	display: flex;
 }
 
+.total-address {
+	display: flex;
+	flex-direction: column;
+}
+
 .seller-regcode {
 	display: flex;
 }
@@ -793,8 +798,8 @@ hr {
 								<input type="text" id="seller-name" value="" readonly>
 							</div>
 							<div class="store-address">
-								<div>매장주소</div>
-								<input type="text" id="store-address" value=""><br/>
+								<div class="total-address">매장주소</div>
+								<input type="text" id="store-address" value="">
 								<input type="text" id="store-detail-address" value="">
 							</div>
 							<div class="seller-regcode">

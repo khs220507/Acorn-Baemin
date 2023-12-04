@@ -95,7 +95,7 @@ header {
 }
 
 .address-wrap {
-	width: 420px;
+	width: 460px;
 	display: flex;
 	margin: 0 auto;
 	justify-content: center;
