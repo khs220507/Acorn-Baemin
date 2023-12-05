@@ -206,9 +206,7 @@ $(document).ready(function() {
 
         console.log(minprice);
         
- 
-        
-        
+   
 		
         // Check if orderMenuPrice is a valid number before updating
         if (!isNaN(orderMenuPrice)) {
@@ -216,19 +214,16 @@ $(document).ready(function() {
             $("#total-price").text(orderMenuPrice + "원");
             console.log(orderMenuPrice);
             
-            if(orderMenuPrice < minprice){
-            	 $(".order-btn").click(function(event) {
-           	        // 이벤트의 기본 동작 막기
-           	        event.preventDefault();
-           	        $(".order-btn").off("click");
-           	        alert("주문 금액이 부족합니다");
-           	    });
-           }else{
-        	   $(".order-btn").click(function() {
-          	        $(".order-btn").on("click");
-          	    });
-        	   
-           }
+           
+            $(".order-btn").off("click"); // 기존에 할당된 클릭 이벤트를 제거합니다.
+
+            if (orderMenuPrice < minprice) {
+                $(".order-btn").on("click", function(event) {
+                    event.preventDefault();
+                    alert("주문 금액이 부족합니다");
+                });
+            } 
+
         }
     }
 

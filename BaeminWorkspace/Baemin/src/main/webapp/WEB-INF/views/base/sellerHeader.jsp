@@ -55,6 +55,7 @@ header {
 section{
 width: 1280px;
 padding-top: 140px;
+padding-bottom: 50px;
 }
 
 .header-wrap {
