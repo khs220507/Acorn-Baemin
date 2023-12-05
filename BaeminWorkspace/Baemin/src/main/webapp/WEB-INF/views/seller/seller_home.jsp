@@ -381,8 +381,8 @@ margin: 0 auto;
 		    result += '<div class="store-plus-info"><span>매장이름</span><input name="upstoreName" type="text" value="' + d.storeName + '"></div>';
 		    result += '<div class="store-plus-info"><span>음식카테고리</span><select name="upstoreCategory">';
 		    result += '<option value="' + d.storeCategory + '">' + d.storeCategory + '</option>';
-		    result += '<option value="치킨">치킨</option><option value="피자">피자</option>';
-		    result += '<option value="햄버거">햄버거</option><option value="족발,보쌈">족발,보쌈</option>';
+		    result += '<option value="치킨">치킨</option><option value="피자">피자</option>';823
+		    result += '<option value="햄버거">햄버거</option><option value="족발보쌈">족발보쌈</option>';917
 		    result += '<option value="한식">한식</option><option value="중식">중식</option>';
 		    result += '<option value="일식">일식</option><option value="양식">양식</option>';
 		    result += '<option value="분식">분식</option><option value="디저트">디저트</option>';
