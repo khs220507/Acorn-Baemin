@@ -206,9 +206,7 @@ $(document).ready(function() {
 
         console.log(minprice);
         
- 
-        
-        
+   
 		
         // Check if orderMenuPrice is a valid number before updating
         if (!isNaN(orderMenuPrice)) {
