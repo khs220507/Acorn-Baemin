@@ -306,6 +306,8 @@ hr {
 
 	                // Disable the button
 	                $(this).find('#review-write-btn').prop('disabled', true);
+	                
+	                $(this).find(".delete-icon").css('display', 'none');
 	            }
 	        });
 	    });

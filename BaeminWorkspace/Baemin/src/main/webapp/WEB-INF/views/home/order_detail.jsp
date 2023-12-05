@@ -304,7 +304,7 @@ ul {
 
 						<div class="user-info-wrap">
 							<p class="normal-text black-text">배달 주소</p>
-							<p class="gray-text">${detail.deliveryAddress}</p>
+							<p class="gray-text">${detail.deliveryAddress}, ***</p>
 						</div>
 
 						<hr class="thin-line">
