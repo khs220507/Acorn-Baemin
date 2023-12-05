@@ -462,7 +462,6 @@ margin: 0 auto;
 		    
 		
 		function storeStatus(Status) {
-			
 			if (Status == 1){
 				document.write("(영업준비중...)");
 			}
@@ -501,15 +500,11 @@ margin: 0 auto;
 	<section id="content">
 		<div class="section-line"><div>매장관리</div></div>
 		<div class="section-wrap">
-		
 			<c:forEach items="${list }" var="item">
-				
 				<div class="store-list" >
-				
 					<div class="store-img-wrap">
 						<div class="store-img"><img alt="" src="${path}/storeImages/${item.storeImage }"></div>
 					</div>
-					
 					<div class="store-info-wrap">
 						<div class="store-info">
 						<a href="${path}/sellerMenu?storeCode=${item.storeCode}">
@@ -524,8 +519,7 @@ margin: 0 auto;
 					</div>
 					<div class="store-but-wrap">
 						<div class="store-but">
-							<div id="updateSellerStore"
-								onclick="updateSellerStore(${item.storeCode}, this)">수정</div>
+							<div id="updateSellerStore" onclick="updateSellerStore(${item.storeCode}, this)">수정</div>
 							<div id="storedelete" onclick="storedelete(${item.storeCode})">삭제</div>
 						</div>
 					</div>
