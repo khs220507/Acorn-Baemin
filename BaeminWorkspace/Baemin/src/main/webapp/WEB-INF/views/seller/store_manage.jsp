@@ -283,6 +283,10 @@ textarea {
 	display: flex;
 	flex-direction: column;
 }
+.total-address>input {
+	width: 319px;
+	margin-bottom: 15px;
+}
 
 .seller-regcode {
 	display: flex;
