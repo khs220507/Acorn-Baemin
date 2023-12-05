@@ -549,8 +549,9 @@ button {
 						<div>${item.reviewContent}</div>
 
 						<c:if test="${not empty item.reviewImageName}">
+						<div>item.reviewImageName</div>
 							<img class="review-image"
-								src="${path}/reviewImages/${item.reviewImageName}"
+								src="$/baemin/reviewImages/${item.reviewImageName}"
 								alt="Review Image">
 						</c:if>
 						<c:if test="${not empty item.answerContent}">

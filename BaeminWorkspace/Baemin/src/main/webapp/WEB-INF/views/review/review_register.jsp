@@ -209,7 +209,7 @@ textarea {
 
 		<div class="order-info-wrap">
 			<div class="order-info-image">
-				<img class="order-info-image" src="${path}/images/${orderStoreImage}">
+				<img class="order-info-image" src="$/baemin/images/${orderStoreImage}">
 			</div>
 			<div class="order-detail-wrap">
 				<div class="order-store-name">${orderStoreName}</div>

@@ -284,7 +284,7 @@ public class SellerController {
 	@ResponseBody
 	@RequestMapping(value = "/reviewImages/{reviewImages:.*}", method = RequestMethod.GET)
 	public Resource ReviewImg(@PathVariable String reviewImages) throws MalformedURLException {
-		return new UrlResource("file:c:\\test\\upload\\" + reviewImages);
+		return new UrlResource("file:/usr/local/tomcat/upload/" + reviewImages);
 	}
 	
 	// 답글 등록

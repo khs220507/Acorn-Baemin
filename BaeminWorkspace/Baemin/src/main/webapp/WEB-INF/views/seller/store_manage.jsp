@@ -798,9 +798,10 @@ hr {
 								<input type="text" id="seller-name" value="" readonly>
 							</div>
 							<div class="store-address">
-								<div class="total-address">매장주소</div>
+								<div class="total-address">매장주소
 								<input type="text" id="store-address" value="">
 								<input type="text" id="store-detail-address" value="">
+								</div>
 							</div>
 							<div class="seller-regcode">
 								<div>사업자등록번호</div>
@@ -835,7 +836,7 @@ hr {
 
 					<c:if test="${not empty item.reviewImageName}">
 						<img class="review-image"
-							src="${path}/reviewImages/${item.reviewImageName}"
+							src="$/baemin/reviewImages/${item.reviewImageName}"
 							alt="Review Image">
 					</c:if>
 
