@@ -315,12 +315,9 @@ $(document).ready(function() {
 					</div>
 					<%
 					List<StoreDTO> storeInfo = (List<StoreDTO>) session.getAttribute("storeInfo");
-					
 					if (userCodeInfo != null) {
 						  minOrderPrice    = storeInfo.get(0).getMinOrderPrice();
-						
 					%>
-					
 					<button type="submit" class="order-btn">주문하기</button>
 					<%
 					} else {

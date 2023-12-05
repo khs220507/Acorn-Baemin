@@ -550,7 +550,11 @@ button {
 						<div>${item.reviewContent}</div>
 
 						<c:if test="${not empty item.reviewImageName}">
-							<img class="review-image" src="/{path}/images/${item.reviewImageName}" alt="Review Image">
+
+							<img class="review-image"
+								src="/baemin/reviewImages/${item.reviewImageName}"
+								alt="Review Image">
+
 						</c:if>
 						<c:if test="${not empty item.answerContent}">
 						<div>사장님</div>

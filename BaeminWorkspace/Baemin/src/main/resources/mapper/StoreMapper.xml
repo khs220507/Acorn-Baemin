@@ -1,70 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.acorn.StoreMapper">
-	
 	<!-- 오픈한 매장 조회 -->
-	<select id="selectStore" resultType="StoreDTO"
-		parameterType="String">
-		SELECT *
-		FROM store_tbl
-		where storeCategory = #{storeCategory} and storeStatus = 0
+	<select id="selectStore" resultType="StoreDTO" parameterType="String">
+		SELECT * FROM store_tbl where storeCategory = #{storeCategory} and storeStatus = 0
 	</select>	
 	<!-- 폐업을 뺸 매장 조회 -->
-	<select id="sellerStore" resultType="StoreDTO"
-		parameterType="String">
-		SELECT *
-		FROM store_tbl
-		where sellerCode = #{sellerCode} and storeStatus != 2
+	<select id="sellerStore" resultType="StoreDTO" parameterType="String">
+		SELECT * FROM store_tbl where sellerCode = #{sellerCode} and storeStatus != 2
 	</select>
 	<!-- 매장 등록 -->
 	<insert id="insertStore" parameterType="StoreDTO">
 		INSERT INTO store_tbl 
-		(sellerCode, storeName, storeCategory, storeImage, storeAddress, storeAddressDetail, storePhone, minOrderPrice, deliveryFee, deliveryArea)
+		(sellerCode, storeName, storeCategory, storeImage, storeAddress, 
+		storeAddressDetail, storePhone, minOrderPrice, deliveryFee, deliveryArea)
 		VALUES 
-		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, #{storeAddressDetail}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
+		(#{sellerCode}, #{storeName}, #{storeCategory}, #{storeImage}, #{storeAddress}, 
+		#{storeAddressDetail}, #{storePhone}, #{minOrderPrice}, #{deliveryFee}, #{deliveryArea})
 	</insert>
 	<!-- 매장 삭제 -->
      <update id="deleteStore" parameterType="StoreDTO">
-	    UPDATE store_tbl
-	    SET
-	        storeStatus = #{storeStatus}
-	    WHERE
-	        storeCode = #{storeCode}
+	    UPDATE store_tbl  SET storeStatus = #{storeStatus}
+	    WHERE storeCode = #{storeCode}
 	</update>  
     <!-- 매장 전체조회 -->
    	<select id="updateSellerStore" resultType="StoreDTO" parameterType="String">
-		SELECT *
-		FROM store_tbl
-		where storeCode = #{storeCode}
+		SELECT * FROM store_tbl where storeCode = #{storeCode}
 	</select>
 	<!-- 매장 수정 -->
     <update id="updateStore" parameterType="StoreDTO">
-	    UPDATE store_tbl
-	    SET
-	        storeName = #{storeName},
-	        storeCategory = #{storeCategory},
-	        storeImage = #{storeImage},
-	        storeAddress = #{storeAddress},
-	        storeAddressDetail = #{storeAddressDetail},
-	        storePhone = #{storePhone},
-	        minOrderPrice = #{minOrderPrice},
-	        deliveryFee = #{deliveryFee},
-	        deliveryArea = #{deliveryArea},
-	        storeStatus = #{storeStatus}
-	    WHERE
-	        storeCode = #{storeCode}
+	    UPDATE store_tbl SET
+	        storeName = #{storeName}, storeCategory = #{storeCategory},
+	        storeImage = #{storeImage}, storeAddress = #{storeAddress},
+	        storeAddressDetail = #{storeAddressDetail},  storePhone = #{storePhone},
+	        minOrderPrice = #{minOrderPrice}, deliveryFee = #{deliveryFee},
+	        deliveryArea = #{deliveryArea}, storeStatus = #{storeStatus}
+	    WHERE storeCode = #{storeCode}
 	</update>
      <!-- 평점 , 리뷰개수 갱신 -->
     <update id="upReviewCountAndStoreRating" parameterType="StoreDTO">
-	    UPDATE store_tbl
-	    SET
-	    	storeRating = #{storeRating},
-	        reviewCount = #{reviewCount}
-	    WHERE
-	        storeCode = #{storeCode}
+	    UPDATE store_tbl SET
+	    	storeRating = #{storeRating}, reviewCount = #{reviewCount}
+	    WHERE  storeCode = #{storeCode}
 	</update>
-
 </mapper>

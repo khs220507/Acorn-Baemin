@@ -381,8 +381,8 @@ margin: 0 auto;
 		    result += '<div class="store-plus-info"><span>매장이름</span><input name="upstoreName" type="text" value="' + d.storeName + '"></div>';
 		    result += '<div class="store-plus-info"><span>음식카테고리</span><select name="upstoreCategory">';
 		    result += '<option value="' + d.storeCategory + '">' + d.storeCategory + '</option>';
-		    result += '<option value="치킨">치킨</option><option value="피자">피자</option>';
-		    result += '<option value="햄버거">햄버거</option><option value="족발,보쌈">족발,보쌈</option>';
+		    result += '<option value="치킨">치킨</option><option value="피자">피자</option>';823
+		    result += '<option value="햄버거">햄버거</option><option value="족발보쌈">족발보쌈</option>';917
 		    result += '<option value="한식">한식</option><option value="중식">중식</option>';
 		    result += '<option value="일식">일식</option><option value="양식">양식</option>';
 		    result += '<option value="분식">분식</option><option value="디저트">디저트</option>';
@@ -462,7 +462,6 @@ margin: 0 auto;
 		    
 		
 		function storeStatus(Status) {
-			
 			if (Status == 1){
 				document.write("(영업준비중...)");
 			}
@@ -501,15 +500,11 @@ margin: 0 auto;
 	<section id="content">
 		<div class="section-line"><div>매장관리</div></div>
 		<div class="section-wrap">
-		
 			<c:forEach items="${list }" var="item">
-				
 				<div class="store-list" >
-				
 					<div class="store-img-wrap">
 						<div class="store-img"><img alt="" src="${path}/storeImages/${item.storeImage }"></div>
 					</div>
-					
 					<div class="store-info-wrap">
 						<div class="store-info">
 						<a href="${path}/sellerMenu?storeCode=${item.storeCode}">
@@ -524,8 +519,7 @@ margin: 0 auto;
 					</div>
 					<div class="store-but-wrap">
 						<div class="store-but">
-							<div id="updateSellerStore"
-								onclick="updateSellerStore(${item.storeCode}, this)">수정</div>
+							<div id="updateSellerStore" onclick="updateSellerStore(${item.storeCode}, this)">수정</div>
 							<div id="storedelete" onclick="storedelete(${item.storeCode})">삭제</div>
 						</div>
 					</div>
