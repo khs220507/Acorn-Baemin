@@ -39,7 +39,7 @@ public class SampleController {
 	@PostMapping("/kakaoPay")
 	public String kakaoPay(KakaoOrderDTO order, HttpSession session, @RequestParam String deliveryAddress,
 			@RequestParam int deliveryFee, @RequestParam int payType, @RequestParam int orderType,
-			@RequestParam String reqToSeller, @RequestParam String reqToRider, @RequestParam String userPhone) {
+			@RequestParam String reqToSeller, @RequestParam String reqToRider, @RequestParam String userPhone,@RequestParam String allAddress) {
 		log.info("kakaoPay post............................................");
 
 		// 결제정보를 받아서 kakaPayReay( order )//현재결제해야하는 결제정보를 넘겨줌
@@ -69,7 +69,7 @@ public class SampleController {
 		orderDTO.setMenuCode(menuCode);
 		orderDTO.setUserCode(userCode);
 		orderDTO.setStoreCode(storeCode);
-		orderDTO.setDeliveryAddress(deliveryAddress);
+		orderDTO.setDeliveryAddress(allAddress);
 		orderDTO.setReqToRider(reqToRider);
 		orderDTO.setReqToSeller(reqToSeller);
 		orderDTO.setOrderStatus("주문접수");
