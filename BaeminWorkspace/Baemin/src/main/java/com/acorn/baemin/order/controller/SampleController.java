@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.acorn.baemin.domain.AddressDTO;
 import com.acorn.baemin.domain.OrderDTO;
+import com.acorn.baemin.home.repository.AddressRepositoryImp;
 import com.acorn.baemin.order.domain.KakaoOrderDTO;
 import com.acorn.baemin.order.domain.KakaoPayApprovalVO;
 import com.acorn.baemin.order.service.UserOrderServiceImp;
@@ -28,6 +30,9 @@ public class SampleController {
 	
 	@Autowired 
 	UserOrderServiceImp userOrderService;
+	
+	@Autowired
+	AddressRepositoryImp addressDAO;
 
 	KakaoOrderDTO orderDTO;
 
@@ -39,7 +44,7 @@ public class SampleController {
 	@PostMapping("/kakaoPay")
 	public String kakaoPay(KakaoOrderDTO order, HttpSession session, @RequestParam String deliveryAddress,
 			@RequestParam int deliveryFee, @RequestParam int payType, @RequestParam int orderType,
-			@RequestParam String reqToSeller, @RequestParam String reqToRider, @RequestParam String userPhone,@RequestParam String allAddress) {
+			@RequestParam String reqToSeller, @RequestParam String reqToRider, @RequestParam String userPhone,@RequestParam String allAddress, @RequestParam String detailDeliveryAddress) {
 		log.info("kakaoPay post............................................");
 
 		// 결제정보를 받아서 kakaPayReay( order )//현재결제해야하는 결제정보를 넘겨줌
@@ -84,6 +89,13 @@ public class SampleController {
 		System.out.println(lastOrderDTO.getOrderNumber());
 		System.out.println("카카오페이테스트orderDTO");
 		System.out.println(orderDTO);
+		
+		//////////////주소 업데이트 ////////////////////
+		System.out.println("업데이트돼라제발");
+		int addressCode = (int)session.getAttribute("addressCode");
+		AddressDTO addressDTO = new AddressDTO(addressCode, userCode, deliveryAddress, detailDeliveryAddress, 1);
+		System.out.println("업데이트시 주소디티오!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1" + addressDTO);
+		addressDAO.updateAddress(addressDTO);
 
 		return "redirect:" + kakaopay.kakaoPayReady(orderDTO);
 
