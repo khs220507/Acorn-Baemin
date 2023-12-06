@@ -43,6 +43,7 @@ body {
 	margin-left: 100px;
 	margin-right: 100px;
 	display: flex;
+	padding: 10px;
 }
 
 .order-date {
@@ -54,6 +55,7 @@ body {
 	margin-left: 100px;
 	margin-right: 100px;
 	border-bottom: 1px #d9d9d9 solid;
+	padding: 5px 10px 10px 10px;
 }
 
 .order-info-image {
@@ -117,6 +119,8 @@ body {
 .review-register-btn {
 	margin: 0 auto;
 	width: 100px;
+	height: 40px;
+	border-radius: 10px;
 }
 
 .star_rating {
