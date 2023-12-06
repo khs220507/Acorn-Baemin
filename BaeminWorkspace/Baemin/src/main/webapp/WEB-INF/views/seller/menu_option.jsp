@@ -380,6 +380,7 @@ border: none!important;
           
            
        });
+    
     function optionPlus(key){
     	$("#"+key+"-v1").css("display","none");
        	$("#"+key+"-v2").css("display","block");
