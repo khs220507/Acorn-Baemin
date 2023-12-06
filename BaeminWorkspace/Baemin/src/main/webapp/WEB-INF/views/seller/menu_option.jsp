@@ -449,8 +449,6 @@ border: none!important;
 											</select>
 											<button onclick="updateSellerOption(${items.optionCode},this)">수정</button>
 											<button onclick="optiondelete(${items.optionCode})">삭제</button>
-											
-											
 										</div>
 									</c:when>
 									<c:otherwise>
@@ -464,8 +462,6 @@ border: none!important;
 											</select>
 											<button onclick="updateSellerOption(${items.optionCode},this)">수정</button>
 											<button onclick="optiondelete(${items.optionCode})">삭제</button>
-
-											
 										</div>
 									</c:otherwise>
 								</c:choose>
@@ -475,14 +471,11 @@ border: none!important;
 								<button onclick="optionPlus('${item.optionCategory}')">옵션추가하기</button>
 							</div>
 							<div class="insert-optoin-wrap" id="${item.optionCategory}-v2">
-								
 								<input placeholder="옵션명" class="insertOptoinName"> <input placeholder="가격" class="insertOptoinPrice">
 								<button class="insertOptoin" onclick="insertOptoin( '${item.optionCategory}' , ${item.optionSelectType}, this)">추가하기</button>
 								<button onclick="optionPlusX('${item.optionCategory}')">취소</button>
 							</div>
-						
 					</div>
-
 				</c:forEach>
 				
 					<div class="option-category-plus-v1"><img src="${path}/resources/icons/addoption.png"/></div>

@@ -31,32 +31,24 @@
 	</update>  
     <!-- 옵션 카테고리 삭제 -->
 	<update id="deleteOptionCategory" parameterType="OptionDTO">
-	    UPDATE option_tbl SET optionStatus = 2 WHERE optionCategory = #{optionCategory}  AND menuCode= #{menuCode};
+	    UPDATE option_tbl SET optionStatus = 2 
+	    WHERE optionCategory = #{optionCategory}  AND menuCode= #{menuCode};
 	</update>  
     <!-- 중복없는 카테고리와 선택타입 조회 -->
  	<select id="getCategoryAndSelectType" resultType="OptionDTO" parameterType="String">
-		SELECT DISTINCT optionCategory, optionSelectType 
-		from option_tbl 
+		SELECT DISTINCT optionCategory, optionSelectType from option_tbl 
 		where menuCode = #{menuCode} and optionStatus != 2
 	</select> 
 	<!-- 옵션 수정 -->
     <update id="updateOption" parameterType="OptionDTO">
-	    UPDATE option_tbl
-	    SET
-	        optionName = #{optionName},
-	        optionPrice = #{optionPrice},
-	        optionStatus = #{optionStatus}
-	    WHERE
-	        optionCode = #{optionCode}
+	    UPDATE option_tbl SET optionName = #{optionName},
+        optionPrice = #{optionPrice}, optionStatus = #{optionStatus}
+	    WHERE optionCode = #{optionCode}
 	</update>
 	<!-- 옵션 카테고리 수정 -->
-	    <update id="updateOptionCategory" parameterType="OptionDTO">
-	    UPDATE option_tbl
-	    SET
-	        optionCategory = #{optionName}
-	    WHERE
-	        optionCategory = #{optionCategory} and
-	        menuCode = #{menuCode}
+    <update id="updateOptionCategory" parameterType="OptionDTO">
+	    UPDATE option_tbl SET optionCategory = #{optionName}
+	    WHERE optionCategory = #{optionCategory} and menuCode = #{menuCode}
 	</update>
      
 	

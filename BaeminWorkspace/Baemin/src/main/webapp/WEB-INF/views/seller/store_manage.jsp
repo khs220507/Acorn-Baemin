@@ -383,6 +383,7 @@ hr {
 	width: 250px;
 	height: 300px;
 	border-radius: 5px;
+	margin-top: 10px;
 }
 
 .review-wrap {
