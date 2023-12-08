@@ -63,7 +63,7 @@ public class SellerRepository implements SellerRepositoryI {
 	@Override
 	public int deleteMenu(Integer menuCode) {
 		System.out.println("deleteMenu @repo");
-		return session.delete(namespaceSeller + "deleteMenu", menuCode);
+		return session.insert(namespaceSeller + "deleteMenu", menuCode);
 	}
 	
 	// 매장정보 탭
