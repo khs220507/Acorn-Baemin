@@ -29,5 +29,5 @@ Responsibilities | Project Schedule |
 - Minji Kim : https://github.com/Min0729
 - Taemin Park : https://github.com/taemin817
 - Juntae Pyo : https://github.com/juntae710
-  
-## ● AWS Link : http://3.35.26.227:8080/baemin/home
+
+## ● PPT Link : https://www.miricanvas.com/v/12nuocv

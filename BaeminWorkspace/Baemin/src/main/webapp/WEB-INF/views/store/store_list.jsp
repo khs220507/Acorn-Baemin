@@ -154,7 +154,7 @@
 		<nav class="nav-var">
 <c:set var="href" value="${path}/storeList?storeCategory="/>
 <a class="categorys" id="치킨" href="${href}치킨">치킨</a><a class="categorys" id="피자" href="${href}피자">피자</a>
-<a class="categorys" id="햄버거" href="${href}햄버거">햄버거</a><a class="categorys" id="족발·보쌈" href="${href}족발·보쌈">족발·보쌈</a>
+<a class="categorys" id="햄버거" href="${href}햄버거">햄버거</a><a class="categorys" id="족발보쌈" href="${href}족발보쌈">족발보쌈</a>
 <a class="categorys" id="한식" href="${href}한식">한식</a><a class="categorys" id="중식" href="${href}중식">중식</a>
 <a class="categorys" id="일식" href="${href}일식">일식</a><a class="categorys" id="양식" href="${href}양식">양식</a>
 <a class="categorys" id="분식" href="${href}분식">분식</a><a class="categorys" id="디저트" href="${href}디저트">디저트</a>

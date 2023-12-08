@@ -31,7 +31,7 @@ ul {
 	list-style: none;
 }
 
-input, option, select {
+input, option, select, textarea {
 	font-family: '';
 }
 /* 헤더 ////////////////////////////////////////////////////*/
