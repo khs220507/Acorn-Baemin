@@ -243,6 +243,7 @@ button {
 	width: 250px;
 	height: 300px;
 	border-radius: 5px;
+	margin-top: 10px;
 }
 .review-wrap {
 	margin-top: 20px;
@@ -551,9 +552,8 @@ button {
 
 						<c:if test="${not empty item.reviewImageName}">
 
-							<img class="review-image"
-								src="/baemin/reviewImages/${item.reviewImageName}"
-								alt="Review Image">
+							<img class="review-image" src="/baemin/reviewImages/${item.reviewImageName}" alt="Review Image">
+
 
 						</c:if>
 						<c:if test="${not empty item.answerContent}">

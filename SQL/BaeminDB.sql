@@ -1,4 +1,5 @@
 use baemin_db;
+
 DROP TABLE IF EXISTS cart_tbl, order_tbl, answer_tbl, zzim_tbl, review_tbl, address_tbl, option_tbl, menu_tbl, store_tbl, seller_tbl, user_tbl;
 
 -- 01 회원 user_tbl
@@ -18,8 +19,6 @@ CREATE TABLE user_tbl (
     userStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 10001;
 
-select * from user_tbl;
-
 -- 02 사장 seller_tbl
 CREATE TABLE seller_tbl (
     sellerCode INT AUTO_INCREMENT PRIMARY KEY,
@@ -33,8 +32,6 @@ CREATE TABLE seller_tbl (
     sellerGender TINYINT(1) NOT NULL, -- 0:남자, 1:여자
     sellerStatus TINYINT(1) NOT NULL DEFAULT 1 -- 0:회원탈퇴, 1:정상회원
 ) AUTO_INCREMENT = 20001;
-
-select * from seller_tbl;
 
 -- 03. 태민 store_tbl
 
@@ -59,8 +56,6 @@ CREATE TABLE store_tbl (
   foreign key (sellerCode) references seller_tbl(sellerCode)
 ) auto_increment = 30001;
 
-select * from store_tbl;
-
 -- 04. 태민 menu_tbl 
 
 CREATE TABLE menu_tbl (
@@ -75,8 +70,6 @@ CREATE TABLE menu_tbl (
   foreign key (storeCode) references store_tbl(storeCode)
 ) auto_increment = 40001;
 
-select * from menu_tbl;
-
 -- 05. 옵션 option_tbl
 create table option_tbl (
     optionCode int auto_increment primary key,
@@ -87,8 +80,6 @@ create table option_tbl (
     optionPrice int, 
     optionStatus INT default 0 
 )auto_increment = 50001;
-
-select * from option_tbl;
 
 -- 06. 장바구니 cart_tbl 테이블 생성
 create table cart_tbl (
@@ -104,8 +95,6 @@ create table cart_tbl (
     foreign key  (menuCode) references menu_tbl(menuCode),
     foreign key  (optionCode) references option_tbl(optionCode)
 )auto_increment = 60001;
-
-select * from cart_tbl;
 
 -- 07
 CREATE TABLE order_tbl (
@@ -136,8 +125,6 @@ CREATE TABLE order_tbl (
     
 ) AUTO_INCREMENT = 70001;
 
-select * from order_tbl;
-
 -- 08
 CREATE TABLE zzim_tbl (
     userCode int,
@@ -165,8 +152,6 @@ CREATE TABLE review_tbl (
     FOREIGN KEY (userCode) REFERENCES user_tbl(userCode),
    FOREIGN KEY (storeCode) REFERENCES store_tbl(storeCode)
 ) AUTO_INCREMENT=90001;
-
-select * from review_tbl;
         
 -- 10 태민 address_tbl;
 
@@ -179,7 +164,6 @@ CREATE TABLE address_tbl (
   FOREIGN KEY (userCode) REFERENCES user_tbl(userCode)	-- 회원코드 참조하는 곳
 ) auto_increment = 110001;
 
-SELECT * FROM address_tbl;
-
 commit;
+
 show tables;

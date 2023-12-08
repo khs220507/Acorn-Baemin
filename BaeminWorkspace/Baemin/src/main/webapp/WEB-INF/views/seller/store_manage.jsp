@@ -383,6 +383,7 @@ hr {
 	width: 250px;
 	height: 300px;
 	border-radius: 5px;
+	margin-top: 10px;
 }
 
 .review-wrap {
@@ -523,10 +524,10 @@ hr {
 	}
 	
 	// 메뉴 삭제
-	function deleteMenu() {
+	function deleteMenu(menuCode) {
 		$.ajax({
 			type: "PUT",
-			url: "${path}/sellerMenu", //path Variable  ,
+			url: "${path}/sellerMenu/"+menuCode, //path Variable  ,
 			success : function (data){
 				window.location.reload();
 			},
@@ -742,7 +743,7 @@ hr {
 											<button type="button" class="menu-modify-btn-without-c"
 												onclick="menuModifyBtnWithoutC(this)">수정</button>
 											<button type="button" class="menu-delete-btn"
-												onclick="deleteMenu()">삭제</button>
+												onclick="deleteMenu(${menuList.menuCode})">삭제</button>
 										</div>
 									</form>
 								</c:when>
@@ -841,9 +842,8 @@ hr {
 
 					<c:if test="${not empty item.reviewImageName}">
 
-						<img class="review-image"
-							src="/baemin/reviewImages/${item.reviewImageName}"
-							alt="Review Image">
+						<img class="review-image" src="/baemin/reviewImages/${item.reviewImageName}" alt="Review Image">
+
 					</c:if>
 
 					
