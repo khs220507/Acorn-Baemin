@@ -22,6 +22,15 @@ Responsibilities | Project Schedule |
 
 ![009](https://github.com/khs220507/Acorn-Baemin/assets/129834692/803263cc-764e-43b0-adc2-95be4a796376)
 
+## WBS
+
+WBS | 간트차트 | 요구사항정의서
+------|------|-----
+![WBS - WBS_page-0001](https://github.com/khs220507/Acorn-Baemin/assets/129834692/6e06dd73-fdbd-4cf6-acab-5eb6be567559)|![WBS - 갠트 차트_page-0001](https://github.com/khs220507/Acorn-Baemin/assets/129834692/7885d9d9-94d6-4e79-998f-dfe921794ad6)
+|![WBS - 요구사항정의서_page-0001](https://github.com/khs220507/Acorn-Baemin/assets/129834692/4aec3664-19fb-45d7-acbd-4f43fc6877aa)
+
+
+
 
 ## ● Member
 - Hyunsu Kim (Project Leader) : https://github.com/khs220507
