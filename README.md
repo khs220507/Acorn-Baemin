@@ -35,9 +35,3 @@ WBS | GANTT CHART | SRS
 - Minji Kim : https://github.com/Min0729
 - Taemin Park : https://github.com/taemin817
 - Juntae Pyo : https://github.com/juntae710
-![1](https://github.com/user-attachments/assets/d851156d-89e5-4e38-9698-d621d6602df2)
-![2](https://github.com/user-attachments/assets/200b9023-2c3c-4844-a088-4890082990d5)
-![3](https://github.com/user-attachments/assets/5cb31a3c-b90f-45b8-b098-5efbbafaf26f)
-![4](https://github.com/user-attachments/assets/3a2fb8ea-e7b8-4e83-854e-2447e80f24ee)
-![5](https://github.com/user-attachments/assets/4cfc6dbb-5582-4b99-871d-58edc8d7eea6)
-![6](https://github.com/user-attachments/assets/50fb1f50-43ab-4027-b77c-6b0cb9fc1ad1)
